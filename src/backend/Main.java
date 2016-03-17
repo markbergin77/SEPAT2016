@@ -20,8 +20,8 @@ import com.google.gson.JsonParser;
 public class Main {
 	
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		//createObjectFile();
-		readObjectFile();
+		createObjectFile();
+		//readObjectFile();
 	}
 	
 	private static void createObjectFile() throws IOException {

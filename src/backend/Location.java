@@ -10,6 +10,7 @@ public class Location implements Serializable {
 	private String lon;
 	private String state;
 	private Vector<Readings> data;
+	private boolean favourite;
 	
 	public Location(String name, String url, String lat, String lon, String state) {
 		this.name = name;
@@ -17,25 +18,35 @@ public class Location implements Serializable {
 		this.lat = lat;
 		this.lon = lon;
 		this.state = state;
-		
 	}
 	
-	private class Readings {
-		private String localDateTime;
-		private String localDateTimeFull;
-		private String apparentT;
-		private String cloud;
-		private String gustKmh;
-		private String gustKt;
-		private String airTemp;
-		private String relHumidity;
-		private String dewPt;
-		private String windDir;
-		private String windSpdKmh;
-		private String windSpdKt;
-	}
+	
 	
 	public String getName() {
 		return name;
+	}
+	
+	public String getURL() {
+		return url;
+	}
+	
+	public String getLat() {
+		return lat;
+	}
+	
+	public String getLon() {
+		return lon;
+	}
+	
+	public String getState() {
+		return state;
+	}
+	
+	public void addFavourite() {
+		this.favourite = true;
+	}
+	
+	public void removeFavourite() {
+		this.favourite = false;
 	}
 }
