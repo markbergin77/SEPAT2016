@@ -18,7 +18,7 @@ def getLocations(state):
             path = "http://www.bom.gov.au" + path.replace("shtml", "json").replace("products", "fwo")
             location = tag.contents[0]
             print location + ': ' + path
-            file.write(location + ': ' + path + '\n')
+            file.write(path + '\n')
 
 
 states = ['vic', 'nsw', 'tas', 'wa', 'sa', 'nt', 'qld', 'ant']
