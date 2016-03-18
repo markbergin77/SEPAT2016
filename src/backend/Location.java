@@ -20,8 +20,6 @@ public class Location implements Serializable {
 		this.state = state;
 	}
 	
-	
-	
 	public String getName() {
 		return name;
 	}
@@ -49,4 +47,5 @@ public class Location implements Serializable {
 	public void removeFavourite() {
 		this.favourite = false;
 	}
+	
 }
