@@ -11,19 +11,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 public class Controller {
 	
-	public static void createObjectFile() {
-		String locationURLs = "/home/uni/git/SEPAT2016/src/backend/locations";
+	Vector<Location> locations = new Vector<Location>();
+	String locationURLs = "/home/uni/git/SEPAT2016/src/backend/locations";
+	
+	public void createObjectFile() {
 		String locationURL;
-		
-		Vector<Location> locations = new Vector<Location>();
 		
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(locationURLs))) {
 			int i = 0;
@@ -42,7 +47,10 @@ public class Controller {
 			}
 		}
 		// TODO
-		catch (IOException e) {};
+		catch (JsonIOException e) {}
+		catch (JsonSyntaxException e) {}
+		catch (MalformedURLException e) {}
+		catch (IOException e) {}
 		
 		try (ObjectOutputStream out = new ObjectOutputStream(
 		        new BufferedOutputStream(new FileOutputStream("src/backend/objects")))) {
@@ -53,27 +61,55 @@ public class Controller {
 		catch (IOException e) {};
 	}
 	
-	public static void readObjectFile() {
-		
-		
+	public void readObjectFile() {
 		try (ObjectInputStream in = new ObjectInputStream(
 		        new BufferedInputStream(new FileInputStream("src/backend/objects")))) {
 			
-			Vector<Location> locations = (Vector<Location>) in.readObject();
+			locations = (Vector<Location>) in.readObject();
 			
-			int i = 0;
-		    for(Location location: locations) {
-		    	i++;
-		    	System.out.println(i + " " + location.getName());
-		    }
 		}
 		// TODO
 		catch (FileNotFoundException e) {}
-		catch (IOException e) {}
+		catch (IOException e) {System.out.println(e.getMessage());}
 		catch (ClassNotFoundException e) {}
 	}
 	
-	public static void fetchData(Location location) {
+	public Vector<Location> getLocations() {
+		return locations;
+	}
+	
+	public void fetchData(Location location) {
+		String locationURL = location.getURL();
+		
+		try {
+			JsonArray rootArray = new JsonParser().parse(new BufferedReader(new InputStreamReader(new URL(locationURL).openStream())))
+					.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("data");
+			for (JsonElement element: rootArray) {
+				Readings newReadings = null;
+				JsonObject reading = element.getAsJsonObject();
+				String localDateTime = reading.get("local_date_time").getAsString();
+				String localDateTimeFull = reading.get("local_date_time_full").getAsString();
+				String apparentT = reading.get("apparent_t").getAsString();
+				String cloud = reading.get("cloud").getAsString();
+				String gustKmh = reading.get("gust_kmh").getAsString();
+				String gustKt = reading.get("gust_kt").getAsString();
+				String airTemp = reading.get("air_temp").getAsString();
+				String relHumidity = reading.get("rel_hum").getAsString();
+				String dewPt = reading.get("dewpt").getAsString();
+				String windDir = reading.get("wind_dir").getAsString();
+				String windSpdKmh = reading.get("wind_spd_kmh").getAsString();
+				String windSpdKt = reading.get("wind_spd_kt").getAsString();
+				
+				newReadings = new Readings(localDateTime,  localDateTimeFull, apparentT, cloud, gustKmh, gustKt, airTemp, relHumidity, dewPt,
+						windDir, windSpdKmh, windSpdKt);
+				location.getData().add(newReadings);
+			}
+		}
+		// TODO
+		catch (JsonIOException e) {}
+		catch (JsonSyntaxException e) {}
+		catch (MalformedURLException e) {}
+		catch (IOException e) {}
 		
 	}
 

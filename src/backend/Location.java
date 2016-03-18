@@ -18,6 +18,7 @@ public class Location implements Serializable {
 		this.lat = lat;
 		this.lon = lon;
 		this.state = state;
+		this.data = new Vector<Readings>();
 	}
 	
 	public String getName() {
@@ -40,6 +41,10 @@ public class Location implements Serializable {
 		return state;
 	}
 	
+	public boolean isFavourite() {
+		return favourite;
+	}
+	
 	public void addFavourite() {
 		this.favourite = true;
 	}
@@ -48,8 +53,7 @@ public class Location implements Serializable {
 		this.favourite = false;
 	}
 	
-	public void addReadings(Readings readings) {
-		data.add(readings);	
+	public Vector<Readings> getData() {
+		return data;
 	}
-	
 }
