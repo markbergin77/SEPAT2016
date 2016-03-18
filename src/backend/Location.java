@@ -48,4 +48,8 @@ public class Location implements Serializable {
 		this.favourite = false;
 	}
 	
+	public void addReadings(Readings readings) {
+		data.add(readings);	
+	}
+	
 }
