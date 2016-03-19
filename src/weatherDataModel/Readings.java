@@ -1,4 +1,4 @@
-package backend;
+package weatherDataModel;
 
 public class Readings {
 	

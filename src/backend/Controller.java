@@ -22,10 +22,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import weatherDataModel.Location;
+import weatherDataModel.Readings;
+
 public class Controller {
 	
 	Vector<Location> locations = new Vector<Location>();
-	String locationURLs = "/home/uni/git/SEPAT2016/src/backend/locations";
+	String locationURLs = "/home/uni/git/SEPAT2016/src/weatherDataModel/locations";
 	
 	public void createObjectFile() {
 		String locationURL;

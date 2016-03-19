@@ -1,4 +1,4 @@
-package backend;
+package weatherDataModel;
 
 import java.io.Serializable;
 import java.util.Vector;
