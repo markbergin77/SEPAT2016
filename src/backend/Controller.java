@@ -22,8 +22,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
-import weatherDataModel.Location;
-import weatherDataModel.WthrSample;
+import bomData.Location;
+import bomData.WthrSample;
 
 public class Controller {
 	

@@ -1,4 +1,4 @@
-package weatherDataModel;
+package bomData;
 
 public class WthrSample {
 	

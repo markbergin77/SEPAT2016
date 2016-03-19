@@ -1,4 +1,4 @@
-package weatherDataModel;
+package bomData;
 
 import java.io.Serializable;
 import java.util.Vector;
