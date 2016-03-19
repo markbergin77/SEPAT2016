@@ -23,14 +23,15 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import weatherDataModel.Location;
-import weatherDataModel.Readings;
+import weatherDataModel.WthrSample;
 
 public class Controller {
 	
 	Vector<Location> locations = new Vector<Location>();
-	String locationURLs = "/home/uni/git/SEPAT2016/src/weatherDataModel/locations";
+	String locationURLs = "src/weatherDataModel/locations";
 	
-	public void createObjectFile() {
+	public void createObjectFile() 
+	{
 		String locationURL;
 		
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(locationURLs))) {
@@ -67,7 +68,8 @@ public class Controller {
 		catch (IOException e) {};
 	}
 	
-	public void readObjectFile() {
+	public void readObjectFile() 
+	{
 		try (ObjectInputStream in = new ObjectInputStream(
 		        new BufferedInputStream(new FileInputStream("src/backend/objects")))) {
 			
@@ -75,24 +77,27 @@ public class Controller {
 			
 		}
 		// TODO
-		catch (FileNotFoundException e) {}
+		catch (FileNotFoundException e) {System.out.println(e.getMessage());}
 		catch (IOException e) {System.out.println(e.getMessage());}
-		catch (ClassNotFoundException e) {}
+		catch (ClassNotFoundException e) {System.out.println(e.getMessage());}
 	}
 	
-	public Vector<Location> getLocations() {
+	public Vector<Location> getLocations() 
+	{
 		return locations;
 	}
 	
-	public void fetchData(Location location) {
+	public void fetchData(Location location) 
+	{
 		String locationURL = location.getURL();
 		
 		try {
 			JsonArray rootArray = new JsonParser().parse(new BufferedReader(
 					new InputStreamReader(new URL(locationURL).openStream())))
 				.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("data");
-			for (JsonElement element: rootArray) {
-				Readings newReadings = null;
+			for (JsonElement element: rootArray) 
+			{
+				WthrSample newSample = null;
 				JsonObject reading = element.getAsJsonObject();
 				String localDateTime = reading.get("local_date_time").getAsString();
 				String localDateTimeFull = reading.get("local_date_time_full").getAsString();
@@ -107,10 +112,10 @@ public class Controller {
 				String windSpdKmh = reading.get("wind_spd_kmh").getAsString();
 				String windSpdKt = reading.get("wind_spd_kt").getAsString();
 				
-				newReadings = new Readings(localDateTime,  localDateTimeFull, apparentT, 
+				newSample = new WthrSample(localDateTime,  localDateTimeFull, apparentT, 
 						cloud, gustKmh, gustKt, airTemp, relHumidity, dewPt,
 						windDir, windSpdKmh, windSpdKt);
-				location.getData().add(newReadings);
+				location.getData().add(newSample);
 			}
 		}
 		// TODO

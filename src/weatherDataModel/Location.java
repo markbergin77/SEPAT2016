@@ -9,7 +9,7 @@ public class Location implements Serializable {
 	private String lat;
 	private String lon;
 	private String state;
-	private Vector<Readings> data;
+	private Vector<WthrSample> data;
 	private boolean favourite;
 	
 	public Location(String name, String url, String lat, String lon, String state) {
@@ -18,7 +18,7 @@ public class Location implements Serializable {
 		this.lat = lat;
 		this.lon = lon;
 		this.state = state;
-		this.data = new Vector<Readings>();
+		this.data = new Vector<WthrSample>();
 	}
 	
 	public String getName() {
@@ -53,7 +53,7 @@ public class Location implements Serializable {
 		this.favourite = false;
 	}
 	
-	public Vector<Readings> getData() {
+	public Vector<WthrSample> getData() {
 		return data;
 	}
 }
