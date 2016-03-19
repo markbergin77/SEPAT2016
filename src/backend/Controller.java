@@ -33,14 +33,17 @@ public class Controller {
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(locationURLs))) {
 			int i = 0;
 			while((locationURL = bufferedReader.readLine()) != null) {
-				JsonObject rootObject = new JsonParser().parse(new BufferedReader(new InputStreamReader(new URL(locationURL).openStream())))
-						.getAsJsonObject().getAsJsonObject("observations");
+				JsonObject rootObject = new JsonParser().parse(
+						new BufferedReader(new InputStreamReader(new URL(locationURL).openStream())))
+					.getAsJsonObject().getAsJsonObject("observations");
 				
 				JsonObject header = rootObject.getAsJsonArray("header").get(0).getAsJsonObject();
 				// Only getting first element to construct file of object skeletons
 				JsonObject data = rootObject.getAsJsonArray("data").get(0).getAsJsonObject();
 				
-				Location newLocation = new Location(header.get("name").getAsString(), locationURL, data.get("lat").getAsString(), data.get("lon").getAsString(), header.get("state").getAsString());
+				Location newLocation = new Location(
+						header.get("name").getAsString(), locationURL, data.get("lat").getAsString(), 
+						data.get("lon").getAsString(), header.get("state").getAsString());
 				locations.addElement(newLocation);
 				i++;
 				System.out.print(i+"\r");
@@ -82,8 +85,9 @@ public class Controller {
 		String locationURL = location.getURL();
 		
 		try {
-			JsonArray rootArray = new JsonParser().parse(new BufferedReader(new InputStreamReader(new URL(locationURL).openStream())))
-					.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("data");
+			JsonArray rootArray = new JsonParser().parse(new BufferedReader(
+					new InputStreamReader(new URL(locationURL).openStream())))
+				.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("data");
 			for (JsonElement element: rootArray) {
 				Readings newReadings = null;
 				JsonObject reading = element.getAsJsonObject();
@@ -100,7 +104,8 @@ public class Controller {
 				String windSpdKmh = reading.get("wind_spd_kmh").getAsString();
 				String windSpdKt = reading.get("wind_spd_kt").getAsString();
 				
-				newReadings = new Readings(localDateTime,  localDateTimeFull, apparentT, cloud, gustKmh, gustKt, airTemp, relHumidity, dewPt,
+				newReadings = new Readings(localDateTime,  localDateTimeFull, apparentT, 
+						cloud, gustKmh, gustKt, airTemp, relHumidity, dewPt,
 						windDir, windSpdKmh, windSpdKt);
 				location.getData().add(newReadings);
 			}
