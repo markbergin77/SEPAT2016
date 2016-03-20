@@ -39,10 +39,8 @@ public class JSONScraper {
 				relURL = link.attr("href");
 				if (relURL.contains("products") && !relURL.contains("#")) {
 					relURL = "http://www.bom.gov.au" + relURL.replace("products", "fwo").replace("shtml", "json");
-					JsonArray rootArray = new JsonParser().parse(new BufferedReader(
-							new InputStreamReader(new URL(relURL).openStream())))
-						.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("header");
 					
+					System.out.println(relURL);
 					//locations.add(new Location()) link.text();
 				}			
 			}
