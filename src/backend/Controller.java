@@ -59,9 +59,12 @@ public class Controller {
 		String locationURL = location.getURL();
 		
 		try {
+			long startFetchFileTime = System.nanoTime();
 			JsonArray rootArray = new JsonParser().parse(new BufferedReader(
 					new InputStreamReader(new URL(locationURL).openStream())))
 				.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("data");
+			long endFetchFileTime = System.nanoTime();
+			long startFetchProcessingTime = System.nanoTime();
 			for (JsonElement element: rootArray) 
 			{
 				WthrSample newSample = null;
@@ -84,6 +87,11 @@ public class Controller {
 						windDir, windSpdKmh, windSpdKt);
 				location.getData().add(newSample);
 			}
+			long endFetchProcessingTime = System.nanoTime();
+			double FetchFileTime = ((double) (endFetchFileTime - startFetchFileTime))/Math.pow(10, 9);
+			double FetchProcessingTime = ((double) (endFetchProcessingTime - startFetchProcessingTime))/Math.pow(10, 9);
+			System.out.println("Fetch File Time: " + FetchFileTime + " sec");
+			System.out.println("Fetch Processing Time: " + FetchProcessingTime + " sec");
 		}
 		// TODO
 		catch (JsonIOException e) {}

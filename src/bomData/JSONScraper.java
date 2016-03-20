@@ -25,11 +25,13 @@ public class JSONScraper {
 		String location;
 		
 		BufferedWriter out = new BufferedWriter(new FileWriter(locationURLs));
-		double docTimeSum = 0;
+		double FileTimeSum = 0;
+		double ProcessingTimeSum = 0;
 		for(String state: states) {
-			long startDocTime = System.nanoTime();
+			long startFileTime = System.nanoTime();
 			Document doc = Jsoup.connect("http://www.bom.gov.au/" + state + "/observations/" + state + "all.shtml").get();
-			long endDocTime = System.nanoTime();
+			long endFileTime = System.nanoTime();
+			long startProcessingTime = System.nanoTime();
 			Elements tbodies = doc.select("tbody");
 			Elements links = tbodies.select("a");
 			for (Element link: links) {
@@ -40,11 +42,14 @@ public class JSONScraper {
 					out.write(location + "#" + relURL + "\n");
 				}			
 			}
-			double docTime = ((double) (endDocTime - startDocTime))/Math.pow(10, 9);
-			docTimeSum += docTime;
-			System.out.println(state + " Doc Time: " + docTime + " sec");
+			long endProcessingTime = System.nanoTime();
+			double FileTime = ((double) (endFileTime - startFileTime))/Math.pow(10, 9);
+			double ProcessingTime = ((double) (endProcessingTime - startProcessingTime))/Math.pow(10, 9);
+			FileTimeSum += FileTime;
+			ProcessingTimeSum += ProcessingTime;
 		}
-		System.out.println("Total Doc Time: " + docTimeSum + " sec");
+		System.out.println("Scrape File Time: " + FileTimeSum + " sec");
+		System.out.println("Scrape Processing Time: " + ProcessingTimeSum + " sec");
 		out.close();
 	}
 }
