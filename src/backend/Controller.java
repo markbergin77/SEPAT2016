@@ -22,64 +22,31 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import bomData.JSONScraper;
 import bomData.Location;
 import bomData.WthrSample;
 
 public class Controller {
 	
 	Vector<Location> locations = new Vector<Location>();
-	String locationURLs = "src/weatherDataModel/locations";
+	String locationURLs = "src/bomData/locations";
 	
-	public void createObjectFile() 
+	public void createLocations() throws IOException 
 	{
-		String locationURL;
-		
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(locationURLs))) {
-			int i = 0;
-			while((locationURL = bufferedReader.readLine()) != null) {
-				JsonObject rootObject = new JsonParser().parse(
-						new BufferedReader(new InputStreamReader(new URL(locationURL).openStream())))
-					.getAsJsonObject().getAsJsonObject("observations");
-				
-				JsonObject header = rootObject.getAsJsonArray("header").get(0).getAsJsonObject();
-				// Only getting first element to construct file of object skeletons
-				JsonObject data = rootObject.getAsJsonArray("data").get(0).getAsJsonObject();
-				
-				Location newLocation = new Location(
-						header.get("name").getAsString(), locationURL, data.get("lat").getAsString(), 
-						data.get("lon").getAsString(), header.get("state").getAsString());
+			String location;
+			String[] locationArray;
+			String locationName;
+			String locationURL;
+			
+			while((location = bufferedReader.readLine()) != null) {
+				locationArray = location.split("#");
+				locationName = locationArray[0];
+				locationURL = locationArray[1];
+				Location newLocation = new Location(locationName, locationURL);
 				locations.addElement(newLocation);
-				i++;
-				System.out.print(i+"\r");
 			}
 		}
-		// TODO
-		catch (JsonIOException e) {}
-		catch (JsonSyntaxException e) {}
-		catch (MalformedURLException e) {}
-		catch (IOException e) {}
-		
-		try (ObjectOutputStream out = new ObjectOutputStream(
-		        new BufferedOutputStream(new FileOutputStream("src/backend/objects")))) {
-			
-			out.writeObject(locations);
-		}
-		// TODO
-		catch (IOException e) {};
-	}
-	
-	public void readObjectFile() 
-	{
-		try (ObjectInputStream in = new ObjectInputStream(
-		        new BufferedInputStream(new FileInputStream("src/backend/objects")))) {
-			
-			locations = (Vector<Location>) in.readObject();
-			
-		}
-		// TODO
-		catch (FileNotFoundException e) {System.out.println(e.getMessage());}
-		catch (IOException e) {System.out.println(e.getMessage());}
-		catch (ClassNotFoundException e) {System.out.println(e.getMessage());}
 	}
 	
 	public Vector<Location> getLocations() 

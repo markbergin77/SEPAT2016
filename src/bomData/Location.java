@@ -12,6 +12,12 @@ public class Location implements Serializable {
 	private Vector<WthrSample> data;
 	private boolean favourite;
 	
+	public Location(String name, String url) {
+		this.name = name;
+		this.url = url;
+		this.data = new Vector<WthrSample>();
+	}
+	
 	public Location(String name, String url, String lat, String lon, String state) {
 		this.name = name;
 		this.url = url;

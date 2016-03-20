@@ -11,6 +11,10 @@ import java.io.IOException;
 
 public class JSONScraper {
 	public static void main(String[] args) throws IOException {
+		scrape();
+	}
+	
+	public static void scrape() throws IOException {
 		// RMIT Proxy Settings
 		// System.setProperty("http.proxyHost", "aproxy.rmit.edu.au");
 		// System.setProperty("http.proxyPort", "8080");
@@ -21,9 +25,11 @@ public class JSONScraper {
 		String location;
 		
 		BufferedWriter out = new BufferedWriter(new FileWriter(locationURLs));
-		
+		double docTimeSum = 0;
 		for(String state: states) {
+			long startDocTime = System.nanoTime();
 			Document doc = Jsoup.connect("http://www.bom.gov.au/" + state + "/observations/" + state + "all.shtml").get();
+			long endDocTime = System.nanoTime();
 			Elements tbodies = doc.select("tbody");
 			Elements links = tbodies.select("a");
 			for (Element link: links) {
@@ -31,13 +37,14 @@ public class JSONScraper {
 				if (relURL.contains("products") && !relURL.contains("#")) {
 					relURL = "http://www.bom.gov.au" + relURL.replace("products", "fwo").replace("shtml", "json");
 					location = link.text();
-					out.write(location + "|" + relURL + "\n");
-				}
-				
-	
-				
+					out.write(location + "#" + relURL + "\n");
+				}			
 			}
+			double docTime = ((double) (endDocTime - startDocTime))/Math.pow(10, 9);
+			docTimeSum += docTime;
+			System.out.println(state + " Doc Time: " + docTime + " sec");
 		}
-		
+		System.out.println("Total Doc Time: " + docTimeSum + " sec");
+		out.close();
 	}
 }
