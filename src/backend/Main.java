@@ -6,11 +6,11 @@ import bomData.JSONScraper;
 
 public class Main 
 {
-	
+
 	public static void main(String[] args) throws IOException {
 		long startTotalTime = System.nanoTime();
 		long startScrapeTime = System.nanoTime();
-		JSONScraper.scrape();
+		JSONScraper.scrapeLocations();
 		long endScrapeTime = System.nanoTime();
 		Controller controller = new Controller();
 		controller.createLocations();

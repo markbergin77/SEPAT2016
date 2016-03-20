@@ -85,7 +85,6 @@ public class Controller {
 				newSample = new WthrSample(localDateTime,  localDateTimeFull, apparentT, 
 						cloud, gustKmh, gustKt, airTemp, relHumidity, dewPt,
 						windDir, windSpdKmh, windSpdKt);
-				location.getData().add(newSample);
 			}
 			long endFetchProcessingTime = System.nanoTime();
 			double FetchFileTime = ((double) (endFetchFileTime - startFetchFileTime))/Math.pow(10, 9);
