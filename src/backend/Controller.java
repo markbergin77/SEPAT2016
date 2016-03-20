@@ -33,20 +33,27 @@ public class Controller {
 	
 	public void createLocations() throws IOException 
 	{
-		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(locationURLs))) {
-			String location;
-			String[] locationArray;
-			String locationName;
-			String locationURL;
-			
-			while((location = bufferedReader.readLine()) != null) {
-				locationArray = location.split("#");
-				locationName = locationArray[0];
-				locationURL = locationArray[1];
-				Location newLocation = new Location(locationName, locationURL);
-				locations.addElement(newLocation);
-			}
-		}
+		long startScrapeTime = System.nanoTime();
+		locations = JSONScraper.scrapeLocations();
+		long endScrapeTime = System.nanoTime();
+		double scrapeTime = ((double) (endScrapeTime - startScrapeTime))/Math.pow(10, 9);
+		System.out.println("Scrape Time: " + scrapeTime + " sec");
+		
+		
+//		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(locationURLs))) {
+//			String location;
+//			String[] locationArray;
+//			String locationName;
+//			String locationURL;
+//			
+//			while((location = bufferedReader.readLine()) != null) {
+//				locationArray = location.split("#");
+//				locationName = locationArray[0];
+//				locationURL = locationArray[1];
+//				Location newLocation = new Location(locationName, locationURL);
+//				locations.addElement(newLocation);
+//			}
+//		}
 	}
 	
 	public Vector<Location> getLocations() 

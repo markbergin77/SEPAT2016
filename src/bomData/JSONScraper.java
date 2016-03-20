@@ -29,19 +29,19 @@ public class JSONScraper {
 		// System.setProperty("http.proxyPort", "8080");
 		Vector<Location> locations = new Vector<Location>();
 		String[] states = {"vic", "nsw", "tas", "wa", "sa", "nt", "qld", "ant"};
-		String relURL;
+		String url;
+		String name;
 		
 		for(String state: states) {
 			Document doc = Jsoup.connect("http://www.bom.gov.au/" + state + "/observations/" + state + "all.shtml").get();
 			Elements tbodies = doc.select("tbody");
 			Elements links = tbodies.select("a");
 			for (Element link: links) {
-				relURL = link.attr("href");
-				if (relURL.contains("products") && !relURL.contains("#")) {
-					relURL = "http://www.bom.gov.au" + relURL.replace("products", "fwo").replace("shtml", "json");
-					
-					System.out.println(relURL);
-					//locations.add(new Location()) link.text();
+				url = link.attr("href");
+				if (url.contains("products") && !url.contains("#")) {
+					url = "http://www.bom.gov.au" + url.replace("products", "fwo").replace("shtml", "json");
+					name = link.text();
+					locations.add(new Location(name, url));
 				}			
 			}
 		}
