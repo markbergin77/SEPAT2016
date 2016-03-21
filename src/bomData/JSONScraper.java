@@ -25,11 +25,10 @@ public class JSONScraper
 		System.out.println("Enter a search word:");
 		String search = br.readLine();
 		Vector<Location> foundLocs = locations.fuzzySearch(search);
-		System.out.println("Matches:");
-		for(Location loc : foundLocs)
-		{
-			System.out.println(loc.getName());
-		}
+		Location match = foundLocs.get(0);
+		System.out.println(match.getName() + " selected.\nFirst weather sample:");
+		Vector<WthrSample> samples = match.getSamples();
+		System.out.print(samples.get(0));
 	}
 	
 	public static LocationList scrapeLocations() throws IOException {

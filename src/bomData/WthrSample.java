@@ -32,6 +32,20 @@ public class WthrSample {
 		this.windSpdKt = windSpdKt;
 	}
 	
+	public String toString()
+	{
+		String output = new String("Date: ");
+		output += localDateTime;
+		output += "\nApparent temperature: ";
+		output += apparentT;
+		output += "\nCloud: ";
+		output += cloud;
+		output += "\nHumidity: ";
+		output += relHumidity;
+		output += "\ntoString for WthrSample not fully implemented.\n";
+		return output;
+	}
+	
 	public String getLocalDateTime() {
 		return localDateTime;
 	}
