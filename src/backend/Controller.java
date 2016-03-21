@@ -34,7 +34,6 @@ public class Controller {
 	public void createLocations() throws IOException 
 	{
 		long startScrapeTime = System.nanoTime();
-		locations = JSONScraper.scrapeLocations();
 		long endScrapeTime = System.nanoTime();
 		double scrapeTime = ((double) (endScrapeTime - startScrapeTime))/Math.pow(10, 9);
 		System.out.println("Scrape Time: " + scrapeTime + " sec");

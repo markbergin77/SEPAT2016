@@ -16,18 +16,27 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Vector;
 
-public class JSONScraper {
-	
+public class JSONScraper 
+{
 	public static void main(String[] args) throws IOException 
 	{
-		scrapeLocations();
+		LocationList locations = scrapeLocations();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Enter a search word:");
+		String search = br.readLine();
+		Vector<Location> foundLocs = locations.fuzzySearch(search);
+		System.out.println("Matches:");
+		for(Location loc : foundLocs)
+		{
+			System.out.println(loc.getName());
+		}
 	}
 	
-	public static Vector<Location> scrapeLocations() throws IOException {
+	public static LocationList scrapeLocations() throws IOException {
 		// RMIT Proxy Settings
 		// System.setProperty("http.proxyHost", "aproxy.rmit.edu.au");
 		// System.setProperty("http.proxyPort", "8080");
-		Vector<Location> locations = new Vector<Location>();
+		LocationList locations = new LocationList();
 		String[] states = {"vic", "nsw", "tas", "wa", "sa", "nt", "qld", "ant"};
 		String url;
 		String name;
@@ -41,6 +50,11 @@ public class JSONScraper {
 				if (url.contains("products") && !url.contains("#")) {
 					url = "http://www.bom.gov.au" + url.replace("products", "fwo").replace("shtml", "json");
 					name = link.text();
+					// Some names have an asterisk on the page
+					if(name.endsWith("*"))
+					{
+						name = name.substring(0, name.length()-1);
+					}
 					locations.add(new Location(name, url, state));
 				}			
 			}
