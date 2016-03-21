@@ -10,20 +10,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 
-public class LocationList implements Iterable<Location>
+public class LocationList extends Vector<Location>
 {
-	Vector<Location> locations = new Vector<Location>();
-	// For searching
-	Vector<String> locNames = new Vector<String>();
 	
 	public LocationList()
 	{
-	}
-	
-	public void add(Location l)
-	{
-		locations.add(l);
-		locNames.add(l.getName());
+		
 	}
 	
 	public static LocationList getAllFromServer() throws IOException {
@@ -56,12 +48,12 @@ public class LocationList implements Iterable<Location>
 		return locations;
 	}
 	
-	public Vector<Location> fuzzySearch(String key)
+	public LocationList fuzzySearch(String key)
 	{
-		Vector<Location> locationsMatching = new Vector<Location>();
-		for (int i = 0; i < locations.size(); ++i)
+		LocationList locationsMatching = new LocationList();
+		for (int i = 0; i < size(); ++i)
 		{
-			Location iLoc = locations.get(i);
+			Location iLoc = this.get(i);
 			if(iLoc.getName().toLowerCase().contains(key.toLowerCase()))
 			{
 					locationsMatching.add(iLoc);			
@@ -70,10 +62,4 @@ public class LocationList implements Iterable<Location>
 		return locationsMatching;
 	}
 
-	@Override
-	public Iterator<Location> iterator() 
-	{
-		// TODO Auto-generated method stub
-		return locations.iterator();
-	}
 }

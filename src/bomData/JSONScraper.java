@@ -24,7 +24,7 @@ public class JSONScraper
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Enter a search word:");
 		String search = br.readLine();
-		Vector<Location> foundLocs = locations.fuzzySearch(search);
+		LocationList foundLocs = locations.fuzzySearch(search);
 		Location match = foundLocs.get(0);
 		System.out.println(match.getName() + " selected.\nFirst weather sample:");
 		Vector<WthrSample> samples = match.getSamples();
