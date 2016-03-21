@@ -41,7 +41,7 @@ public class JSONScraper {
 				if (url.contains("products") && !url.contains("#")) {
 					url = "http://www.bom.gov.au" + url.replace("products", "fwo").replace("shtml", "json");
 					name = link.text();
-					locations.add(new Location(name, url));
+					locations.add(new Location(name, url, state));
 				}			
 			}
 		}
