@@ -32,6 +32,7 @@ public class Location implements Serializable
 		this.state = state;
 	}
 	
+	//Function for filling Empty location with data (periods of 30 minutes up to 3 days)
 	public Vector<WthrSample> getSamples()
 	{
 		Vector<WthrSample> samples = new Vector<WthrSample>();
@@ -41,6 +42,7 @@ public class Location implements Serializable
 				.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("data");
 			for (JsonElement element: rootArray) 
 			{
+				//Grabs information through BOM's JSON Data 
 				JsonObject reading = element.getAsJsonObject();
 				String localDateTime = reading.get("local_date_time").getAsString();
 				String localDateTimeFull = reading.get("local_date_time_full").getAsString();
@@ -54,7 +56,7 @@ public class Location implements Serializable
 				String windDir = reading.get("wind_dir").getAsString();
 				String windSpdKmh = reading.get("wind_spd_kmh").getAsString();
 				String windSpdKt = reading.get("wind_spd_kt").getAsString();
-				
+				//Add's location's observation data to vector
 				samples.add(new WthrSample(localDateTime,  localDateTimeFull, apparentT, 
 						cloud, gustKmh, gustKt, airTemp, relHumidity, dewPt,
 						windDir, windSpdKmh, windSpdKt));

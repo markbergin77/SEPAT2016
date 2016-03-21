@@ -1,7 +1,7 @@
 package bomData;
 
 public class WthrSample {
-	
+	//Data types provided by BOM
 	private String localDateTime;
 	private String localDateTimeFull;
 	private String apparentT;

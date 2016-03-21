@@ -22,11 +22,13 @@ public class LocationList extends Vector<Location>
 		// RMIT Proxy Settings
 		// System.setProperty("http.proxyHost", "aproxy.rmit.edu.au");
 		// System.setProperty("http.proxyPort", "8080");
+		
+		//Grabbing states (includes antarctic region)
 		LocationList locations = new LocationList();
 		String[] states = {"vic", "nsw", "tas", "wa", "sa", "nt", "qld", "ant"};
 		String url;
 		String name;
-		
+		//Connects to BOM (Url's based on states), observation location through HTML Table links
 		for(String state: states) {
 			Document doc = Jsoup.connect("http://www.bom.gov.au/" + state + "/observations/" + state + "all.shtml").get();
 			Elements tbodies = doc.select("tbody");
@@ -41,6 +43,7 @@ public class LocationList extends Vector<Location>
 					{
 						name = name.substring(0, name.length()-1);
 					}
+					//Returns location of Observations
 					locations.add(new Location(name, url, state));
 				}			
 			}
