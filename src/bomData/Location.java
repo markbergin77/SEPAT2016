@@ -44,18 +44,90 @@ public class Location implements Serializable
 			{
 				//Grabs information through BOM's JSON Data 
 				JsonObject reading = element.getAsJsonObject();
-				String localDateTime = reading.get("local_date_time").getAsString();
-				String localDateTimeFull = reading.get("local_date_time_full").getAsString();
-				String apparentT = reading.get("apparent_t").getAsString();
-				String cloud = reading.get("cloud").getAsString();
-				String gustKmh = reading.get("gust_kmh").getAsString();
-				String gustKt = reading.get("gust_kt").getAsString();
-				String airTemp = reading.get("air_temp").getAsString();
-				String relHumidity = reading.get("rel_hum").getAsString();
-				String dewPt = reading.get("dewpt").getAsString();
-				String windDir = reading.get("wind_dir").getAsString();
-				String windSpdKmh = reading.get("wind_spd_kmh").getAsString();
-				String windSpdKt = reading.get("wind_spd_kt").getAsString();
+				
+				String localDateTime;
+				JsonElement localDateTimeJson = reading.get("local_date_time");
+				if (localDateTimeJson.isJsonNull())
+					localDateTime = "-";
+				else
+					localDateTime = localDateTimeJson.getAsString();
+				
+				String localDateTimeFull;
+				JsonElement localDateTimeFullJson = reading.get("local_date_time_full");
+				if (localDateTimeFullJson.isJsonNull())
+					localDateTimeFull = "-";
+				else
+					localDateTimeFull = localDateTimeFullJson.getAsString();
+				
+				String apparentT;
+				JsonElement apparentTJson = reading.get("apparent_t");
+				if (apparentTJson.isJsonNull())
+					apparentT = "-";
+				else
+					apparentT = apparentTJson.getAsString();
+				
+				String cloud;
+				JsonElement cloudJson = reading.get("cloud");
+				if (cloudJson.isJsonNull())
+					cloud = "-";
+				else
+						cloud = cloudJson.getAsString();
+				
+				String gustKmh;
+				JsonElement gustKmhJson = reading.get("gust_kmh");
+				if (gustKmhJson.isJsonNull())
+					gustKmh = "-";
+				else
+					gustKmh = gustKmhJson.getAsString();
+				
+				String gustKt;
+				JsonElement gustKtJson = reading.get("gust_kt");
+				if (gustKtJson.isJsonNull())
+					gustKt = "-";
+				else
+					gustKt = gustKtJson.getAsString();
+				
+				String airTemp;
+				JsonElement airTempJson = reading.get("air_temp");
+				if (airTempJson.isJsonNull())
+					airTemp = "-";
+				else
+					airTemp = airTempJson.getAsString();
+				
+				String relHumidity;
+				JsonElement relHumidityJson = reading.get("rel_hum");
+				if (relHumidityJson.isJsonNull())
+					relHumidity = "-";
+				else
+					relHumidity = relHumidityJson.getAsString();
+				
+				String dewPt;
+				JsonElement dewPtJson = reading.get("dewpt");
+				if (dewPtJson.isJsonNull())
+					dewPt = "-";
+				else
+					dewPt = dewPtJson.getAsString();
+				
+				String windDir;
+				JsonElement windDirJson = reading.get("wind_dir");
+				if (windDirJson.isJsonNull())
+					windDir = "-";
+				else
+					windDir = windDirJson.getAsString();
+				
+				String windSpdKmh;
+				JsonElement windSpdKmhJson = reading.get("wind_spd_kmh");
+				if (windSpdKmhJson.isJsonNull())
+					windSpdKmh = "-";
+				else
+					windSpdKmh = windSpdKmhJson.getAsString();
+				
+				String windSpdKt;
+				JsonElement windSpdKtJson = reading.get("wind_spd_kt");
+				if (windSpdKtJson.isJsonNull())
+					windSpdKt = "-";
+				else
+					windSpdKt = windSpdKtJson.getAsString();
 				//Add's location's observation data to vector
 				samples.add(new WthrSample(localDateTime,  localDateTimeFull, apparentT, 
 						cloud, gustKmh, gustKt, airTemp, relHumidity, dewPt,
