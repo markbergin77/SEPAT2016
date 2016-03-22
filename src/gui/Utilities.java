@@ -1,4 +1,4 @@
-package Main;
+package gui;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;

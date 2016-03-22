@@ -1,4 +1,4 @@
-package Main;
+package gui;
 
 /**
  * Created by Pavel Nikolaev on 13/03/2016.
