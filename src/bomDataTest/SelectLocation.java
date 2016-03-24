@@ -37,24 +37,27 @@ public class SelectLocation
 		LocationList foundLocs = locations.fuzzySearch(search);
 		for (Location locationSearch : foundLocs) 
 		{
-	    System.out.println("Location " + locationNumber + " : " + locationSearch.getName());
-		locationNumber++;
+			System.out.println("Location " + locationNumber + " : " + locationSearch.getName());
+			locationNumber++;
 	    }
 		//Determines if only one potential location
 		if(foundLocs.size() != 1)
 		{
-		//User chooses based on list of locations	
-	    while(locationFound == false){
-	    try{
-	    System.out.println("Enter Correct Location");
-		String matchedLoc = br.readLine();	
-	    match = foundLocs.get(Integer.parseInt(matchedLoc) - 1);
-	    locationFound = true;
-	    }catch (ArrayIndexOutOfBoundsException e){
-	    	System.out.println("Selected index not listed, please try again \n");
+			//User chooses based on list of locations	
+			while(locationFound == false)
+	    {
+			try
+			{
+				System.out.println("Enter Correct Location");
+				String matchedLoc = br.readLine();	
+				match = foundLocs.get(Integer.parseInt(matchedLoc) - 1);
+				locationFound = true;
+			}catch (ArrayIndexOutOfBoundsException e)
+			{
+				System.out.println("Selected index not listed, please try again \n");
+			}
 	    }
-	    }
-		return  match;
+			return  match;
 		}
 		//Else match is automatically chosen
 		match = foundLocs.get(0);
