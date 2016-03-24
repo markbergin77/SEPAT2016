@@ -7,7 +7,7 @@ import java.util.Vector;
 
 import bomData.Location;
 import bomData.LocationList;
-import bomData.WthrSample;
+import bomData.WthrSample72hr;
 
 public class SelectLocation 
 {
@@ -17,7 +17,7 @@ public class SelectLocation
 		//prints most recent observation.
 		System.out.println(matched.getName() + " selected.\nFirst weather sample:");
 		//Queries all the data regarding location
-		Vector<WthrSample> samples = matched.getSamples();
+		Vector<WthrSample72hr> samples = matched.getSamples();
 		System.out.print(samples.get(0));
 	}
 	
@@ -27,7 +27,7 @@ public class SelectLocation
 		int locationNumber = 1;	
 		boolean locationFound = false;
 		//Grabbing BOM locations/stations
-	    LocationList locations = LocationList.getAllFromServer();
+	    LocationList locations = LocationList.getSample72hr();
 	    //User inputs location, searches for match
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));					
 		System.out.println("Enter a search word:");

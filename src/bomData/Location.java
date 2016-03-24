@@ -33,9 +33,9 @@ public class Location implements Serializable
 	}
 	
 	//Function for filling Empty location with data (periods of 30 minutes up to 3 days)
-	public Vector<WthrSample> getSamples()
+	public Vector<WthrSample72hr> getSamples()
 	{
-		Vector<WthrSample> samples = new Vector<WthrSample>();
+		Vector<WthrSample72hr> samples = new Vector<WthrSample72hr>();
 		try {
 			JsonArray rootArray = new JsonParser().parse(new BufferedReader(
 					new InputStreamReader(new URL(url).openStream())))
@@ -129,7 +129,7 @@ public class Location implements Serializable
 				else
 					windSpdKt = windSpdKtJson.getAsString();
 				//Add's location's observation data to vector
-				samples.add(new WthrSample(localDateTime,  localDateTimeFull, apparentT, 
+				samples.add(new WthrSample72hr(localDateTime,  localDateTimeFull, apparentT, 
 						cloud, gustKmh, gustKt, airTemp, relHumidity, dewPt,
 						windDir, windSpdKmh, windSpdKt));
 			}

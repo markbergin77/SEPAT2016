@@ -1,8 +1,6 @@
 package gui;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.util.Timer;

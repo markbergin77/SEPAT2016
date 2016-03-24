@@ -73,7 +73,6 @@ public class Main extends Application{
         StackPane.setMargin(LABEL , new Insets(40,0,0,0));
 
         button.getStyleClass().add("button-wait");
-        //button.setVisible(false);
 
         button.setOnMouseEntered(e -> button.getStyleClass().add("button-wait-bright"));
         button.setOnMouseExited(e -> button.getStyleClass().remove("button-wait-bright"));
@@ -167,10 +166,10 @@ public class Main extends Application{
 
     }
 
-    public void display (Stage window){
-        fadeIn();
-        window.setScene(scene1);
-    }
+  //  public void display (Stage window){
+      //  fadeIn();
+     //   window.setScene(scene1);
+   // }
 
     public void load(){
 
