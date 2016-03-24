@@ -1,7 +1,8 @@
 package bomData;
 
-public class WthrSample72hr {
-	//Data types provided by BOM
+public class WthrSample72hr
+{
+	// Data types provided by BOM
 	private String localDateTime;
 	private String localDateTimeFull;
 	private String apparentT;
@@ -14,10 +15,12 @@ public class WthrSample72hr {
 	private String windDir;
 	private String windSpdKmh;
 	private String windSpdKt;
-	
-	public WthrSample72hr(String localDateTime, String localDateTimeFull, String apparentT, String cloud, String gustKmh, String gustKt, String airTemp,
-			String relHumidity, String dewPt, String windDir, String windSpdKmh, String windSpdKt) {
-		
+
+	public WthrSample72hr(String localDateTime, String localDateTimeFull, String apparentT, String cloud,
+			String gustKmh, String gustKt, String airTemp, String relHumidity, String dewPt, String windDir,
+			String windSpdKmh, String windSpdKt)
+	{
+
 		this.localDateTime = localDateTime;
 		this.localDateTimeFull = localDateTimeFull;
 		this.apparentT = apparentT;
@@ -31,7 +34,7 @@ public class WthrSample72hr {
 		this.windSpdKmh = windSpdKmh;
 		this.windSpdKt = windSpdKt;
 	}
-	
+
 	public String toString()
 	{
 		String output = new String("Date: ");
@@ -45,52 +48,64 @@ public class WthrSample72hr {
 		output += "\ntoString for WthrSample not fully implemented.\n";
 		return output;
 	}
-	
-	public String getLocalDateTime() {
+
+	public String getLocalDateTime()
+	{
 		return localDateTime;
 	}
-	
-	public String getLocalDateTimeFull() {
+
+	public String getLocalDateTimeFull()
+	{
 		return localDateTimeFull;
 	}
-	
-	public String getApparentT() {
+
+	public String getApparentT()
+	{
 		return apparentT;
 	}
-	
-	public String getCloud() {
+
+	public String getCloud()
+	{
 		return cloud;
 	}
-	
-	public String getGustKmh() {
+
+	public String getGustKmh()
+	{
 		return gustKmh;
 	}
-	
-	public String getGustKt() {
+
+	public String getGustKt()
+	{
 		return gustKt;
 	}
-	
-	public String getAirTemp() {
+
+	public String getAirTemp()
+	{
 		return airTemp;
 	}
-	
-	public String getRelHumidity() {
+
+	public String getRelHumidity()
+	{
 		return relHumidity;
 	}
-	
-	public String getDewPt() {
+
+	public String getDewPt()
+	{
 		return dewPt;
 	}
-	
-	public String getWindDir() {
+
+	public String getWindDir()
+	{
 		return windDir;
 	}
-	
-	public String getWindSpdKmh() {
+
+	public String getWindSpdKmh()
+	{
 		return windSpdKmh;
 	}
-	
-	public String getWindSpdKt() {
+
+	public String getWindSpdKt()
+	{
 		return windSpdKt;
 	}
 }
