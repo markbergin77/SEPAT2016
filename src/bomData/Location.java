@@ -15,20 +15,17 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
-public class Location implements Serializable 
+public class Location 
 {
 	private String name;
-	private String url;
+	private String jsonUrl;
+	private String htmlUrl;
 	private String state;
 	
-	public Location(String name, String url) {
+	public Location(String name, String jsonUrl, String htmlUrl, String state) {
 		this.name = name;
-		this.url = url;
-	}
-	
-	public Location(String name, String url, String state) {
-		this.name = name;
-		this.url = url;
+		this.jsonUrl = jsonUrl;
+		this.htmlUrl = htmlUrl;
 		this.state = state;
 	}
 	
@@ -38,7 +35,7 @@ public class Location implements Serializable
 		WthrPast72hr samples = new WthrPast72hr();
 		try {
 			JsonArray rootArray = new JsonParser().parse(new BufferedReader(
-					new InputStreamReader(new URL(url).openStream())))
+					new InputStreamReader(new URL(jsonUrl).openStream())))
 				.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("data");
 			for (JsonElement element: rootArray) 
 			{
@@ -153,8 +150,12 @@ public class Location implements Serializable
 		return name;
 	}
 	
-	public String getURL() {
-		return url;
+	public String getJsonUrl() {
+		return jsonUrl;
+	}
+	
+	public String getHtmlUrl() {
+		return htmlUrl;
 	}
 	
 	public String getState() {
