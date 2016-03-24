@@ -39,13 +39,14 @@ public class Utilities{
 
 
                 if(i < x){
-                    window.setWidth(window.getWidth() + 1.5);
-                    window.setX(window.getX()-0.43);
+                    window.setWidth(window.getWidth() + 2.5);
+                    window.setX(window.getX()-1.0);
 
 
                 }
                 else{
                     this.cancel();
+                    System.out.println(window.getWidth());
                     Home home = new Home();
                     home.fadeIn();
 
@@ -61,12 +62,13 @@ public class Utilities{
             public void run() {
 
                 if(i < y) {
-                    window.setHeight(window.getHeight() + 1.5);
-                    window.setY(window.getY()-0.14);
+                    window.setHeight(window.getHeight() + 2.5);
+                    window.setY(window.getY()-0.3);
                 }
                 else{
 
                     this.cancel();
+                    System.out.println(window.getHeight());
                 }
 
                 i+=2;
