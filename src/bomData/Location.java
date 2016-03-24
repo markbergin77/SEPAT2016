@@ -147,6 +147,8 @@ public class Location
 	// Month in the format YYYYMM, 201603 would be March 2016
 	public WthrPastMonth getWthrLastMonth(String month) throws IOException
 	{
+		String url;
+		String csvUrl;
 		String htmlUrl = this.getHtmlUrl();
 		Document doc = Jsoup.connect(htmlUrl).get();
 		Elements links = doc.select("a");
@@ -154,8 +156,9 @@ public class Location
 		{
 			if (link.text().contains("Recent months")) 
 			{
-				System.out.println("DEBUG: " + link.text());
-				System.out.println("DEBUG:" + link.attr("href"));
+				url = link.attr("href");
+				csvUrl = "http://www.bom.gov.au" + url.replace("dwo/", "dwo/" + month + "/text/").replace("latest.shtml", month + ".csv");
+				System.out.println("DEBUG: " + csvUrl);
 			}
 		}
 		
