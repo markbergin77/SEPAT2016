@@ -27,6 +27,8 @@ public class LocationList extends Vector<Location>
 		LocationList locations = new LocationList();
 		String[] states = {"vic", "nsw", "tas", "wa", "sa", "nt", "qld", "ant"};
 		String url;
+		String htmlUrl;
+		String jsonUrl;
 		String name;
 		//Connects to BOM (Url's based on states), observation location through HTML Table links
 		for(String state: states) {
@@ -36,7 +38,8 @@ public class LocationList extends Vector<Location>
 			for (Element link: links) {
 				url = link.attr("href");
 				if (url.contains("products") && !url.contains("#")) {
-					url = "http://www.bom.gov.au" + url.replace("products", "fwo").replace("shtml", "json");
+					htmlUrl = "http://www.bom.gov.au" + url;
+					jsonUrl = "http://www.bom.gov.au" + url.replace("products", "fwo").replace("shtml", "json");
 					name = link.text();
 					// Some names have an asterisk on the page
 					if(name.endsWith("*"))
@@ -44,7 +47,7 @@ public class LocationList extends Vector<Location>
 						name = name.substring(0, name.length()-1);
 					}
 					//Returns location of Observations
-					locations.add(new Location(name, url, state));
+					locations.add(new Location(name, jsonUrl, htmlUrl, state));
 				}			
 			}
 		}
