@@ -33,9 +33,9 @@ public class Location implements Serializable
 	}
 	
 	//Function for filling Empty location with data (periods of 30 minutes up to 3 days)
-	public Vector<WthrSample72hr> getSamples()
+	public WthrPast72hr getWthrLast72hr()
 	{
-		Vector<WthrSample72hr> samples = new Vector<WthrSample72hr>();
+		WthrPast72hr samples = new WthrPast72hr();
 		try {
 			JsonArray rootArray = new JsonParser().parse(new BufferedReader(
 					new InputStreamReader(new URL(url).openStream())))
@@ -139,6 +139,13 @@ public class Location implements Serializable
 		catch (JsonSyntaxException e) {}
 		catch (MalformedURLException e) {}
 		catch (IOException e) {}
+		return samples;
+	}
+	
+	public static WthrPastMonth getWthrLastMonth(Location location)
+	{
+		WthrPastMonth samples = new WthrPastMonth();
+		
 		return samples;
 	}
 	

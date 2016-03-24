@@ -17,7 +17,7 @@ public class SelectLocation
 		//prints most recent observation.
 		System.out.println(matched.getName() + " selected.\nFirst weather sample:");
 		//Queries all the data regarding location
-		Vector<WthrSample72hr> samples = matched.getSamples();
+		Vector<WthrSample72hr> samples = matched.getWthrLast72hr();
 		System.out.print(samples.get(0));
 	}
 	
@@ -27,7 +27,7 @@ public class SelectLocation
 		int locationNumber = 1;	
 		boolean locationFound = false;
 		//Grabbing BOM locations/stations
-	    LocationList locations = LocationList.getSample72hr();
+	    LocationList locations = LocationList.getAllFromServer();
 	    //User inputs location, searches for match
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));					
 		System.out.println("Enter a search word:");

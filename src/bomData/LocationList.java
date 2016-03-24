@@ -18,7 +18,7 @@ public class LocationList extends Vector<Location>
 		
 	}
 	
-	public static LocationList getSample72hr() throws IOException {
+	public static LocationList getAllFromServer() throws IOException {
 		// RMIT Proxy Settings
 		// System.setProperty("http.proxyHost", "aproxy.rmit.edu.au");
 		// System.setProperty("http.proxyPort", "8080");
