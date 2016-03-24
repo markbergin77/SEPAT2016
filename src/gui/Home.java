@@ -24,8 +24,12 @@ public class Home {
     private static Rectangle rect,rect2,rect3;
     private static TextField text;
     private static ToolBar toolBar;
+    private static Stage WINDOW;
+    double xPos,yPos;
 
     public void display(Stage window){
+
+        WINDOW = window;
 
         Utilities util = new Utilities();
 
@@ -157,16 +161,14 @@ public class Home {
 
         toolBar = new ToolBar(exit);
         toolBar.setMaxSize(1350,35);
+        toolBar.setOpacity(0);
 
-
-
-        util.resizeWindowIncrease(window,800,400,2,4);
+        util.resizeWindowIncrease(WINDOW,800,400,2,4);
 
         StackPane.setMargin(box,new Insets(0,0,150,450));
         StackPane.setMargin(box2,new Insets(400,0,0,450));
         StackPane.setMargin(box3,new Insets(30,830,0,0));
         StackPane.setAlignment(toolBar, Pos.TOP_CENTER);
-
 
        // StackPane.setMargin(BUTTON,new Insets(0,460,300,0));
        // StackPane.setMargin(BUTTON2,new Insets(0,0,300,1100));
@@ -175,12 +177,11 @@ public class Home {
 
         SCENE1 = new Scene(stackPane,1345,789);
         SCENE1.setFill(Color.TRANSPARENT);
+        dragWindow(SCENE1);
 
         util.getCss(SCENE1);
-        window.setTitle("Home");
-        window.setScene(SCENE1);
-
-
+        WINDOW.setTitle("Home");
+        WINDOW.setScene(SCENE1);
 
     }
 
@@ -214,12 +215,34 @@ public class Home {
         fT4.setDelay(Duration.millis(500));
         fT4.play();
 
-        FadeTransition fT5
+              FadeTransition fT5
                 = new FadeTransition(Duration.millis(1000), rect3);
         fT5.setFromValue(0.0);
         fT5.setToValue(1.0);
         fT5.setDelay(Duration.millis(500));
         fT5.play();
+
+        FadeTransition fT6
+                = new FadeTransition(Duration.millis(1000), toolBar);
+        fT6.setFromValue(0.0);
+        fT6.setToValue(1.0);
+        fT6.setDelay(Duration.millis(500));
+        fT6.play();
+
+
+    }
+
+    public void dragWindow(Scene scene){
+
+        scene.setOnMousePressed(e -> {
+            this.xPos = WINDOW.getX() - e.getScreenX();
+            this.yPos = WINDOW.getY() - e.getScreenY();
+        });
+
+        scene.setOnMouseDragged(e -> {
+            WINDOW.setX(e.getScreenX() + this.xPos);
+            WINDOW.setY(e.getScreenY() + this.yPos);
+        });
 
     }
 

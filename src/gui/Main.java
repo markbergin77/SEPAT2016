@@ -29,6 +29,7 @@ public class Main extends Application{
     private static  ImageView backgroundImageView;
     private static Rectangle rect,rect2;
     private static  StackPane pane;
+    double xPos,yPos;
 
 
     public static void main(String args[]){
@@ -43,6 +44,7 @@ public class Main extends Application{
         window = primaryStage;
         window.setResizable(false);
         window.initStyle(StageStyle.TRANSPARENT);
+
 
         LABEL = new Label("Loading");
         button = new Button("Continue");
@@ -97,6 +99,8 @@ public class Main extends Application{
 
         scene1 = new Scene(pane,350,300);
         scene1.setFill(Color.TRANSPARENT);
+        dragWindow(scene1);
+
 
         Utilities util = new Utilities();
         util.getCss(scene1);
@@ -231,6 +235,21 @@ public class Main extends Application{
         fT2.setFromValue(0.0);
         fT2.setToValue(1.0);
         fT2.play();
+
+    }
+    public void dragWindow(Scene scene){
+
+        scene.setOnMousePressed(e -> {
+
+            this.xPos = window.getX() - e.getScreenX();
+            this.yPos = window.getY() - e.getScreenY();
+
+        });
+
+        scene.setOnMouseDragged(e -> {
+            window.setX(e.getScreenX() + this.xPos);
+            window.setY(e.getScreenY() + this.yPos);
+        });
 
     }
 
