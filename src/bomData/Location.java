@@ -8,6 +8,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
@@ -139,8 +144,22 @@ public class Location
 		return samples;
 	}
 	
-	public static WthrPastMonth getWthrLastMonth(Location location)
+	// Month in the format YYYYMM, 201603 would be March 2016
+	public WthrPastMonth getWthrLastMonth(String month) throws IOException
 	{
+		String htmlUrl = this.getHtmlUrl();
+		Document doc = Jsoup.connect(htmlUrl).get();
+		Elements links = doc.select("a");
+		for(Element link: links)
+		{
+			if (link.text().contains("Recent months")) 
+			{
+				System.out.println("DEBUG: " + link.text());
+				System.out.println("DEBUG:" + link.attr("href"));
+			}
+		}
+		
+		
 		WthrPastMonth samples = new WthrPastMonth();
 		
 		return samples;
