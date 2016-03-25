@@ -262,6 +262,7 @@
 
 
 #exit{
+    -fx-end-margin: 50px;
     -fx-min-width: 50px;
     -fx-min-height: 20px;
     -fx-background-radius: 5px;

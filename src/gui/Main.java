@@ -235,8 +235,8 @@ public class Main extends Application{
         fT2.setFromValue(0.0);
         fT2.setToValue(1.0);
         fT2.play();
-
     }
+
     public void dragWindow(Scene scene){
 
         scene.setOnMousePressed(e -> {

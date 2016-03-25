@@ -46,7 +46,7 @@ public class Utilities{
                 }
                 else{
                     this.cancel();
-                    System.out.println(window.getWidth());
+                    print(window.getWidth());
                     Home home = new Home();
                     home.fadeIn();
 
@@ -68,7 +68,8 @@ public class Utilities{
                 else{
 
                     this.cancel();
-                    System.out.println(window.getHeight());
+                    print(window.getHeight());
+
                 }
 
                 i+=2;
@@ -99,6 +100,10 @@ public class Utilities{
                 }
 
         }, 0, 17);
+    }
+
+    public void print(Object obj){
+        System.out.println(obj);
     }
 
    /* public Boolean passWordStrength(String pass){
