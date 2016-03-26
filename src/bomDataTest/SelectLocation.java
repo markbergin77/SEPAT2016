@@ -15,9 +15,7 @@ public class SelectLocation
 {
 	public static void main(String[] args) throws IOException 
 	{
-		FavouriteList favourites = FavouriteList.initialiseFavourites();
 		Location matched = findLocation();
-		Favourite.create(matched,favourites);
 		matched.getWthrLastMonth("201603");
 		//prints most recent observation.
 		System.out.println(matched.getName() + " selected.\nFirst weather sample:");
