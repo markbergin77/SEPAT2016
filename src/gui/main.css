@@ -284,6 +284,8 @@
     -fx-text-fill:#00B4CC;
 }
 
+
+
 .button-wait{
 
     -fx-min-width: 200px;
@@ -305,6 +307,47 @@
 
 }
 
+.tab-pane .tab{
+    -fx-border-radius: 5 5 0 0;
+    -fx-border-color: #00B4CC;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-radius: 5 5 0 0;
+    -fx-pref-height: 30px;
+    -fx-focus-color: transparent;
+}
+.tab-container{
+    -fx-border-color: transparent;
+}
+
+
+.tab-pane .tab-header-area {
+    -fx-padding: 5 0 0 15;
+}
+
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #00dffc;
+    -fx-font-weight: bold;
+    -fx-focus-color: transparent;
+
+}
+
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #00B4CC;
+    -fx-font-weight: bold;
+}
+
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color:transparent;
+
+
+}
 .button-wait-bright{
     -fx-min-width: 200px;
     -fx-min-height: 33px;
@@ -323,4 +366,47 @@
     -fx-font-size: 15px;
     -fx-effect: dropshadow(three-pass-box,#606060, 20, 0.3, 0, 0);
 }
+
+.list-view .cell {
+
+    -fx-min-width: 420px;
+    -fx-pref-height: 50px;
+    -fx-background-radius: 5px;
+    -fx-background-color: transparent;
+    -fx-text-fill: #00B4CC;
+
+}
+.list-view .cell:selected {
+
+    -fx-min-width: 420px;
+    -fx-pref-height: 50px;
+    -fx-background-radius: 5px;
+    -fx-background-color: transparent;
+    -fx-text-fill: #00dffc;
+
+}
+.list-view{
+    -fx-background-color: transparent;
+}
+
+.list-view .scroll-bar{
+    -fx-background-color: transparent;
+}
+
+.list-view .scroll-bar .thumb{
+ -fx-background-color: lightslategrey;
+    -fx-background-radius: 10px;
+    -fx-opacity: 0.2;
+
+}
+
+.list-view .scroll-bar .increment-button{
+    -fx-background-color: transparent;
+}
+
+.list-view .scroll-bar .decrement-button{
+    -fx-background-color: transparent;
+}
+
+
 

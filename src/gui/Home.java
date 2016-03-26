@@ -5,6 +5,8 @@ package gui;
  */
 
 import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -15,6 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.*;
 import javafx.util.Duration;
+
+import java.util.stream.IntStream;
 
 
 public class Home {
@@ -27,6 +31,7 @@ public class Home {
     private static ToolBar toolBar;
     private static Stage WINDOW;
     double xPos,yPos;
+    private static TabPane tabPane;
 
     public void display(Stage window){
 
@@ -189,6 +194,14 @@ public class Home {
         fT6.setDelay(Duration.millis(500));
         fT6.play();
 
+        FadeTransition fT7
+                = new FadeTransition(Duration.millis(1000), tabPane);
+        fT7.setFromValue(0.0);
+        fT7.setToValue(1.0);
+        fT7.setDelay(Duration.millis(500));
+        fT7.play();
+
+
 
     }
 
@@ -223,9 +236,9 @@ public class Home {
 
         StackPane pane = new StackPane();
 
-        VBox box = new VBox(0);
-        VBox box2 = new VBox(0);
-        VBox box3 = new VBox(0);
+        StackPane box = new StackPane();
+        StackPane box2 = new StackPane();
+        StackPane box3 = new StackPane();
 
         rect = new Rectangle(800,350);
         rect.setArcHeight(20);
@@ -259,6 +272,45 @@ public class Home {
 
         box3.getChildren().addAll(rect3);
         box3.setMaxSize(430,625);
+
+        tabPane = new TabPane();
+        tabPane.setMaxSize(420, 615);
+        tabPane.setOpacity(0);
+
+        Tab tab = new Tab();
+        tab.setText("All stations");
+        StackPane paneTab = new StackPane();
+        paneTab.setPrefSize(420,615);
+
+
+        ListView<String> list = new ListView<>();
+
+        ObservableList<String> items = FXCollections.observableArrayList(
+             "Melbourne","Melbourne","Melbourne","Melbourne","Melbourne","Melbourne","Melbourne","Melbourne","Melbourne",
+                "Melbourne","Melbourne","Melbourne","Melbourne","Melbourne","Melbourne");
+
+        list.setItems(items);
+        list.setPrefSize(420,615);
+
+        paneTab.getChildren().addAll(list);
+
+        tab.setContent(paneTab);
+
+        Tab tab2 = new Tab();
+        tab2.setText("Favourites");
+        StackPane paneTab2 = new StackPane();
+
+
+        tab.setClosable(false);
+        tab2.setClosable(false);
+
+        tabPane.getTabs().addAll(tab,tab2);
+        tabPane.setTabMinWidth(180);
+        tabPane.setTabMinHeight(35);
+
+        box3.getChildren().add(tabPane);
+        StackPane.setMargin(tabPane, new Insets(2, 0, 0, 0));
+
 
         rect.setId("rect");
         rect.applyCss();
