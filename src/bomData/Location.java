@@ -44,9 +44,9 @@ public class Location implements Serializable
 	}
 
 	//Function for filling Empty location with data (periods of 30 minutes up to 3 days)
-	public WthrPast72hr getWthrLast72hr()
+	public Wthr72hr getWthrLast72hr()
 	{
-		WthrPast72hr samples = new WthrPast72hr();
+		Wthr72hr samples = new Wthr72hr();
 		try {
 			JsonArray rootArray = new JsonParser().parse(new BufferedReader(
 					new InputStreamReader(new URL(jsonUrl).openStream())))
@@ -140,7 +140,7 @@ public class Location implements Serializable
 				else
 					windSpdKt = windSpdKtJson.getAsString();
 				//Add's location's observation data to vector
-				samples.add(new WthrSample72hr(localDateTime,  localDateTimeFull, apparentT, 
+				samples.add(new WthrSampleFine(localDateTime,  localDateTimeFull, apparentT, 
 						cloud, gustKmh, gustKt, airTemp, relHumidity, dewPt,
 						windDir, windSpdKmh, windSpdKt));
 			}
@@ -154,7 +154,7 @@ public class Location implements Serializable
 	}
 	
 	// Month in the format YYYYMM, 201603 would be March 2016
-	public WthrPastMonth getWthrLastMonth(String month) throws IOException
+	public WthrMonth getWthrLastMonth(String month) throws IOException
 	{
 		String url;
 		String csvUrl;
@@ -172,7 +172,7 @@ public class Location implements Serializable
 		}
 		
 		
-		WthrPastMonth samples = new WthrPastMonth();
+		WthrMonth samples = new WthrMonth();
 		
 		return samples;
 	}

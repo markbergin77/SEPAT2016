@@ -1,6 +1,6 @@
 package bomData;
 
-public class WthrSample72hr
+public class WthrSampleFine
 {
 	// Data types provided by BOM
 	private String localDateTime;
@@ -16,7 +16,7 @@ public class WthrSample72hr
 	private String windSpdKmh;
 	private String windSpdKt;
 
-	public WthrSample72hr(String localDateTime, String localDateTimeFull, String apparentT, String cloud,
+	public WthrSampleFine(String localDateTime, String localDateTimeFull, String apparentT, String cloud,
 			String gustKmh, String gustKt, String airTemp, String relHumidity, String dewPt, String windDir,
 			String windSpdKmh, String windSpdKt)
 	{

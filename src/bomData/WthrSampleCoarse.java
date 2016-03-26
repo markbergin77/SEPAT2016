@@ -1,6 +1,6 @@
 package bomData;
 
-public class WthrSampleMonthly
+public class WthrSampleCoarse
 {
 	private String date;
 	private String day;
@@ -25,7 +25,7 @@ public class WthrSampleMonthly
 	private String windSpd3pm;
 	private String meanSeaLevelPressure3pm;
 
-	public WthrSampleMonthly(String date, String day, String maxTemp, String minTemp, String rain, String evap,
+	public WthrSampleCoarse(String date, String day, String maxTemp, String minTemp, String rain, String evap,
 			String sun, String maxWindGustDir, String maxWindGustSpd, String maxWindGustTime, String temp9am,
 			String relHumidity9am, String cloud9am, String windDir9am, String windSpd9am,
 			String meanSeaLevelPressure9am, String temp3pm, String relHumidity3pm, String cloud3pm, String windDir3pm,

@@ -7,7 +7,7 @@ import java.util.Vector;
 
 import bomData.Location;
 import bomData.LocationList;
-import bomData.WthrSample72hr;
+import bomData.WthrSampleFine;
 import user.Favourite;
 import user.FavouriteList;
 
@@ -20,7 +20,7 @@ public class SelectLocation
 		//prints most recent observation.
 		System.out.println(matched.getName() + " selected.\nFirst weather sample:");
 		//Queries all the data regarding location
-		Vector<WthrSample72hr> samples = matched.getWthrLast72hr();
+		Vector<WthrSampleFine> samples = matched.getWthrLast72hr();
 		System.out.print(samples.get(0));
 	}
 	
