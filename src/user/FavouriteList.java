@@ -2,9 +2,7 @@ package user;
 
 import java.util.Vector;
 
-import bomData.Location;
-
-public class FavouriteList extends Vector<Location> {
+public class FavouriteList extends Vector<Favourite> {
 	
 	/**
 	 * 
@@ -12,7 +10,7 @@ public class FavouriteList extends Vector<Location> {
 	private static final long serialVersionUID = 4022414816209237935L;
 
 	//Initialize vector of favourites
-	public static FavouriteList initialiseFavourites()
+	public static FavouriteList create()
 	{
 		FavouriteList favourites = new FavouriteList();
 		return favourites;

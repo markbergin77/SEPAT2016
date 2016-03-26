@@ -39,4 +39,11 @@ public class Favourite implements Serializable
 		++timesViewed;
 		return loc;
 	}
+	
+	public String toString()
+	{
+		String output = "Favourite:\nLocation: ";
+		output += loc.getName();
+		return output;
+	}
 }
