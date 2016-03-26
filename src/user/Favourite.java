@@ -11,7 +11,8 @@ public class Favourite implements Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = -1526702373228578255L;
-	private int timesViewed;
+	// Integer is serializable
+	private Integer timesViewed;
 	Location loc;
 	
 	private Favourite(Location loc, int timesViewed) 
@@ -36,6 +37,6 @@ public class Favourite implements Serializable
 	public Location view()
 	{
 		++timesViewed;
-		return null;
+		return loc;
 	}
 }
