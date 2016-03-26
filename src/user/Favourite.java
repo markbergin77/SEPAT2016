@@ -1,17 +1,24 @@
 package user;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import bomData.Location;
 
-public class Favourite extends Location 
+public class Favourite implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1526702373228578255L;
 	private int timesViewed;
+	Location loc;
 	
-	public Favourite(String name, String jsonUrl, String htmlUrl, String state, int timesViewed) {
-		super(name, jsonUrl, htmlUrl, state);
+	private Favourite(Location loc, int timesViewed) 
+	{
+		this.loc = loc;
 		this.timesViewed = timesViewed; 
-	}	
+	}
 	
 	public int timesViewed()
 	{
@@ -19,22 +26,16 @@ public class Favourite extends Location
 	}
 	
 	//Add favorite to vector from initialized vector and matched location.
-	public static void addselectedFavourite(Location favouriteLocation, FavouriteList favouritesList) throws IOException
+	public static Favourite create(Location loc)
 	{
-		favouritesList.add(new Favourite(favouriteLocation.getName(), favouriteLocation.getJsonUrl(), favouriteLocation.getHtmlUrl(), 
-				favouriteLocation.getState(), 1));	
+		return new Favourite(loc, 0);	
 	}
+	
 	//Function for returning the favourite as a Location (to use in weather locations
 	//Remember to increment times Viewed by one
-	public Location checkWthrFavourite(Favourite matched )
+	public Location view()
 	{
+		++timesViewed;
 		return null;
-		
 	}
-	//Function for removing Favourite from vector
-	public void removeFavourite(Favourite matched)
-	{
-		
-	}
-
 }

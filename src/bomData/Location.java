@@ -20,8 +20,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
-public class Location 
+public class Location implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1012282224058744225L;
 	private String name;
 	private String jsonUrl;
 	private String htmlUrl;
@@ -34,6 +38,11 @@ public class Location
 		this.state = state;
 	}
 	
+	public Location(Location loc) 
+	{
+		// TODO Auto-generated constructor stub
+	}
+
 	//Function for filling Empty location with data (periods of 30 minutes up to 3 days)
 	public WthrPast72hr getWthrLast72hr()
 	{

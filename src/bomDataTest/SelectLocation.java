@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Vector;
 
-import bomData.Favourite;
-import bomData.FavouriteList;
 import bomData.Location;
 import bomData.LocationList;
 import bomData.WthrSample72hr;
+import user.Favourite;
+import user.FavouriteList;
 
 public class SelectLocation 
 {
@@ -17,7 +17,7 @@ public class SelectLocation
 	{
 		FavouriteList favourites = FavouriteList.initialiseFavourites();
 		Location matched = findLocation();
-		Favourite.addselectedFavourite(matched,favourites);
+		Favourite.create(matched,favourites);
 		matched.getWthrLastMonth("201603");
 		//prints most recent observation.
 		System.out.println(matched.getName() + " selected.\nFirst weather sample:");
