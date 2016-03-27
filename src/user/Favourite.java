@@ -32,6 +32,13 @@ public class Favourite implements Serializable
 		return new Favourite(loc, 0);	
 	}
 	
+	
+	public Location getLoc()
+	{
+		return loc;
+	}
+	
+	
 	//Function for returning the favourite as a Location (to use in weather locations
 	//Remember to increment times Viewed by one
 	public Location view()
