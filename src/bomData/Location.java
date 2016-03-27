@@ -25,7 +25,6 @@ public class Location implements Serializable
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1012282224058744225L;
 	private String name;
 	private String jsonUrl;
 	private String htmlUrl;

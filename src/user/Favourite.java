@@ -10,7 +10,6 @@ public class Favourite implements Serializable
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1526702373228578255L;
 	// Integer is serializable
 	private Integer timesViewed;
 	Location loc;
