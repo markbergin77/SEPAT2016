@@ -282,17 +282,20 @@ public class Home {
         StackPane paneTab = new StackPane();
         paneTab.setPrefSize(420,615);
 
+        ScrollPane scroll1 = new ScrollPane();
+        scroll1.setPrefSize(420,615);
+        scroll1.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        paneTab.getChildren().addAll(scroll1);
 
-        ListView<String> list = new ListView<>();
-
-        ObservableList<String> items = FXCollections.observableArrayList(
-             "Melbourne","Melbourne","Melbourne","Melbourne","Melbourne","Melbourne","Melbourne","Melbourne","Melbourne",
-                "Melbourne","Melbourne","Melbourne","Melbourne","Melbourne","Melbourne");
-
-        list.setItems(items);
-        list.setPrefSize(420,615);
-
-        paneTab.getChildren().addAll(list);
+        //--------------------------------------------------------------------------//
+        VBox content = new VBox(5);
+        scroll1.setContent(content);
+        for (int i = 0; i < 100; i++)
+        {
+            ListNode node = new ListNode();
+            content.getChildren().add(node);
+        }
+        //---------------------------------------------------------------------------//
 
         tab.setContent(paneTab);
 
@@ -312,6 +315,7 @@ public class Home {
         StackPane.setMargin(tabPane, new Insets(2, 0, 0, 0));
 
 
+
         rect.setId("rect");
         rect.applyCss();
 
@@ -328,17 +332,7 @@ public class Home {
         exit.setOnMouseEntered(e -> exit.setId("exit-h"));
         exit.setOnMouseExited(e -> exit.setId("exit"));
 
-        exit.setOnMousePressed(e ->
-          {
-              FadeTransition fadeTransition
-                    = new FadeTransition(Duration.millis(500),exit);
-              fadeTransition.setFromValue(0.5);
-              fadeTransition.setToValue(1.0);
-              fadeTransition.play();
-              fadeTransition.setOnFinished(ex -> {
-                 System.exit(1);
-              });
-           });
+        exit.setOnMousePressed(e ->  System.exit(1));
 
         toolBar = new ToolBar(exit);
         toolBar.setMaxSize(1350,35);

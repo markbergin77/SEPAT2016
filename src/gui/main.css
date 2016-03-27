@@ -336,7 +336,6 @@
 
 }
 
-
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: #00B4CC;
@@ -345,8 +344,10 @@
 
 .tab-pane > .tab-header-area > .tab-header-background {
     -fx-background-color:transparent;
+}
 
-
+.tab-pane{
+    -fx-effect: dropshadow(three-pass-box, black, 25, 0.25, 0, 0)
 }
 .button-wait-bright{
     -fx-min-width: 200px;
@@ -367,46 +368,33 @@
     -fx-effect: dropshadow(three-pass-box,#606060, 20, 0.3, 0, 0);
 }
 
-.list-view .cell {
-
-    -fx-min-width: 420px;
-    -fx-pref-height: 50px;
-    -fx-background-radius: 5px;
-    -fx-background-color: transparent;
-    -fx-text-fill: #00B4CC;
-
-}
-.list-view .cell:selected {
-
-    -fx-min-width: 420px;
-    -fx-pref-height: 50px;
-    -fx-background-radius: 5px;
-    -fx-background-color: transparent;
-    -fx-text-fill: #00dffc;
-
-}
-.list-view{
-    -fx-background-color: transparent;
-}
-
-.list-view .scroll-bar{
-    -fx-background-color: transparent;
-}
-
-.list-view .scroll-bar .thumb{
- -fx-background-color: lightslategrey;
+.scroll-pane{
+    -fx-background-color: #262626;
     -fx-background-radius: 10px;
+    -fx-background-insets: 45px 17px 0px 15px;
+    -fx-padding: 55px 17px 0px 25px;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar .thumb{
+
+    -fx-background-radius: 5px;
+    -fx-background-color: lightslategray;
     -fx-opacity: 0.2;
 
 }
+.scroll-bar{
+    -fx-background-color: transparent;
+    -fx-pref-height: 500px;
+}
+.scroll-bar .decrement-button{
 
-.list-view .scroll-bar .increment-button{
     -fx-background-color: transparent;
 }
+.scroll-bar .increment-button{
 
-.list-view .scroll-bar .decrement-button{
     -fx-background-color: transparent;
 }
-
-
-
