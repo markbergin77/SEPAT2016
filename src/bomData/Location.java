@@ -19,6 +19,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import com.opencsv.CSVReader;
 
 public class Location implements Serializable
 {
@@ -29,166 +30,218 @@ public class Location implements Serializable
 	private String jsonUrl;
 	private String htmlUrl;
 	private String state;
-	
-	public Location(String name, String jsonUrl, String htmlUrl, String state) {
+
+	public Location(String name, String jsonUrl, String htmlUrl, String state)
+	{
 		this.name = name;
 		this.jsonUrl = jsonUrl;
 		this.htmlUrl = htmlUrl;
 		this.state = state;
 	}
-	
-	public Location(Location loc) 
+
+	public Location(Location loc)
 	{
 		// TODO Auto-generated constructor stub
 	}
 
-	//Function for filling Empty location with data (periods of 30 minutes up to 3 days)
+	// Function for filling Empty location with data (periods of 30 minutes up
+	// to 3 days)
 	public Wthr72hr getWthrLast72hr()
 	{
 		Wthr72hr samples = new Wthr72hr();
-		try {
-			JsonArray rootArray = new JsonParser().parse(new BufferedReader(
-					new InputStreamReader(new URL(jsonUrl).openStream())))
-				.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("data");
-			for (JsonElement element: rootArray) 
+		try
+		{
+			JsonArray rootArray = new JsonParser()
+					.parse(new BufferedReader(new InputStreamReader(new URL(jsonUrl).openStream()))).getAsJsonObject()
+					.getAsJsonObject("observations").getAsJsonArray("data");
+			for (JsonElement element : rootArray)
 			{
-				//Grabs information through BOM's JSON Data 
+				// Grabs information through BOM's JSON Data
 				JsonObject reading = element.getAsJsonObject();
-				
+
 				String localDateTime;
 				JsonElement localDateTimeJson = reading.get("local_date_time");
 				if (localDateTimeJson.isJsonNull())
 					localDateTime = "-";
 				else
 					localDateTime = localDateTimeJson.getAsString();
-				
+
 				String localDateTimeFull;
 				JsonElement localDateTimeFullJson = reading.get("local_date_time_full");
 				if (localDateTimeFullJson.isJsonNull())
 					localDateTimeFull = "-";
 				else
 					localDateTimeFull = localDateTimeFullJson.getAsString();
-				
+
 				String apparentT;
 				JsonElement apparentTJson = reading.get("apparent_t");
 				if (apparentTJson.isJsonNull())
 					apparentT = "-";
 				else
 					apparentT = apparentTJson.getAsString();
-				
+
 				String cloud;
 				JsonElement cloudJson = reading.get("cloud");
 				if (cloudJson.isJsonNull())
 					cloud = "-";
 				else
-						cloud = cloudJson.getAsString();
-				
+					cloud = cloudJson.getAsString();
+
 				String gustKmh;
 				JsonElement gustKmhJson = reading.get("gust_kmh");
 				if (gustKmhJson.isJsonNull())
 					gustKmh = "-";
 				else
 					gustKmh = gustKmhJson.getAsString();
-				
+
 				String gustKt;
 				JsonElement gustKtJson = reading.get("gust_kt");
 				if (gustKtJson.isJsonNull())
 					gustKt = "-";
 				else
 					gustKt = gustKtJson.getAsString();
-				
+
 				String airTemp;
 				JsonElement airTempJson = reading.get("air_temp");
 				if (airTempJson.isJsonNull())
 					airTemp = "-";
 				else
 					airTemp = airTempJson.getAsString();
-				
+
 				String relHumidity;
 				JsonElement relHumidityJson = reading.get("rel_hum");
 				if (relHumidityJson.isJsonNull())
 					relHumidity = "-";
 				else
 					relHumidity = relHumidityJson.getAsString();
-				
+
 				String dewPt;
 				JsonElement dewPtJson = reading.get("dewpt");
 				if (dewPtJson.isJsonNull())
 					dewPt = "-";
 				else
 					dewPt = dewPtJson.getAsString();
-				
+
 				String windDir;
 				JsonElement windDirJson = reading.get("wind_dir");
 				if (windDirJson.isJsonNull())
 					windDir = "-";
 				else
 					windDir = windDirJson.getAsString();
-				
+
 				String windSpdKmh;
 				JsonElement windSpdKmhJson = reading.get("wind_spd_kmh");
 				if (windSpdKmhJson.isJsonNull())
 					windSpdKmh = "-";
 				else
 					windSpdKmh = windSpdKmhJson.getAsString();
-				
+
 				String windSpdKt;
 				JsonElement windSpdKtJson = reading.get("wind_spd_kt");
 				if (windSpdKtJson.isJsonNull())
 					windSpdKt = "-";
 				else
 					windSpdKt = windSpdKtJson.getAsString();
-				//Add's location's observation data to vector
-				samples.add(new WthrSampleFine(localDateTime,  localDateTimeFull, apparentT, 
-						cloud, gustKmh, gustKt, airTemp, relHumidity, dewPt,
-						windDir, windSpdKmh, windSpdKt));
+				// Add's location's observation data to vector
+				samples.add(new WthrSampleFine(localDateTime, localDateTimeFull, apparentT, cloud, gustKmh, gustKt,
+						airTemp, relHumidity, dewPt, windDir, windSpdKmh, windSpdKt));
 			}
 		}
 		// TODO
-		catch (JsonIOException e) {}
-		catch (JsonSyntaxException e) {}
-		catch (MalformedURLException e) {}
-		catch (IOException e) {}
+		catch (JsonIOException e)
+		{
+		} catch (JsonSyntaxException e)
+		{
+		} catch (MalformedURLException e)
+		{
+		} catch (IOException e)
+		{
+		}
 		return samples;
 	}
-	
+
 	// Month in the format YYYYMM, 201603 would be March 2016
 	public WthrMonth getWthrLastMonth(String month) throws IOException
 	{
+		WthrMonth samples = new WthrMonth();
+		int numLinesToSkip;
 		String url;
 		String csvUrl;
+		String[] nextLine;
 		String htmlUrl = this.getHtmlUrl();
 		Document doc = Jsoup.connect(htmlUrl).get();
 		Elements links = doc.select("a");
-		for(Element link: links)
+		for (Element link : links)
 		{
-			if (link.text().contains("Recent months")) 
+			if (link.text().contains("Recent months"))
 			{
+				nextLine = null;
 				url = link.attr("href");
-				csvUrl = "http://www.bom.gov.au" + url.replace("dwo/", "dwo/" + month + "/text/").replace("latest.shtml", month + ".csv");
-				System.out.println("DEBUG: " + csvUrl);
+				csvUrl = "http://www.bom.gov.au"
+						+ url.replace("dwo/", "dwo/" + month + "/text/").replace("latest.shtml", month + ".csv");
+				BufferedReader csvStream = new BufferedReader(new InputStreamReader(new URL(csvUrl).openStream()));
+				CSVReader csvReader = new CSVReader(csvStream);
+				numLinesToSkip = 8;
+				// Unusual decrement, I think it makes more sense, since it
+				// actually skips 8 lines
+				// If I check for 0, numLinesToSkip would have to be 7
+				while ((nextLine = csvReader.readNext()) != null && numLinesToSkip != 1)
+				{
+					numLinesToSkip--;
+				}
+				while ((nextLine = csvReader.readNext()) != null)
+				{
+					String date = nextLine[1];
+					String minTemp = nextLine[2];
+					String maxTemp = nextLine[3];
+					String rain = nextLine[4];
+					String evap = nextLine[5];
+					String sun = nextLine[6];
+					String maxWindGustDir = nextLine[7];
+					String maxWindGustSpd = nextLine[8];
+					String maxWindGustTime = nextLine[9];
+					String temp9am = nextLine[10];
+					String relHumidity9am = nextLine[11];
+					String cloud9am = nextLine[12];
+					String windDir9am = nextLine[13];
+					String windSpd9am = nextLine[14];
+					String meanSeaLevelPressure9am = nextLine[15];
+					String temp3pm = nextLine[16];
+					String relHumidity3pm = nextLine[17];
+					String cloud3pm = nextLine[18];
+					String windDir3pm = nextLine[19];
+					String windSpd3pm = nextLine[20];
+					String meanSeaLevelPressure3pm = nextLine[21];
+
+					samples.add(new WthrSampleCoarse(date, minTemp, maxTemp, rain, evap, sun, maxWindGustDir, maxWindGustSpd,
+							maxWindGustTime, temp9am, relHumidity9am, cloud9am, windDir9am, windSpd9am,
+							meanSeaLevelPressure9am, temp3pm, relHumidity3pm, cloud3pm, windDir3pm, windSpd3pm,
+							meanSeaLevelPressure3pm));
+				}
 			}
 		}
-		
-		
-		WthrMonth samples = new WthrMonth();
-		
+
+
 		return samples;
 	}
-	
-	public String getName() {
+
+	public String getName()
+	{
 		return name;
 	}
-	
-	public String getJsonUrl() {
+
+	public String getJsonUrl()
+	{
 		return jsonUrl;
 	}
-	
-	public String getHtmlUrl() {
+
+	public String getHtmlUrl()
+	{
 		return htmlUrl;
 	}
-	
-	public String getState() {
+
+	public String getState()
+	{
 		return state;
 	}
 }

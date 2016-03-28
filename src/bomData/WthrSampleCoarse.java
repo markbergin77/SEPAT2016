@@ -3,9 +3,8 @@ package bomData;
 public class WthrSampleCoarse
 {
 	private String date;
-	private String day;
-	private String maxTemp;
 	private String minTemp;
+	private String maxTemp;
 	private String rain;
 	private String evap;
 	private String sun;
@@ -25,16 +24,15 @@ public class WthrSampleCoarse
 	private String windSpd3pm;
 	private String meanSeaLevelPressure3pm;
 
-	public WthrSampleCoarse(String date, String day, String maxTemp, String minTemp, String rain, String evap,
+	public WthrSampleCoarse(String date, String minTemp, String maxTemp, String rain, String evap,
 			String sun, String maxWindGustDir, String maxWindGustSpd, String maxWindGustTime, String temp9am,
 			String relHumidity9am, String cloud9am, String windDir9am, String windSpd9am,
 			String meanSeaLevelPressure9am, String temp3pm, String relHumidity3pm, String cloud3pm, String windDir3pm,
 			String windSpd3pm, String meanSeaLevelPressure3pm)
 	{
 		this.date = date;
-		this.day = day;
-		this.maxTemp = maxTemp;
 		this.minTemp = minTemp;
+		this.maxTemp = maxTemp;
 		this.rain = rain;
 		this.evap = evap;
 		this.sun = sun;
@@ -63,16 +61,6 @@ public class WthrSampleCoarse
 	public void setDate(String date)
 	{
 		this.date = date;
-	}
-
-	public String getDay()
-	{
-		return day;
-	}
-
-	public void setDay(String day)
-	{
-		this.day = day;
 	}
 
 	public String getMaxTemp()

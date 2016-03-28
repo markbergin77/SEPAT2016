@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import bomData.Location;
 import bomData.LocationList;
+import bomData.WthrSampleCoarse;
 import bomData.WthrSampleFine;
 import user.Favourite;
 import user.FavouriteList;
@@ -16,7 +17,8 @@ public class SelectLocation
 	public static void main(String[] args) throws IOException 
 	{
 		Location matched = findLocation();
-		matched.getWthrLastMonth("201603");
+		// Example usage of getWthrLastMonth(date)
+		// Vector<WthrSampleCoarse> coarseSamples = matched.getWthrLastMonth("201603");
 		//prints most recent observation.
 		System.out.println(matched.getName() + " selected.\nFirst weather sample:");
 		//Queries all the data regarding location
