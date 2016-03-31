@@ -5,20 +5,22 @@ package gui;
  */
 
 import javafx.animation.FadeTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.*;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.*;
 import javafx.util.Duration;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import java.util.stream.IntStream;
 
 
 public class Home {
@@ -32,6 +34,7 @@ public class Home {
     private static Stage WINDOW;
     double xPos,yPos;
     private static TabPane tabPane;
+    private static LineChart<Number,Number> lineChart;
 
     public void display(Stage window){
 
@@ -201,6 +204,13 @@ public class Home {
         fT7.setDelay(Duration.millis(500));
         fT7.play();
 
+        FadeTransition fT8
+                = new FadeTransition(Duration.millis(1000), lineChart);
+        fT8.setFromValue(0.0);
+        fT8.setToValue(1.0);
+        fT8.setDelay(Duration.millis(500));
+        fT8.play();
+
 
 
     }
@@ -264,14 +274,20 @@ public class Home {
         rect3.setFill(Color.rgb(38, 38, 38));
         rect3.setStrokeWidth(2);
 
-        box.getChildren().addAll(rect);
+        lineChart = getChart();
+        lineChart.setMaxSize(750,300);
+        lineChart.setOpacity(0);
+
+        box.getChildren().addAll(rect,lineChart);
         box.setMaxSize(800,350);
+        StackPane.setAlignment(lineChart,Pos.CENTER);
 
         box2.getChildren().addAll(rect2);
         box2.setMaxSize(800,250);
 
         box3.getChildren().addAll(rect3);
-        box3.setMaxSize(430,625);
+        box3.setMaxSize(430,635);
+
 
         tabPane = new TabPane();
         tabPane.setMaxSize(420, 615);
@@ -285,7 +301,15 @@ public class Home {
         ScrollPane scroll1 = new ScrollPane();
         scroll1.setPrefSize(420,615);
         scroll1.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        paneTab.getChildren().addAll(scroll1);
+
+        TextField searchBar = new TextField();
+
+        searchBar.setMaxSize(180,25);
+        searchBar.setPromptText("Search stations");
+        searchBar.setOpacity(0.9);
+
+        paneTab.getChildren().addAll(scroll1, searchBar);
+        StackPane.setMargin(searchBar, new Insets(0,210,540,0));
 
         //--------------------------------------------------------------------------//
         VBox content = new VBox(5);
@@ -295,6 +319,7 @@ public class Home {
             ListNode node = new ListNode();
             content.getChildren().add(node);
         }
+        content.setPadding(new Insets(0,0,10,0));
         //---------------------------------------------------------------------------//
 
         tab.setContent(paneTab);
@@ -302,7 +327,6 @@ public class Home {
         Tab tab2 = new Tab();
         tab2.setText("Favourites");
         StackPane paneTab2 = new StackPane();
-
 
         tab.setClosable(false);
         tab2.setClosable(false);
@@ -313,8 +337,7 @@ public class Home {
 
         box3.getChildren().add(tabPane);
         StackPane.setMargin(tabPane, new Insets(2, 0, 0, 0));
-
-
+        box3.setPadding(new Insets(0,0,0,0));
 
         rect.setId("rect");
         rect.applyCss();
@@ -334,7 +357,37 @@ public class Home {
 
         exit.setOnMousePressed(e ->  System.exit(1));
 
+        searchBar.setOnKeyPressed(e -> {
+
+            if (searchBar.getWidth() < 181) {
+                Timer timer = new Timer();
+                timer.scheduleAtFixedRate(new TimerTask() {
+                    int i = 0;
+                    double count = 0;
+
+                    @Override
+                    public void run() {
+
+
+                        if (i < 300) {
+                            searchBar.setMaxWidth(searchBar.getWidth() + 4);
+                            StackPane.setMargin(searchBar, new Insets(0, 210 - count, 540, 0));
+
+                        } else {
+                            this.cancel();
+
+                        }
+                        i += 2;
+                        count += 0.78;
+
+                    }
+                }, 0, 3);
+            }
+
+        });
+
         toolBar = new ToolBar(exit);
+
         toolBar.setMaxSize(1350,35);
         toolBar.setOpacity(0);
 
@@ -462,7 +515,38 @@ public class Home {
         return null;
     }
 
+public LineChart<Number,Number> getChart(){
 
+    final NumberAxis xAxis = new NumberAxis();
+    final NumberAxis yAxis = new NumberAxis();
+    //creating the chart
+    final LineChart<Number,Number> lineChart =
+            new LineChart<Number,Number>(xAxis,yAxis);
+
+
+    //defining a series
+    XYChart.Series series = new XYChart.Series();
+    //populating the series with data
+
+    series.getData().add(new XYChart.Data(1, 23));
+    series.getData().add(new XYChart.Data(2, 14));
+    series.getData().add(new XYChart.Data(3, 15));
+    series.getData().add(new XYChart.Data(4, 24));
+    series.getData().add(new XYChart.Data(5, 34));
+    series.getData().add(new XYChart.Data(6, 36));
+    series.getData().add(new XYChart.Data(7, 22));
+    series.getData().add(new XYChart.Data(8, 45));
+    series.getData().add(new XYChart.Data(9, 43));
+    series.getData().add(new XYChart.Data(10, 17));
+    series.getData().add(new XYChart.Data(11, 29));
+    series.getData().add(new XYChart.Data(12, 25));
+    series.getData().add(new XYChart.Data(12, 50));
+
+
+    lineChart.getData().add(series);
+
+    return lineChart;
+}
 
 
 }

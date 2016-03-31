@@ -31,7 +31,7 @@ public class Utilities{
     }
     public void resizeWindowIncrease(Stage window, int x , int y, int timeX, int timeY){
 
-        Timer timer = new Timer(); //find explanation
+        Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             int i = 0;
             @Override
@@ -80,7 +80,7 @@ public class Utilities{
     }
     public void resizeWindowDecrease(Stage window, int x , int y){
 
-        Timer timer = new Timer(); //find explanation
+        Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
