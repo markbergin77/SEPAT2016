@@ -28,13 +28,13 @@ public class Home {
     private static Button BUTTON, BUTTON2,exitButton,minimize;
     private static Scene SCENE1;
     private static StackPane stackPane;
-    private static Rectangle rect,rect2,rect3 ,screenSize;
+    private static Rectangle plotRect,tableRect,explorerRect ,screenSize;
     private static TextField text;
     private static ToolBar toolBar;
     private static Stage WINDOW;
     double xPos,yPos;
-    private static TabPane tabPane;
-    private static LineChart<Number,Number> lineChart;
+    private static TabPane explorerTabsPane;
+    private static LineChart<Number,Number> weatherPlot;
 
     public void display(Stage window){
 
@@ -152,6 +152,11 @@ public class Home {
         WINDOW.setTitle("Home");
         WINDOW.setScene(SCENE1);
     }
+    
+    StackPane createExplorerPane()
+    {
+    	return null;
+    }
 
     public void fadeIn(){
         FadeTransition fT1
@@ -162,7 +167,7 @@ public class Home {
         fT1.play();
 
         FadeTransition fT2
-                = new FadeTransition(Duration.millis(1000), rect);
+                = new FadeTransition(Duration.millis(1000), plotRect);
         fT2.setFromValue(0.0);
         fT2.setToValue(1.0);
         fT2.setDelay(Duration.millis(500));
@@ -177,14 +182,14 @@ public class Home {
 
 
         FadeTransition fT4
-                = new FadeTransition(Duration.millis(1000), rect2);
+                = new FadeTransition(Duration.millis(1000), tableRect);
         fT4.setFromValue(0.0);
         fT4.setToValue(1.0);
         fT4.setDelay(Duration.millis(500));
         fT4.play();
 
               FadeTransition fT5
-                = new FadeTransition(Duration.millis(1000), rect3);
+                = new FadeTransition(Duration.millis(1000), explorerRect);
         fT5.setFromValue(0.0);
         fT5.setToValue(1.0);
         fT5.setDelay(Duration.millis(500));
@@ -198,14 +203,14 @@ public class Home {
         fT6.play();
 
         FadeTransition fT7
-                = new FadeTransition(Duration.millis(1000), tabPane);
+                = new FadeTransition(Duration.millis(1000), explorerTabsPane);
         fT7.setFromValue(0.0);
         fT7.setToValue(1.0);
         fT7.setDelay(Duration.millis(500));
         fT7.play();
 
         FadeTransition fT8
-                = new FadeTransition(Duration.millis(1000), lineChart);
+                = new FadeTransition(Duration.millis(1000), weatherPlot);
         fT8.setFromValue(0.0);
         fT8.setToValue(1.0);
         fT8.setDelay(Duration.millis(500));
@@ -245,53 +250,58 @@ public class Home {
     public Scene setSceneLarge(){
 
         StackPane pane = new StackPane();
+        // Create Plot
+        StackPane plotPane = new StackPane();
+        plotRect = new Rectangle(800,350);
+        //rect.setArcHeight(20);
+        //rect.setArcWidth(20);
+        plotRect.setOpacity(0);
+        plotRect.setStroke(Color.LIGHTSLATEGRAY);
+        plotRect.setFill(Color.rgb(38,38,38));
+        plotRect.setStrokeWidth(2);
+        plotPane.getChildren().addAll(plotRect,weatherPlot);
+        plotPane.setMaxSize(800,350);
+        StackPane.setAlignment(weatherPlot,Pos.CENTER);
+        
+        
+        
+        StackPane tablePane = new StackPane();
+        StackPane explorerPane = new StackPane();
 
-        StackPane box = new StackPane();
-        StackPane box2 = new StackPane();
-        StackPane box3 = new StackPane();
+        
 
-        rect = new Rectangle(800,350);
-        rect.setArcHeight(20);
-        rect.setArcWidth(20);
-        rect.setOpacity(0);
-        rect.setStroke(Color.LIGHTSLATEGRAY);
-        rect.setFill(Color.rgb(38,38,38));
-        rect.setStrokeWidth(2);
+        tableRect = new Rectangle(800,250);
+        //rect2.setArcHeight(20);
+        //rect2.setArcWidth(20);
+        tableRect.setOpacity(0);
+        tableRect.setStroke(Color.LIGHTSLATEGRAY);
+        tableRect.setFill(Color.rgb(38,38,38));
+        tableRect.setStrokeWidth(2);
 
-        rect2 = new Rectangle(800,250);
-        rect2.setArcHeight(20);
-        rect2.setArcWidth(20);
-        rect2.setOpacity(0);
-        rect2.setStroke(Color.LIGHTSLATEGRAY);
-        rect2.setFill(Color.rgb(38,38,38));
-        rect2.setStrokeWidth(2);
+        explorerRect = new Rectangle(430,625);
+        //rect3.setArcHeight(20);
+        //rect3.setArcWidth(20);
+        explorerRect.setOpacity(0);
+        explorerRect.setStroke(Color.LIGHTSLATEGRAY);
+        explorerRect.setFill(Color.rgb(38, 38, 38));
+        explorerRect.setStrokeWidth(2);
 
-        rect3 = new Rectangle(430,625);
-        rect3.setArcHeight(20);
-        rect3.setArcWidth(20);
-        rect3.setOpacity(0);
-        rect3.setStroke(Color.LIGHTSLATEGRAY);
-        rect3.setFill(Color.rgb(38, 38, 38));
-        rect3.setStrokeWidth(2);
+        weatherPlot = getChart();
+        weatherPlot.setMaxSize(750,300);
+        weatherPlot.setOpacity(0);
 
-        lineChart = getChart();
-        lineChart.setMaxSize(750,300);
-        lineChart.setOpacity(0);
+        
 
-        box.getChildren().addAll(rect,lineChart);
-        box.setMaxSize(800,350);
-        StackPane.setAlignment(lineChart,Pos.CENTER);
+        tablePane.getChildren().addAll(tableRect);
+        tablePane.setMaxSize(800,250);
 
-        box2.getChildren().addAll(rect2);
-        box2.setMaxSize(800,250);
-
-        box3.getChildren().addAll(rect3);
-        box3.setMaxSize(430,635);
+        explorerPane.getChildren().addAll(explorerRect);
+        explorerPane.setMaxSize(430,635);
 
      
-        tabPane = new TabPane();
-        tabPane.setMaxSize(420, 615);
-        tabPane.setOpacity(0);
+        explorerTabsPane = new TabPane();
+        explorerTabsPane.setMaxSize(420, 615);
+        explorerTabsPane.setOpacity(0);
 
         Tab allStationsTab = new Tab();
         allStationsTab.setText("All stations");
@@ -325,29 +335,29 @@ public class Home {
 
         allStationsTab.setContent(allStationsPane);
 
-        Tab tab2 = new Tab();
-        tab2.setText("Favourites");
+        Tab favsTab = new Tab();
+        favsTab.setText("Favourites");
         StackPane paneTab2 = new StackPane();
 
         allStationsTab.setClosable(false);
-        tab2.setClosable(false);
+        favsTab.setClosable(false);
 
-        tabPane.getTabs().addAll(allStationsTab,tab2);
-        tabPane.setTabMinWidth(180);
-        tabPane.setTabMinHeight(35);
+        explorerTabsPane.getTabs().addAll(allStationsTab,favsTab);
+        explorerTabsPane.setTabMinWidth(180);
+        explorerTabsPane.setTabMinHeight(35);
 
-        box3.getChildren().add(tabPane);
-        StackPane.setMargin(tabPane, new Insets(2, 0, 0, 0));
-        box3.setPadding(new Insets(0,0,0,0));
+        explorerPane.getChildren().add(explorerTabsPane);
+        StackPane.setMargin(explorerTabsPane, new Insets(2, 0, 0, 0));
+        explorerPane.setPadding(new Insets(0,0,0,0));
 
-        rect.setId("rect");
-        rect.applyCss();
+        plotRect.setId("rect");
+        plotRect.applyCss();
 
-        rect2.setId("rect2");
-        rect2.applyCss();
+        tableRect.setId("rect2");
+        tableRect.applyCss();
 
-        rect3.setId("rect3");
-        rect3.applyCss();
+        explorerRect.setId("rect3");
+        explorerRect.applyCss();
 
         exitButton = new Button("X");
         exitButton.setId("exit");
@@ -395,13 +405,13 @@ public class Home {
         dragWindow(pane);
         dragWindow2(toolBar);
 
-        StackPane.setMargin(box,new Insets(0,0,245,450));
-        StackPane.setMargin(box2,new Insets(400,0,0,450));
-        StackPane.setMargin(box3,new Insets(30,830,0,0));
+        StackPane.setMargin(plotPane,new Insets(0,0,245,450));
+        StackPane.setMargin(tablePane,new Insets(400,0,0,450));
+        StackPane.setMargin(explorerPane,new Insets(30,830,0,0));
         StackPane.setAlignment(toolBar, Pos.TOP_CENTER);
 
         pane.setAlignment(Pos.CENTER);
-        pane.getChildren().addAll(toolBar,box,box2,box3);
+        pane.getChildren().addAll(toolBar,plotPane,tablePane,explorerPane);
 
         Scene scene = new Scene(pane,1340,790);
         scene.setFill(Color.TRANSPARENT);
@@ -420,47 +430,47 @@ public class Home {
         VBox box2 = new VBox(0);
         VBox box3 = new VBox(0);
 
-        rect = new Rectangle(700,300);
-        rect.setArcHeight(20);
-        rect.setArcWidth(20);
-        rect.setOpacity(0);
-        rect.setStroke(Color.LIGHTSLATEGRAY);
-        rect.setFill(Color.rgb(38,38,38));
-        rect.setStrokeWidth(2);
+        plotRect = new Rectangle(700,300);
+        plotRect.setArcHeight(20);
+        plotRect.setArcWidth(20);
+        plotRect.setOpacity(0);
+        plotRect.setStroke(Color.LIGHTSLATEGRAY);
+        plotRect.setFill(Color.rgb(38,38,38));
+        plotRect.setStrokeWidth(2);
 
-        rect2 = new Rectangle(700,200);
-        rect2.setArcHeight(20);
-        rect2.setArcWidth(20);
-        rect2.setOpacity(0);
-        rect2.setStroke(Color.LIGHTSLATEGRAY);
-        rect2.setFill(Color.rgb(38,38,38));
-        rect2.setStrokeWidth(2);
+        tableRect = new Rectangle(700,200);
+        tableRect.setArcHeight(20);
+        tableRect.setArcWidth(20);
+        tableRect.setOpacity(0);
+        tableRect.setStroke(Color.LIGHTSLATEGRAY);
+        tableRect.setFill(Color.rgb(38,38,38));
+        tableRect.setStrokeWidth(2);
 
-        rect3 = new Rectangle(350,540);
-        rect3.setArcHeight(20);
-        rect3.setArcWidth(20);
-        rect3.setOpacity(0);
-        rect3.setStroke(Color.LIGHTSLATEGRAY);
-        rect3.setFill(Color.rgb(38, 38, 38));
-        rect3.setStrokeWidth(2);
+        explorerRect = new Rectangle(350,540);
+        explorerRect.setArcHeight(20);
+        explorerRect.setArcWidth(20);
+        explorerRect.setOpacity(0);
+        explorerRect.setStroke(Color.LIGHTSLATEGRAY);
+        explorerRect.setFill(Color.rgb(38, 38, 38));
+        explorerRect.setStrokeWidth(2);
 
-        box.getChildren().addAll(rect);
+        box.getChildren().addAll(plotRect);
         box.setMaxSize(700,300);
 
-        box2.getChildren().addAll(rect2);
+        box2.getChildren().addAll(tableRect);
         box2.setMaxSize(700,200);
 
-        box3.getChildren().addAll(rect3);
+        box3.getChildren().addAll(explorerRect);
         box3.setMaxSize(350,540);
 
-        rect.setId("rect");
-        rect.applyCss();
+        plotRect.setId("rect");
+        plotRect.applyCss();
 
-        rect2.setId("rect2");
-        rect2.applyCss();
+        tableRect.setId("rect2");
+        tableRect.applyCss();
 
-        rect3.setId("rect3");
-        rect3.applyCss();
+        explorerRect.setId("rect3");
+        explorerRect.applyCss();
 
         exitButton = new Button("X");
         exitButton.setId("exit");
