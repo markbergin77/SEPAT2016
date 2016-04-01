@@ -9,8 +9,8 @@ import bomData.Location;
 import bomData.LocationList;
 import bomData.WthrSampleCoarse;
 import bomData.WthrSampleFine;
-import user.Favourite;
-import user.FavouriteList;
+import bomWeatherUser.Favourite;
+import bomWeatherUser.FavouriteList;
 
 public class SelectLocation 
 {

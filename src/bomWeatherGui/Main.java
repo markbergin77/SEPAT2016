@@ -1,4 +1,4 @@
-package gui;
+package bomWeatherGui;
 
 /**
  * Created by Pavel Nikolaev on 12/03/2016.

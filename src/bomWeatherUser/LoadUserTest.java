@@ -1,4 +1,4 @@
-package user;
+package bomWeatherUser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

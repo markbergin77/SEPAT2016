@@ -1,4 +1,4 @@
-package gui;
+package bomWeatherGui;
 
 
 import javafx.scene.Parent;
