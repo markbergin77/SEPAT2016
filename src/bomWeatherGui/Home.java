@@ -25,7 +25,7 @@ import java.util.TimerTask;
 
 public class Home {
 
-    private static Button BUTTON, BUTTON2,exit,minimize;
+    private static Button BUTTON, BUTTON2,exitButton,minimize;
     private static Scene SCENE1;
     private static StackPane stackPane;
     private static Rectangle rect,rect2,rect3 ,screenSize;
@@ -288,7 +288,7 @@ public class Home {
         box3.getChildren().addAll(rect3);
         box3.setMaxSize(430,635);
 
-
+     
         tabPane = new TabPane();
         tabPane.setMaxSize(420, 615);
         tabPane.setOpacity(0);
@@ -298,9 +298,9 @@ public class Home {
         StackPane allStationsPane = new StackPane();
         allStationsPane.setPrefSize(420,615);
 
-        ScrollPane stationScroll = new ScrollPane();
-        stationScroll.setPrefSize(420,615);
-        stationScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        ScrollPane stationsScroll = new ScrollPane();
+        stationsScroll.setPrefSize(420,615);
+        stationsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         TextField searchBar = new TextField();
 
@@ -308,12 +308,13 @@ public class Home {
         searchBar.setPromptText("Search stations");
         searchBar.setOpacity(0.9);
 
-        allStationsPane.getChildren().addAll(stationScroll, searchBar);
+        allStationsPane.getChildren().addAll(stationsScroll, searchBar);
         StackPane.setMargin(searchBar, new Insets(0,210,540,0));
 
+        // Extract this into a method called addStationButton
         //--------------------------------------------------------------------------//
         VBox content = new VBox(5);
-        stationScroll.setContent(content);
+        stationsScroll.setContent(content);
         for (int i = 0; i < 100; i++)
         {
             ListNode node = new ListNode();
@@ -348,14 +349,14 @@ public class Home {
         rect3.setId("rect3");
         rect3.applyCss();
 
-        exit = new Button("X");
-        exit.setId("exit");
-        exit.setMaxSize(50,25);
+        exitButton = new Button("X");
+        exitButton.setId("exit");
+        exitButton.setMaxSize(50,25);
 
-        exit.setOnMouseEntered(e -> exit.setId("exit-h"));
-        exit.setOnMouseExited(e -> exit.setId("exit"));
+        exitButton.setOnMouseEntered(e -> exitButton.setId("exit-h"));
+        exitButton.setOnMouseExited(e -> exitButton.setId("exit"));
 
-        exit.setOnMousePressed(e ->  System.exit(1));
+        exitButton.setOnMousePressed(e ->  System.exit(1));
 
         searchBar.setOnKeyPressed(e -> {
 
@@ -386,7 +387,7 @@ public class Home {
 
         });
 
-        toolBar = new ToolBar(exit);
+        toolBar = new ToolBar(exitButton);
 
         toolBar.setMaxSize(1350,35);
         toolBar.setOpacity(0);
@@ -461,17 +462,17 @@ public class Home {
         rect3.setId("rect3");
         rect3.applyCss();
 
-        exit = new Button("X");
-        exit.setId("exit");
-        exit.setMaxSize(50,25);
+        exitButton = new Button("X");
+        exitButton.setId("exit");
+        exitButton.setMaxSize(50,25);
 
-        exit.setOnMouseEntered(e -> exit.setId("exit-h"));
-        exit.setOnMouseExited(e -> exit.setId("exit"));
+        exitButton.setOnMouseEntered(e -> exitButton.setId("exit-h"));
+        exitButton.setOnMouseExited(e -> exitButton.setId("exit"));
 
-        exit.setOnMousePressed(e ->
+        exitButton.setOnMousePressed(e ->
         {
             FadeTransition fadeTransition
-                    = new FadeTransition(Duration.millis(500),exit);
+                    = new FadeTransition(Duration.millis(500),exitButton);
             fadeTransition.setFromValue(0.5);
             fadeTransition.setToValue(1.0);
             fadeTransition.play();
@@ -480,7 +481,7 @@ public class Home {
             });
         });
 
-        toolBar = new ToolBar(exit);
+        toolBar = new ToolBar(exitButton);
         toolBar.setMaxSize(1350,35);
         toolBar.setOpacity(0);
 

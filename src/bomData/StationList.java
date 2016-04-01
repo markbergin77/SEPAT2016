@@ -9,29 +9,29 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class LocationList extends Vector<Location>
+public class StationList extends Vector<Station>
 {
 
-	public LocationList()
+	public StationList()
 	{
 
 	}
 
-	public static LocationList getAllFromServer() throws IOException
+	public static StationList getAllFromServer() throws IOException
 	{
 		// RMIT Proxy Settings
 		// System.setProperty("http.proxyHost", "aproxy.rmit.edu.au");
 		// System.setProperty("http.proxyPort", "8080");
 
 		// Grabbing states (includes antarctic region)
-		LocationList locations = new LocationList();
+		StationList stations = new StationList();
 		String[] states =
 		{ "vic", "nsw", "tas", "wa", "sa", "nt", "qld", "ant" };
 		String url;
 		String htmlUrl;
 		String jsonUrl;
 		String name;
-		// Connects to BOM (Url's based on states), observation location through
+		// Connects to BOM (Url's based on states), observation station through
 		// HTML Table links
 		for (String state : states)
 		{
@@ -52,26 +52,26 @@ public class LocationList extends Vector<Location>
 					{
 						name = name.substring(0, name.length() - 1);
 					}
-					// Returns location of Observations
-					locations.add(new Location(name, jsonUrl, htmlUrl, state));
+					// Returns station of Observations
+					stations.add(new Station(name, jsonUrl, htmlUrl, state));
 				}
 			}
 		}
-		return locations;
+		return stations;
 	}
 
-	public LocationList fuzzySearch(String key)
+	public StationList fuzzySearch(String key)
 	{
-		LocationList locationsMatching = new LocationList();
+		StationList stationsMatching = new StationList();
 		for (int i = 0; i < size(); ++i)
 		{
-			Location iLoc = this.get(i);
+			Station iLoc = this.get(i);
 			if (iLoc.getName().toLowerCase().contains(key.toLowerCase()))
 			{
-				locationsMatching.add(iLoc);
+				stationsMatching.add(iLoc);
 			}
 		}
-		return locationsMatching;
+		return stationsMatching;
 	}
 
 }

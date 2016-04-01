@@ -21,7 +21,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.opencsv.CSVReader;
 
-public class Location implements Serializable
+public class Station implements Serializable
 {
 	/**
 	 * 
@@ -31,7 +31,7 @@ public class Location implements Serializable
 	private String htmlUrl;
 	private String state;
 
-	public Location(String name, String jsonUrl, String htmlUrl, String state)
+	public Station(String name, String jsonUrl, String htmlUrl, String state)
 	{
 		this.name = name;
 		this.jsonUrl = jsonUrl;
@@ -39,12 +39,12 @@ public class Location implements Serializable
 		this.state = state;
 	}
 
-	public Location(Location loc)
+	public Station(Station loc)
 	{
 		// TODO Auto-generated constructor stub
 	}
 
-	// Function for filling Empty location with data (periods of 30 minutes up
+	// Function for filling Empty Station with data (periods of 30 minutes up
 	// to 3 days)
 	public Wthr72hr getWthrLast72hr()
 	{
@@ -142,7 +142,7 @@ public class Location implements Serializable
 					windSpdKt = "-";
 				else
 					windSpdKt = windSpdKtJson.getAsString();
-				// Add's location's observation data to vector
+				// Add's Station's observation data to vector
 				samples.add(new WthrSampleFine(localDateTime, localDateTimeFull, apparentT, cloud, gustKmh, gustKt,
 						airTemp, relHumidity, dewPt, windDir, windSpdKmh, windSpdKt));
 			}

@@ -3,7 +3,7 @@ package bomWeatherUser;
 import java.io.IOException;
 import java.io.Serializable;
 
-import bomData.Location;
+import bomData.Station;
 
 public class Favourite implements Serializable
 {
@@ -12,9 +12,9 @@ public class Favourite implements Serializable
 	 */
 	// Integer is serializable
 	private Integer timesViewed;
-	Location loc;
+	Station loc;
 	
-	private Favourite(Location loc, int timesViewed) 
+	private Favourite(Station loc, int timesViewed) 
 	{
 		this.loc = loc;
 		this.timesViewed = timesViewed; 
@@ -25,22 +25,22 @@ public class Favourite implements Serializable
 		return timesViewed;
 	}
 	
-	//Add favorite to vector from initialized vector and matched location.
-	public static Favourite create(Location loc)
+	//Add favorite to vector from initialized vector and matched station.
+	public static Favourite create(Station loc)
 	{
 		return new Favourite(loc, 0);	
 	}
 	
 	
-	public Location getLoc()
+	public Station getLoc()
 	{
 		return loc;
 	}
 	
 	
-	//Function for returning the favourite as a Location (to use in weather locations
+	//Function for returning the favourite as a station (to use in weather stations
 	//Remember to increment times Viewed by one
-	public Location view()
+	public Station view()
 	{
 		++timesViewed;
 		return loc;
@@ -48,7 +48,7 @@ public class Favourite implements Serializable
 	
 	public String toString()
 	{
-		String output = "Favourite:\nLocation: ";
+		String output = "Favourite:\nstation: ";
 		output += loc.getName();
 		return output;
 	}

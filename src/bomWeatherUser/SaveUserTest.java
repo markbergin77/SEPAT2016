@@ -2,16 +2,16 @@ package bomWeatherUser;
 
 import java.io.IOException;
 
-import bomData.LocationList;
+import bomData.StationList;
 
 public class SaveUserTest 
 {
 	public static void main(String args[]) 
 	{
 		try {
-			LocationList locations = LocationList.getAllFromServer();
+			StationList stations = StationList.getAllFromServer();
 			User user = User.create();
-			user.getFaves().add(Favourite.create(locations.get(0)));
+			user.getFaves().add(Favourite.create(stations.get(0)));
 			user.saveUser("data/user");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
