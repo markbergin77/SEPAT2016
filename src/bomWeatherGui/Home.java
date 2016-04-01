@@ -293,14 +293,14 @@ public class Home {
         tabPane.setMaxSize(420, 615);
         tabPane.setOpacity(0);
 
-        Tab tab = new Tab();
-        tab.setText("All stations");
-        StackPane paneTab = new StackPane();
-        paneTab.setPrefSize(420,615);
+        Tab allStationsTab = new Tab();
+        allStationsTab.setText("All stations");
+        StackPane allStationsPane = new StackPane();
+        allStationsPane.setPrefSize(420,615);
 
-        ScrollPane scroll1 = new ScrollPane();
-        scroll1.setPrefSize(420,615);
-        scroll1.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        ScrollPane stationScroll = new ScrollPane();
+        stationScroll.setPrefSize(420,615);
+        stationScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         TextField searchBar = new TextField();
 
@@ -308,12 +308,12 @@ public class Home {
         searchBar.setPromptText("Search stations");
         searchBar.setOpacity(0.9);
 
-        paneTab.getChildren().addAll(scroll1, searchBar);
+        allStationsPane.getChildren().addAll(stationScroll, searchBar);
         StackPane.setMargin(searchBar, new Insets(0,210,540,0));
 
         //--------------------------------------------------------------------------//
         VBox content = new VBox(5);
-        scroll1.setContent(content);
+        stationScroll.setContent(content);
         for (int i = 0; i < 100; i++)
         {
             ListNode node = new ListNode();
@@ -322,16 +322,16 @@ public class Home {
         content.setPadding(new Insets(0,0,10,0));
         //---------------------------------------------------------------------------//
 
-        tab.setContent(paneTab);
+        allStationsTab.setContent(allStationsPane);
 
         Tab tab2 = new Tab();
         tab2.setText("Favourites");
         StackPane paneTab2 = new StackPane();
 
-        tab.setClosable(false);
+        allStationsTab.setClosable(false);
         tab2.setClosable(false);
 
-        tabPane.getTabs().addAll(tab,tab2);
+        tabPane.getTabs().addAll(allStationsTab,tab2);
         tabPane.setTabMinWidth(180);
         tabPane.setTabMinHeight(35);
 
