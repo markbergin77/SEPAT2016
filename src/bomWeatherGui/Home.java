@@ -253,6 +253,9 @@ public class Home {
         // Create Plot
         StackPane plotPane = new StackPane();
         plotRect = new Rectangle(800,350);
+        weatherPlot = getChart();
+        weatherPlot.setMaxSize(750,300);
+        weatherPlot.setOpacity(0);
         //rect.setArcHeight(20);
         //rect.setArcWidth(20);
         plotRect.setOpacity(0);
@@ -286,10 +289,7 @@ public class Home {
         explorerRect.setFill(Color.rgb(38, 38, 38));
         explorerRect.setStrokeWidth(2);
 
-        weatherPlot = getChart();
-        weatherPlot.setMaxSize(750,300);
-        weatherPlot.setOpacity(0);
-
+        
         
 
         tablePane.getChildren().addAll(tableRect);
