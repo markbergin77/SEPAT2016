@@ -47,7 +47,7 @@ public class Utilities{
                 else{
                     this.cancel();
                     print(window.getWidth());
-                    Home home = new Home();
+                    HomeScreen home = new HomeScreen();
                     home.fadeIn();
 
                 }

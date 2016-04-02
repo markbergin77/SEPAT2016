@@ -23,7 +23,7 @@ import java.util.TimerTask;
 
 
 
-public class Home {
+public class HomeScreen {
 
     private static Button BUTTON, BUTTON2,exitButton,minimize;
     private static Scene SCENE1;
@@ -247,9 +247,9 @@ public class Home {
 
     }
 
-    public Scene setSceneLarge(){
-
-        StackPane pane = new StackPane();
+    public Scene setSceneLarge()
+    {
+        StackPane rootPane = new StackPane();
         // Create Plot
         StackPane plotPane = new StackPane();
         plotRect = new Rectangle(800,350);
@@ -267,9 +267,9 @@ public class Home {
         StackPane.setAlignment(weatherPlot,Pos.CENTER);
         
         
-        
+        // Create table
         StackPane tablePane = new StackPane();
-        StackPane explorerPane = new StackPane();
+        
 
         
 
@@ -281,13 +281,6 @@ public class Home {
         tableRect.setFill(Color.rgb(38,38,38));
         tableRect.setStrokeWidth(2);
 
-        explorerRect = new Rectangle(430,625);
-        //rect3.setArcHeight(20);
-        //rect3.setArcWidth(20);
-        explorerRect.setOpacity(0);
-        explorerRect.setStroke(Color.LIGHTSLATEGRAY);
-        explorerRect.setFill(Color.rgb(38, 38, 38));
-        explorerRect.setStrokeWidth(2);
 
         
         
@@ -295,10 +288,17 @@ public class Home {
         tablePane.getChildren().addAll(tableRect);
         tablePane.setMaxSize(800,250);
 
+        StackPane explorerPane = new StackPane();
+        explorerRect = new Rectangle(430,625);
+        //rect3.setArcHeight(20);
+        //rect3.setArcWidth(20);
+        explorerRect.setOpacity(0);
+        explorerRect.setStroke(Color.LIGHTSLATEGRAY);
+        explorerRect.setFill(Color.rgb(38, 38, 38));
+        explorerRect.setStrokeWidth(2);
         explorerPane.getChildren().addAll(explorerRect);
         explorerPane.setMaxSize(430,635);
 
-     
         explorerTabsPane = new TabPane();
         explorerTabsPane.setMaxSize(420, 615);
         explorerTabsPane.setOpacity(0);
@@ -402,7 +402,7 @@ public class Home {
         toolBar.setMaxSize(1350,35);
         toolBar.setOpacity(0);
 
-        dragWindow(pane);
+        dragWindow(rootPane);
         dragWindow2(toolBar);
 
         StackPane.setMargin(plotPane,new Insets(0,0,245,450));
@@ -410,10 +410,10 @@ public class Home {
         StackPane.setMargin(explorerPane,new Insets(30,830,0,0));
         StackPane.setAlignment(toolBar, Pos.TOP_CENTER);
 
-        pane.setAlignment(Pos.CENTER);
-        pane.getChildren().addAll(toolBar,plotPane,tablePane,explorerPane);
+        rootPane.setAlignment(Pos.CENTER);
+        rootPane.getChildren().addAll(toolBar,plotPane,tablePane,explorerPane);
 
-        Scene scene = new Scene(pane,1340,790);
+        Scene scene = new Scene(rootPane,1340,790);
         scene.setFill(Color.TRANSPARENT);
 
         Utilities util = new Utilities();

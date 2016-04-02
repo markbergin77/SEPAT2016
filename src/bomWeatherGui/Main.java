@@ -145,7 +145,7 @@ public class Main extends Application{
         fT5.setToValue(0.0);
         fT5.setOnFinished(e -> {
 
-            Home home = new Home();
+            HomeScreen home = new HomeScreen();
             home.display(window);
 
         });
