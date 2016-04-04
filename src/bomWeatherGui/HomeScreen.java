@@ -67,7 +67,7 @@ public class HomeScreen {
         switch(switchCase){
 
             case 1:SCENE1 = setSceneLarge();
-                util.resizeWindowIncrease(WINDOW,800,400,2,4);
+                util.resizeWindowIncrease(WINDOW,1340,790,2,4);
                 break;
 
             case 2: SCENE1 = setSceneMedHigh();
@@ -148,6 +148,9 @@ public class HomeScreen {
        // BUTTON.setOpacity(0);
        // BUTTON2.setOpacity(0);
 
+        util.print(SCENE1.getWidth());
+        WindowResizeListener resizer = new WindowResizeListener(SCENE1);
+        resizer.setResizeListener();
 
         WINDOW.setTitle("Home");
         WINDOW.setScene(SCENE1);
@@ -222,6 +225,7 @@ public class HomeScreen {
 
     public void dragWindow(StackPane pane){
 
+
         pane.setOnMousePressed(e -> {
             this.xPos = WINDOW.getX() - e.getScreenX();
             this.yPos = WINDOW.getY() - e.getScreenY();
@@ -256,8 +260,8 @@ public class HomeScreen {
         weatherPlot = getChart();
         weatherPlot.setMaxSize(750,300);
         weatherPlot.setOpacity(0);
-        //rect.setArcHeight(20);
-        //rect.setArcWidth(20);
+        plotRect.setArcHeight(20);
+        plotRect.setArcWidth(20);
         plotRect.setOpacity(0);
         plotRect.setStroke(Color.LIGHTSLATEGRAY);
         plotRect.setFill(Color.rgb(38,38,38));
@@ -265,33 +269,27 @@ public class HomeScreen {
         plotPane.getChildren().addAll(plotRect,weatherPlot);
         plotPane.setMaxSize(800,350);
         StackPane.setAlignment(weatherPlot,Pos.CENTER);
-        
-        
+
         // Create table
         StackPane tablePane = new StackPane();
         
 
-        
 
         tableRect = new Rectangle(800,250);
-        //rect2.setArcHeight(20);
-        //rect2.setArcWidth(20);
+        tableRect.setArcHeight(20);
+        tableRect.setArcWidth(20);
         tableRect.setOpacity(0);
         tableRect.setStroke(Color.LIGHTSLATEGRAY);
         tableRect.setFill(Color.rgb(38,38,38));
         tableRect.setStrokeWidth(2);
-
-
-        
-        
 
         tablePane.getChildren().addAll(tableRect);
         tablePane.setMaxSize(800,250);
 
         StackPane explorerPane = new StackPane();
         explorerRect = new Rectangle(430,625);
-        //rect3.setArcHeight(20);
-        //rect3.setArcWidth(20);
+        explorerRect.setArcHeight(20);
+        explorerRect.setArcWidth(20);
         explorerRect.setOpacity(0);
         explorerRect.setStroke(Color.LIGHTSLATEGRAY);
         explorerRect.setFill(Color.rgb(38, 38, 38));
@@ -321,7 +319,7 @@ public class HomeScreen {
         allStationsPane.getChildren().addAll(stationsScroll, searchBar);
         StackPane.setMargin(searchBar, new Insets(0,210,540,0));
 
-        // Extract this into a method called addStationButton
+        // Extract this into a method called addStationButtons
         //--------------------------------------------------------------------------//
         VBox content = new VBox(5);
         stationsScroll.setContent(content);
@@ -526,7 +524,19 @@ public class HomeScreen {
         return null;
     }
 
-public LineChart<Number,Number> getChart(){
+    public TableView getTable(){
+
+
+
+
+
+
+        return null;
+    }
+
+    public LineChart<Number,Number> getChart(){
+
+    // should be getting data from other classes
 
     final NumberAxis xAxis = new NumberAxis();
     final NumberAxis yAxis = new NumberAxis();
@@ -558,6 +568,5 @@ public LineChart<Number,Number> getChart(){
 
     return lineChart;
 }
-
 
 }

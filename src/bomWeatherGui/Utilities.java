@@ -29,6 +29,7 @@ public class Utilities{
         }
 
     }
+
     public void resizeWindowIncrease(Stage window, int x , int y, int timeX, int timeY){
 
         Timer timer = new Timer();
@@ -38,7 +39,7 @@ public class Utilities{
             public void run() {
 
 
-                if(i < x){
+                if(window.getWidth() < x){
                     window.setWidth(window.getWidth() + 2.5);
                     window.setX(window.getX()-1.0);
 
@@ -61,7 +62,7 @@ public class Utilities{
             @Override
             public void run() {
 
-                if(i < y) {
+                if(window.getHeight() < y) {
                     window.setHeight(window.getHeight() + 2.5);
                     window.setY(window.getY()-0.3);
                 }
@@ -78,6 +79,7 @@ public class Utilities{
         },0, timeY);
 
     }
+
     public void resizeWindowDecrease(Stage window, int x , int y){
 
         Timer timer = new Timer();
@@ -105,36 +107,5 @@ public class Utilities{
     public void print(Object obj){
         System.out.println(obj);
     }
-
-   /* public Boolean passWordStrength(String pass){
-        boolean  check = pass.matches("[a-zA-Z0-9]*");
-
-        if (check == false){
-            Alert.displayAlert("Error","Please make sure your password only contains letters and numbers");
-            return false;
-        }
-        else if (pass.length() < 8){
-            Alert.displayAlert("Error","make sure password is longer than 8 characters");
-            return false;
-        }
-        else{
-            return true;
-        }
-
-    }
-
-    public Boolean strCmp(String str1, String str2){
-
-        if(!str1.equals(str2)){
-            Alert.displayAlert("Error","make sure passwords match");
-            return false;
-        }
-        else{
-            return true;
-        }
-
-    }*/
-
-
 
 }

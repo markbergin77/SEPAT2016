@@ -25,22 +25,22 @@ public class WeatherPlot extends LineChart<Number, Number>
 
 
 	    //defining a series
-	    XYChart.Series series = new XYChart.Series();
+	    Series series = new Series();
 	    //populating the series with data
 
-	    series.getData().add(new XYChart.Data(1, 23));
-	    series.getData().add(new XYChart.Data(2, 14));
-	    series.getData().add(new XYChart.Data(3, 15));
-	    series.getData().add(new XYChart.Data(4, 24));
-	    series.getData().add(new XYChart.Data(5, 34));
-	    series.getData().add(new XYChart.Data(6, 36));
-	    series.getData().add(new XYChart.Data(7, 22));
-	    series.getData().add(new XYChart.Data(8, 45));
-	    series.getData().add(new XYChart.Data(9, 43));
-	    series.getData().add(new XYChart.Data(10, 17));
-	    series.getData().add(new XYChart.Data(11, 29));
-	    series.getData().add(new XYChart.Data(12, 25));
-	    series.getData().add(new XYChart.Data(12, 50));
+	    series.getData().add(new Data(1, 23));
+	    series.getData().add(new Data(2, 14));
+	    series.getData().add(new Data(3, 15));
+	    series.getData().add(new Data(4, 24));
+	    series.getData().add(new Data(5, 34));
+	    series.getData().add(new Data(6, 36));
+	    series.getData().add(new Data(7, 22));
+	    series.getData().add(new Data(8, 45));
+	    series.getData().add(new Data(9, 43));
+	    series.getData().add(new Data(10, 17));
+	    series.getData().add(new Data(11, 29));
+	    series.getData().add(new Data(12, 25));
+	    series.getData().add(new Data(12, 50));
 
 
 	    plotOut.getData().add(series);

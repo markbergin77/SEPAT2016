@@ -223,7 +223,6 @@ public class Main extends Application{
         scaleTransition1.setAutoReverse(true);
         scaleTransition1.play();
 
-
     }
 
     public void oncomplete(){
