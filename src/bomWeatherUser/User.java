@@ -15,7 +15,7 @@ public class User
 	{
 		faves = FavouriteList.create();
 	}
-	
+	//File writing details
 	private User(String pathToFile) throws FileNotFoundException
 	{
 		try 
@@ -58,7 +58,7 @@ public class User
 	{
 		return new User(pathToFile);
 	}
-	
+	//Saves user to file
 	public void saveUser(String path)
 	{
 		FileOutputStream fos;

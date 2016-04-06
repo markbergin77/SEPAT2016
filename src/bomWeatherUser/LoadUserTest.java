@@ -7,6 +7,8 @@ public class LoadUserTest
 {
 	public static void main(String args[]) 
 	{
+		//Class test program. Loading the already stored user,
+		//Includes sorting test, can be moved to anywhere.
 		try {
 			User u = User.loadUser("data/user");
 			System.out.println(u.getFaves().get(0).toString());

@@ -8,6 +8,7 @@ public class SaveUserTest
 {
 	public static void main(String args[]) 
 	{
+		//Class test program. Saving the user details (Just favourites, User can be expanded upon at any date)
 		try {
 			StationList stations = StationList.getAllFromServer();
 			User user = User.create();
