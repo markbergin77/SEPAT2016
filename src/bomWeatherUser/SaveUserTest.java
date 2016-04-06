@@ -12,6 +12,7 @@ public class SaveUserTest
 			StationList stations = StationList.getAllFromServer();
 			User user = User.create();
 			user.getFaves().add(Favourite.create(stations.get(0)));
+			user.getFaves().add(Favourite.create(stations.get(3)));
 			user.saveUser("data/user");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

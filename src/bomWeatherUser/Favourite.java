@@ -52,4 +52,7 @@ public class Favourite implements Serializable
 		output += loc.getName();
 		return output;
 	}
+	
+	
+		
 }
