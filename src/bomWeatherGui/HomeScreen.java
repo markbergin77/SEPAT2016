@@ -148,7 +148,7 @@ public class HomeScreen {
        // BUTTON.setOpacity(0);
        // BUTTON2.setOpacity(0);
 
-        util.print(SCENE1.getWidth());
+
         WindowResizeListener resizer = new WindowResizeListener(SCENE1);
         resizer.setResizeListener();
 

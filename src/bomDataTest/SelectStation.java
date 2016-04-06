@@ -33,6 +33,12 @@ public class SelectStation
 		boolean stationFound = false;
 		//Grabbing BOM stations/stations
 	    StationList stations = StationList.getAllFromServer();
+	    
+	    // Rad's testing code
+//	    for (Station station: stations) {
+//	    	station.getWthrLastMonth("201603");
+//	    }
+	    
 	    //User inputs station, searches for match
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));					
 		System.out.println("Enter a search word:");

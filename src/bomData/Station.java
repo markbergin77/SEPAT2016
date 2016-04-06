@@ -1,6 +1,7 @@
 package bomData;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -164,7 +165,6 @@ public class Station implements Serializable
 	public WthrMonth getWthrLastMonth(String month) throws IOException
 	{
 		WthrMonth samples = new WthrMonth();
-		int numLinesToSkip;
 		String url;
 		String csvUrl;
 		String[] nextLine;
@@ -179,44 +179,50 @@ public class Station implements Serializable
 				url = link.attr("href");
 				csvUrl = "http://www.bom.gov.au"
 						+ url.replace("dwo/", "dwo/" + month + "/text/").replace("latest.shtml", month + ".csv");
-				BufferedReader csvStream = new BufferedReader(new InputStreamReader(new URL(csvUrl).openStream()));
-				CSVReader csvReader = new CSVReader(csvStream);
-				numLinesToSkip = 8;
-				// Unusual decrement, I think it makes more sense, since it
-				// actually skips 8 lines
-				// If I check for 0, numLinesToSkip would have to be 7
-				while ((nextLine = csvReader.readNext()) != null && numLinesToSkip != 1)
+				
+				// Testing code
+				System.out.println(this.getName() + " " + csvUrl);
+				
+				try  (BufferedReader csvStream = new BufferedReader(new InputStreamReader(new URL(csvUrl).openStream())))
 				{
-					numLinesToSkip--;
-				}
-				while ((nextLine = csvReader.readNext()) != null)
-				{
-					String date = nextLine[1];
-					String minTemp = nextLine[2];
-					String maxTemp = nextLine[3];
-					String rain = nextLine[4];
-					String evap = nextLine[5];
-					String sun = nextLine[6];
-					String maxWindGustDir = nextLine[7];
-					String maxWindGustSpd = nextLine[8];
-					String maxWindGustTime = nextLine[9];
-					String temp9am = nextLine[10];
-					String relHumidity9am = nextLine[11];
-					String cloud9am = nextLine[12];
-					String windDir9am = nextLine[13];
-					String windSpd9am = nextLine[14];
-					String meanSeaLevelPressure9am = nextLine[15];
-					String temp3pm = nextLine[16];
-					String relHumidity3pm = nextLine[17];
-					String cloud3pm = nextLine[18];
-					String windDir3pm = nextLine[19];
-					String windSpd3pm = nextLine[20];
-					String meanSeaLevelPressure3pm = nextLine[21];
+					CSVReader csvReader = new CSVReader(csvStream);
+					while ((nextLine = csvReader.readNext()) != null)
+					{
+						// The csv files are irregular, don't know how many lines to skip
+						if (nextLine.length != 22) {
+							continue;
+						}
+						String date = nextLine[1];
+						String minTemp = nextLine[2];
+						String maxTemp = nextLine[3];
+						String rain = nextLine[4];
+						String evap = nextLine[5];
+						String sun = nextLine[6];
+						String maxWindGustDir = nextLine[7];
+						String maxWindGustSpd = nextLine[8];
+						String maxWindGustTime = nextLine[9];
+						String temp9am = nextLine[10];
+						String relHumidity9am = nextLine[11];
+						String cloud9am = nextLine[12];
+						String windDir9am = nextLine[13];
+						String windSpd9am = nextLine[14];
+						String meanSeaLevelPressure9am = nextLine[15];
+						String temp3pm = nextLine[16];
+						String relHumidity3pm = nextLine[17];
+						String cloud3pm = nextLine[18];
+						String windDir3pm = nextLine[19];
+						String windSpd3pm = nextLine[20];
+						String meanSeaLevelPressure3pm = nextLine[21];
 
-					samples.add(new WthrSampleCoarse(date, minTemp, maxTemp, rain, evap, sun, maxWindGustDir, maxWindGustSpd,
-							maxWindGustTime, temp9am, relHumidity9am, cloud9am, windDir9am, windSpd9am,
-							meanSeaLevelPressure9am, temp3pm, relHumidity3pm, cloud3pm, windDir3pm, windSpd3pm,
-							meanSeaLevelPressure3pm));
+						samples.add(new WthrSampleCoarse(date, minTemp, maxTemp, rain, evap, sun, maxWindGustDir, maxWindGustSpd,
+								maxWindGustTime, temp9am, relHumidity9am, cloud9am, windDir9am, windSpd9am,
+								meanSeaLevelPressure9am, temp3pm, relHumidity3pm, cloud3pm, windDir3pm, windSpd3pm,
+								meanSeaLevelPressure3pm));
+					}
+					csvReader.close();
+				}
+				catch(FileNotFoundException e) {
+					System.out.println("FILE NOT FOUND");
 				}
 			}
 		}
@@ -224,6 +230,7 @@ public class Station implements Serializable
 
 		return samples;
 	}
+
 
 	public String getName()
 	{
