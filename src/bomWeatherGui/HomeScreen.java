@@ -422,11 +422,11 @@ public class HomeScreen {
 
     public Scene setSceneMedHigh(){
 
-        StackPane pane = new StackPane();
+        StackPane rootPane = new StackPane();
 
-        VBox box = new VBox(0);
-        VBox box2 = new VBox(0);
-        VBox box3 = new VBox(0);
+        VBox plotBox = new VBox(0);
+        VBox tableBox = new VBox(0);
+        VBox explorerBox = new VBox(0);
 
         plotRect = new Rectangle(700,300);
         plotRect.setArcHeight(20);
@@ -452,14 +452,14 @@ public class HomeScreen {
         explorerRect.setFill(Color.rgb(38, 38, 38));
         explorerRect.setStrokeWidth(2);
 
-        box.getChildren().addAll(plotRect);
-        box.setMaxSize(700,300);
+        plotBox.getChildren().addAll(plotRect);
+        plotBox.setMaxSize(700,300);
 
-        box2.getChildren().addAll(tableRect);
-        box2.setMaxSize(700,200);
+        tableBox.getChildren().addAll(tableRect);
+        tableBox.setMaxSize(700,200);
 
-        box3.getChildren().addAll(explorerRect);
-        box3.setMaxSize(350,540);
+        explorerBox.getChildren().addAll(explorerRect);
+        explorerBox.setMaxSize(350,540);
 
         plotRect.setId("rect");
         plotRect.applyCss();
@@ -493,18 +493,18 @@ public class HomeScreen {
         toolBar.setMaxSize(1350,35);
         toolBar.setOpacity(0);
 
-        dragWindow(pane);
+        dragWindow(rootPane);
         dragWindow2(toolBar);
 
-        StackPane.setMargin(box,new Insets(0,0,210,390));
-        StackPane.setMargin(box2,new Insets(370,0,0,390));
-        StackPane.setMargin(box3,new Insets(30,730,0,0));
+        StackPane.setMargin(plotBox,new Insets(0,0,210,390));
+        StackPane.setMargin(tableBox,new Insets(370,0,0,390));
+        StackPane.setMargin(explorerBox,new Insets(30,730,0,0));
         StackPane.setAlignment(toolBar, Pos.TOP_CENTER);
 
-        pane.setAlignment(Pos.CENTER);
-        pane.getChildren().addAll(toolBar,box,box2,box3);
+        rootPane.setAlignment(Pos.CENTER);
+        rootPane.getChildren().addAll(toolBar,plotBox,tableBox,explorerBox);
 
-        Scene scene = new Scene(pane,1340,790);
+        Scene scene = new Scene(rootPane,1340,790);
         scene.setFill(Color.TRANSPARENT);
 
         Utilities util = new Utilities();

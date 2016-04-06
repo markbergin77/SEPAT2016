@@ -32,15 +32,14 @@ public class Main extends Application{
     double xPos,yPos;
 
 
-    public static void main(String args[]){
-
+    public static void main(String args[])
+    {
         launch(args);
-
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-
+    public void start(Stage primaryStage) throws Exception 
+    {
         window = primaryStage;
         window.setResizable(false);
         window.initStyle(StageStyle.TRANSPARENT);
