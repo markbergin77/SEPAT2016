@@ -12,6 +12,7 @@ import bomData.LoadingNotifier;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -29,7 +30,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
-public class LoadingSplashScreen implements LoadingNotifier
+public class SplashScreen implements LoadingNotifier
 {
 	Scene scene;
 	StackPane rootPane;
@@ -39,7 +40,7 @@ public class LoadingSplashScreen implements LoadingNotifier
 	Rectangle ldBarEffect;
 	ImageView backgroundImageView;
 	
-	Duration fadeInDuration = Duration.millis(2000);
+	Duration fadeInDuration = Duration.millis(1000);
 
 	Object loadingUpdateCallback;
 	Object callOnFinished;
@@ -50,7 +51,7 @@ public class LoadingSplashScreen implements LoadingNotifier
 		return scene;
 	}
 
-	public LoadingSplashScreen() {
+	public SplashScreen() {
 		rootPane = new StackPane();
 
 		Rectangle clipRect = new Rectangle(350, 300);
@@ -61,6 +62,9 @@ public class LoadingSplashScreen implements LoadingNotifier
 		progressBar = new ProgressBar();
 		loadingLabel = new Label("Loading");
 		loadingActivity = new Label("Vic");
+		
+		loadingLabel.setId("loadingLabel");
+		loadingActivity.setId("loadingActivity");
 		
 		addFadeIn(progressBar, fadeInDuration);
 		addFadeIn(loadingLabel, fadeInDuration);
@@ -87,7 +91,7 @@ public class LoadingSplashScreen implements LoadingNotifier
 
 		try 
 		{
-			URL url = this.getClass().getResource("main.css");
+			URL url = this.getClass().getResource("splash.css");
 			if (url == null) 
 			{
 				Alert.displayAlert("Error", "Could not load resource: main.css");
@@ -202,7 +206,11 @@ public class LoadingSplashScreen implements LoadingNotifier
 	@Override
 	public void onLoadingUpdate(String activity, String latest) 
 	{
-				
+		Platform.runLater(new Runnable() {
+			  @Override public void run() {
+				    loadingActivity.setText(activity);                       
+				  }
+				});
 	}
 
 }

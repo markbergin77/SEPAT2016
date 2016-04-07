@@ -155,11 +155,15 @@
     -fx-effect: dropshadow(one-pass-box,silver , 20, 0.01%, 0, 0);
 
 }
+
+
+
+
+
 .label{
     -fx-text-fill:#00dffc;
     -fx-font-size: 15px;
     -fx-effect: dropshadow(three-pass-box, black, 15, 0.5, 0, 0);
-
 }
 
 .label-hover{
