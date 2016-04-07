@@ -1,6 +1,6 @@
 package bomWeatherGui;
 
-public class FavouritesExplorer 
+public class FavouritesList 
 {
 
 }
