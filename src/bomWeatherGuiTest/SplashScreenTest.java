@@ -41,7 +41,7 @@ public class SplashScreenTest extends Application
         // after calling .show()
         window.setOnShowing(e -> 
         {
-        	splash.fadeIn();
+        	splash.begin();
         });
         
         window.show();
@@ -52,8 +52,14 @@ public class SplashScreenTest extends Application
         			return locs;
         		}
         };
-        getStationsTask.setOnSucceeded(e -> splash.fadeOut());
+        splash.setOnFinished(e -> System.exit(0));
+        getStationsTask.setOnSucceeded(e -> splash.finish());
         new Thread(getStationsTask).start();
+	}
+	
+	public void transSplashToHome()
+	{
+		
 	}
 
 }

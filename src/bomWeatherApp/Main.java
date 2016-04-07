@@ -29,7 +29,7 @@ public class Main extends Application
         // after calling .show()
         window.setOnShowing(e -> 
         {
-        	splash.fadeIn();
+        	splash.begin();
         });
         
         window.show();

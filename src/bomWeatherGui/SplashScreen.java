@@ -8,7 +8,7 @@ import javax.swing.GroupLayout.Alignment;
 
 import org.w3c.dom.css.Rect;
 
-import bomData.LoadingNotifier;
+import bomData.LoadingUpdate;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
@@ -30,7 +30,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
-public class SplashScreen implements LoadingNotifier
+public class SplashScreen implements LoadingUpdate
 {
 	Scene scene;
 	StackPane rootPane;
@@ -41,17 +41,21 @@ public class SplashScreen implements LoadingNotifier
 	ImageView backgroundImageView;
 	
 	Duration fadeInDuration = Duration.millis(1000);
+	Duration fadeOutDuration = Duration.millis(1000);
 
 	Object loadingUpdateCallback;
-	Object callOnFinished;
+	EventHandler<ActionEvent> onFinished;
 
-	Vector<Animation> fadeIns = new Vector<Animation>();
+	Vector<FadeTransition> fadeIns = new Vector<FadeTransition>();
+	Vector<FadeTransition> fadeOuts = new Vector<FadeTransition>();
 
-	public Scene getScene() {
+	public Scene getScene() 
+	{
 		return scene;
 	}
 
-	public SplashScreen() {
+	public SplashScreen() 
+	{
 		rootPane = new StackPane();
 
 		Rectangle clipRect = new Rectangle(350, 300);
@@ -59,6 +63,11 @@ public class SplashScreen implements LoadingNotifier
 		clipRect.setArcWidth(20.0);
 		rootPane.setClip(clipRect);
 
+		backgroundImageView = 
+				new ImageView(getClass().getResource("background.jpg").toExternalForm());
+		backgroundImageView.setOpacity(0.3);
+		backgroundImageView.toBack();
+		
 		progressBar = new ProgressBar();
 		loadingLabel = new Label("Loading");
 		loadingActivity = new Label("Vic");
@@ -66,29 +75,38 @@ public class SplashScreen implements LoadingNotifier
 		loadingLabel.setId("loadingLabel");
 		loadingActivity.setId("loadingActivity");
 		
-		addFadeIn(progressBar, fadeInDuration);
-		addFadeIn(loadingLabel, fadeInDuration);
-		addFadeIn(loadingActivity, fadeInDuration);
-
 		ldBarEffect = new Rectangle(275, 25);
 		ldBarEffect.setArcHeight(10.0);
 		ldBarEffect.setArcWidth(10.0);
-
+		
 		ldBarEffect.setFill(Color.TRANSPARENT);
 		ldBarEffect.setStrokeWidth(2);
 		ldBarEffect.setStroke(Color.gray(1, 0.15));
+		
+		addFadeInOut(progressBar, fadeInDuration);
+		addFadeInOut(loadingLabel, fadeInDuration);
+		addFadeInOut(loadingActivity, fadeInDuration);
+		addFadeInOut(ldBarEffect, fadeInDuration);
+		addFadeOut(backgroundImageView, fadeInDuration);
 
-		rootPane.getChildren().addAll(loadingLabel, progressBar, ldBarEffect, loadingActivity);
+		rootPane.getChildren().addAll(loadingLabel, progressBar, 
+				ldBarEffect, loadingActivity, backgroundImageView);
 		rootPane.setAlignment(Pos.CENTER);
 
 		StackPane.setMargin(progressBar, new Insets(100, 0, 0, 0));
 		StackPane.setMargin(ldBarEffect, new Insets(100, 0, 0, 0));
 		StackPane.setMargin(loadingLabel, new Insets(40, 0, 0, 0));
 		StackPane.setMargin(loadingActivity, new Insets(150, 0, 0, 0));
+		StackPane.setMargin(backgroundImageView, new Insets(0, 0, 0, 1300));
 
 		scene = new Scene(rootPane, 350, 300);
 		scene.setFill(Color.TRANSPARENT);
 
+		loadCss();
+	}
+	
+	void loadCss()
+	{
 		try 
 		{
 			URL url = this.getClass().getResource("splash.css");
@@ -106,7 +124,7 @@ public class SplashScreen implements LoadingNotifier
 			System.exit(-1);
 		}
 	}
-
+	
 	void addFadeIn(Node node, Duration dur)
 	{
 		FadeTransition fade = new FadeTransition(dur, node);
@@ -114,103 +132,98 @@ public class SplashScreen implements LoadingNotifier
 		fade.setToValue(1.0);
 		fadeIns.add(fade);
 	}
-
-	public void fadeOut() {
-
-		FadeTransition fT1 = new FadeTransition(Duration.millis(2000), loadingLabel);
-		fT1.setFromValue(1.0);
-		fT1.setToValue(0.0);
-		fT1.play();
-
-		FadeTransition fT3 = new FadeTransition(Duration.millis(2000), backgroundImageView);
-		fT3.setFromValue(0.3);
-		fT3.setToValue(0.0);
-		fT3.play();
-
-		FadeTransition fT4 = new FadeTransition(Duration.millis(2000), ldBarEffect);
-		fT4.setFromValue(0.3);
-		fT4.setToValue(0.0);
-		fT4.play();
-
-		FadeTransition fT5 = new FadeTransition(Duration.millis(2000), progressBar);
-		fT5.setFromValue(1.0);
-		fT5.setToValue(0.0);
-		fT5.setOnFinished((EventHandler<ActionEvent>) callOnFinished);
-		fT5.play();
+	
+	void addFadeOut(Node node, Duration dur)
+	{
+		FadeTransition fadeOut = new FadeTransition(dur, node);
+		fadeOuts.add(fadeOut);
+	}
+	
+	void addFadeInOut(Node node, Duration dur)
+	{
+		addFadeIn(node, dur);
+		addFadeOut(node, dur);
 	}
 
-	public void fadeIn() {
+	public void finish() 
+	{
+		fadeOuts.lastElement().setOnFinished(onFinished);
+		for (FadeTransition fade : fadeOuts)
+		{
+			Node node = fade.getNode();
+			fade.setFromValue(node.getOpacity());
+			fade.setToValue(0.0);
+			fade.play();
+		}		
+	}
 
-		FadeTransition fadeTransition = new FadeTransition(Duration.millis(2200), progressBar);
-		fadeTransition.setFromValue(1.0);
-		fadeTransition.setToValue(0.45);
-		fadeTransition.setCycleCount(Animation.INDEFINITE);
-		fadeTransition.setAutoReverse(true);
-		fadeTransition.play();
+	private void startAnims()
+	{
+		FadeTransition ldBarCyclicFade = 
+				new FadeTransition(Duration.millis(2200), progressBar);
+		ldBarCyclicFade.setFromValue(1.0);
+		ldBarCyclicFade.setToValue(0.45);
+		ldBarCyclicFade.setCycleCount(Animation.INDEFINITE);
+		ldBarCyclicFade.setAutoReverse(true);
+		ldBarCyclicFade.play();
 
-		FadeTransition fT1 = new FadeTransition(Duration.millis(2200), loadingLabel);
-		fT1.setFromValue(1.0);
-		fT1.setToValue(0.2);
-		fT1.setCycleCount(Animation.INDEFINITE);
-		fT1.setAutoReverse(true);
-		fT1.play();
+		FadeTransition loadingLabelFade = 
+				new FadeTransition(Duration.millis(2200), loadingLabel);
+		loadingLabelFade.setFromValue(1.0);
+		loadingLabelFade.setToValue(0.2);
+		loadingLabelFade.setCycleCount(Animation.INDEFINITE);
+		loadingLabelFade.setAutoReverse(true);
+		loadingLabelFade.play();
 
-		FadeTransition fT2 = new FadeTransition(Duration.millis(2200), ldBarEffect);
-		fT2.setFromValue(1.0);
-		fT2.setToValue(0.0);
-		fT2.setCycleCount(Animation.INDEFINITE);
-		fT2.setAutoReverse(false);
-		fT2.play();
+		FadeTransition ldBarEffectCycle = 
+				new FadeTransition(Duration.millis(2200), ldBarEffect);
+		ldBarEffectCycle.setFromValue(1.0);
+		ldBarEffectCycle.setToValue(0.0);
+		ldBarEffectCycle.setCycleCount(Animation.INDEFINITE);
+		ldBarEffectCycle.setAutoReverse(false);
+		ldBarEffectCycle.play();
 
-		ScaleTransition scaleTransition1 = new ScaleTransition(Duration.millis(2200), ldBarEffect);
-		scaleTransition1.setByX(0.1f);
-		scaleTransition1.setByY(0.9f);
-		scaleTransition1.setCycleCount(Animation.INDEFINITE);
-		scaleTransition1.setAutoReverse(false);
-		scaleTransition1.play();
+		ScaleTransition ldBarEffectCyclicScale = 
+				new ScaleTransition(Duration.millis(2200), ldBarEffect);
+		ldBarEffectCyclicScale.setByX(0.1f);
+		ldBarEffectCyclicScale.setByY(0.9f);
+		ldBarEffectCyclicScale.setCycleCount(Animation.INDEFINITE);
+		ldBarEffectCyclicScale.setAutoReverse(false);
+		ldBarEffectCyclicScale.play();
 
-		ImageView backgroundImageView = new ImageView(getClass().getResource("background.jpg").toExternalForm());
-
-		backgroundImageView.setOpacity(0.3);
-		rootPane.getChildren().add(backgroundImageView);
-		StackPane.setMargin(backgroundImageView, new Insets(0, 0, 0, 1300));
-		backgroundImageView.toBack();
-
-		scaleTransition1 = new ScaleTransition(Duration.seconds(20), backgroundImageView);
-		scaleTransition1.setByX(0.5f);
-		scaleTransition1.setByY(0.5f);
-		scaleTransition1.setCycleCount(Animation.INDEFINITE);
-		scaleTransition1.setAutoReverse(true);
-		scaleTransition1.play();
-
+		ldBarEffectCyclicScale = new ScaleTransition(Duration.seconds(20), backgroundImageView);
+		ldBarEffectCyclicScale.setByX(0.5f);
+		ldBarEffectCyclicScale.setByY(0.5f);
+		ldBarEffectCyclicScale.setCycleCount(Animation.INDEFINITE);
+		ldBarEffectCyclicScale.setAutoReverse(true);
+		ldBarEffectCyclicScale.play();
+	}
+	
+	public void begin()
+	{
 		for (Animation fade : fadeIns) 
 		{
 			fade.play();
 		}
-	
-	}
-
-	// public void display (Stage window){
-	// fadeIn();
-	// window.setScene(scene1);
-	// }
-
-	public void load() {
+		//startAnims();
 
 	}
 
-	public void onFinished(Object callback) {
-		callOnFinished = callback;
+	public void setOnFinished(EventHandler<ActionEvent> callback) 
+	{
+		onFinished = callback;
 	}
 
 	@Override
-	public void onLoadingUpdate(String activity, String latest) 
+	public void loadingUpdate(String latestTask) 
 	{
+		// loadingActivity is a JavaFx node 
+		// so must be modified later 
+		// on the ui thread
 		Platform.runLater(new Runnable() {
 			  @Override public void run() {
-				    loadingActivity.setText(activity);                       
+				    loadingActivity.setText(latestTask);                       
 				  }
 				});
 	}
-
 }

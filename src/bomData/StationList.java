@@ -17,7 +17,7 @@ public class StationList extends Vector<Station>
 
 	}
 
-	public static StationList getAllFromServer(LoadingNotifier notifier) throws IOException
+	public static StationList getAllFromServer(LoadingUpdate notifier) throws IOException
 	{
 		// RMIT Proxy Settings
 		// System.setProperty("http.proxyHost", "aproxy.rmit.edu.au");
@@ -36,7 +36,7 @@ public class StationList extends Vector<Station>
 		for (String state : states)
 		{
 			String ldMsg = "Loading " + state + " stations";
-			notifier.onLoadingUpdate(ldMsg, "");
+			notifier.loadingUpdate(ldMsg);
 			Document doc = Jsoup.connect("http://www.bom.gov.au/" + state + "/observations/" + state + "all.shtml")
 					.get();
 			Elements tbodies = doc.select("tbody");
