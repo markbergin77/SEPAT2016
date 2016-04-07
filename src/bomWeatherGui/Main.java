@@ -19,18 +19,17 @@ import javafx.stage.*;
 import javafx.util.Duration;
 
 
-public class Main extends Application{
-
+public class Main extends Application
+{
     private static Stage window;
-    private static Scene scene1;
-    private static Button button;
-    private ProgressBar bar;
-    private static Label LABEL;
+    private static Scene scene;
+    private static Button continueButton;
+    private ProgressBar progressBar;
+    private static Label loadingLabel;
     private static  ImageView backgroundImageView;
-    private static Rectangle rect,rect2;
-    private static  StackPane pane;
+    private static Rectangle clipRect,ldBarEffect;
+    private static  StackPane root;
     double xPos,yPos;
-
 
     public static void main(String args[])
     {
@@ -45,66 +44,66 @@ public class Main extends Application{
         window.initStyle(StageStyle.TRANSPARENT);
 
 
-        LABEL = new Label("Loading");
-        button = new Button("Continue");
-        bar = new ProgressBar();
+        loadingLabel = new Label("Loading");
+        continueButton = new Button("Continue");
+        progressBar = new ProgressBar();
 
-        pane = new StackPane();
+        root = new StackPane();
 
-        rect = new Rectangle(350,300);
-        rect2 = new Rectangle(275,25);
+        clipRect = new Rectangle(350,300);
+        ldBarEffect = new Rectangle(275,25);
 
-        rect.setArcHeight(20.0);
-        rect.setArcWidth(20.0);
-        rect2.setArcHeight(10.0);
-        rect2.setArcWidth(10.0);
+        clipRect.setArcHeight(20.0);
+        clipRect.setArcWidth(20.0);
+        ldBarEffect.setArcHeight(10.0);
+        ldBarEffect.setArcWidth(10.0);
 
-        rect2.setFill(Color.TRANSPARENT);
-        rect2.setStrokeWidth(2);
-        rect2.setStroke(Color.gray(1,0.15));
+        ldBarEffect.setFill(Color.TRANSPARENT);
+        ldBarEffect.setStrokeWidth(2);
+        ldBarEffect.setStroke(Color.gray(1,0.15));
 
 
-        pane.setClip(rect);
-        pane.getChildren().addAll(button,LABEL,bar,rect2);
-        pane.setAlignment(Pos.CENTER);
+        root.setClip(clipRect);
+        root.getChildren().addAll(continueButton,loadingLabel,progressBar,ldBarEffect);
+        root.setAlignment(Pos.CENTER);
 
-        StackPane.setMargin(bar,new Insets(100,0,0,0));
-        StackPane.setMargin(rect2,new Insets(100,0,0,0));
-        StackPane.setMargin(button,new Insets(220,0,0,0));
-        StackPane.setMargin(LABEL , new Insets(40,0,0,0));
+        StackPane.setMargin(progressBar,new Insets(100,0,0,0));
+        StackPane.setMargin(ldBarEffect,new Insets(100,0,0,0));
+        StackPane.setMargin(continueButton,new Insets(220,0,0,0));
+        StackPane.setMargin(loadingLabel , new Insets(40,0,0,0));
 
-        button.getStyleClass().add("button-wait");
+        continueButton.getStyleClass().add("button-wait");
 
-        button.setOnMouseEntered(e -> button.getStyleClass().add("button-wait-bright"));
-        button.setOnMouseExited(e -> button.getStyleClass().remove("button-wait-bright"));
+        continueButton.setOnMouseEntered(e -> continueButton.getStyleClass().add("button-wait-bright"));
+        continueButton.setOnMouseExited(e -> continueButton.getStyleClass().remove("button-wait-bright"));
 
         window.setOnCloseRequest(e -> System.exit(0));
 
         window.setOnShowing(e -> {
-            button.toFront();
+            continueButton.toFront();
             load();
         });
 
-        button.setOnMousePressed(e -> {
+        continueButton.setOnMousePressed(e -> {
             FadeTransition fadeTransition
-                    = new FadeTransition(Duration.millis(500), button);
+                    = new FadeTransition(Duration.millis(500), continueButton);
             fadeTransition.setFromValue(0.5);
             fadeTransition.setToValue(1.0);
             fadeTransition.play();
             fadeOut();
-            button.setDisable(true);
+            continueButton.setDisable(true);
 
         });
 
-        scene1 = new Scene(pane,350,300);
-        scene1.setFill(Color.TRANSPARENT);
-        dragWindow(scene1);
+        scene = new Scene(root,350,300);
+        scene.setFill(Color.TRANSPARENT);
+        dragWindow(scene);
 
 
         Utilities util = new Utilities();
-        util.getCss(scene1);
+        util.getCss(scene);
 
-        window.setScene(scene1);
+        window.setScene(scene);
         window.setTitle("Login");
         window.show();
         fadeIn();
@@ -114,13 +113,13 @@ public class Main extends Application{
     public void fadeOut(){
 
         FadeTransition fT1
-                = new FadeTransition(Duration.millis(2000), LABEL);
+                = new FadeTransition(Duration.millis(2000), loadingLabel);
         fT1.setFromValue(1.0);
         fT1.setToValue(0.0);
         fT1.play();
 
         FadeTransition fT2
-                = new FadeTransition(Duration.millis(2000), button);
+                = new FadeTransition(Duration.millis(2000), continueButton);
         fT2.setFromValue(1.0);
         fT2.setToValue(0.0);
         fT2.play();
@@ -132,14 +131,14 @@ public class Main extends Application{
         fT3.play();
 
         FadeTransition fT4
-                = new FadeTransition(Duration.millis(2000), rect2);
+                = new FadeTransition(Duration.millis(2000), ldBarEffect);
         fT4.setFromValue(0.3);
         fT4.setToValue(0.0);
         fT4.play();
 
 
         FadeTransition fT5
-                = new FadeTransition(Duration.millis(2000), bar);
+                = new FadeTransition(Duration.millis(2000), progressBar);
         fT5.setFromValue(1.0);
         fT5.setToValue(0.0);
         fT5.setOnFinished(e -> {
@@ -149,20 +148,18 @@ public class Main extends Application{
 
         });
         fT5.play();
-
-
     }
 
     public void fadeIn(){
 
         FadeTransition fT1
-                = new FadeTransition(Duration.millis(2000), bar);
+                = new FadeTransition(Duration.millis(2000), progressBar);
         fT1.setFromValue(0.0);
         fT1.setToValue(1.);
         fT1.play();
 
         FadeTransition fT3
-                = new FadeTransition(Duration.millis(2000), LABEL);
+                = new FadeTransition(Duration.millis(2000), loadingLabel);
         fT3.setFromValue(0.0);
         fT3.setToValue(1.0);
         fT3.play();
@@ -177,7 +174,7 @@ public class Main extends Application{
     public void load(){
 
         FadeTransition fadeTransition
-                = new FadeTransition(Duration.millis(2200), bar);
+                = new FadeTransition(Duration.millis(2200), progressBar);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.45);
         fadeTransition.setCycleCount(Animation.INDEFINITE);
@@ -185,7 +182,7 @@ public class Main extends Application{
         fadeTransition.play();
 
         FadeTransition fT1
-                = new FadeTransition(Duration.millis(2200), LABEL);
+                = new FadeTransition(Duration.millis(2200), loadingLabel);
         fT1.setFromValue(1.0);
         fT1.setToValue(0.2);
         fT1.setCycleCount(Animation.INDEFINITE);
@@ -193,14 +190,14 @@ public class Main extends Application{
         fT1.play();
 
         FadeTransition fT2
-                = new FadeTransition(Duration.millis(2200), rect2);
+                = new FadeTransition(Duration.millis(2200), ldBarEffect);
         fT2.setFromValue(1.0);
         fT2.setToValue(0.0);
         fT2.setCycleCount(Animation.INDEFINITE);
         fT2.setAutoReverse(false);
         fT2.play();
 
-        ScaleTransition scaleTransition1 = new ScaleTransition(Duration.millis(2200), rect2);
+        ScaleTransition scaleTransition1 = new ScaleTransition(Duration.millis(2200), ldBarEffect);
         scaleTransition1.setByX(0.1f);
         scaleTransition1.setByY(0.9f);
         scaleTransition1.setCycleCount(Animation.INDEFINITE);
@@ -210,7 +207,7 @@ public class Main extends Application{
         backgroundImageView = new ImageView( getClass().getResource( "background.jpg").toExternalForm());
 
         backgroundImageView.setOpacity(0.3);
-        pane.getChildren().add( backgroundImageView);
+        root.getChildren().add( backgroundImageView);
         StackPane.setMargin(backgroundImageView,new Insets(0,0,0,1300));
         backgroundImageView.toBack();
 
@@ -225,11 +222,11 @@ public class Main extends Application{
     }
 
     public void oncomplete(){
-        button.toFront();
-        button.setVisible(true);
+        continueButton.toFront();
+        continueButton.setVisible(true);
 
         FadeTransition fT2
-                = new FadeTransition(Duration.millis(2000), button);
+                = new FadeTransition(Duration.millis(2000), continueButton);
         fT2.setFromValue(0.0);
         fT2.setToValue(1.0);
         fT2.play();
