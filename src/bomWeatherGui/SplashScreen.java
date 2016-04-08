@@ -201,12 +201,11 @@ public class SplashScreen implements LoadingUpdate
 	
 	public void begin()
 	{
+		fadeIns.lastElement().setOnFinished(e -> startAnims());
 		for (Animation fade : fadeIns) 
 		{
 			fade.play();
 		}
-		//startAnims();
-
 	}
 
 	public void setOnFinished(EventHandler<ActionEvent> callback) 
