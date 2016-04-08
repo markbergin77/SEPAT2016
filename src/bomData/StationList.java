@@ -60,6 +60,7 @@ public class StationList extends Vector<Station>
 				}
 			}
 		}
+		notifier.loadingUpdate("");
 		return stations;
 	}
 	
