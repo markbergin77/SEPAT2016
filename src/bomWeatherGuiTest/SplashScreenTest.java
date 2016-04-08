@@ -2,6 +2,7 @@ package bomWeatherGuiTest;
 
 import java.io.IOException;
 
+import bomData.Bom;
 import bomData.StationList;
 import bomWeatherGui.HomeScreen;
 import bomWeatherGui.SplashScreen;
@@ -48,7 +49,7 @@ public class SplashScreenTest extends Application
         Task<StationList> getStationsTask = new Task<StationList>(){
         		@Override protected StationList call() throws IOException
         		{
-        			StationList locs = StationList.getAllFromServer(splash);
+        			StationList locs = Bom.getAllStations(splash);
         			return locs;
         		}
         };

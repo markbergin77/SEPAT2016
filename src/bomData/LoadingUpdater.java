@@ -1,6 +1,6 @@
 package bomData;
 
-public interface LoadingUpdate 
+public interface LoadingUpdater 
 {
 	void loadingUpdate(String activity);
 }

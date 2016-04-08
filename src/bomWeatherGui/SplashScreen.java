@@ -8,7 +8,7 @@ import javax.swing.GroupLayout.Alignment;
 
 import org.w3c.dom.css.Rect;
 
-import bomData.LoadingUpdate;
+import bomData.LoadingUpdater;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
@@ -30,7 +30,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
-public class SplashScreen implements LoadingUpdate
+public class SplashScreen implements LoadingUpdater
 {
 	Scene scene;
 	StackPane rootPane;

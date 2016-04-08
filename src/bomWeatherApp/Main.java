@@ -1,5 +1,6 @@
 package bomWeatherApp;
 
+import bomData.Bom;
 import bomData.StationList;
 import bomWeatherGui.SplashScreen;
 import javafx.application.Application;
@@ -34,7 +35,7 @@ public class Main extends Application
         
         window.show();
         
-        StationList locs = StationList.getAllFromServer(splash);
+        StationList locs = Bom.getAllStations(splash);
         
 	}
 }

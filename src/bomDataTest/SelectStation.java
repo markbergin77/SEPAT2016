@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Vector;
 
+import bomData.Bom;
 import bomData.Station;
 import bomData.StationList;
 import bomData.WthrSampleCoarse;
@@ -32,7 +33,7 @@ public class SelectStation
 		int stationNumber = 1;	
 		boolean stationFound = false;
 		//Grabbing BOM stations/stations
-	    StationList stations = StationList.getAllFromServer();
+	    StationList stations = Bom.getAllStations();
 	    
 	    // Rad's testing code
 //	    for (Station station: stations) {
