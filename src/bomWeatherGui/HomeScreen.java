@@ -293,9 +293,9 @@ public class HomeScreen {
         rootPane = new StackPane();
         // Create Plot
         StackPane plotPane = new StackPane();
-        plotRect = new Rectangle(800,350);
+        plotRect = new Rectangle(800,400);
         weatherPlot = getChart();
-        weatherPlot.setMaxSize(750,325);
+        weatherPlot.setMaxSize(800,350);
         weatherPlot.setOpacity(0);
         plotRect.setArcHeight(20);
         plotRect.setArcWidth(20);
@@ -305,7 +305,7 @@ public class HomeScreen {
         plotRect.setStrokeWidth(2);
         plotPane.getChildren().addAll(plotRect,weatherPlot);
         plotPane.setMaxSize(800,350);
-        StackPane.setAlignment(weatherPlot,Pos.CENTER);
+        StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
 
 
         // Create table
@@ -315,7 +315,7 @@ public class HomeScreen {
 
         tablePane.getChildren().addAll(dataTable);
         StackPane.setAlignment(dataTable,Pos.CENTER);
-        tablePane.setMaxSize(800,250);
+        tablePane.setMaxSize(800,200);
         tablePane.setOpacity(0);
 
 
@@ -435,13 +435,22 @@ public class HomeScreen {
         dragWindow(rootPane);
         dragWindow2(toolBar);
 
-        StackPane.setMargin(plotPane,new Insets(0,0,245,450));
-        StackPane.setMargin(tablePane,new Insets(400,0,0,450));
+        Button exportGraph = new Button("Open Graph");
+        exportGraph.setMinSize(150, 25);
+        exportGraph.setId("exportbutton");
+        exportGraph.toFront();
+
+        exportGraph.setOnMouseEntered(e -> exportGraph.getStyleClass().add("export-button-bright"));
+        exportGraph.setOnMouseExited(e -> exportGraph.getStyleClass().remove("export-button-bright"));
+
+        StackPane.setMargin(exportGraph,new Insets(140,0,0,1045));
+        StackPane.setMargin(plotPane,new Insets(0,0,200,450));
+        StackPane.setMargin(tablePane,new Insets(455,0,0,450));
         StackPane.setMargin(explorerPane,new Insets(30,830,0,0));
         StackPane.setAlignment(toolBar, Pos.TOP_CENTER);
 
         rootPane.setAlignment(Pos.CENTER);
-        rootPane.getChildren().addAll(toolBar,plotPane,tablePane,explorerPane);
+        rootPane.getChildren().addAll(toolBar,plotPane,tablePane,explorerPane,exportGraph);
 
 
         Scene scene = new Scene(rootPane,1320,740);
@@ -528,6 +537,7 @@ public class HomeScreen {
 
         dragWindow(rootPane);
         dragWindow2(toolBar);
+
 
         StackPane.setMargin(plotBox,new Insets(0,0,210,390));
         StackPane.setMargin(tableBox,new Insets(370,0,0,390));
