@@ -4,7 +4,9 @@ package bomWeatherGui;
  * Created by Pavel Nikolaev on 13/03/2016.
  */
 
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -13,11 +15,16 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.*;
 import javafx.util.Duration;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,7 +34,8 @@ public class HomeScreen {
 
     private static Button BUTTON, BUTTON2,exitButton,minimize;
     private static Scene SCENE1;
-    private static StackPane stackPane;
+    private static StackPane rootPane,tablePane;
+    private static  ImageView backgroundImageView;
     private static Rectangle plotRect,tableRect,explorerRect ,screenSize;
     private static TextField text;
     private static ToolBar toolBar;
@@ -35,13 +43,15 @@ public class HomeScreen {
     double xPos,yPos;
     private static TabPane explorerTabsPane;
     private static LineChart<Number,Number> weatherPlot;
+    private static TableView<String> dataTable;
 
     public void display(Stage window){
+
 
         WINDOW = window;
         Utilities util = new Utilities();
 
-        stackPane = new StackPane();
+
         Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
 
         int screenWidth = (int)screenSize.getWidth();
@@ -67,7 +77,7 @@ public class HomeScreen {
         switch(switchCase){
 
             case 1:SCENE1 = setSceneLarge();
-                util.resizeWindowIncrease(WINDOW,1340,790,2,4);
+                util.resizeWindowIncrease(WINDOW,1320,740,2,4);
                 break;
 
             case 2: SCENE1 = setSceneMedHigh();
@@ -85,8 +95,23 @@ public class HomeScreen {
 
         //-----------------------------------------------------------------------//
 
+        backgroundImageView = new ImageView( getClass().getResource( "background.jpg").toExternalForm());
+
+        rootPane.getChildren().add( backgroundImageView);
+        StackPane.setMargin(backgroundImageView,new Insets(0,0,0,0));
+        backgroundImageView.toBack();
+        backgroundImageView.setOpacity(0);
+
+        ScaleTransition scaleTransition1 = new ScaleTransition(Duration.seconds(20), backgroundImageView);
+        scaleTransition1.setByX(0.5f);
+        scaleTransition1.setByY(0.5f);
+        scaleTransition1.setCycleCount(Animation.INDEFINITE);
+        scaleTransition1.setAutoReverse(true);
+        scaleTransition1.play();
 
 
+        //leave these for the smaller screen sizes-----------------
+        //which i will implement later------------------------
        // Polygon poly, poly2;
 
        // poly= new Polygon();
@@ -156,12 +181,19 @@ public class HomeScreen {
         WINDOW.setScene(SCENE1);
     }
     
-    StackPane createExplorerPane()
+    public StackPane createExplorerPane()
     {
     	return null;
     }
 
+
     public void fadeIn(){
+
+        Rectangle clipRect = new Rectangle(WINDOW.getWidth(),WINDOW.getHeight());
+        clipRect.setArcHeight(20.0);
+        clipRect.setArcWidth(20.0);
+        rootPane.setClip(clipRect);
+
         FadeTransition fT1
                 = new FadeTransition(Duration.millis(1000), BUTTON);
         fT1.setFromValue(0.0);
@@ -185,9 +217,9 @@ public class HomeScreen {
 
 
         FadeTransition fT4
-                = new FadeTransition(Duration.millis(1000), tableRect);
+                = new FadeTransition(Duration.millis(1000), backgroundImageView);
         fT4.setFromValue(0.0);
-        fT4.setToValue(1.0);
+        fT4.setToValue(0.2);
         fT4.setDelay(Duration.millis(500));
         fT4.play();
 
@@ -212,14 +244,19 @@ public class HomeScreen {
         fT7.setDelay(Duration.millis(500));
         fT7.play();
 
-        FadeTransition fT8
+               FadeTransition fT8
                 = new FadeTransition(Duration.millis(1000), weatherPlot);
         fT8.setFromValue(0.0);
         fT8.setToValue(1.0);
         fT8.setDelay(Duration.millis(500));
         fT8.play();
 
-
+        FadeTransition fT9
+                = new FadeTransition(Duration.millis(1000), tablePane);
+        fT9.setFromValue(0.0);
+        fT9.setToValue(1.0);
+        fT9.setDelay(Duration.millis(500));
+        fT9.play();
 
     }
 
@@ -253,12 +290,12 @@ public class HomeScreen {
 
     public Scene setSceneLarge()
     {
-        StackPane rootPane = new StackPane();
+        rootPane = new StackPane();
         // Create Plot
         StackPane plotPane = new StackPane();
         plotRect = new Rectangle(800,350);
         weatherPlot = getChart();
-        weatherPlot.setMaxSize(750,300);
+        weatherPlot.setMaxSize(750,325);
         weatherPlot.setOpacity(0);
         plotRect.setArcHeight(20);
         plotRect.setArcWidth(20);
@@ -270,21 +307,17 @@ public class HomeScreen {
         plotPane.setMaxSize(800,350);
         StackPane.setAlignment(weatherPlot,Pos.CENTER);
 
+
         // Create table
-        StackPane tablePane = new StackPane();
-        
+        tablePane = new StackPane();
+        dataTable = getTable();
+        dataTable.setOpacity(0.9);
 
-
-        tableRect = new Rectangle(800,250);
-        tableRect.setArcHeight(20);
-        tableRect.setArcWidth(20);
-        tableRect.setOpacity(0);
-        tableRect.setStroke(Color.LIGHTSLATEGRAY);
-        tableRect.setFill(Color.rgb(38,38,38));
-        tableRect.setStrokeWidth(2);
-
-        tablePane.getChildren().addAll(tableRect);
+        tablePane.getChildren().addAll(dataTable);
+        StackPane.setAlignment(dataTable,Pos.CENTER);
         tablePane.setMaxSize(800,250);
+        tablePane.setOpacity(0);
+
 
         StackPane explorerPane = new StackPane();
         explorerRect = new Rectangle(430,625);
@@ -300,6 +333,7 @@ public class HomeScreen {
         explorerTabsPane = new TabPane();
         explorerTabsPane.setMaxSize(420, 615);
         explorerTabsPane.setOpacity(0);
+
 
         Tab allStationsTab = new Tab();
         allStationsTab.setText("All stations");
@@ -351,8 +385,6 @@ public class HomeScreen {
         plotRect.setId("rect");
         plotRect.applyCss();
 
-        tableRect.setId("rect2");
-        tableRect.applyCss();
 
         explorerRect.setId("rect3");
         explorerRect.applyCss();
@@ -411,7 +443,8 @@ public class HomeScreen {
         rootPane.setAlignment(Pos.CENTER);
         rootPane.getChildren().addAll(toolBar,plotPane,tablePane,explorerPane);
 
-        Scene scene = new Scene(rootPane,1340,790);
+
+        Scene scene = new Scene(rootPane,1320,740);
         scene.setFill(Color.TRANSPARENT);
 
         Utilities util = new Utilities();
@@ -524,14 +557,33 @@ public class HomeScreen {
         return null;
     }
 
-    public TableView getTable(){
+    public TableView<String> getTable(){
+
+       TableView<String> table = new TableView<String>();
+        table.setMaxSize(800,250);
+        table.setEditable(false);
+        table.getItems().addAll("HEY");
+        table.setPadding(new Insets(1,1,10,1));
+        TableColumn<String,String> collumn1 = new TableColumn<String,String>("Temp");
+        TableColumn<String,String> collumn2 = new TableColumn<String,String>("Humidity");
+        TableColumn<String,String> collumn3 = new TableColumn<String,String>("Blah");
+        TableColumn<String,String> collumn4 = new TableColumn<String,String>("Blah");
+
+        collumn1.setPrefWidth(198);
+        collumn2.setPrefWidth(198);
+        collumn3.setPrefWidth(198);
+        collumn4.setPrefWidth(200);
+
+        collumn1.setResizable(false);
+        collumn2.setResizable(false);
+        collumn3.setResizable(false);
+        collumn4.setResizable(false);
 
 
 
+        table.getColumns().addAll( collumn1, collumn2, collumn3, collumn4);
 
-
-
-        return null;
+        return table;
     }
 
     public LineChart<Number,Number> getChart(){
@@ -548,6 +600,7 @@ public class HomeScreen {
     //defining a series
     XYChart.Series series = new XYChart.Series();
     //populating the series with data
+        //should have 12 points on the graph to represent 12 months
 
     series.getData().add(new XYChart.Data(1, 23));
     series.getData().add(new XYChart.Data(2, 14));
@@ -561,12 +614,35 @@ public class HomeScreen {
     series.getData().add(new XYChart.Data(10, 17));
     series.getData().add(new XYChart.Data(11, 29));
     series.getData().add(new XYChart.Data(12, 25));
-    series.getData().add(new XYChart.Data(12, 50));
+
 
 
     lineChart.getData().add(series);
 
     return lineChart;
 }
+
+
+   /* public void setEffects(Node node, double width, double height){
+
+        Rectangle boxEffect = new Rectangle(width,height);
+        boxEffect.setArcHeight(10.0);
+        boxEffect.setArcWidth(10.0);
+
+        boxEffect.setFill(Color.TRANSPARENT);
+        boxEffect.setStrokeWidth(2);
+        boxEffect.setStroke(Color.gray(1, 0.15));
+
+        node.setOnMousePressed(e ->{
+
+            ScaleTransition scaleTransition1 = new ScaleTransition(Duration.millis(800), boxEffect);
+            scaleTransition1.setByX(0.1f);
+            scaleTransition1.setByY(0.9f);
+            scaleTransition1.setCycleCount(1);
+            scaleTransition1.setAutoReverse(false);
+            scaleTransition1.play();
+
+        });
+    }*/
 
 }
