@@ -407,20 +407,31 @@
     -fx-padding: 10px;
     -fx-background-color: transparent;
     -fx-legend-visible: false;
-
 }
 
 .chart-alternative-row-fill {
     -fx-fill: transparent;
     -fx-stroke: transparent;
     -fx-stroke-width: 0;
+    -fx-border-color: transparent;
 }
 .chart-plot-background{
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
+
+    -fx-border-color: black;
     -fx-padding:0px;
     -fx-opacity: 0.5;
     -fx-background-color: linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+}
+.chart-content{
+
+    -fx-border-color: transparent;
+}
+.axis {
+    -fx-tick-mark-visible: false;
+    -fx-minor-tick-visible: false;
+    -fx-tick-length: 3;
+    -fx-minor-tick-length: 0;
+    -fx-border-color: transparent;
 }
 .table-view{
 

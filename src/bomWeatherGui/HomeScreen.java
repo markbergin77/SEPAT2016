@@ -32,7 +32,7 @@ import java.util.TimerTask;
 
 public class HomeScreen {
 
-    private static Button BUTTON, BUTTON2,exitButton,minimize;
+    private static Button exitButton,exportGraph;
     private static Scene SCENE1;
     private static StackPane rootPane,tablePane;
     private static  ImageView backgroundImageView;
@@ -194,12 +194,12 @@ public class HomeScreen {
         clipRect.setArcWidth(20.0);
         rootPane.setClip(clipRect);
 
-        FadeTransition fT1
-                = new FadeTransition(Duration.millis(1000), BUTTON);
-        fT1.setFromValue(0.0);
-        fT1.setToValue(1.0);
-        fT1.setDelay(Duration.millis(500));
-        fT1.play();
+      //  FadeTransition fT1
+      //          = new FadeTransition(Duration.millis(1000), BUTTON);
+      ////  fT1.setFromValue(0.0);
+     ///   fT1.setToValue(1.0);
+      //  fT1.setDelay(Duration.millis(500));
+      //  fT1.play();
 
         FadeTransition fT2
                 = new FadeTransition(Duration.millis(1000), plotRect);
@@ -208,12 +208,12 @@ public class HomeScreen {
         fT2.setDelay(Duration.millis(500));
         fT2.play();
 
-        FadeTransition fT3
-                = new FadeTransition(Duration.millis(1000), BUTTON2);
-        fT3.setFromValue(0.0);
-        fT3.setToValue(1.0);
-        fT3.setDelay(Duration.millis(500));
-        fT3.play();
+      //  FadeTransition fT3
+         //       = new FadeTransition(Duration.millis(1000), BUTTON2);
+      //  fT3.setFromValue(0.0);
+       // fT3.setToValue(1.0);
+      //  fT3.setDelay(Duration.millis(500));
+        //fT3.play();
 
 
         FadeTransition fT4
@@ -257,6 +257,13 @@ public class HomeScreen {
         fT9.setToValue(1.0);
         fT9.setDelay(Duration.millis(500));
         fT9.play();
+
+        FadeTransition fT10
+                = new FadeTransition(Duration.millis(1000), exportGraph);
+        fT10.setFromValue(0.0);
+        fT10.setToValue(1.0);
+        fT10.setDelay(Duration.millis(500));
+        fT10.play();
 
     }
 
@@ -435,10 +442,11 @@ public class HomeScreen {
         dragWindow(rootPane);
         dragWindow2(toolBar);
 
-        Button exportGraph = new Button("Open Graph");
+        exportGraph = new Button("Open Graph");
         exportGraph.setMinSize(150, 25);
         exportGraph.setId("exportbutton");
         exportGraph.toFront();
+        exportGraph.setOpacity(0);
 
         exportGraph.setOnMouseEntered(e -> exportGraph.getStyleClass().add("export-button-bright"));
         exportGraph.setOnMouseExited(e -> exportGraph.getStyleClass().remove("export-button-bright"));
