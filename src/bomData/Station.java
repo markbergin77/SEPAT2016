@@ -164,10 +164,10 @@ public class Station implements Serializable
 	// Month in the format YYYYMM, 201603 would be March 2016
 	public WthrMonth getWthrLastMonth(String month) throws IOException
 	{
-		WthrMonth samples = new WthrMonth();
+		WthrMonth samples = null;
 		String url;
 		String csvUrl;
-		String[] nextLine;
+		
 		String htmlUrl = this.getHtmlUrl();
 		Document doc = Jsoup.connect(htmlUrl).get();
 		Elements links = doc.select("a");
@@ -175,50 +175,17 @@ public class Station implements Serializable
 		{
 			if (link.text().contains("Recent months"))
 			{
-				nextLine = null;
 				url = link.attr("href");
 				csvUrl = "http://www.bom.gov.au"
 						+ url.replace("dwo/", "dwo/" + month + "/text/").replace("latest.shtml", month + ".csv");
 				
 				// Testing code
-				System.out.println(this.getName() + " " + csvUrl);
+				// System.out.println(this.getName() + " " + csvUrl);
 				
 				try  (BufferedReader csvStream = new BufferedReader(new InputStreamReader(new URL(csvUrl).openStream())))
 				{
 					CSVReader csvReader = new CSVReader(csvStream);
-					while ((nextLine = csvReader.readNext()) != null)
-					{
-						// The csv files are irregular, don't know how many lines to skip
-						if (nextLine.length != 22) {
-							continue;
-						}
-						String date = nextLine[1];
-						String minTemp = nextLine[2];
-						String maxTemp = nextLine[3];
-						String rain = nextLine[4];
-						String evap = nextLine[5];
-						String sun = nextLine[6];
-						String maxWindGustDir = nextLine[7];
-						String maxWindGustSpd = nextLine[8];
-						String maxWindGustTime = nextLine[9];
-						String temp9am = nextLine[10];
-						String relHumidity9am = nextLine[11];
-						String cloud9am = nextLine[12];
-						String windDir9am = nextLine[13];
-						String windSpd9am = nextLine[14];
-						String meanSeaLevelPressure9am = nextLine[15];
-						String temp3pm = nextLine[16];
-						String relHumidity3pm = nextLine[17];
-						String cloud3pm = nextLine[18];
-						String windDir3pm = nextLine[19];
-						String windSpd3pm = nextLine[20];
-						String meanSeaLevelPressure3pm = nextLine[21];
-
-						samples.add(new WthrSampleCoarse(date, minTemp, maxTemp, rain, evap, sun, maxWindGustDir, maxWindGustSpd,
-								maxWindGustTime, temp9am, relHumidity9am, cloud9am, windDir9am, windSpd9am,
-								meanSeaLevelPressure9am, temp3pm, relHumidity3pm, cloud3pm, windDir3pm, windSpd3pm,
-								meanSeaLevelPressure3pm));
-					}
+					samples = processCsv(csvReader);
 					csvReader.close();
 				}
 				catch(FileNotFoundException e) {
@@ -228,6 +195,47 @@ public class Station implements Serializable
 		}
 
 
+		return samples;
+	}
+	
+	private WthrMonth processCsv(CSVReader csvReader) throws IOException {
+		String[] nextLine = null;
+		WthrMonth samples = new WthrMonth();
+		
+		while ((nextLine = csvReader.readNext()) != null)
+		{
+			// The csv files are irregular, don't know how many lines to skip
+			if (nextLine.length != 22 || nextLine[1].equals("Date")) {
+				continue;
+			}
+			String date = nextLine[1];
+			String minTemp = nextLine[2];
+			String maxTemp = nextLine[3];
+			String rain = nextLine[4];
+			String evap = nextLine[5];
+			String sun = nextLine[6];
+			String maxWindGustDir = nextLine[7];
+			String maxWindGustSpd = nextLine[8];
+			String maxWindGustTime = nextLine[9];
+			String temp9am = nextLine[10];
+			String relHumidity9am = nextLine[11];
+			String cloud9am = nextLine[12];
+			String windDir9am = nextLine[13];
+			String windSpd9am = nextLine[14];
+			String meanSeaLevelPressure9am = nextLine[15];
+			String temp3pm = nextLine[16];
+			String relHumidity3pm = nextLine[17];
+			String cloud3pm = nextLine[18];
+			String windDir3pm = nextLine[19];
+			String windSpd3pm = nextLine[20];
+			String meanSeaLevelPressure3pm = nextLine[21];
+			System.out.println(date);
+			samples.add(new WthrSampleCoarse(date, minTemp, maxTemp, rain, evap, sun, maxWindGustDir, maxWindGustSpd,
+					maxWindGustTime, temp9am, relHumidity9am, cloud9am, windDir9am, windSpd9am,
+					meanSeaLevelPressure9am, temp3pm, relHumidity3pm, cloud3pm, windDir3pm, windSpd3pm,
+					meanSeaLevelPressure3pm));
+		}
+		
 		return samples;
 	}
 
