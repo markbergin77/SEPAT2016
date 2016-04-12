@@ -76,11 +76,11 @@ public class HomeScreen {
 
         switch(switchCase){
 
-            case 2:SCENE1 = setSceneLarge();
+            case 1:SCENE1 = setSceneLarge();
                 util.resizeWindowIncrease(WINDOW,1320,740,2,4);
                 break;
 
-            case 1: SCENE1 = setSceneMedHigh();
+            case 2: SCENE1 = setSceneMedHigh();
                 util.resizeWindowIncrease(WINDOW,1260,680,2,4);
                 break;
             case 3: SCENE1 = setSceneMedLow();
@@ -456,6 +456,11 @@ public class HomeScreen {
 
         exportGraph.setOnMouseEntered(e -> exportGraph.getStyleClass().add("export-button-bright"));
         exportGraph.setOnMouseExited(e -> exportGraph.getStyleClass().remove("export-button-bright"));
+        exportGraph.setOnMousePressed(e -> {
+            exportGraph.getStyleClass().add("export-button-press");
+            GraphWindow.createGraphWindow("getGraphName()",weatherPlot);
+        });
+        exportGraph.setOnMouseReleased(e -> exportGraph.getStyleClass().remove("export-button-press"));
 
         StackPane.setMargin(exportGraph,new Insets(140,0,0,1045));
         StackPane.setMargin(plotPane,new Insets(0,0,200,450));
