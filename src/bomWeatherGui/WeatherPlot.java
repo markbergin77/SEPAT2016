@@ -8,13 +8,14 @@ import javafx.scene.chart.XYChart;
 public class WeatherPlot extends LineChart<Number, Number>
 {
 	
-	
-	public WeatherPlot(Axis<Number> xAxis, Axis<Number> yAxis) 
+
+	public WeatherPlot(Axis<Number> xAxis, Axis<Number> yAxis)
 	{
 		super(xAxis, yAxis);
 	}
 
-	public WeatherPlot testPlot()
+	public static WeatherPlot getChart()
+
 	{
 		
 	    final NumberAxis xAxis = new NumberAxis();

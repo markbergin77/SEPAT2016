@@ -464,6 +464,14 @@
     -fx-max-height: 33px;
     -fx-min-height: 33px;
 }
+
+#exportbuttonsmall{
+
+    -fx-max-height: 28px;
+    -fx-min-height: 28px;
+    -fx-text-alignment: center;
+    -fx-font-size: 12px;
+}
 #waht{
     -fx-background-color: white;
 }

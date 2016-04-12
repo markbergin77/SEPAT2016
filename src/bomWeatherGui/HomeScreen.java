@@ -301,7 +301,7 @@ public class HomeScreen {
         // Create Plot
         StackPane plotPane = new StackPane();
         plotRect = new Rectangle(800,400);
-        weatherPlot = getChart();
+        weatherPlot = WeatherPlot.getChart();
         weatherPlot.setMaxSize(800,350);
         weatherPlot.setOpacity(0);
         plotRect.setArcHeight(20);
@@ -370,7 +370,7 @@ public class HomeScreen {
 
         for (int i = 0; i < 100; i++)
         {
-            ListNode node = new ListNode();
+            ListNode node = new ListNode("");
             content.getChildren().add(node);
         }
         stationsScroll.setContent(content);
@@ -408,40 +408,9 @@ public class HomeScreen {
 
         exitButton.setOnMouseEntered(e -> exitButton.setId("exit-h"));
         exitButton.setOnMouseExited(e -> exitButton.setId("exit"));
-
         exitButton.setOnMousePressed(e ->  System.exit(1));
 
-        searchBar.setOnKeyPressed(e -> {
-
-            if (searchBar.getWidth() < 181) {
-                Timer timer = new Timer();
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    int i = 0;
-                    double count = 0;
-
-                    @Override
-                    public void run() {
-
-
-                        if (i < 300) {
-                            searchBar.setMaxWidth(searchBar.getWidth() + 4);
-                            StackPane.setMargin(searchBar, new Insets(0, 210 - count, 530, 0));
-
-                        } else {
-                            this.cancel();
-
-                        }
-                        i += 2;
-                        count += 0.78;
-
-                    }
-                }, 0, 3);
-            }
-
-        });
-
         toolBar = new ToolBar(exitButton);
-
         toolBar.setMaxSize(1350,35);
         toolBar.setOpacity(0);
 
@@ -456,9 +425,11 @@ public class HomeScreen {
 
         exportGraph.setOnMouseEntered(e -> exportGraph.getStyleClass().add("export-button-bright"));
         exportGraph.setOnMouseExited(e -> exportGraph.getStyleClass().remove("export-button-bright"));
+
         exportGraph.setOnMousePressed(e -> {
-            exportGraph.getStyleClass().add("export-button-press");
-            GraphWindow.createGraphWindow("getGraphName()",weatherPlot);
+
+
+
         });
         exportGraph.setOnMouseReleased(e -> exportGraph.getStyleClass().remove("export-button-press"));
 
@@ -487,7 +458,7 @@ public class HomeScreen {
         // Create Plot
         StackPane plotPane = new StackPane();
         plotRect = new Rectangle(730,300);
-        weatherPlot = getChart();
+        weatherPlot = WeatherPlot.getChart();
         weatherPlot.setMaxSize(730,250);
         weatherPlot.setOpacity(0);
         plotRect.setArcHeight(20);
@@ -557,7 +528,7 @@ public class HomeScreen {
 
         for (int i = 0; i < 100; i++)
         {
-            ListNode node = new ListNode();
+            ListNode node = new ListNode("");
             content.getChildren().add(node);
         }
         stationsScroll.setContent(content);
@@ -596,35 +567,6 @@ public class HomeScreen {
         exitButton.setOnMouseExited(e -> exitButton.setId("exit"));
 
         exitButton.setOnMousePressed(e ->  System.exit(1));
-
-        searchBar.setOnKeyPressed(e -> {
-
-            if (searchBar.getWidth() < 181) {
-                Timer timer = new Timer();
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    int i = 0;
-                    double count = 0;
-
-                    @Override
-                    public void run() {
-
-
-                        if (i < 300) {
-                            searchBar.setMaxWidth(searchBar.getWidth() + 4);
-                            StackPane.setMargin(searchBar, new Insets(0, 210 - count, 490, 0));
-
-                        } else {
-                            this.cancel();
-
-                        }
-                        i += 2;
-                        count += 0.78;
-
-                    }
-                }, 0, 3);
-            }
-
-        });
 
         toolBar = new ToolBar(exitButton);
 
@@ -665,7 +607,156 @@ public class HomeScreen {
 
     public Scene setSceneMedLow(){
 
-        return null;
+        rootPane = new StackPane();
+        // Create Plot
+        StackPane plotPane = new StackPane();
+        plotRect = new Rectangle(630,260);
+        weatherPlot = WeatherPlot.getChart();
+        weatherPlot.setMaxSize(630,220);
+        weatherPlot.setOpacity(0);
+        plotRect.setArcHeight(20);
+        plotRect.setArcWidth(20);
+        plotRect.setOpacity(0);
+        plotRect.setStroke(Color.LIGHTSLATEGRAY);
+        plotRect.setFill(Color.rgb(38,38,38));
+        plotRect.setStrokeWidth(2);
+        plotPane.getChildren().addAll(plotRect,weatherPlot);
+        plotPane.setMaxSize(630,260);
+        StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
+        plotPane.setOpacity(0.97);
+
+
+        // Create table
+        tablePane = new StackPane();
+        dataTable = getTable(630,200);
+        dataTable.setOpacity(0.9);
+
+        tablePane.getChildren().addAll(dataTable);
+        StackPane.setAlignment(dataTable,Pos.CENTER);
+        tablePane.setMaxSize(630,200);
+        tablePane.setOpacity(0);
+
+
+        StackPane explorerPane = new StackPane();
+        explorerRect = new Rectangle(400,475);
+        explorerRect.setArcHeight(20);
+        explorerRect.setArcWidth(20);
+        explorerRect.setOpacity(0);
+        explorerRect.setStroke(Color.LIGHTSLATEGRAY);
+        explorerRect.setFill(Color.rgb(38, 38, 38));
+        explorerRect.setStrokeWidth(2);
+        explorerPane.getChildren().addAll(explorerRect);
+        explorerPane.setMaxSize(400,475);
+
+        explorerTabsPane = new TabPane();
+        explorerTabsPane.setMaxSize(400, 475);
+        explorerTabsPane.setOpacity(0);
+
+
+        Tab allStationsTab = new Tab();
+        allStationsTab.setText("All stations");
+        StackPane allStationsPane = new StackPane();
+        allStationsPane.setPrefSize(390,475);
+
+        ScrollPane stationsScroll = new ScrollPane();
+        stationsScroll.setPrefSize(350,475);
+        stationsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        stationsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        TextField searchBar = new TextField();
+
+        searchBar.setMaxSize(180,25);
+        searchBar.setPromptText("Search stations");
+        searchBar.setOpacity(0.9);
+
+        allStationsPane.getChildren().addAll(stationsScroll, searchBar);
+        allStationsPane.setPadding(new Insets(0,0,10,0));
+        StackPane.setMargin(searchBar, new Insets(0,190,390,0));
+        StackPane.setAlignment(stationsScroll,Pos.CENTER);
+
+        // Extract this into a method called addStationButtons
+        //--------------------------------------------------------------------------//
+        VBox content = new VBox(8);
+        content.setAlignment(Pos.CENTER);
+        content.setPadding(new Insets(15,0,15,0));
+
+        for (int i = 0; i < 100; i++)
+        {
+            ListNode node = new ListNode("s");
+            content.getChildren().add(node);
+        }
+        stationsScroll.setContent(content);
+        stationsScroll.setFitToWidth(true);
+        //---------------------------------------------------------------------------//
+
+        allStationsTab.setContent(allStationsPane);
+
+        Tab favsTab = new Tab();
+        favsTab.setText("Favourites");
+        StackPane paneTab2 = new StackPane();
+
+        allStationsTab.setClosable(false);
+        favsTab.setClosable(false);
+
+        explorerTabsPane.getTabs().addAll(allStationsTab,favsTab);
+        explorerTabsPane.setTabMinWidth(165);
+        explorerTabsPane.setTabMinHeight(35);
+
+        explorerPane.getChildren().add(explorerTabsPane);
+        StackPane.setMargin(explorerTabsPane, new Insets(2, 0, 0, 0));
+        explorerPane.setPadding(new Insets(0,0,0,0));
+
+        plotRect.setId("rect");
+        plotRect.applyCss();
+
+        explorerRect.setId("rect3");
+        explorerRect.applyCss();
+
+        exitButton = new Button("X");
+        exitButton.setId("exit");
+        exitButton.setMaxSize(50,25);
+        exitButton.toFront();
+
+        exitButton.setOnMouseEntered(e -> exitButton.setId("exit-h"));
+        exitButton.setOnMouseExited(e -> exitButton.setId("exit"));
+
+        exitButton.setOnMousePressed(e ->  System.exit(1));
+
+        toolBar = new ToolBar(exitButton);
+
+        toolBar.setMaxSize(1260,35);
+        toolBar.setOpacity(0);
+
+        dragWindow(rootPane);
+        dragWindow2(toolBar);
+
+        exportGraph = new Button("Open Graph");
+        exportGraph.setMinSize(130, 25);
+        exportGraph.setId("exportbuttonsmall");
+        exportGraph.toFront();
+        exportGraph.setOpacity(0);
+
+        exportGraph.setOnMouseEntered(e -> exportGraph.getStyleClass().add("export-button-bright"));
+        exportGraph.setOnMouseExited(e -> exportGraph.getStyleClass().remove("export-button-bright"));
+
+        StackPane.setMargin(exportGraph,new Insets(35,0,0,870));
+        StackPane.setMargin(plotPane,new Insets(0,0,180,430));
+        StackPane.setMargin(tablePane,new Insets(310,0,0,430));
+        StackPane.setMargin(explorerPane,new Insets(40,660,0,0));
+        StackPane.setAlignment(toolBar, Pos.TOP_CENTER);
+
+        rootPane.setAlignment(Pos.CENTER);
+        rootPane.getChildren().addAll(toolBar,plotPane,tablePane,explorerPane,exportGraph);
+
+
+        Scene scene = new Scene(rootPane,1260,680);
+        scene.setFill(Color.TRANSPARENT);
+
+        Utilities util = new Utilities();
+        util.getCss(scene);
+
+        return scene;
+
+
     }
 
     public Scene setSceneLow(){
@@ -696,13 +787,12 @@ public class HomeScreen {
         collumn4.setResizable(false);
 
 
-
         table.getColumns().addAll( collumn1, collumn2, collumn3, collumn4);
 
         return table;
     }
 
-    public LineChart<Number,Number> getChart(){
+ /*   public LineChart<Number,Number> getChart(){
 
     // should be getting data from other classes
 
@@ -736,7 +826,7 @@ public class HomeScreen {
     lineChart.getData().add(series);
 
     return lineChart;
-}
+}*/
 
 
    /* public void setEffects(Node node, double width, double height){
