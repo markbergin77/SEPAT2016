@@ -464,6 +464,9 @@
     -fx-max-height: 33px;
     -fx-min-height: 33px;
 }
+#waht{
+    -fx-background-color: white;
+}
 
 .export-button-bright{
 
