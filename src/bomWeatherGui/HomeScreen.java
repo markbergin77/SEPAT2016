@@ -35,7 +35,7 @@ public class HomeScreen {
 
     private static Button exitButton,exportGraph;
     private static Scene SCENE1;
-    private static StackPane rootPane,tablePane;
+    private static StackPane rootPane,tablePane,plotPane;
     private static  ImageView backgroundImageView;
     private static Rectangle plotRect,tableRect,explorerRect ,screenSize;
     private static TextField text;
@@ -45,10 +45,8 @@ public class HomeScreen {
     private static TabPane explorerTabsPane;
     private static LineChart<Number,Number> weatherPlot;
     private static TableView<String> dataTable;
+    private static String size;
 
-    public HomeScreen(){
-
-    }
 
     public void display(Stage window){
 
@@ -81,20 +79,25 @@ public class HomeScreen {
 
         switch(switchCase){
 
-            case 1:SCENE1 = setSceneLarge();
+            case 3:SCENE1 = setSceneLarge();
+                size = "L";
                 util.resizeWindowIncrease(WINDOW,1320,740,2,4);
                 break;
 
             case 2: SCENE1 = setSceneMedHigh();
+                size = "MH";
                 util.resizeWindowIncrease(WINDOW,1260,680,2,4);
                 break;
-            case 3: SCENE1 = setSceneMedLow();
+            case 1: SCENE1 = setSceneMedLow();
+                size = "ML";
                 util.resizeWindowIncrease(WINDOW,1100,550,2,4);
                 break;
             case 4: SCENE1= setSceneLow();
+                size = "S";
                 util.resizeWindowIncrease(WINDOW,500,250,2,4);
                 break;
             default:SCENE1= setSceneLow();
+                size = "S";
                 break;
         }
 
@@ -303,7 +306,7 @@ public class HomeScreen {
     public Scene setSceneLarge(){
         rootPane = new StackPane();
         // Create Plot
-        StackPane plotPane = new StackPane();
+        plotPane = new StackPane();
         plotRect = new Rectangle(800,400);
         weatherPlot = new LineChart<Number,Number>(new NumberAxis(),new NumberAxis());
         weatherPlot.setMaxSize(800,350);
@@ -322,6 +325,7 @@ public class HomeScreen {
         tablePane = new StackPane();
         dataTable = new TableView<>();
         dataTable.setOpacity(0.9);
+        dataTable.setPlaceholder(new Label("Select a station"));
         tablePane.getChildren().addAll(dataTable);
         StackPane.setAlignment(dataTable,Pos.CENTER);
         tablePane.setMaxSize(800,200);
@@ -364,7 +368,7 @@ public class HomeScreen {
         StackPane.setMargin(searchBar, new Insets(0,210,530,0));
         StackPane.setAlignment(stationsScroll,Pos.CENTER);
 
-        StationsList list = new StationsList();
+        StationsList list = new StationsList(this);
         VBox content = list.returnList();
         stationsScroll.setContent(content);
         stationsScroll.setFitToWidth(true);
@@ -448,9 +452,10 @@ public class HomeScreen {
 
         rootPane = new StackPane();
         // Create Plot
-        StackPane plotPane = new StackPane();
-        plotRect = new Rectangle(730,300);
-        weatherPlot.setMaxSize(730,250);
+        plotPane = new StackPane();
+        plotRect = new Rectangle(730,350);
+        weatherPlot = new LineChart<Number,Number>(new NumberAxis(),new NumberAxis());
+        weatherPlot.setMaxSize(730,300);
         weatherPlot.setOpacity(0);
         plotRect.setArcHeight(20);
         plotRect.setArcWidth(20);
@@ -466,11 +471,13 @@ public class HomeScreen {
 
         // Create table
         tablePane = new StackPane();
+        dataTable = new TableView<>();
         dataTable.setOpacity(0.9);
+        dataTable.setPlaceholder(new Label("Select a station"));
 
         tablePane.getChildren().addAll(dataTable);
         StackPane.setAlignment(dataTable,Pos.CENTER);
-        tablePane.setMaxSize(730,250);
+        tablePane.setMaxSize(730,200);
         tablePane.setOpacity(0);
 
 
@@ -510,7 +517,7 @@ public class HomeScreen {
         StackPane.setMargin(searchBar, new Insets(0,210,490,0));
         StackPane.setAlignment(stationsScroll,Pos.CENTER);
 
-        StationsList list = new StationsList();
+        StationsList list = new StationsList(this);
         VBox content = list.returnList();
 
         stationsScroll.setContent(content);
@@ -568,9 +575,9 @@ public class HomeScreen {
         exportGraph.setOnMouseEntered(e -> exportGraph.getStyleClass().add("export-button-bright"));
         exportGraph.setOnMouseExited(e -> exportGraph.getStyleClass().remove("export-button-bright"));
 
-        StackPane.setMargin(exportGraph,new Insets(0,0,0,985));
-        StackPane.setMargin(plotPane,new Insets(0,0,240,460));
-        StackPane.setMargin(tablePane,new Insets(365,0,0,460));
+        StackPane.setMargin(exportGraph,new Insets(90,0,0,985));
+        StackPane.setMargin(plotPane,new Insets(0,0,190,460));
+        StackPane.setMargin(tablePane,new Insets(415,0,0,460));
         StackPane.setMargin(explorerPane,new Insets(40,760,0,0));
         StackPane.setAlignment(toolBar, Pos.TOP_CENTER);
 
@@ -593,12 +600,10 @@ public class HomeScreen {
 
         rootPane = new StackPane();
         // Create Plot
-        StackPane plotPane = new StackPane();
+        plotPane = new StackPane();
         plotRect = new Rectangle(630,260);
-
-      //  weatherPlot = WeatherPlot.getChart();
-
-        weatherPlot.setMaxSize(630,220);
+        weatherPlot = new LineChart<Number,Number>(new NumberAxis(),new NumberAxis());
+        weatherPlot.setMaxSize(630,230);
         weatherPlot.setOpacity(0);
         plotRect.setArcHeight(20);
         plotRect.setArcWidth(20);
@@ -614,9 +619,8 @@ public class HomeScreen {
 
         // Create table
         tablePane = new StackPane();
-
-      //  dataTable = getTable(630,200);
-
+        dataTable = new TableView<>();
+        dataTable.setPlaceholder(new Label("Select a station"));
         dataTable.setOpacity(0.9);
 
         tablePane.getChildren().addAll(dataTable);
@@ -662,7 +666,7 @@ public class HomeScreen {
         StackPane.setAlignment(stationsScroll,Pos.CENTER);
 
 
-        StationsList list = new StationsList();
+        StationsList list = new StationsList(this);
         VBox content = list.returnList();
         stationsScroll.setContent(content);
         stationsScroll.setFitToWidth(true);
@@ -745,14 +749,46 @@ public class HomeScreen {
         return null;
     }
 
+
     public void setChart(LineChart<Number,Number> chart){
-        weatherPlot = chart;
+        plotPane.getChildren().remove(1);
+
+        if(size.equals("L")) {
+            weatherPlot = chart;
+            weatherPlot.setMaxSize(800,350);
+            plotPane.getChildren().add(weatherPlot);
+            StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
+        }
+        else if(size.equals("MH")){
+            weatherPlot = chart;
+            weatherPlot.setMaxSize(730,300);
+            plotPane.getChildren().add(weatherPlot);
+            StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
+        }
+        else if(size.equals("ML")){
+            weatherPlot = chart;
+            weatherPlot.setMaxSize(630,230);
+            plotPane.getChildren().add(weatherPlot);
+            StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
+        }
+        else{
+            weatherPlot = chart;                //might change functionality slightly for small scene
+            weatherPlot.setMaxSize(630,220);
+            plotPane.getChildren().add(weatherPlot);
+            StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
+        }
     }
 
-    public void setTable(TableView<String> table){
+    public void setTable(TableView<String> table) {
+
+        tablePane.getChildren().remove(0);
         dataTable = table;
+        tablePane.getChildren().add(dataTable);
     }
 
+    public String getSize(){
+        return size;
+    }
 
    /* public void setEffects(Node node, double width, double height){
 

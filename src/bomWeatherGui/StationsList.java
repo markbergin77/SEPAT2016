@@ -15,7 +15,7 @@ public class StationsList {
 
     private static VBox stationsList;
 
-    public StationsList(){ // change constructor to accept stations list as well
+    public StationsList(HomeScreen home){ // change constructor to accept stations list as well
 
         //for each station object in the vector....
         this.stationsList = new VBox(8);
@@ -36,7 +36,17 @@ public class StationsList {
 
             node.setOnMouseClicked(e ->{
 
-                //cant figure it out yet
+               home.setChart(node.returnChart());
+
+                if(home.getSize().equals("L")){
+                    home.setTable(node.getTable(800, 250));
+                }
+                if(home.getSize().equals("MH")){
+                    home.setTable(node.getTable(730, 200));
+                }
+                if(home.getSize().equals("ML")){
+                    home.setTable(node.getTable(630, 200));
+                }
 
             });
 

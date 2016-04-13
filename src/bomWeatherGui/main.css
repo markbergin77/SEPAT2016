@@ -467,8 +467,8 @@
 
 #exportbuttonsmall{
 
-    -fx-max-height: 28px;
-    -fx-min-height: 28px;
+    -fx-max-height: 30px;
+    -fx-min-height: 30px;
     -fx-text-alignment: center;
     -fx-font-size: 12px;
 }
