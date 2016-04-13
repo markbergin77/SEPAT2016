@@ -4,6 +4,7 @@ package bomWeatherGui;
  * Created by Pavel Nikolaev on 13/03/2016.
  */
 
+import bomData.Station;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
@@ -44,6 +45,10 @@ public class HomeScreen {
     private static TabPane explorerTabsPane;
     private static LineChart<Number,Number> weatherPlot;
     private static TableView<String> dataTable;
+
+    public HomeScreen(){
+
+    }
 
     public void display(Stage window){
 
@@ -295,13 +300,12 @@ public class HomeScreen {
 
     }
 
-    public Scene setSceneLarge()
-    {
+    public Scene setSceneLarge(){
         rootPane = new StackPane();
         // Create Plot
         StackPane plotPane = new StackPane();
         plotRect = new Rectangle(800,400);
-        weatherPlot = WeatherPlot.getChart();
+        weatherPlot = new LineChart<Number,Number>(new NumberAxis(),new NumberAxis());
         weatherPlot.setMaxSize(800,350);
         weatherPlot.setOpacity(0);
         plotRect.setArcHeight(20);
@@ -314,12 +318,10 @@ public class HomeScreen {
         plotPane.setMaxSize(800,350);
         StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
 
-
         // Create table
         tablePane = new StackPane();
-        dataTable = getTable(800,250);
+        dataTable = new TableView<>();
         dataTable.setOpacity(0.9);
-
         tablePane.getChildren().addAll(dataTable);
         StackPane.setAlignment(dataTable,Pos.CENTER);
         tablePane.setMaxSize(800,200);
@@ -362,30 +364,21 @@ public class HomeScreen {
         StackPane.setMargin(searchBar, new Insets(0,210,530,0));
         StackPane.setAlignment(stationsScroll,Pos.CENTER);
 
-        // Extract this into a method called addStationButtons
-        //--------------------------------------------------------------------------//
-        VBox content = new VBox(8);
-        content.setAlignment(Pos.CENTER);
-        content.setPadding(new Insets(15,0,15,0));
-
-        for (int i = 0; i < 100; i++)
-        {
-            ListNode node = new ListNode("");
-            content.getChildren().add(node);
-        }
+        StationsList list = new StationsList();
+        VBox content = list.returnList();
         stationsScroll.setContent(content);
-        stationsScroll.setFitToHeight(true);
         stationsScroll.setFitToWidth(true);
-        //---------------------------------------------------------------------------//
+        stationsScroll.setFitToHeight(true);
 
         allStationsTab.setContent(allStationsPane);
 
+        //----------------------------------------------------//
         Tab favsTab = new Tab();
         favsTab.setText("Favourites");
         StackPane paneTab2 = new StackPane();
-
         allStationsTab.setClosable(false);
         favsTab.setClosable(false);
+        //----------------------------------------------------//
 
         explorerTabsPane.getTabs().addAll(allStationsTab,favsTab);
         explorerTabsPane.setTabMinWidth(180);
@@ -397,7 +390,6 @@ public class HomeScreen {
 
         plotRect.setId("rect");
         plotRect.applyCss();
-
 
         explorerRect.setId("rect3");
         explorerRect.applyCss();
@@ -458,7 +450,6 @@ public class HomeScreen {
         // Create Plot
         StackPane plotPane = new StackPane();
         plotRect = new Rectangle(730,300);
-        weatherPlot = WeatherPlot.getChart();
         weatherPlot.setMaxSize(730,250);
         weatherPlot.setOpacity(0);
         plotRect.setArcHeight(20);
@@ -475,7 +466,6 @@ public class HomeScreen {
 
         // Create table
         tablePane = new StackPane();
-        dataTable = getTable(730,250);
         dataTable.setOpacity(0.9);
 
         tablePane.getChildren().addAll(dataTable);
@@ -520,30 +510,23 @@ public class HomeScreen {
         StackPane.setMargin(searchBar, new Insets(0,210,490,0));
         StackPane.setAlignment(stationsScroll,Pos.CENTER);
 
-        // Extract this into a method called addStationButtons
-        //--------------------------------------------------------------------------//
-        VBox content = new VBox(8);
-        content.setAlignment(Pos.CENTER);
-        content.setPadding(new Insets(15,0,15,0));
+        StationsList list = new StationsList();
+        VBox content = list.returnList();
 
-        for (int i = 0; i < 100; i++)
-        {
-            ListNode node = new ListNode("");
-            content.getChildren().add(node);
-        }
         stationsScroll.setContent(content);
-        stationsScroll.setFitToHeight(true);
         stationsScroll.setFitToWidth(true);
-        //---------------------------------------------------------------------------//
+        stationsScroll.setFitToHeight(true);
+
 
         allStationsTab.setContent(allStationsPane);
 
+        //----------------------------------------------------//
         Tab favsTab = new Tab();
         favsTab.setText("Favourites");
         StackPane paneTab2 = new StackPane();
-
         allStationsTab.setClosable(false);
         favsTab.setClosable(false);
+        //----------------------------------------------------//
 
         explorerTabsPane.getTabs().addAll(allStationsTab,favsTab);
         explorerTabsPane.setTabMinWidth(180);
@@ -607,11 +590,14 @@ public class HomeScreen {
 
     public Scene setSceneMedLow(){
 
+
         rootPane = new StackPane();
         // Create Plot
         StackPane plotPane = new StackPane();
         plotRect = new Rectangle(630,260);
-        weatherPlot = WeatherPlot.getChart();
+
+      //  weatherPlot = WeatherPlot.getChart();
+
         weatherPlot.setMaxSize(630,220);
         weatherPlot.setOpacity(0);
         plotRect.setArcHeight(20);
@@ -628,7 +614,9 @@ public class HomeScreen {
 
         // Create table
         tablePane = new StackPane();
-        dataTable = getTable(630,200);
+
+      //  dataTable = getTable(630,200);
+
         dataTable.setOpacity(0.9);
 
         tablePane.getChildren().addAll(dataTable);
@@ -673,29 +661,22 @@ public class HomeScreen {
         StackPane.setMargin(searchBar, new Insets(0,190,390,0));
         StackPane.setAlignment(stationsScroll,Pos.CENTER);
 
-        // Extract this into a method called addStationButtons
-        //--------------------------------------------------------------------------//
-        VBox content = new VBox(8);
-        content.setAlignment(Pos.CENTER);
-        content.setPadding(new Insets(15,0,15,0));
 
-        for (int i = 0; i < 100; i++)
-        {
-            ListNode node = new ListNode("s");
-            content.getChildren().add(node);
-        }
+        StationsList list = new StationsList();
+        VBox content = list.returnList();
         stationsScroll.setContent(content);
         stationsScroll.setFitToWidth(true);
-        //---------------------------------------------------------------------------//
+        stationsScroll.setFitToHeight(true);
 
         allStationsTab.setContent(allStationsPane);
 
+        //----------------------------------------------------//
         Tab favsTab = new Tab();
         favsTab.setText("Favourites");
         StackPane paneTab2 = new StackPane();
-
         allStationsTab.setClosable(false);
         favsTab.setClosable(false);
+        //----------------------------------------------------//
 
         explorerTabsPane.getTabs().addAll(allStationsTab,favsTab);
         explorerTabsPane.setTabMinWidth(165);
@@ -764,69 +745,13 @@ public class HomeScreen {
         return null;
     }
 
-    public TableView<String> getTable(int width,int height){
-
-       TableView<String> table = new TableView<String>();
-        table.setMaxSize(width,height);
-        table.setEditable(false);
-        table.getItems().addAll("HEY");
-        table.setPadding(new Insets(1,1,10,1));
-        TableColumn<String,String> collumn1 = new TableColumn<String,String>("Temp");
-        TableColumn<String,String> collumn2 = new TableColumn<String,String>("Humidity");
-        TableColumn<String,String> collumn3 = new TableColumn<String,String>("Blah");
-        TableColumn<String,String> collumn4 = new TableColumn<String,String>("Blah");
-
-        collumn1.setPrefWidth((width/4)-1);
-        collumn2.setPrefWidth((width/4)-1);
-        collumn3.setPrefWidth((width/4)-1);
-        collumn4.setPrefWidth((width/4)-1);
-
-        collumn1.setResizable(false);
-        collumn2.setResizable(false);
-        collumn3.setResizable(false);
-        collumn4.setResizable(false);
-
-
-        table.getColumns().addAll( collumn1, collumn2, collumn3, collumn4);
-
-        return table;
+    public void setChart(LineChart<Number,Number> chart){
+        weatherPlot = chart;
     }
 
- /*   public LineChart<Number,Number> getChart(){
-
-    // should be getting data from other classes
-
-    final NumberAxis xAxis = new NumberAxis();
-    final NumberAxis yAxis = new NumberAxis();
-    //creating the chart
-    final LineChart<Number,Number> lineChart =
-            new LineChart<Number,Number>(xAxis,yAxis);
-
-
-    //defining a series
-    XYChart.Series series = new XYChart.Series();
-    //populating the series with data
-        //should have 12 points on the graph to represent 12 months
-
-    series.getData().add(new XYChart.Data(1, 23));
-    series.getData().add(new XYChart.Data(2, 14));
-    series.getData().add(new XYChart.Data(3, 15));
-    series.getData().add(new XYChart.Data(4, 24));
-    series.getData().add(new XYChart.Data(5, 34));
-    series.getData().add(new XYChart.Data(6, 36));
-    series.getData().add(new XYChart.Data(7, 22));
-    series.getData().add(new XYChart.Data(8, 45));
-    series.getData().add(new XYChart.Data(9, 43));
-    series.getData().add(new XYChart.Data(10, 17));
-    series.getData().add(new XYChart.Data(11, 29));
-    series.getData().add(new XYChart.Data(12, 25));
-
-
-
-    lineChart.getData().add(series);
-
-    return lineChart;
-}*/
+    public void setTable(TableView<String> table){
+        dataTable = table;
+    }
 
 
    /* public void setEffects(Node node, double width, double height){
