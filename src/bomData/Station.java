@@ -1,7 +1,11 @@
 package bomData;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -20,6 +24,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+
 import com.opencsv.CSVReader;
 
 public class Station implements Serializable
@@ -165,34 +170,57 @@ public class Station implements Serializable
 	public WthrMonth getWthrLastMonth(String month) throws IOException
 	{
 		WthrMonth samples = null;
-		String url;
-		String csvUrl;
+		Boolean fileExists = false;
+		File filePath = new File("data/"+ this.getName() + '-' +month + ".csv");
+		File dirPath = new File("data");
 		
-		String htmlUrl = this.getHtmlUrl();
-		Document doc = Jsoup.connect(htmlUrl).get();
-		Elements links = doc.select("a");
-		for (Element link : links)
-		{
-			if (link.text().contains("Recent months"))
+		if (!dirPath.isDirectory()) {
+			dirPath.mkdir();
+		}
+		else {
+			for (String fileName: dirPath.list()) {
+				if (fileName.equals(month))
+					fileExists = true;
+			}
+		}
+		
+		if (fileExists) {
+			try (BufferedReader csvStream = new BufferedReader(new FileReader(filePath))) {
+				CSVReader csvReader = new CSVReader(csvStream);
+				samples = processCsv(csvReader);
+			}
+			
+		}
+		else {
+			String url;
+			String csvUrl;
+			String htmlUrl = this.getHtmlUrl();
+			Document doc = Jsoup.connect(htmlUrl).get();
+			Elements links = doc.select("a");
+			for (Element link : links)
 			{
-				url = link.attr("href");
-				csvUrl = "http://www.bom.gov.au"
-						+ url.replace("dwo/", "dwo/" + month + "/text/").replace("latest.shtml", month + ".csv");
-				
-				// Testing code
-				// System.out.println(this.getName() + " " + csvUrl);
-				
-				try  (BufferedReader csvStream = new BufferedReader(new InputStreamReader(new URL(csvUrl).openStream())))
+				if (link.text().contains("Recent months"))
 				{
-					CSVReader csvReader = new CSVReader(csvStream);
-					samples = processCsv(csvReader);
-					csvReader.close();
-				}
-				catch(FileNotFoundException e) {
-					System.out.println("FILE NOT FOUND");
+					url = link.attr("href");
+					csvUrl = "http://www.bom.gov.au"
+							+ url.replace("dwo/", "dwo/" + month + "/text/").replace("latest.shtml", month + ".csv");
+					
+					// Testing code
+					// System.out.println(this.getName() + " " + csvUrl);
+					
+					try  (BufferedReader csvStream = new BufferedReader(new InputStreamReader(new URL(csvUrl).openStream())))
+					{
+						CSVReader csvReader = new CSVReader(csvStream);
+						samples = processCsv(csvReader);
+						csvReader.close();
+					}
+					catch(FileNotFoundException e) {
+						System.out.println("FILE NOT FOUND");
+					}
 				}
 			}
 		}
+		
 
 
 		return samples;
@@ -201,6 +229,7 @@ public class Station implements Serializable
 	private WthrMonth processCsv(CSVReader csvReader) throws IOException {
 		String[] nextLine = null;
 		WthrMonth samples = new WthrMonth();
+		
 		
 		while ((nextLine = csvReader.readNext()) != null)
 		{
@@ -229,7 +258,6 @@ public class Station implements Serializable
 			String windDir3pm = nextLine[19];
 			String windSpd3pm = nextLine[20];
 			String meanSeaLevelPressure3pm = nextLine[21];
-			System.out.println(date);
 			samples.add(new WthrSampleCoarse(date, minTemp, maxTemp, rain, evap, sun, maxWindGustDir, maxWindGustSpd,
 					maxWindGustTime, temp9am, relHumidity9am, cloud9am, windDir9am, windSpd9am,
 					meanSeaLevelPressure9am, temp3pm, relHumidity3pm, cloud3pm, windDir3pm, windSpd3pm,
