@@ -26,6 +26,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 
 public class Station implements Serializable
 {
@@ -184,14 +185,8 @@ public class Station implements Serializable
 			}
 		}
 		
-		if (fileExists) {
-			try (BufferedReader csvStream = new BufferedReader(new FileReader(filePath))) {
-				CSVReader csvReader = new CSVReader(csvStream);
-				samples = processCsv(csvReader);
-			}
-			
-		}
-		else {
+		if (!fileExists) {
+			String[] nextLine;
 			String url;
 			String csvUrl;
 			String htmlUrl = this.getHtmlUrl();
@@ -211,18 +206,24 @@ public class Station implements Serializable
 					try  (BufferedReader csvStream = new BufferedReader(new InputStreamReader(new URL(csvUrl).openStream())))
 					{
 						CSVReader csvReader = new CSVReader(csvStream);
-						samples = processCsv(csvReader);
+						try (CSVWriter csvWriter = new CSVWriter(new FileWriter(filePath))) {
+							while ((nextLine = csvReader.readNext()) != null) {
+								csvWriter.writeNext(nextLine);
+							}
+						}
 						csvReader.close();
 					}
 					catch(FileNotFoundException e) {
 						System.out.println("FILE NOT FOUND");
+						return null;
 					}
 				}
 			}
 		}
-		
-
-
+		try (BufferedReader csvStream = new BufferedReader(new FileReader(filePath))) {
+			CSVReader csvReader = new CSVReader(csvStream);
+			samples = processCsv(csvReader);
+		}
 		return samples;
 	}
 	

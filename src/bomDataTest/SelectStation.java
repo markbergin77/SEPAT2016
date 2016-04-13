@@ -36,9 +36,9 @@ public class SelectStation
 	    StationList stations = Bom.getAllStations();
 	    
 	    // Rad's testing code
-//	    for (Station station: stations) {
-//	    	station.getWthrLastMonth("201603");
-//	    }
+	    for (Station station: stations) {
+	    	station.getWthrLastMonth("201603");
+	    }
 	    
 	    //User inputs station, searches for match
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));					
