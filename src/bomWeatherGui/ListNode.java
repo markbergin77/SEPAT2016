@@ -24,6 +24,27 @@ public class ListNode extends Parent {
   //  private Boolean RAINING, SUNNY;
     private Station station;
 
+    public ListNode(Station station)
+    {
+    	this.station = station;
+    	Rectangle rect = new Rectangle(340, 55, Color.rgb(20, 20, 20, 0.9));
+        rect.setArcHeight(10);
+        rect.setArcWidth(10);
+        rect.setStroke(Color.LIGHTSLATEGRAY);
+        rect.setStrokeWidth(2);
+        rect.setStyle("-fx-effect: dropshadow(three-pass-box,black, 10, 0.1, 0, 0);");
+
+        rect.setOnMouseEntered(e -> rect.setStyle("-fx-effect: dropshadow(three-pass-box,#606060, 10, 0.3, 0, 0);"));
+        rect.setOnMouseExited(e -> rect.setStyle("-fx-effect: dropshadow(three-pass-box,black, 10, 0.1, 0, 0);"));
+
+        StackPane pane = new StackPane();
+        pane.setPrefSize(340, 55);
+        pane.getStyleClass().add("container");
+        pane.getChildren().add(rect);
+        StackPane.setAlignment(rect, Pos.CENTER);
+        getChildren().add(pane);
+    }
+    
     public ListNode (String s, Station station) {
         setContent(s);
         this.station = station;

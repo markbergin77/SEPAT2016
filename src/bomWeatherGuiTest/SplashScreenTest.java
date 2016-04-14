@@ -5,7 +5,7 @@ import java.io.IOException;
 import bomData.Bom;
 import bomData.StationList;
 import bomWeatherGui.HomeScreen;
-import bomWeatherGui.SplashScene;
+import bomWeatherGui.SplashScreen;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
@@ -30,7 +30,7 @@ public class SplashScreenTest extends Application
 	@Override
 	public void start(Stage window) throws Exception 
 	{
-		SplashScene splash = new SplashScene();
+		SplashScreen splash = new SplashScreen();
 		window.setScene(splash.getScene());
 	    window.setTitle("Login");
 		window.setResizable(false);

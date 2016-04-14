@@ -31,7 +31,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 /* Creates the gui components necessary to
 display a splash screen. */
-public class SplashScene implements LoadingUpdater
+public class SplashScreen implements LoadingUpdater
 {
 	Scene scene;
 	StackPane rootPane;
@@ -55,7 +55,7 @@ public class SplashScene implements LoadingUpdater
 		return scene;
 	}
 
-	public SplashScene() 
+	public SplashScreen() 
 	{
 		rootPane = new StackPane();
 

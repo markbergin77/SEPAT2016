@@ -1,5 +1,9 @@
 package bomWeatherGui;
 
+import java.awt.Point;
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by Pavel Nikolaev on 13/03/2016.
  */
@@ -23,10 +27,12 @@ import javafx.stage.*;
 import javafx.util.Duration;
 
 
-public class HomeScreen {
-
+public class HomeScreen 
+{
+	// Old stuff
+	StationListPane stationListPane;
     private static Button exitButton,exportGraph, buttonLeft,buttonRight,menu,showTable;
-    private static Scene SCENE1;
+    private static Scene scene;
     private static StackPane rootPane,tablePane,plotPane;
     private static  ImageView backgroundImageView;
     private static Rectangle plotRect,tableRect,explorerRect ;
@@ -38,11 +44,12 @@ public class HomeScreen {
     private static LineChart<Number,Number> weatherPlot;
     private static TableView<String> dataTable;
     private static String size;
-
-
-    public void display(Stage window)
+    Explorer explorer;
+    
+    
+    public HomeScreen(Stage window)
     {
-        WINDOW = window;
+    	WINDOW = window;
         Utilities util = new Utilities();
 
 
@@ -70,24 +77,25 @@ public class HomeScreen {
 
         switch(switchCase){
 
-            case 1:SCENE1 = setSceneLarge();
+            case 1:
+            	scene = setSceneLarge();
                 size = "L";
-                util.resizeWindowIncrease(WINDOW,1320,740,2,4);
                 break;
 
-            case 2: SCENE1 = setSceneMedHigh();
+            case 2: 
+            	scene = setSceneMedHigh();
                 size = "MH";
-                util.resizeWindowIncrease(WINDOW,1260,680,2,4);
                 break;
-            case 3: SCENE1 = setSceneMedLow();
+            case 3: 
+            	scene = setSceneMedLow();
                 size = "ML";
-                util.resizeWindowIncrease(WINDOW,1100,550,2,4);
                 break;
-            case 4: SCENE1= setSceneLow();
+            case 4: 
+            	scene= setSceneLow();
                 size = "S";
-                util.resizeWindowIncrease(WINDOW,900,500,2,4);
                 break;
-            default:SCENE1= setSceneLow();
+            default:
+            	scene= setSceneLow();
                 size = "S";
                 break;
         }
@@ -100,7 +108,45 @@ public class HomeScreen {
         StackPane.setMargin(backgroundImageView,new Insets(0,0,0,0));
         backgroundImageView.toBack();
         backgroundImageView.setOpacity(0);
+    }
+    
+    // Later
+    public HomeScreen(Point bounds)
+    {
+    	int boundsX = (int)(bounds.getX() + 0.5);
+    	Utilities util = new Utilities();
+    	
+    	
+    }
+    
+    Scene getScene()
+    {
+    	return scene;
+    }
+    
+    public void display(Stage window)
+    {
+    	switch (size)
+    	{
+    	case "L":
+        startGrowWindow(WINDOW,1320,740,2,4);
+        break;
 
+    case "MH":
+        startGrowWindow(WINDOW,1260,680,2,4);
+        break;
+    case "ML":
+        startGrowWindow(WINDOW,1100,550,2,4);
+        break;
+    case "S":
+        startGrowWindow(WINDOW,900,500,2,4);
+        break;
+    default:
+    	startGrowWindow(WINDOW,900,500,2,4);
+        break;
+    		
+    	}
+    	
         ScaleTransition scaleTransition1 = new ScaleTransition(Duration.seconds(20), backgroundImageView);
         scaleTransition1.setByX(0.5f);
         scaleTransition1.setByY(0.5f);
@@ -114,13 +160,57 @@ public class HomeScreen {
 
 
 
-        WindowResizeListener resizer = new WindowResizeListener(SCENE1);
+        WindowResizeListener resizer = new WindowResizeListener(scene);
         resizer.setResizeListener();
 
         WINDOW.setTitle("Home");
-        WINDOW.setScene(SCENE1);
+        WINDOW.setScene(scene);
     }
+    
+    void startGrowWindow(Stage window, int x , int y, int timeX, int timeY){
 
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            int i = 0;
+            @Override
+            public void run() {
+
+
+                if(window.getWidth() < x){
+                    window.setWidth(window.getWidth() + 2.5);
+                    window.setX(window.getX()-1.0);
+
+
+                }
+                else{
+                    this.cancel();
+                    fadeIn();
+                }
+                 i+=2;
+
+            }
+        }, 0, timeX);
+        
+        timer.scheduleAtFixedRate(new TimerTask() {
+            int i = 0;
+            @Override
+            public void run() {
+
+                if(window.getHeight() < y) {
+                    window.setHeight(window.getHeight() + 2.5);
+                    window.setY(window.getY()-0.3);
+                }
+                else{
+                    this.cancel();
+                    
+                }
+
+                i+=2;
+
+            }
+        },0, timeY);
+	}
+    
     public void fadeIn(){
 
         Rectangle clipRect = new Rectangle(WINDOW.getWidth(),WINDOW.getHeight());
@@ -215,9 +305,8 @@ public class HomeScreen {
 
     }
 
-    public void dragWindow(StackPane pane){
-
-
+    public void setDraggable(StackPane pane)
+    {
         pane.setOnMousePressed(e -> {
             this.xPos = WINDOW.getX() - e.getScreenX();
             this.yPos = WINDOW.getY() - e.getScreenY();
@@ -227,10 +316,10 @@ public class HomeScreen {
             WINDOW.setX(e.getScreenX() + this.xPos);
             WINDOW.setY(e.getScreenY() + this.yPos);
         });
-
     }
-    public void dragWindow2(ToolBar bar){
-
+    
+    public void setDraggable(ToolBar bar)
+    {
         bar.setOnMousePressed(e -> {
             this.xPos = WINDOW.getX() - e.getScreenX();
             this.yPos = WINDOW.getY() - e.getScreenY();
@@ -240,7 +329,6 @@ public class HomeScreen {
             WINDOW.setX(e.getScreenX() + this.xPos);
             WINDOW.setY(e.getScreenY() + this.yPos);
         });
-
     }
 
     public Scene setSceneLarge(){
@@ -271,7 +359,7 @@ public class HomeScreen {
         tablePane.setMaxSize(800,200);
         tablePane.setOpacity(0);
 
-
+        // Create explorer
         StackPane explorerPane = new StackPane();
         explorerRect = new Rectangle(430,625);
         explorerRect.setArcHeight(20);
@@ -308,9 +396,10 @@ public class HomeScreen {
         StackPane.setMargin(searchBar, new Insets(0,210,530,0));
         StackPane.setAlignment(stationsScroll,Pos.CENTER);
 
-        StationsList list = new StationsList(this);
-        VBox content = list.returnList();
-        stationsScroll.setContent(content);
+        // Make Le StationListPane
+        StationListPane stationListPane = new StationListPane(this);
+        VBox stationListBox = stationListPane.getVBox();
+        stationsScroll.setContent(stationListBox);
         stationsScroll.setFitToWidth(true);
         stationsScroll.setFitToHeight(true);
         allStationsTab.setContent(allStationsPane);
@@ -364,8 +453,8 @@ public class HomeScreen {
         toolBar.setMaxSize(1350,35);
         toolBar.setOpacity(0);
 
-        dragWindow(rootPane);
-        dragWindow2(toolBar);
+        setDraggable(rootPane);
+        setDraggable(toolBar);
 
         exportGraph = new Button("Open Graph");
         exportGraph.setMinSize(150, 25);
@@ -471,8 +560,8 @@ public class HomeScreen {
         StackPane.setMargin(searchBar, new Insets(0,210,490,0));
         StackPane.setAlignment(stationsScroll,Pos.CENTER);
 
-        StationsList list = new StationsList(this);
-        VBox content = list.returnList();
+        StationListPane list = new StationListPane(this);
+        VBox content = list.getVBox();
 
         stationsScroll.setContent(content);
         stationsScroll.setFitToWidth(true);
@@ -527,8 +616,8 @@ public class HomeScreen {
         toolBar.setMaxSize(1260,35);
         toolBar.setOpacity(0);
 
-        dragWindow(rootPane);
-        dragWindow2(toolBar);
+        setDraggable(rootPane);
+        setDraggable(toolBar);
 
         exportGraph = new Button("Open Graph");
         exportGraph.setMinSize(150, 25);
@@ -630,8 +719,8 @@ public class HomeScreen {
         StackPane.setAlignment(stationsScroll,Pos.CENTER);
 
 
-        StationsList list = new StationsList(this);
-        VBox content = list.returnList();
+        StationListPane list = new StationListPane(this);
+        VBox content = list.getVBox();
         stationsScroll.setContent(content);
         stationsScroll.setFitToWidth(true);
         stationsScroll.setFitToHeight(true);
@@ -685,8 +774,8 @@ public class HomeScreen {
         toolBar.setMaxSize(1260,35);
         toolBar.setOpacity(0);
 
-        dragWindow(rootPane);
-        dragWindow2(toolBar);
+        setDraggable(rootPane);
+        setDraggable(toolBar);
 
         exportGraph = new Button("Open Graph");
         exportGraph.setMinSize(130, 25);
@@ -854,8 +943,8 @@ public class HomeScreen {
 
         });
 
-        dragWindow(rootPane);
-        dragWindow2(toolBar);
+        setDraggable(rootPane);
+        setDraggable(toolBar);
 
         rootPane.getChildren().addAll(toolBar,plotPane,buttonLeft,buttonRight,exportGraph,showTable);
         StackPane.setMargin(toolBar, new Insets(0,0,456,0));
@@ -874,7 +963,6 @@ public class HomeScreen {
         return scene;
 
     }
-
 
     public void setChart(LineChart<Number,Number> chart){
         plotPane.getChildren().remove(1);

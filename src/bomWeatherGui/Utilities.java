@@ -47,8 +47,8 @@ public class Utilities{
                 }
                 else{
                     this.cancel();
-                    print(window.getWidth());
-                    HomeScreen home = new HomeScreen();
+                    //print(window.getWidth());
+                    HomeScreen home = new HomeScreen(window);
                     home.fadeIn();
 
 
@@ -70,7 +70,7 @@ public class Utilities{
                 else{
 
                     this.cancel();
-                    print(window.getHeight());
+                    //print(window.getHeight());
 
                 }
 

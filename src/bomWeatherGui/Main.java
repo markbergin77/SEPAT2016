@@ -143,7 +143,7 @@ public class Main extends Application
         fT5.setToValue(0.0);
         fT5.setOnFinished(e -> {
 
-            HomeScreen home = new HomeScreen();
+            HomeScreen home = new HomeScreen(window);
             home.display(window);
 
         });

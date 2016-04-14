@@ -2,23 +2,39 @@ package bomWeatherGui;
 
 import bomData.Station;
 import bomData.StationList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.util.LinkedList;
 import java.util.Vector;
 
-public class StationsList {
+public class StationListPane {
 
-    private static VBox stationsList;
+    private static VBox vbox;
+    EventHandler<? super MouseEvent> clickHandler;
 
-    public StationsList(HomeScreen home){ // change constructor to accept stations list as well
+    public StationListPane(StationList bomStations)
+    {
+    	vbox = new VBox(8);
+    	for (Station bomStation : bomStations)
+    	{
+    		ListNode node = new ListNode("", bomStation);
+
+            vbox.getChildren().add(node);
+            node.toFront();
+    	}
+    }
+    
+    public StationListPane(HomeScreen home)
+    { // change constructor to accept stations list as well
 
         //for each station object in the vector....
-        this.stationsList = new VBox(8);
+        this.vbox = new VBox(8);
 
       // for(Station station : stations){ // currently doesnt work so i have a standard for loop for the moment
 
@@ -28,8 +44,8 @@ public class StationsList {
 
       // }
 
-        stationsList.setAlignment(Pos.CENTER);
-        stationsList.setPadding(new Insets(15, 0, 15, 0));
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setPadding(new Insets(15, 0, 15, 0));
         for(int i =0;i<100;i++){
 
             ListNode node = new ListNode("", new Station("hey","hey","hey","heyyy"));
@@ -50,15 +66,15 @@ public class StationsList {
 
             });
 
-            stationsList.getChildren().add(node);
+            vbox.getChildren().add(node);
             node.toFront();
 
         }
 
     }
 
-    public VBox returnList(){
-        return stationsList;
+    public VBox getVBox(){
+        return vbox;
     }
 
     public VBox updateList(){
