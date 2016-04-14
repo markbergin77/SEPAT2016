@@ -29,8 +29,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
-
-public class SplashScreen implements LoadingUpdater
+/* Creates the gui components necessary to
+display a splash screen. */
+public class SplashScene implements LoadingUpdater
 {
 	Scene scene;
 	StackPane rootPane;
@@ -44,7 +45,7 @@ public class SplashScreen implements LoadingUpdater
 	Duration fadeOutDuration = Duration.millis(1000);
 
 	Object loadingUpdateCallback;
-	EventHandler<ActionEvent> onFinished;
+	EventHandler<ActionEvent> onClosed;
 
 	Vector<FadeTransition> fadeIns = new Vector<FadeTransition>();
 	Vector<FadeTransition> fadeOuts = new Vector<FadeTransition>();
@@ -54,7 +55,7 @@ public class SplashScreen implements LoadingUpdater
 		return scene;
 	}
 
-	public SplashScreen() 
+	public SplashScene() 
 	{
 		rootPane = new StackPane();
 
@@ -145,9 +146,13 @@ public class SplashScreen implements LoadingUpdater
 		addFadeOut(node, dur);
 	}
 
-	public void finish() 
+	public void startClosing() 
 	{
-		fadeOuts.lastElement().setOnFinished(onFinished);
+		fadeOuts.lastElement().setOnFinished(e -> 
+		{
+			rootPane.getChildren().clear();
+			onClosed.handle(e);
+		});
 		for (FadeTransition fade : fadeOuts)
 		{
 			Node node = fade.getNode();
@@ -198,8 +203,8 @@ public class SplashScreen implements LoadingUpdater
 		ldBarEffectCyclicScale.setAutoReverse(true);
 		ldBarEffectCyclicScale.play();
 	}
-	
-	public void begin()
+		
+	public void startShowing()
 	{
 		fadeIns.lastElement().setOnFinished(e -> startAnims());
 		for (Animation fade : fadeIns) 
@@ -208,9 +213,9 @@ public class SplashScreen implements LoadingUpdater
 		}
 	}
 
-	public void setOnFinished(EventHandler<ActionEvent> callback) 
+	public void setOnClosed(EventHandler<ActionEvent> callback) 
 	{
-		onFinished = callback;
+		onClosed = callback;
 	}
 
 	@Override

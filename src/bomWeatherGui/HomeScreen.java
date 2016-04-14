@@ -40,9 +40,8 @@ public class HomeScreen {
     private static String size;
 
 
-    public void display(Stage window){
-
-
+    public void display(Stage window)
+    {
         WINDOW = window;
         Utilities util = new Utilities();
 
@@ -913,7 +912,8 @@ public class HomeScreen {
         tablePane.getChildren().add(dataTable);
     }
 
-    public String getSize(){
+    public String getSize()
+    {
         return size;
     }
 
