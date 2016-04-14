@@ -61,9 +61,10 @@ public class StationsList {
         return stationsList;
     }
 
-    public void updateList(){
+    public VBox updateList(){
 
 
+        return null;
     }
 
     // need to think of a way to visually update the GUI when we search for a station. maybe have a listUpdate() method

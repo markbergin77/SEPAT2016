@@ -4,40 +4,32 @@ package bomWeatherGui;
  * Created by Pavel Nikolaev on 13/03/2016.
  */
 
-import bomData.Station;
-import javafx.animation.Animation;
-import javafx.animation.FadeTransition;
-import javafx.animation.ScaleTransition;
+
+import javafx.animation.*;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.*;
 import javafx.util.Duration;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-
 
 public class HomeScreen {
 
-    private static Button exitButton,exportGraph;
+    private static Button exitButton,exportGraph, buttonLeft,buttonRight,menu,showTable;
     private static Scene SCENE1;
     private static StackPane rootPane,tablePane,plotPane;
     private static  ImageView backgroundImageView;
-    private static Rectangle plotRect,tableRect,explorerRect ,screenSize;
+    private static Rectangle plotRect,tableRect,explorerRect ;
     private static TextField text;
     private static ToolBar toolBar;
     private static Stage WINDOW;
@@ -79,7 +71,7 @@ public class HomeScreen {
 
         switch(switchCase){
 
-            case 3:SCENE1 = setSceneLarge();
+            case 1:SCENE1 = setSceneLarge();
                 size = "L";
                 util.resizeWindowIncrease(WINDOW,1320,740,2,4);
                 break;
@@ -88,13 +80,13 @@ public class HomeScreen {
                 size = "MH";
                 util.resizeWindowIncrease(WINDOW,1260,680,2,4);
                 break;
-            case 1: SCENE1 = setSceneMedLow();
+            case 3: SCENE1 = setSceneMedLow();
                 size = "ML";
                 util.resizeWindowIncrease(WINDOW,1100,550,2,4);
                 break;
             case 4: SCENE1= setSceneLow();
                 size = "S";
-                util.resizeWindowIncrease(WINDOW,500,250,2,4);
+                util.resizeWindowIncrease(WINDOW,900,500,2,4);
                 break;
             default:SCENE1= setSceneLow();
                 size = "S";
@@ -120,66 +112,7 @@ public class HomeScreen {
 
         //leave these for the smaller screen sizes-----------------
         //which i will implement later------------------------
-       // Polygon poly, poly2;
 
-       // poly= new Polygon();
-       // poly.getPoints().addAll(new Double[]{
-           //     0.0, 0.0,
-           //     20.0, -28.0,
-           //     20.0, 28.0 });
-
-
-       // poly2= new Polygon();
-      //  poly2.getPoints().addAll(new Double[]{
-        //        -20.0, -28.0,
-          //      0.0, 0.0,
-          //      -20.0, 28.0 });
-
-
-       // BUTTON = new Button();
-       // BUTTON.setId("t1");
-       // BUTTON.setShape(poly);
-
-       // BUTTON2 = new Button();
-      //  BUTTON2.setId("t2");
-       // BUTTON2.setShape(poly2);
-
-       // exit = new Button("X");
-       // exit.setId("exit");
-      //  exit.setMaxSize(50,25);
-
-       // minimize = new Button("O");
-      //  minimize.setId("minimize");
-      //  minimize.setMaxSize(50,25);
-
-
-       //Separator sp = new Separator(Orientation.VERTICAL);
-       // sp.setOpacity(0);
-       // sp.setMinWidth(1);
-
-       // Separator sp2 = new Separator(Orientation.VERTICAL);
-       // sp2.setOpacity(0);
-       // sp2.setMinWidth(1);
-
-
-       // text = new TextField();
-       // text.setPromptText("Search stations");
-
-       // minimize.setOnMouseEntered(e -> minimize.setId("minimize-h"));
-       // minimize.setOnMouseExited(e -> minimize.setId("minimize"));
-
-       // BUTTON.setOnMouseEntered(e -> BUTTON.setId("button-hover-t"));
-       // BUTTON.setOnMouseExited(e -> BUTTON.setId("t1"));
-
-        //BUTTON2.setOnMouseEntered(e -> BUTTON2.setId("t2-hover"));
-       // BUTTON2.setOnMouseExited(e -> BUTTON2.setId("t2"));
-
-       // BUTTON.toFront();
-       // BUTTON2.toFront();
-       // BUTTON.getStyleClass().remove("button");
-       // BUTTON2.getStyleClass().remove("button");
-       // BUTTON.setOpacity(0);
-       // BUTTON2.setOpacity(0);
 
 
         WindowResizeListener resizer = new WindowResizeListener(SCENE1);
@@ -188,12 +121,6 @@ public class HomeScreen {
         WINDOW.setTitle("Home");
         WINDOW.setScene(SCENE1);
     }
-    
-    public StackPane createExplorerPane()
-    {
-    	return null;
-    }
-
 
     public void fadeIn(){
 
@@ -202,12 +129,12 @@ public class HomeScreen {
         clipRect.setArcWidth(20.0);
         rootPane.setClip(clipRect);
 
-      //  FadeTransition fT1
-      //          = new FadeTransition(Duration.millis(1000), BUTTON);
-      ////  fT1.setFromValue(0.0);
-     ///   fT1.setToValue(1.0);
-      //  fT1.setDelay(Duration.millis(500));
-      //  fT1.play();
+        FadeTransition fT1
+                = new FadeTransition(Duration.millis(1000), buttonLeft);
+        fT1.setFromValue(0.0);
+        fT1.setToValue(1.0);
+        fT1.setDelay(Duration.millis(500));
+        fT1.play();
 
         FadeTransition fT2
                 = new FadeTransition(Duration.millis(1000), plotRect);
@@ -216,12 +143,12 @@ public class HomeScreen {
         fT2.setDelay(Duration.millis(500));
         fT2.play();
 
-      //  FadeTransition fT3
-         //       = new FadeTransition(Duration.millis(1000), BUTTON2);
-      //  fT3.setFromValue(0.0);
-       // fT3.setToValue(1.0);
-      //  fT3.setDelay(Duration.millis(500));
-        //fT3.play();
+        FadeTransition fT3
+                = new FadeTransition(Duration.millis(1000), buttonRight);
+        fT3.setFromValue(0.0);
+        fT3.setToValue(1.0);
+        fT3.setDelay(Duration.millis(500));
+        fT3.play();
 
 
         FadeTransition fT4
@@ -272,6 +199,20 @@ public class HomeScreen {
         fT10.setToValue(1.0);
         fT10.setDelay(Duration.millis(500));
         fT10.play();
+
+        FadeTransition fT11
+                = new FadeTransition(Duration.millis(1000), menu);
+        fT11.setFromValue(0.0);
+        fT11.setToValue(1.0);
+        fT11.setDelay(Duration.millis(500));
+        fT11.play();
+
+        FadeTransition fT12
+                = new FadeTransition(Duration.millis(1000), showTable);
+        fT12.setFromValue(0.0);
+        fT12.setToValue(1.0);
+        fT12.setDelay(Duration.millis(500));
+        fT12.play();
 
     }
 
@@ -373,10 +314,24 @@ public class HomeScreen {
         stationsScroll.setContent(content);
         stationsScroll.setFitToWidth(true);
         stationsScroll.setFitToHeight(true);
-
         allStationsTab.setContent(allStationsPane);
 
+
+
+        //------------------------------------------------------------------------------------------//
+        //call the updateList() in Stationslist.java
+
+        searchBar.setOnKeyPressed(e -> {
+
+          //  final VBox updatedContent = list.updateList();
+          //  stationsScroll.setContent(updatedContent);
+
+        });
+        //------------------------------------------------------------------------------------------//
+
+
         //----------------------------------------------------//
+        //need to implement this for the 3 larger screen sizes
         Tab favsTab = new Tab();
         favsTab.setText("Favourites");
         StackPane paneTab2 = new StackPane();
@@ -523,9 +478,19 @@ public class HomeScreen {
         stationsScroll.setContent(content);
         stationsScroll.setFitToWidth(true);
         stationsScroll.setFitToHeight(true);
-
-
         allStationsTab.setContent(allStationsPane);
+
+
+        //------------------------------------------------------------------------------------------//
+        //call the updateList() in Stationslist.java
+
+        searchBar.setOnKeyPressed(e -> {
+
+            //  final VBox updatedContent = list.updateList();
+            //  stationsScroll.setContent(updatedContent);
+
+        });
+        //------------------------------------------------------------------------------------------//
 
         //----------------------------------------------------//
         Tab favsTab = new Tab();
@@ -671,8 +636,18 @@ public class HomeScreen {
         stationsScroll.setContent(content);
         stationsScroll.setFitToWidth(true);
         stationsScroll.setFitToHeight(true);
-
         allStationsTab.setContent(allStationsPane);
+
+        //------------------------------------------------------------------------------------------//
+        //call the updateList() in Stationslist.java
+
+        searchBar.setOnKeyPressed(e -> {
+
+            //  final VBox updatedContent = list.updateList();
+            //  stationsScroll.setContent(updatedContent);
+
+        });
+        //------------------------------------------------------------------------------------------//
 
         //----------------------------------------------------//
         Tab favsTab = new Tab();
@@ -746,7 +721,159 @@ public class HomeScreen {
 
     public Scene setSceneLow(){
 
-        return null;
+        rootPane = new StackPane();
+        // Create Plot
+        plotPane = new StackPane();
+        plotRect = new Rectangle(710,350);
+        Rectangle clipRect = new Rectangle(712,352);
+        clipRect.setArcHeight(20);
+        clipRect.setArcWidth(20);
+        plotPane.setClip(clipRect);
+        weatherPlot = new LineChart<Number,Number>(new NumberAxis(),new NumberAxis());
+        weatherPlot.setMaxSize(710,350);
+        weatherPlot.setOpacity(0);
+        plotRect.setArcHeight(20);
+        plotRect.setArcWidth(20);
+        plotRect.setOpacity(0);
+        plotRect.setStroke(Color.LIGHTSLATEGRAY);
+        plotRect.setFill(Color.rgb(38,38,38));
+        plotRect.setStrokeWidth(2);
+        plotPane.getChildren().addAll(plotRect,weatherPlot);
+        plotPane.setMaxSize(710,350);
+        StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
+        StackPane.setAlignment(plotPane,Pos.TOP_CENTER);
+        StackPane.setMargin(weatherPlot,new Insets(0,15,0,0));
+
+        exitButton = new Button("X");
+        exitButton.setId("exit");
+        exitButton.setMaxSize(50,25);
+
+        exitButton.setOnMouseEntered(e -> exitButton.setId("exit-h"));
+        exitButton.setOnMouseExited(e -> exitButton.setId("exit"));
+        exitButton.setOnMousePressed(e ->  System.exit(1));
+
+        Polygon poly, poly2;
+
+        poly = new Polygon();
+        poly.getPoints().addAll(new Double[]{
+                0.0, 0.0,
+                20.0, -28.0,
+                20.0, 28.0 });
+
+        poly2= new Polygon();
+        poly2.getPoints().addAll(new Double[]{
+                -20.0, -28.0,
+                0.0, 0.0,
+                -20.0, 28.0 });
+
+        buttonLeft = new Button();
+        buttonLeft.setId("t1");
+        buttonLeft.setShape(poly);
+
+        buttonRight = new Button();
+        buttonRight.setId("t2");
+        buttonRight.setShape(poly2);
+
+        Separator sp = new Separator(Orientation.VERTICAL);
+        sp.setOpacity(0);
+        sp.setMinWidth(1);
+
+        Separator sp2 = new Separator(Orientation.VERTICAL);
+        sp2.setOpacity(0);
+        sp2.setMinWidth(1);
+
+        buttonLeft.setOnMouseEntered(e -> buttonLeft.setId("button-hover-t"));
+        buttonLeft.setOnMouseExited(e -> buttonLeft.setId("t1"));
+
+        buttonRight.setOnMouseEntered(e -> buttonRight.setId("t2-hover"));
+        buttonRight.setOnMouseExited(e -> buttonRight.setId("t2"));
+
+        buttonLeft.toFront();
+        buttonRight.toFront();
+        buttonLeft.getStyleClass().remove("button");
+        buttonRight.getStyleClass().remove("button");
+        buttonLeft.setOpacity(0);
+        buttonRight.setOpacity(0);
+
+        exportGraph = new Button("Open Graph");
+        exportGraph.setMinSize(180, 35);
+        exportGraph.toFront();
+        exportGraph.setOpacity(0);
+
+        showTable = new Button("View data table");
+        showTable.setMinSize(180,35);
+        showTable.toFront();
+        showTable.setOpacity(0);
+
+        menu = new Button();
+        menu.setId("menubutton");
+        menu.setMaxSize(50, 25);
+        menu.toFront();
+
+        menu.setOnMouseEntered(e -> menu.setId("menu-h"));
+        menu.setOnMouseExited(e -> menu.setId("menubutton"));
+
+        toolBar = new ToolBar(exitButton,sp,menu);
+        toolBar.setMaxSize(950,35);
+        toolBar.setOpacity(0);
+
+        exportGraph.setOnMouseEntered(e -> exportGraph.getStyleClass().add("export-button-bright"));
+        exportGraph.setOnMouseExited(e -> exportGraph.getStyleClass().remove("export-button-bright"));
+
+        showTable.setOnMouseEntered(e -> showTable.getStyleClass().add("export-button-bright"));
+        showTable.setOnMouseExited(e -> showTable.getStyleClass().remove("export-button-bright"));
+
+        buttonRight.setOnMouseClicked(e -> {
+
+            FadeTransition fT1 = new FadeTransition(Duration.millis(300), weatherPlot);
+            fT1.setFromValue(1.0);
+            fT1.setToValue(0.0);
+            fT1.play();
+
+            Timeline slideRight = new Timeline();
+            slideRight.setCycleCount(1);
+            final KeyValue key1 = new KeyValue(weatherPlot.translateXProperty(),800);
+            final KeyFrame kfDwn = new KeyFrame(Duration.millis(400), key1);
+            slideRight.getKeyFrames().add(kfDwn);
+            slideRight.play();
+
+        });
+
+        buttonLeft.setOnMouseClicked(e -> {
+
+            FadeTransition fT1 = new FadeTransition(Duration.millis(200), weatherPlot);
+            fT1.setFromValue(1.0);
+            fT1.setToValue(0.0);
+            fT1.play();
+
+            Timeline slideRight = new Timeline();
+            slideRight.setCycleCount(1);
+            final KeyValue key1 = new KeyValue(weatherPlot.translateXProperty(), -800);
+            final KeyFrame kfDwn = new KeyFrame(Duration.millis(400), key1);
+            slideRight.getKeyFrames().add(kfDwn);
+            slideRight.play();
+
+        });
+
+        dragWindow(rootPane);
+        dragWindow2(toolBar);
+
+        rootPane.getChildren().addAll(toolBar,plotPane,buttonLeft,buttonRight,exportGraph,showTable);
+        StackPane.setMargin(toolBar, new Insets(0,0,456,0));
+        StackPane.setMargin(plotPane, new Insets(50,0,0,0));
+        StackPane.setMargin(buttonLeft, new Insets(0,785,35,0));
+        StackPane.setMargin(buttonRight, new Insets(0,0,35,785));
+        StackPane.setMargin(exportGraph, new Insets(370,200,0,0));
+        StackPane.setMargin(showTable, new Insets(370,0,0,200));
+
+        Scene scene = new Scene(rootPane,1320,740);
+        scene.setFill(Color.TRANSPARENT);
+
+        Utilities util = new Utilities();
+        util.getCss(scene);
+
+        return scene;
+
     }
 
 
