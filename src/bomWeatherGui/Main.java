@@ -144,7 +144,7 @@ public class Main extends Application
         fT5.setOnFinished(e -> {
 
             HomeScreen home = new HomeScreen(window);
-            home.display(window);
+            home.startShowing(window);
 
         });
         fT5.play();

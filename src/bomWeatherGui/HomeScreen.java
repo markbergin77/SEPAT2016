@@ -1,8 +1,11 @@
 package bomWeatherGui;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import bomData.StationList;
 
 /**
  * Created by Pavel Nikolaev on 13/03/2016.
@@ -19,6 +22,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -43,64 +47,43 @@ public class HomeScreen
     private static TabPane explorerTabsPane;
     private static LineChart<Number,Number> weatherPlot;
     private static TableView<String> dataTable;
-    private static String size;
+    private static String sizePreset;
     Explorer explorer;
     
+    private void onStationClicked(MouseEvent event)
+    {
+    	ListNode stationButton = (ListNode) event.getSource();
+    }
     
-    public HomeScreen(Stage window)
+    public HomeScreen(Stage window, Dimension size)
     {
     	WINDOW = window;
         Utilities util = new Utilities();
 
-
-        Rectangle2D screenSize = Screen.getPrimary().getVisualBounds();
-
-        int screenWidth = (int)screenSize.getWidth();
-        int switchCase = 0;
-
+        int width = size.width;
+        stationListPane = new StationListPane();
         //-----------------------------------------------------------------------//
 
-        if(screenWidth > 1919){
-            switchCase = 1;
+        if(width < 1100)
+        {
+        	scene= setSceneLow();
+            sizePreset = "S";
         }
-        else if(screenWidth > 1439){
-            switchCase = 2;
+        else if (width < 1260)
+        {
+        	scene = setSceneMedLow();
+            sizePreset = "ML";
         }
-        else if( screenWidth > 1279){
-            switchCase = 3;
+        else if (width < 1320)
+        {
+        	scene = setSceneMedHigh();
+            sizePreset = "MH";
         }
-        else if(screenWidth > 1023){
-            switchCase = 4;
+        else
+        {
+        	scene = setSceneLarge();
+            sizePreset = "L";
         }
-
-        //-----------------------------------------------------------------------//
-
-        switch(switchCase){
-
-            case 1:
-            	scene = setSceneLarge();
-                size = "L";
-                break;
-
-            case 2: 
-            	scene = setSceneMedHigh();
-                size = "MH";
-                break;
-            case 3: 
-            	scene = setSceneMedLow();
-                size = "ML";
-                break;
-            case 4: 
-            	scene= setSceneLow();
-                size = "S";
-                break;
-            default:
-            	scene= setSceneLow();
-                size = "S";
-                break;
-        }
-
-        //-----------------------------------------------------------------------//
 
         backgroundImageView = new ImageView( getClass().getResource( "background.jpg").toExternalForm());
 
@@ -110,28 +93,24 @@ public class HomeScreen
         backgroundImageView.setOpacity(0);
     }
     
-    // Later
-    public HomeScreen(Point bounds)
-    {
-    	int boundsX = (int)(bounds.getX() + 0.5);
-    	Utilities util = new Utilities();
-    	
-    	
-    }
-    
-    Scene getScene()
+    public Scene getScene()
     {
     	return scene;
     }
     
-    public void display(Stage window)
+    public void addStationsAll(StationList stations)
     {
-    	switch (size)
+    	stationListPane.createStationButtons(stations, 
+    			e -> onStationClicked(e));
+    }
+    
+    public void startShowing(Stage window)
+    {
+/*    	switch (sizePreset)
     	{
     	case "L":
         startGrowWindow(WINDOW,1320,740,2,4);
         break;
-
     case "MH":
         startGrowWindow(WINDOW,1260,680,2,4);
         break;
@@ -145,7 +124,7 @@ public class HomeScreen
     	startGrowWindow(WINDOW,900,500,2,4);
         break;
     		
-    	}
+    	}*/
     	
         ScaleTransition scaleTransition1 = new ScaleTransition(Duration.seconds(20), backgroundImageView);
         scaleTransition1.setByX(0.5f);
@@ -162,13 +141,11 @@ public class HomeScreen
 
         WindowResizeListener resizer = new WindowResizeListener(scene);
         resizer.setResizeListener();
-
-        WINDOW.setTitle("Home");
-        WINDOW.setScene(scene);
+        
+        fadeIn();
     }
     
     void startGrowWindow(Stage window, int x , int y, int timeX, int timeY){
-
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             int i = 0;
@@ -184,7 +161,7 @@ public class HomeScreen
                 }
                 else{
                     this.cancel();
-                    fadeIn();
+                    
                 }
                  i+=2;
 
@@ -396,8 +373,6 @@ public class HomeScreen
         StackPane.setMargin(searchBar, new Insets(0,210,530,0));
         StackPane.setAlignment(stationsScroll,Pos.CENTER);
 
-        // Make Le StationListPane
-        StationListPane stationListPane = new StationListPane(this);
         VBox stationListBox = stationListPane.getVBox();
         stationsScroll.setContent(stationListBox);
         stationsScroll.setFitToWidth(true);
@@ -560,8 +535,7 @@ public class HomeScreen
         StackPane.setMargin(searchBar, new Insets(0,210,490,0));
         StackPane.setAlignment(stationsScroll,Pos.CENTER);
 
-        StationListPane list = new StationListPane(this);
-        VBox content = list.getVBox();
+        VBox content = stationListPane.getVBox();
 
         stationsScroll.setContent(content);
         stationsScroll.setFitToWidth(true);
@@ -719,8 +693,7 @@ public class HomeScreen
         StackPane.setAlignment(stationsScroll,Pos.CENTER);
 
 
-        StationListPane list = new StationListPane(this);
-        VBox content = list.getVBox();
+        VBox content = stationListPane.getVBox();
         stationsScroll.setContent(content);
         stationsScroll.setFitToWidth(true);
         stationsScroll.setFitToHeight(true);
@@ -967,19 +940,19 @@ public class HomeScreen
     public void setChart(LineChart<Number,Number> chart){
         plotPane.getChildren().remove(1);
 
-        if(size.equals("L")) {
+        if(sizePreset.equals("L")) {
             weatherPlot = chart;
             weatherPlot.setMaxSize(800,350);
             plotPane.getChildren().add(weatherPlot);
             StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
         }
-        else if(size.equals("MH")){
+        else if(sizePreset.equals("MH")){
             weatherPlot = chart;
             weatherPlot.setMaxSize(730,300);
             plotPane.getChildren().add(weatherPlot);
             StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
         }
-        else if(size.equals("ML")){
+        else if(sizePreset.equals("ML")){
             weatherPlot = chart;
             weatherPlot.setMaxSize(630,230);
             plotPane.getChildren().add(weatherPlot);
@@ -1002,7 +975,7 @@ public class HomeScreen
 
     public String getSize()
     {
-        return size;
+        return sizePreset;
     }
 
    /* public void setEffects(Node node, double width, double height){

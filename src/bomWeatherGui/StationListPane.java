@@ -16,61 +16,36 @@ import java.util.Vector;
 public class StationListPane {
 
     private static VBox vbox;
+    /* why the variable? Because otherwise,
+     * if we change the handler, we have to 
+       loop through all the buttons and change
+       them individually. */
     EventHandler<? super MouseEvent> clickHandler;
 
-    public StationListPane(StationList bomStations)
+    
+    
+    public StationListPane()
     {
     	vbox = new VBox(8);
+    	vbox.setPadding(new Insets(15, 0, 15, 0));
+    }
+    
+    public void createStationButtons(StationList bomStations, 
+    		EventHandler<? super MouseEvent> clickHandler)
+    {
+    	this.clickHandler = clickHandler;
     	for (Station bomStation : bomStations)
     	{
-    		ListNode node = new ListNode("", bomStation);
-
+    		ListNode node = new ListNode(bomStation);
+    		node.setOnMouseClicked(e -> this.clickHandler.handle(e));
             vbox.getChildren().add(node);
             node.toFront();
     	}
     }
     
-    public StationListPane(HomeScreen home)
-    { // change constructor to accept stations list as well
-
-        //for each station object in the vector....
-        this.vbox = new VBox(8);
-
-      // for(Station station : stations){ // currently doesnt work so i have a standard for loop for the moment
-
-
-          // ListNode node = new ListNode("", station);//if you have "s" as the argument, it creates a smaller panel
-         //  this.stationsList.add(node);
-
-      // }
-
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setPadding(new Insets(15, 0, 15, 0));
-        for(int i =0;i<100;i++){
-
-            ListNode node = new ListNode("", new Station("hey","hey","hey","heyyy"));
-
-            node.setOnMouseClicked(e ->{
-
-               home.setChart(node.returnChart());
-
-                if(home.getSize().equals("L")){
-                    home.setTable(node.getTable(800, 250));
-                }
-                if(home.getSize().equals("MH")){
-                    home.setTable(node.getTable(730, 200));
-                }
-                if(home.getSize().equals("ML")){
-                    home.setTable(node.getTable(630, 200));
-                }
-
-            });
-
-            vbox.getChildren().add(node);
-            node.toFront();
-
-        }
-
+    public void setOnMouseClicked(EventHandler<? super MouseEvent> clickHandler)
+    {
+    	this.clickHandler = clickHandler;
     }
 
     public VBox getVBox(){

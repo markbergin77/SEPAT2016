@@ -1,9 +1,14 @@
 package bomWeatherApp;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import bomData.Bom;
@@ -24,6 +29,14 @@ public class Main extends Application
         t.setDaemon(true); // allows app to exit if tasks are running
         return t ;
     });
+    
+    ScheduledExecutorService scheduler =
+    	     Executors.newScheduledThreadPool(1, r -> {
+    	         Thread t = new Thread(r);
+    	         t.setDaemon(true); // allows app to exit if tasks are running
+    	         return t ;
+    	     });
+
 
     // Use the following if you want the tasks to run concurrently, instead of consecutively:
 
@@ -33,8 +46,8 @@ public class Main extends Application
     //     return t ;
     // });
     
+    Dimension homeWindowSize;
 	StationList allStations;
-	StationListPane allStationsPane;
 	HomeScreen homeScreen;
 	
 	public static void main(String args[])
@@ -45,22 +58,22 @@ public class Main extends Application
 	@Override
 	public void start(Stage window) throws Exception 
 	{
-	    window.setTitle("Login");
+	    window.setTitle("aids");
 		window.setResizable(false);
         window.initStyle(StageStyle.UNDECORATED);
         window.setOnCloseRequest(e -> System.exit(0));
-
         SplashScreen splash = new SplashScreen();
         window.setScene(splash.getScene());
-        // Might not be showing immediately 
-        // after calling .show()
+        /* don't start the fade-in and all that
+         * straight away because the window isn't 
+           visible till the gui thread gets to it */
         window.setOnShowing(e -> 
         {
         	splash.startShowing();
         });
         
         window.show();
-        
+        homeWindowSize = calcHomeWindowSize();
         EasyTask getStationsTask = new EasyTask(() ->
         { 
         	try {
@@ -74,18 +87,59 @@ public class Main extends Application
 			}
         	// Tricky: loadingUpdate actually does a runLater()
         	splash.loadingUpdate("Creating GUI elements");
-			allStationsPane = new StationListPane(allStations);
-			homeScreen = new HomeScreen(window);
+			homeScreen = new HomeScreen(window, homeWindowSize);
+			homeScreen.addStationsAll(allStations);
 			splash.loadingUpdate("");
 			splash.startClosing();
         });
         
         splash.setOnClosed(e -> 
         {
-        	homeScreen.display(window);
+        	window.setScene(homeScreen.getScene());
+        	homeScreen.startShowing(window);
+        	window.centerOnScreen();
         });
- 
+        
+        /* Now start the chain of tasks, 
+         * getStationsTask was the first.*/
         queue(getStationsTask);
+	}
+	
+	void openChartWindow()
+	{
+		
+	}
+	
+	void startResizingWindowAnim(Stage window, Dimension toSize)
+	{
+		
+	}
+	
+	Dimension calcHomeWindowSize()
+	{
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int screenWidth = screenSize.width;
+		Dimension output = new Dimension();
+		if(screenWidth > 1919){
+            output.setSize(1320, 740);
+        }
+        else if(screenWidth > 1439){
+        	output.setSize(1260,680);
+        }
+        else if( screenWidth > 1279){
+        	output.setSize(1100,550);
+        }
+        else if(screenWidth > 1023){
+        	output.setSize(900,500);
+        }
+        else
+        	return null;
+		return output;
+	}
+	
+	void queueDelayed(Task<?> task, long millis)
+	{
+		scheduler.schedule(task, millis, TimeUnit.MILLISECONDS);
 	}
 	
 	private void queue(Task<?> task)

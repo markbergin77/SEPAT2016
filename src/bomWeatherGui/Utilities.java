@@ -48,8 +48,8 @@ public class Utilities{
                 else{
                     this.cancel();
                     //print(window.getWidth());
-                    HomeScreen home = new HomeScreen(window);
-                    home.fadeIn();
+                    /*HomeScreen home = new HomeScreen(window);
+                    home.fadeIn();*/
 
 
                 }
