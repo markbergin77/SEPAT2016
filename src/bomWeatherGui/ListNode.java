@@ -105,4 +105,10 @@ public class ListNode extends Parent {
 
         return table;
     }
+
+	public Station getStation() 
+	{
+		// TODO Auto-generated method stub
+		return station;
+	}
 }

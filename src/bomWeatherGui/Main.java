@@ -1,5 +1,8 @@
 package bomWeatherGui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  * Created by Pavel Nikolaev on 12/03/2016.
  */
@@ -35,6 +38,28 @@ public class Main extends Application
     {
         launch(args);
     }
+    
+    Dimension calcHomeWindowSize()
+	{
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int screenWidth = screenSize.width;
+		Dimension output = new Dimension();
+		if(screenWidth > 1919){
+            output.setSize(1320, 740);
+        }
+        else if(screenWidth > 1439){
+        	output.setSize(1260,680);
+        }
+        else if( screenWidth > 1279){
+        	output.setSize(1100,550);
+        }
+        else if(screenWidth > 1023){
+        	output.setSize(900,500);
+        }
+        else
+        	return null;
+		return output;
+	}
 
     @Override
     public void start(Stage primaryStage) throws Exception 
@@ -143,7 +168,8 @@ public class Main extends Application
         fT5.setToValue(0.0);
         fT5.setOnFinished(e -> {
 
-            HomeScreen home = new HomeScreen(window);
+            HomeScreen home = new HomeScreen(window,
+            		calcHomeWindowSize());
             home.startShowing(window);
 
         });
