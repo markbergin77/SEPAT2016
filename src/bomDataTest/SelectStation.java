@@ -15,6 +15,7 @@ import bomWeatherUser.FavouriteList;
 
 public class SelectStation 
 {
+	//Large unit test used in the first an second sprint
 	public static void main(String[] args) throws IOException 
 	{
 		Station matched = findStation();

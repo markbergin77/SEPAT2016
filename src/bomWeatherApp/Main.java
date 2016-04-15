@@ -114,7 +114,7 @@ public class Main extends Application
 	{
 		
 	}
-	
+	//Provides flexibility on user resolution differences 
 	Dimension calcHomeWindowSize()
 	{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -136,7 +136,7 @@ public class Main extends Application
         	return null;
 		return output;
 	}
-	
+	//Might archive this, meant to be in use???
 	void queueDelayed(Task<?> task, long millis)
 	{
 		scheduler.schedule(task, millis, TimeUnit.MILLISECONDS);

@@ -1,8 +1,8 @@
 package bomData;
 
+//Data types/attributes provided by BOM data, used for Monthly Observations
 public class WthrSampleFine
 {
-	// Data types provided by BOM
 	private String localDateTime;
 	private String localDateTimeFull;
 	private String apparentT;

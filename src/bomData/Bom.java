@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
  * bureau of meteorology and get information
  * about it.
  */
+
 public class Bom 
 {
 	enum State { vic, nsw, tas, wa, sa, nt, qld, ant };
@@ -28,7 +29,7 @@ public class Bom
 		String stateStr = stateName(state);
 		return "http://www.bom.gov.au/" + stateStr + "/observations/" + stateStr + "all.shtml";
 	}
-	
+	// TO DO - ARCHIVE   MARK JOB ONLY 
 	public static StationList getAllStations() throws IOException
 	{
 		StationList stations = new StationList();
@@ -37,10 +38,11 @@ public class Bom
 		}
 		return stations;
 	}
-
+	// Adds station details to separate list, 
 	public static StationList getAllStations(LoadingUpdater progressNotifier) throws IOException
 	{
 		StationList stations = new StationList();
+		//Also provides info for user on current state
 		for (State state : State.values())
 		{
 			progressNotifier.loadingUpdate("Loading " + state + " stations");
@@ -49,9 +51,10 @@ public class Bom
 		progressNotifier.loadingUpdate("");
 		return stations;
 	}
-	
+	//Grabs station location, saves details to object instances
 	public static StationList getStations(State state) throws IOException
 	{
+		//Use of Jsoup Framework
 		StationList stations = new StationList();
 		Document doc = Jsoup.connect(stateAllUrl(state))
 				.get();
@@ -79,6 +82,7 @@ public class Bom
 		return stations;
 	}
 	
+	//List of fixed states needed to find appropriate stations
 	static String stateName(State state)
 	{
 		String stateStr = "";

@@ -12,7 +12,7 @@ import javafx.geometry.*;
 
 
 public class GraphWindow {
-
+    //Design and execution of where User will view Monthly data in a graphical format
     public static void createGraphWindow(String Title, LineChart<Number,Number> chart){
 
 

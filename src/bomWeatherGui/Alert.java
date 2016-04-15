@@ -13,7 +13,7 @@ import javafx.geometry.*;
 
 public class Alert {
 
-
+    //Design and execution for any alerts needed
     public static void displayAlert(String title, String message){
 
         Stage window = new Stage();

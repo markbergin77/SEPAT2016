@@ -34,7 +34,11 @@ import javafx.util.Duration;
 
 public class HomeScreen 
 {
-	// Old stuff
+	// Old stuff,
+	/*I'll leave this until near-ish the end.
+	 * Then i'll remove unused functions just in case
+	 * You never know
+	 */
 	StationListPane stationListPane;
     private static Button exitButton,exportGraph, buttonLeft,buttonRight,menu,showTable;
     private static Scene scene;
@@ -95,6 +99,9 @@ public class HomeScreen
     }
     // An early attempt at calculating sizes instead
     // of having different presets.
+    //What even is half of this?
+    // Where you re-creating everything entirely?
+    //Don't answer, I don't want to know
     private void createGuiElements(Dimension size) 
     {
     	rootPane = new StackPane();

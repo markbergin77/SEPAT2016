@@ -1,5 +1,6 @@
 package bomData;
 
+//Data types/attributes provided by BOM data, used for Monthly Observations
 public class WthrSampleCoarse
 {
 	private String date;

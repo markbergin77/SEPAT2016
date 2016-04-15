@@ -51,11 +51,11 @@ public class Station implements Serializable
 		// TODO Auto-generated constructor stub
 	}
 
-	// Function for filling Empty Station with data (periods of 30 minutes up
-	// to 3 days)
+	// Function for filling Empty Station with data (periods of 30 minutes up to 3 days)
 	public Wthr72hr getWthrLast72hr()
 	{
 		Wthr72hr samples = new Wthr72hr();
+	    //Weather data for Recent observations stored as Json format.
 		try
 		{
 			JsonArray rootArray = new JsonParser()
@@ -63,7 +63,7 @@ public class Station implements Serializable
 					.getAsJsonObject("observations").getAsJsonArray("data");
 			for (JsonElement element : rootArray)
 			{
-				// Grabs information through BOM's JSON Data
+				// Grabs all information through BOM's JSON Data
 				JsonObject reading = element.getAsJsonObject();
 
 				String localDateTime;
@@ -166,15 +166,15 @@ public class Station implements Serializable
 		}
 		return samples;
 	}
-
-	// Month in the format YYYYMM, 201603 would be March 2016
+    // Function For grabbing broader (later) historical observations
+	// Month in the format YYYYMM, 201603 would be March 2016.
 	public WthrMonth getWthrLastMonth(String month) throws IOException
 	{
 		WthrMonth samples = null;
 		Boolean fileExists = false;
 		File filePath = new File("data/"+ this.getName() + '-' +month + ".csv");
 		File dirPath = new File("data");
-		
+		//Checks directory for any previous downloads
 		if (!dirPath.isDirectory()) {
 			dirPath.mkdir();
 		}
@@ -184,7 +184,7 @@ public class Station implements Serializable
 					fileExists = true;
 			}
 		}
-		
+		//Grabs File, BOM represents this data in CSV format.
 		if (!fileExists) {
 			String[] nextLine;
 			String url;
@@ -213,6 +213,7 @@ public class Station implements Serializable
 						}
 						csvReader.close();
 					}
+					//Some locations lack desired data
 					catch(FileNotFoundException e) {
 						System.out.println("FILE NOT FOUND");
 						return null;
@@ -226,7 +227,8 @@ public class Station implements Serializable
 		}
 		return samples;
 	}
-	
+	/*Scrapes data from CSV file on line by line basis
+	  And adds to object*/
 	private WthrMonth processCsv(CSVReader csvReader) throws IOException {
 		String[] nextLine = null;
 		WthrMonth samples = new WthrMonth();
