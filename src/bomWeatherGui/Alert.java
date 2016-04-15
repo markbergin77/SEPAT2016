@@ -34,9 +34,6 @@ public class Alert {
 
         Scene scene1 = new Scene(layout1,450,150);
 
-        Utilities util = new Utilities();
-        util.getCss(scene1);
-
         window.setScene(scene1);
         window.showAndWait();
 

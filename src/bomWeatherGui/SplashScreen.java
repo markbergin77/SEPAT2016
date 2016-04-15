@@ -39,7 +39,6 @@ public class SplashScreen implements LoadingUpdater
 	Label loadingLabel;
 	Label loadingActivity;
 	Rectangle ldBarEffect;
-	ImageView backgroundImageView;
 	
 	Duration fadeInDuration = Duration.millis(1000);
 	Duration fadeOutDuration = Duration.millis(1000);
@@ -63,11 +62,6 @@ public class SplashScreen implements LoadingUpdater
 		clipRect.setArcHeight(20.0);
 		clipRect.setArcWidth(20.0);
 		rootPane.setClip(clipRect);
-
-		backgroundImageView = 
-				new ImageView(getClass().getResource("background.jpg").toExternalForm());
-		backgroundImageView.setOpacity(0.3);
-		backgroundImageView.toBack();
 		
 		progressBar = new ProgressBar();
 		loadingLabel = new Label("Loading");
@@ -88,17 +82,15 @@ public class SplashScreen implements LoadingUpdater
 		addFadeInOut(loadingLabel, fadeInDuration);
 		addFadeInOut(loadingActivity, fadeInDuration);
 		addFadeInOut(ldBarEffect, fadeInDuration);
-		addFadeOut(backgroundImageView, fadeInDuration);
 
 		rootPane.getChildren().addAll(loadingLabel, progressBar, 
-				ldBarEffect, loadingActivity, backgroundImageView);
+				ldBarEffect, loadingActivity);
 		rootPane.setAlignment(Pos.CENTER);
 
 		StackPane.setMargin(progressBar, new Insets(100, 0, 0, 0));
 		StackPane.setMargin(ldBarEffect, new Insets(100, 0, 0, 0));
 		StackPane.setMargin(loadingLabel, new Insets(40, 0, 0, 0));
 		StackPane.setMargin(loadingActivity, new Insets(150, 0, 0, 0));
-		StackPane.setMargin(backgroundImageView, new Insets(0, 0, 0, 1300));
 
 		scene = new Scene(rootPane, 350, 300);
 		scene.setFill(Color.TRANSPARENT);
@@ -108,22 +100,7 @@ public class SplashScreen implements LoadingUpdater
 	
 	void loadCss()
 	{
-		try 
-		{
-			URL url = this.getClass().getResource("splash.css");
-			if (url == null) 
-			{
-				Alert.displayAlert("Error", "Could not load resource: main.css");
-				System.exit(-1);
-			}
-			String css = url.toExternalForm();
-			scene.getStylesheets().add(css);
-		} 
-		catch (Exception e) 
-		{
-			Alert.displayAlert("Error", "Could not load resource: main.css");
-			System.exit(-1);
-		}
+		// Not using Css yet (simple)
 	}
 	
 	void addFadeIn(Node node, Duration dur)
@@ -196,12 +173,6 @@ public class SplashScreen implements LoadingUpdater
 		ldBarEffectCyclicScale.setAutoReverse(false);
 		ldBarEffectCyclicScale.play();
 
-		ldBarEffectCyclicScale = new ScaleTransition(Duration.seconds(20), backgroundImageView);
-		ldBarEffectCyclicScale.setByX(0.5f);
-		ldBarEffectCyclicScale.setByY(0.5f);
-		ldBarEffectCyclicScale.setCycleCount(Animation.INDEFINITE);
-		ldBarEffectCyclicScale.setAutoReverse(true);
-		ldBarEffectCyclicScale.play();
 	}
 		
 	public void startShowing()

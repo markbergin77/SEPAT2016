@@ -36,8 +36,8 @@ public class Main extends Application
     	         t.setDaemon(true); // allows app to exit if tasks are running
     	         return t ;
     	     });
-
-
+    
+    
     // Use the following if you want the tasks to run concurrently, instead of consecutively:
 
     // private ExecutorService exec = Executors.newCachedThreadPool(r -> {
@@ -77,6 +77,8 @@ public class Main extends Application
         EasyTask getStationsTask = new EasyTask(() ->
         { 
         	try {
+        		/* Pass in splash so that this function can update
+        		 * the splash screen's text when something changes.*/
 					allStations = Bom.getAllStations(splash);
 			} catch (Exception e1) {
 				/* TODO User might not be able to connect to BOM!
@@ -87,7 +89,7 @@ public class Main extends Application
 			}
         	// Tricky: loadingUpdate actually does a runLater()
         	splash.loadingUpdate("Creating GUI elements");
-			homeScreen = new HomeScreen(window, homeWindowSize);
+			homeScreen = new HomeScreen();
 			homeScreen.addStationsAll(allStations);
 			splash.loadingUpdate("");
 			splash.startClosing();
@@ -96,7 +98,8 @@ public class Main extends Application
         splash.setOnClosed(e -> 
         {
         	window.setScene(homeScreen.getScene());
-        	homeScreen.startShowing(window);
+        	homeScreen.startShowing();
+        	window.sizeToScene();
         	window.centerOnScreen();
         });
         
