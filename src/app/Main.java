@@ -14,41 +14,35 @@ import java.util.concurrent.atomic.AtomicInteger;
 import data.Bom;
 import data.Station;
 import data.StationList;
+import gui.GuiCallbacks;
 import gui.HomeScreen;
 import gui.SafeTask;
 import gui.SplashScreen;
+import gui.StationButton;
 import gui.StationButtonsPane;
-import guiCallbacks.OnStationClicked;
+import guiCallbacks.StationClicked;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-public class Main extends Application 
-	implements OnStationClicked
-{
-    private ExecutorService exec = Executors.newSingleThreadExecutor(r -> {
-        Thread t = new Thread(r);
-        t.setDaemon(true); // allows app to exit if tasks are running
-        return t ;
-    });
-    
-    ScheduledExecutorService scheduler =
-    	     Executors.newScheduledThreadPool(1, r -> {
-    	         Thread t = new Thread(r);
-    	         t.setDaemon(true); // allows app to exit if tasks are running
-    	         return t ;
-    	     });
-    
-    
-    // Use the following if you want the tasks to run concurrently, instead of consecutively:
 
-    // private ExecutorService exec = Executors.newCachedThreadPool(r -> {
-    //     Thread t = new Thread(r);
-    //     t.setDaemon(true);
-    //     return t ;
-    // });
+public class Main extends Application 
+	implements GuiCallbacks
+{
+	/* This service will finish one at a time
+	 * on another thread so that we don't block
+	 * the gui thread */
+    ExecutorService exec = 
+    		Executors.newSingleThreadExecutor(
+		    r -> 
+		    {
+		        Thread t = new Thread(r);
+		        // allow app to exit if tasks are running
+		        t.setDaemon(true); 
+		        return t ;
+		    });
     
     Dimension homeWindowSize;
 	StationList allStations;
@@ -66,10 +60,8 @@ public class Main extends Application
 	    window.setTitle("aids");
 		window.setResizable(false);
         window.setOnCloseRequest(e -> System.exit(0));
+        
         SplashScreen splash = new SplashScreen();
-        /* don't start the fade-in and all that
-         * straight away because the window isn't 
-           visible till the gui thread gets to it */
         
         EasyTask getStationsTask = new EasyTask(() ->
         { 
@@ -83,6 +75,7 @@ public class Main extends Application
 				 * Use splash.loadingUpdate(String)
 				 * maybe retry connecting in a loop */
 				e1.printStackTrace();
+				splash.loadingUpdate("Error: couldn't connect. Please restart");
 			}
         	// Tricky: loadingUpdate actually does a runLater()
         	splash.loadingUpdate("Creating GUI elements");
@@ -104,7 +97,7 @@ public class Main extends Application
         
         /* Now start the chain of tasks, 
          * getStationsTask was the first.*/
-        queue(getStationsTask);
+        queueTask(getStationsTask);
 	}
 	
 	void openChartWindow()
@@ -116,40 +109,20 @@ public class Main extends Application
 	{
 		
 	}
-	//Provides flexibility on user resolution differences 
-	Dimension calcHomeWindowSize()
-	{
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int screenWidth = screenSize.width;
-		Dimension output = new Dimension();
-		if(screenWidth > 1919){
-            output.setSize(1320, 740);
-        }
-        else if(screenWidth > 1439){
-        	output.setSize(1260,680);
-        }
-        else if( screenWidth > 1279){
-        	output.setSize(1100,550);
-        }
-        else if(screenWidth > 1023){
-        	output.setSize(900,500);
-        }
-        else
-        	return null;
-		return output;
-	}
-	//Might archive this, meant to be in use???
-	void queueDelayed(Task<?> task, long millis)
-	{
-		scheduler.schedule(task, millis, TimeUnit.MILLISECONDS);
-	}
 	
-	private void queue(Task<?> task)
+	private void queueTask(Task<?> task)
 	{
 		exec.submit(task);
 	}
 
-	public void handle(Station station) 
+	@Override
+	public void onStationClicked(StationButton button) 
+	{
+		
+	}
+
+	@Override
+	public void onSearch(StationButtonsPane list, String searchTerm) 
 	{
 		
 	}

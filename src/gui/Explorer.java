@@ -5,7 +5,7 @@ import java.awt.Point;
 
 import data.Station;
 import data.StationList;
-import guiCallbacks.OnStationClicked;
+import guiCallbacks.StationClicked;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -23,9 +23,16 @@ public class Explorer extends StackPane
 	StationButtonsPane allStationsPane;
 	StationButtonsPane favouritesPane;
 	
+	
+	
 	public Explorer()
 	{
 		super();
+		createGuiElements();
+	}
+	
+	void createGuiElements()
+	{
 		allStationsPane = new StationButtonsPane();
 		favouritesPane = new StationButtonsPane();
 		tabPane = new TabPane();
@@ -42,7 +49,7 @@ public class Explorer extends StackPane
 	}
 
 	/* Add stations to the "all stations" tab. */
-	public void addStationsAll(StationList stations, OnStationClicked listener) 
+	public void addStationsAll(StationList stations, StationClicked listener) 
 	{
 		allStationsPane.createStationButtons(stations, listener);
 	}

@@ -1,24 +1,17 @@
-package guiLookTest;
-
-import java.io.IOException;
+package guiVisTest;
 
 import data.Bom;
 import data.Station;
 import data.StationList;
 import gui.Explorer;
-import gui.GuiAppUtils;
 import gui.HomeScreen;
-import gui.SplashScreen;
 import gui.StationButtonsPane;
-import guiCallbacks.OnStationClicked;
+import guiCallbacks.StationClicked;
 import javafx.application.Application;
-import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public class ExplorerTest extends Application
-	implements OnStationClicked
+public class HomeScreenTest extends Application
 {
 	StationList allStations;	
 	@Override
@@ -33,9 +26,9 @@ public class ExplorerTest extends Application
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-        Explorer explorer = new Explorer();
-		explorer.addStationsAll(allStations);
-		Scene scene = new Scene(explorer);
+        HomeScreen homeScreen = new HomeScreen();
+        homeScreen.getExplorer().addStationsAll(allStations);
+        Scene scene = new Scene(homeScreen);
 		window.setScene(scene);
     	window.sizeToScene();
     	window.centerOnScreen();
@@ -46,15 +39,4 @@ public class ExplorerTest extends Application
     {
         launch(args);
     }
-
-	@Override
-	public void handle(Station station) 
-	{
-				
-	}
-
-	public void onSearch(StationButtonsPane stationPane, String searchTerm) {
-		// TODO Auto-generated method stub
-		
-	}
 }

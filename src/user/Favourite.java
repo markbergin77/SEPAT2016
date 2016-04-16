@@ -7,9 +7,6 @@ import data.Station;
 
 public class Favourite implements Serializable
 {
-	/**
-	 * 
-	 */
 	// Integer is serializable
 	private Integer timesViewed;
 	Station loc;
@@ -25,18 +22,15 @@ public class Favourite implements Serializable
 		return timesViewed;
 	}
 	
-	//Add favorite to vector from initialized vector and matched station.
 	public static Favourite create(Station loc)
 	{
 		return new Favourite(loc, 0);	
 	}
 	
-	
 	public Station getLoc()
 	{
 		return loc;
 	}
-	
 	
 	//Function for returning the favourite as a station (to use in weather stations
 	//Remember to increment times Viewed by one
@@ -51,8 +45,5 @@ public class Favourite implements Serializable
 		String output = "Favourite:\nstation: ";
 		output += loc.getName();
 		return output;
-	}
-	
-	
-		
+	}		
 }

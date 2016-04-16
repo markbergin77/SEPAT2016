@@ -1,15 +1,17 @@
-package guiLookTest;
+package guiVisTest;
 
 import data.Bom;
 import data.Station;
-import gui.HomeScreen;
+import data.StationList;
 import gui.StationButton;
+import gui.StationButtonsPane;
+import guiCallbacks.StationClicked;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class StationButtonTest extends Application
+public class StationButtonsPaneTest extends Application
 {
 	public void start(Stage window) throws Exception 
 	{
@@ -17,9 +19,10 @@ public class StationButtonTest extends Application
 	    window.setTitle("Login");
 		window.setResizable(false);
         window.setOnCloseRequest(e -> System.exit(0));
-        Station station = new Station("Station Name", "", "", "");
-		StationButton button = new StationButton(station);
-		window.setScene(new Scene(button));
+        StationList stations = Bom.getAllStations();
+		StationButtonsPane listPane = new StationButtonsPane();
+		listPane.createStationButtons(stations);
+		window.setScene(new Scene(listPane));
     	window.sizeToScene();
     	window.centerOnScreen();
     	window.show();
@@ -29,5 +32,5 @@ public class StationButtonTest extends Application
     {
         launch(args);
     }
-	
+
 }

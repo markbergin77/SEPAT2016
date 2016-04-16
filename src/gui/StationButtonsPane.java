@@ -8,6 +8,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -18,7 +19,7 @@ import java.util.Vector;
 
 import data.Station;
 import data.StationList;
-import guiCallbacks.OnStationClicked;
+import guiCallbacks.StationClicked;
 
 public class StationButtonsPane extends GridPane
 {
@@ -29,7 +30,7 @@ public class StationButtonsPane extends GridPane
      * if we change the handler, we have to 
        loop through all the buttons and change
        them individually. */
-    OnStationClicked clickHandler;
+    StationClicked clickHandler;
 
     public StationButtonsPane()
     {
@@ -44,8 +45,14 @@ public class StationButtonsPane extends GridPane
     	searchBox = new TextField();
     	searchBox.setPromptText("Search...");
     	searchBox.setPrefWidth(scrollPane.getWidth());
+    	searchBox.setOnKeyPressed(e -> searchBoxKeyPressed(e));
     	add(searchBox, 0, 0);
     	add(scrollPane, 0, 1);
+    }
+    
+    void searchBoxKeyPressed(KeyEvent e)
+    {
+    	
     }
     
     /* For testing purposes, no click handler */
@@ -60,20 +67,20 @@ public class StationButtonsPane extends GridPane
     }
     
     public void createStationButtons(StationList bomStations, 
-    		OnStationClicked clickHandler)
+    		StationClicked clickHandler)
     {
     	this.clickHandler = clickHandler;
     	for (Station bomStation : bomStations)
     	{
     		StationButton node = new StationButton(bomStation);
     		node.setOnMouseClicked(
-    				e -> this.clickHandler.handle(node.getStation()));
+    				e -> this.clickHandler.onStationClicked(node));
             vbox.getChildren().add(node);
             node.toFront();
     	}
     }
     
-    public void setOnButtonClicked(OnStationClicked clickHandler)
+    public void setOnButtonClicked(StationClicked clickHandler)
     {
     	this.clickHandler = clickHandler;
     }

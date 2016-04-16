@@ -1,4 +1,4 @@
-package guiLookTest;
+package guiVisTest;
 
 import java.io.IOException;
 

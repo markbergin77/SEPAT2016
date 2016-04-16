@@ -29,12 +29,26 @@ import javafx.util.Duration;
 public class HomeScreen extends GridPane
 {
     Explorer explorer;
+    
+    GuiCallbacks callbackObj;
 
+    /* for testing purposes, no interaction */
     public HomeScreen()
     {
     	super();
     	explorer = new Explorer();
         add(explorer, 0, 0);
+    }
+
+    
+    public HomeScreen(HomeInitObjects init, GuiCallbacks callbackObj)
+    {
+    	super();
+    	explorer = new Explorer();
+        add(explorer, 0, 0);
+        this.callbackObj = callbackObj;
+        explorer.addStationsAll(init.getAllStations(), 
+        		StationButton -> callbackObj.onStationClicked(StationButton));
     }
     
     public Explorer getExplorer()

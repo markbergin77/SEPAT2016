@@ -1,18 +1,23 @@
-package guiLookTest;
+package guiVisTest;
+
+import java.io.IOException;
 
 import data.Bom;
 import data.Station;
 import data.StationList;
 import gui.Explorer;
+import gui.GuiAppUtils;
 import gui.HomeScreen;
+import gui.SplashScreen;
 import gui.StationButtonsPane;
-import guiCallbacks.OnStationClicked;
+import guiCallbacks.StationClicked;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-public class HomeScreenTest extends Application
-	implements OnStationClicked
+public class ExplorerTest extends Application
 {
 	StationList allStations;	
 	@Override
@@ -27,9 +32,9 @@ public class HomeScreenTest extends Application
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-        HomeScreen homeScreen = new HomeScreen();
-        homeScreen.getExplorer().addStationsAll(allStations);
-        Scene scene = new Scene(homeScreen);
+        Explorer explorer = new Explorer();
+		explorer.addStationsAll(allStations);
+		Scene scene = new Scene(explorer);
 		window.setScene(scene);
     	window.sizeToScene();
     	window.centerOnScreen();
@@ -40,11 +45,4 @@ public class HomeScreenTest extends Application
     {
         launch(args);
     }
-
-	@Override
-	public void handle(Station station) 
-	{
-				
-	}
-
 }

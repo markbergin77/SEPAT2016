@@ -2,7 +2,8 @@ package user;
 
 import java.util.Vector;
 
-public class FavouriteList extends Vector<Favourite> {
+public class FavouriteList extends Vector<Favourite> 
+{
 	
 	/**
 	 * 
