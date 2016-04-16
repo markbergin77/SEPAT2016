@@ -7,17 +7,19 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.LinkedList;
 import java.util.Vector;
 
-public class StationButtonListPane extends ScrollPane
+public class StationButtonsPane extends StackPane
 {
-
-    private static VBox vbox;
+    VBox vbox;
+    ScrollPane scrollPane;
     /* why the variable? Because otherwise,
      * if we change the handler, we have to 
        loop through all the buttons and change
@@ -26,10 +28,15 @@ public class StationButtonListPane extends ScrollPane
 
     
     
-    public StationButtonListPane()
+    public StationButtonsPane()
     {
+    	super();
     	vbox = new VBox(8);
     	vbox.setPadding(new Insets(15, 0, 15, 0));
+    	scrollPane = new ScrollPane();
+    	scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+    	
+    	getChildren().addAll(scrollPane);
     }
     
     public void createStationButtons(StationList bomStations, 

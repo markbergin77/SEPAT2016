@@ -16,7 +16,7 @@ import bomData.Station;
 import bomData.StationList;
 import bomWeatherGui.HomeScreen;
 import bomWeatherGui.SplashScreen;
-import bomWeatherGui.StationButtonListPane;
+import bomWeatherGui.StationButtonsPane;
 import bomWeatherGui.StationButtonListener;
 import bomWeatherGui.SafeTask;
 import javafx.application.Application;

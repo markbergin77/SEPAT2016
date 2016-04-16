@@ -13,11 +13,11 @@ import javafx.scene.layout.StackPane;
 // Currently has two tabs, all stations and favourite stations
 public class Explorer extends StackPane
 {	
-	StationButtonListPane allStations;
+	StationButtonsPane allStations;
 	
 	public Explorer()
 	{
-		allStations = new StationButtonListPane();
+		allStations = new StationButtonsPane();
 	}
 
 	public void addStationsAll(StationList stations, StationButtonListener listener) 
