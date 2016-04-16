@@ -16,9 +16,8 @@ public class StationButtonTest extends Application
 		
 	    window.setTitle("Login");
 		window.setResizable(false);
-        window.initStyle(StageStyle.UNDECORATED);
         window.setOnCloseRequest(e -> System.exit(0));
-        Station station = new Station("blah", "", "", "");
+        Station station = new Station("Station Name", "", "", "");
 		StationButton button = new StationButton(station);
 		window.setScene(new Scene(button));
     	window.sizeToScene();

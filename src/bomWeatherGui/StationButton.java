@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 
 /**
  * Created by Pavel Nikolaev on 26/03/2016.
@@ -32,11 +33,11 @@ public class StationButton extends Button
     	this.station = station;
     	setMinWidth(buttonWidth);
     	setMaxWidth(buttonWidth);
+    	setAlignment(Pos.CENTER_LEFT);
     }
 
 	public Station getStation() 
 	{
-		// TODO Auto-generated method stub
 		return station;
 	}
 }

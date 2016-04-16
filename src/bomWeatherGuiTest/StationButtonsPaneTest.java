@@ -19,7 +19,6 @@ public class StationButtonsPaneTest extends Application
 		
 	    window.setTitle("Login");
 		window.setResizable(false);
-        window.initStyle(StageStyle.UNDECORATED);
         window.setOnCloseRequest(e -> System.exit(0));
         StationList stations = Bom.getAllStations();
 		StationButtonsPane listPane = new StationButtonsPane();
