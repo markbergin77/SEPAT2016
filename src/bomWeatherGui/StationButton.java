@@ -20,7 +20,7 @@ import javafx.scene.shape.Rectangle;
  */
 public class StationButton extends Button 
 {
-
+	double buttonWidth = 170;
   //  private String LOCATION;
   //  private int TEMP;
   //  private Boolean RAINING, SUNNY;
@@ -30,6 +30,8 @@ public class StationButton extends Button
     {
     	super(station.getName());
     	this.station = station;
+    	setMinWidth(buttonWidth);
+    	setMaxWidth(buttonWidth);
     }
 
 	public Station getStation() 

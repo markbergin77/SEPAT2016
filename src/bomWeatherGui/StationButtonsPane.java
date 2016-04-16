@@ -35,7 +35,9 @@ public class StationButtonsPane extends StackPane
     	vbox.setPadding(new Insets(15, 0, 15, 0));
     	scrollPane = new ScrollPane();
     	scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-    	
+    	scrollPane.setContent(vbox);
+    	scrollPane.setPrefHeight(400);
+    	scrollPane.setFitToWidth(true);
     	getChildren().addAll(scrollPane);
     }
     
