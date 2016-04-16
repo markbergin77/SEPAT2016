@@ -3,16 +3,19 @@ package bomWeatherGuiTest;
 import java.io.IOException;
 
 import bomData.Bom;
+import bomData.Station;
 import bomData.StationList;
 import bomWeatherGui.Explorer;
 import bomWeatherGui.HomeScreen;
 import bomWeatherGui.SplashScreen;
+import bomWeatherGui.StationButtonListener;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class ExplorerTest extends Application
+	implements StationButtonListener
 {
 	StationList allStations;	
 	@Override
@@ -22,7 +25,6 @@ public class ExplorerTest extends Application
 	    window.setTitle("Login");
 		window.setResizable(false);
         window.initStyle(StageStyle.UNDECORATED);
-        
         window.setOnCloseRequest(e -> System.exit(0));
         try {
 				allStations = Bom.getAllStations();
@@ -30,7 +32,7 @@ public class ExplorerTest extends Application
 			e1.printStackTrace();
 		}
         HomeScreen homeScreen = new HomeScreen();
-		homeScreen.addStationsAll(allStations);
+		homeScreen.addStationsAll(allStations, this);
 		window.setScene(homeScreen.getScene());
     	homeScreen.startShowing();
     	window.sizeToScene();
@@ -42,4 +44,10 @@ public class ExplorerTest extends Application
     {
         launch(args);
     }
+
+	@Override
+	public void onStationClicked(Station station) 
+	{
+				
+	}
 }

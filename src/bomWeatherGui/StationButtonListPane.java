@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -13,37 +14,39 @@ import javafx.scene.layout.VBox;
 import java.util.LinkedList;
 import java.util.Vector;
 
-public class StationListPane {
+public class StationButtonListPane extends ScrollPane
+{
 
     private static VBox vbox;
     /* why the variable? Because otherwise,
      * if we change the handler, we have to 
        loop through all the buttons and change
        them individually. */
-    EventHandler<? super MouseEvent> clickHandler;
+    StationButtonListener clickHandler;
 
     
     
-    public StationListPane()
+    public StationButtonListPane()
     {
     	vbox = new VBox(8);
     	vbox.setPadding(new Insets(15, 0, 15, 0));
     }
     
     public void createStationButtons(StationList bomStations, 
-    		EventHandler<? super MouseEvent> clickHandler)
+    		StationButtonListener clickHandler)
     {
     	this.clickHandler = clickHandler;
     	for (Station bomStation : bomStations)
     	{
-    		ListNode node = new ListNode(bomStation);
-    		node.setOnMouseClicked(e -> this.clickHandler.handle(e));
+    		StationButton node = new StationButton(bomStation);
+    		node.setOnMouseClicked(
+    				e -> this.clickHandler.onStationClicked(node.getStation()));
             vbox.getChildren().add(node);
             node.toFront();
     	}
     }
     
-    public void setOnMouseClicked(EventHandler<? super MouseEvent> clickHandler)
+    public void setOnButtonClicked(StationButtonListener clickHandler)
     {
     	this.clickHandler = clickHandler;
     }

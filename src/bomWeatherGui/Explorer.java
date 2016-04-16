@@ -3,6 +3,7 @@ package bomWeatherGui;
 import java.awt.Dimension;
 import java.awt.Point;
 
+import bomData.Station;
 import bomData.StationList;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -12,14 +13,17 @@ import javafx.scene.layout.StackPane;
 // Currently has two tabs, all stations and favourite stations
 public class Explorer extends StackPane
 {	
-	StationListPane allStations;
+	StationButtonListPane allStations;
+	
 	public Explorer()
 	{
-		allStations = new StationListPane();
+		allStations = new StationButtonListPane();
 	}
 
-	public void addStationsAll(StationList stations, EventHandler<MouseEvent> clickHandler) 
+	public void addStationsAll(StationList stations, StationButtonListener listener) 
 	{
-		allStations.createStationButtons(stations, clickHandler);
+		allStations.createStationButtons(stations, listener);
 	}
+
+
 }

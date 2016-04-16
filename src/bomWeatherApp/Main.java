@@ -12,17 +12,20 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import bomData.Bom;
+import bomData.Station;
 import bomData.StationList;
 import bomWeatherGui.HomeScreen;
 import bomWeatherGui.SplashScreen;
-import bomWeatherGui.StationListPane;
+import bomWeatherGui.StationButtonListPane;
+import bomWeatherGui.StationButtonListener;
 import bomWeatherGui.SafeTask;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-public class Main extends Application
+public class Main extends Application 
+	implements StationButtonListener
 {
     private ExecutorService exec = Executors.newSingleThreadExecutor(r -> {
         Thread t = new Thread(r);
@@ -90,7 +93,7 @@ public class Main extends Application
         	// Tricky: loadingUpdate actually does a runLater()
         	splash.loadingUpdate("Creating GUI elements");
 			homeScreen = new HomeScreen();
-			homeScreen.addStationsAll(allStations);
+			homeScreen.addStationsAll(allStations, this);
 			splash.loadingUpdate("");
 			splash.startClosing();
         });
@@ -148,5 +151,11 @@ public class Main extends Application
 	private void queue(Task<?> task)
 	{
 		exec.submit(task);
+	}
+
+	@Override
+	public void onStationClicked(Station station) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -32,7 +32,7 @@ import javafx.stage.*;
 import javafx.util.Duration;
 
 
-public class HomeScreen 
+public class HomeScreen
 {
 	// Old stuff,
 	/*I'll leave this until near-ish the end.
@@ -45,7 +45,7 @@ public class HomeScreen
     
     private void onStationClicked(MouseEvent event)
     {
-    	ListNode stationButton = (ListNode) event.getSource();
+    	StationButton stationButton = (StationButton) event.getSource();
     	Station station = stationButton.getStation();
     }
 
@@ -62,15 +62,13 @@ public class HomeScreen
     	return scene;
     }
     
-    public void addStationsAll(StationList stations)
+    public void addStationsAll(StationList stations, StationButtonListener listener)
     {
-    	explorer.addStationsAll(stations, 
-    			e -> onStationClicked(e));
+    	explorer.addStationsAll(stations, listener);
     }
     
     public void startShowing()
     {   	
 
     }
-
 }
