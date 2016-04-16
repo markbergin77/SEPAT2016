@@ -32,34 +32,20 @@ import javafx.stage.*;
 import javafx.util.Duration;
 
 
-public class HomeScreen
+public class HomeScreen extends GridPane
 {
 	// Old stuff,
 	/*I'll leave this until near-ish the end.
 	 * Then i'll remove unused functions just in case
 	 * You never know
 	 */
-	Scene scene;
-	GridPane layoutPane;
     Explorer explorer;
-    
-    private void onStationClicked(MouseEvent event)
-    {
-    	StationButton stationButton = (StationButton) event.getSource();
-    	Station station = stationButton.getStation();
-    }
 
     public HomeScreen()
     {
-    	layoutPane = new GridPane();
+    	super();
     	explorer = new Explorer();
-        layoutPane.add(explorer, 0, 0);
-        scene = new Scene(layoutPane);
-    }
-
-	public Scene getScene()
-    {
-    	return scene;
+        add(explorer, 0, 0);
     }
     
     public void addStationsAll(StationList stations, StationButtonListener listener)
