@@ -13,7 +13,7 @@ import javafx.stage.StageStyle;
 
 public class SplashScreenTest extends Application
 {
-
+    //Testing the splash screen (what users view when application starts) functionality
 	public static void main(String args[])
     {
         launch(args);

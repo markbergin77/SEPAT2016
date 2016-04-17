@@ -8,7 +8,7 @@ import user.FavouritesList;
 public class StationsPaneFav extends StationsPane
 {
 	FavClicked clickHandler;
-	
+	// used for when favourites are selected
 	public void createFavButtons(FavouritesList favs, 
     		FavClicked clickHandler)
     {

@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 
 public class StationsPane extends GridPane
 {
+	//Scroll box/list, where favorites are located on program
 	VBox vbox;
     ScrollPane scrollPane;
     TextField searchBox;
