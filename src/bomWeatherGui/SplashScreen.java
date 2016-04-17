@@ -105,7 +105,7 @@ public class SplashScreen implements LoadingUpdater
 
 		loadCss();
 	}
-	
+	//CSS loads for app styling
 	void loadCss()
 	{
 		try 
@@ -125,7 +125,7 @@ public class SplashScreen implements LoadingUpdater
 			System.exit(-1);
 		}
 	}
-	
+	//Calling the fadings for the splash screen
 	void addFadeIn(Node node, Duration dur)
 	{
 		FadeTransition fade = new FadeTransition(dur, node);
@@ -145,7 +145,7 @@ public class SplashScreen implements LoadingUpdater
 		addFadeIn(node, dur);
 		addFadeOut(node, dur);
 	}
-
+    //Function for when application is closing
 	public void startClosing() 
 	{
 		fadeOuts.lastElement().setOnFinished(e -> 
@@ -161,7 +161,7 @@ public class SplashScreen implements LoadingUpdater
 			fade.play();
 		}		
 	}
-
+    //Animation details ???? This is like the third function that does the same thing
 	private void startAnims()
 	{
 		FadeTransition ldBarCyclicFade = 
@@ -203,7 +203,8 @@ public class SplashScreen implements LoadingUpdater
 		ldBarEffectCyclicScale.setAutoReverse(true);
 		ldBarEffectCyclicScale.play();
 	}
-		
+	//General function for calling the splash screen,
+	//Plays through the list of fade in animations
 	public void startShowing()
 	{
 		fadeIns.lastElement().setOnFinished(e -> startAnims());

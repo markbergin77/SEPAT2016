@@ -21,7 +21,7 @@ import javafx.util.Duration;
 
 public class SplashScreenTest extends Application
 {
-
+    //Unit test for splash screen
 	public static void main(String args[])
     {
         launch(args);
@@ -46,6 +46,8 @@ public class SplashScreenTest extends Application
         });
         
         window.show();
+        //Displays the stations being grabbed for user.
+        //Shows things are getting done/loaded in.
         Task<StationList> getStationsTask = new Task<StationList>(){
         		@Override protected StationList call() throws IOException
         		{
@@ -57,7 +59,7 @@ public class SplashScreenTest extends Application
         getStationsTask.setOnSucceeded(e -> splash.startClosing());
         new Thread(getStationsTask).start();
 	}
-	
+	//Not sure if this is going to be used later?
 	public void transSplashToHome()
 	{
 		

@@ -38,7 +38,7 @@ public class Main extends Application
     {
         launch(args);
     }
-    
+    //Window sizes for different user resloutions
     Dimension calcHomeWindowSize()
 	{
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -60,7 +60,8 @@ public class Main extends Application
         	return null;
 		return output;
 	}
-
+    //Startup splash screen details
+    //Splash screen is used due to a small load period, involving grabbing station names.
     @Override
     public void start(Stage primaryStage) throws Exception 
     {
@@ -103,12 +104,12 @@ public class Main extends Application
         continueButton.setOnMouseExited(e -> continueButton.getStyleClass().remove("button-wait-bright"));
 
         window.setOnCloseRequest(e -> System.exit(0));
-
+        //Below details transitional period after continue button press
         window.setOnShowing(e -> {
             continueButton.toFront();
             load();
         });
-
+        //Transitions etc needed to divert user from opening screen to big application.
         continueButton.setOnMousePressed(e -> {
             FadeTransition fadeTransition
                     = new FadeTransition(Duration.millis(500), continueButton);
@@ -134,7 +135,8 @@ public class Main extends Application
         fadeIn();
 
     }
-
+    //Super duper fade transitions
+    //Different transitions for different locations/components on screen
     public void fadeOut(){
 
         FadeTransition fT1
@@ -166,6 +168,7 @@ public class Main extends Application
                 = new FadeTransition(Duration.millis(2000), progressBar);
         fT5.setFromValue(1.0);
         fT5.setToValue(0.0);
+        //Opens the homescreen window after transitions finish up
         fT5.setOnFinished(e -> {
 
             HomeScreen home = new HomeScreen(window,
@@ -175,7 +178,8 @@ public class Main extends Application
         });
         fT5.play();
     }
-
+    //MORE Super duper fade transitions
+    //Different transitions for different locations/components on screen
     public void fadeIn(){
 
         FadeTransition fT1
@@ -191,12 +195,11 @@ public class Main extends Application
         fT3.play();
 
     }
-
-  //  public void display (Stage window){
-      //  fadeIn();
-     //   window.setScene(scene1);
-   // }
-
+    /*Loading function
+     * This is used for calling other transitions I believe?
+     * Actually I don't know what the hell this is used for
+     * Going to change some of this
+     */
     public void load(){
 
         FadeTransition fadeTransition
@@ -246,7 +249,8 @@ public class Main extends Application
         scaleTransition1.play();
 
     }
-
+    //This function isn't called?
+    //Have no idea what it's used for
     public void oncomplete(){
         continueButton.toFront();
         continueButton.setVisible(true);
@@ -257,7 +261,7 @@ public class Main extends Application
         fT2.setToValue(1.0);
         fT2.play();
     }
-
+    //allows the gui window to be dragged around by the user
     public void dragWindow(Scene scene){
 
         scene.setOnMousePressed(e -> {

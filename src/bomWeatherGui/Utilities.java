@@ -10,6 +10,7 @@ import java.util.TimerTask;
 /**
  * Created by Pavel Nikolaev on 14/03/2016.
  */
+//Another function for grabbing CSS details??????
 public class Utilities{
 
     public void getCss(Scene scene){
@@ -29,7 +30,8 @@ public class Utilities{
         }
 
     }
-
+    //Resizes window in a background thread, 
+    //Not sure if this is used????
     public void resizeWindowIncrease(Stage window, int x , int y, int timeX, int timeY){
 
         Timer timer = new Timer();
@@ -37,24 +39,14 @@ public class Utilities{
             int i = 0;
             @Override
             public void run() {
-
-
                 if(window.getWidth() < x){
                     window.setWidth(window.getWidth() + 2.5);
                     window.setX(window.getX()-1.0);
-
-
                 }
                 else{
                     this.cancel();
-                    //print(window.getWidth());
-                    /*HomeScreen home = new HomeScreen(window);
-                    home.fadeIn();*/
-
-
                 }
                  i+=2;
-
             }
         }, 0, timeX);
 
@@ -80,7 +72,7 @@ public class Utilities{
         },0, timeY);
 
     }
-
+    //Vice versa, is this used at all?????
     public void resizeWindowDecrease(Stage window, int x , int y){
 
         Timer timer = new Timer();
@@ -104,7 +96,8 @@ public class Utilities{
 
         }, 0, 17);
     }
-
+   //quick function
+    //Used for printing object details throughout the application for testing
     public void print(Object obj){
         System.out.println(obj);
     }

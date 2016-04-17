@@ -23,7 +23,10 @@ public class ListNode extends Parent {
   //  private int TEMP;
   //  private Boolean RAINING, SUNNY;
     private Station station;
-
+    /*Used for representing the list of locations in a graphical format.
+     * aka. station buttons in a list for 
+     */
+    
     public ListNode(Station station)
     {
     	this.station = station;
@@ -77,7 +80,8 @@ public class ListNode extends Parent {
         return lineChart;
 
     }
-
+    //Table used for graphically representing recent observations
+    //wthr last 72 hours classes
     public TableView<String> getTable(int width,int height){
 
         TableView<String> table = new TableView<String>();

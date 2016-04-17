@@ -19,7 +19,7 @@ public class GraphWindow {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.initStyle(StageStyle.TRANSPARENT);
-
+        //Data represented as line graph
         LineChart<Number,Number> graph = chart;
 
         StackPane graphPane = new StackPane();
