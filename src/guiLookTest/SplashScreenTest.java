@@ -5,20 +5,11 @@ import java.io.IOException;
 import data.Bom;
 import data.StationList;
 import gui.GuiAppUtils;
-import gui.HomeScreen;
 import gui.SplashScreen;
-import javafx.animation.Animation;
-import javafx.animation.FadeTransition;
-import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.concurrent.Task;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 public class SplashScreenTest extends Application
 {

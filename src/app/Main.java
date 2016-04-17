@@ -1,34 +1,19 @@
 package app;
 import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import data.Bom;
 import data.Station;
 import data.StationList;
 import gui.GuiEventInterface;
 import gui.HomeInitInfo;
 import gui.HomeScreen;
-import gui.SafeTask;
 import gui.SplashScreen;
-import gui.StationButton;
-import gui.StationsPaneAll;
-import guiCallbacks.StationClicked;
 import guiDataPlots.TempPlot;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import user.User;
 
 public class Main extends Application 

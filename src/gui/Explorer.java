@@ -1,17 +1,10 @@
 package gui;
 
-import java.awt.Dimension;
-import java.awt.Point;
-
-import data.Station;
 import data.StationList;
 import guiCallbacks.FavClicked;
 import guiCallbacks.StationClicked;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import user.FavouritesList;
 

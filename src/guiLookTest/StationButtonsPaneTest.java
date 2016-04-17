@@ -1,15 +1,11 @@
 package guiLookTest;
 
 import data.Bom;
-import data.Station;
 import data.StationList;
-import gui.StationButton;
 import gui.StationsPaneAll;
-import guiCallbacks.StationClicked;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class StationButtonsPaneTest extends Application
 {

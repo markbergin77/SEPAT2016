@@ -8,10 +8,7 @@ import java.util.Vector;
 import data.Bom;
 import data.Station;
 import data.StationList;
-import data.WthrSampleCoarse;
 import data.WthrSampleFine;
-import user.Favourite;
-import user.FavouritesList;
 
 public class SelectStation 
 {

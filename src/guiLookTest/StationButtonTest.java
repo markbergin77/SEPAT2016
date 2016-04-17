@@ -1,13 +1,10 @@
 package guiLookTest;
 
-import data.Bom;
 import data.Station;
-import gui.HomeScreen;
 import gui.StationButton;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class StationButtonTest extends Application
 {

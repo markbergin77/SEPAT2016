@@ -1,29 +1,7 @@
 package gui;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import data.Station;
-import data.StationList;
-import javafx.animation.*;
-import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.*;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.*;
-import javafx.util.Duration;
 import user.Favourite;
 
 

@@ -1,12 +1,6 @@
 package gui;
 
-import java.net.URL;
-import java.util.List;
 import java.util.Vector;
-
-import javax.swing.GroupLayout.Alignment;
-
-import org.w3c.dom.css.Rect;
 
 import data.LoadingUpdater;
 import javafx.animation.Animation;
@@ -19,15 +13,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;

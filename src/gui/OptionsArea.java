@@ -3,9 +3,7 @@ package gui;
 import data.Station;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import user.Favourite;
 /* This goes to the right of the explorer

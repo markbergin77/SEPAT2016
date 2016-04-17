@@ -1,21 +1,11 @@
 package guiLookTest;
 
-import java.io.IOException;
-
 import data.Bom;
-import data.Station;
 import data.StationList;
 import gui.Explorer;
-import gui.GuiAppUtils;
-import gui.HomeScreen;
-import gui.SplashScreen;
-import gui.StationsPaneAll;
-import guiCallbacks.StationClicked;
 import javafx.application.Application;
-import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class ExplorerTest extends Application
 {
