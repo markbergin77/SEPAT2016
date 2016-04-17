@@ -24,6 +24,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.*;
 import javafx.util.Duration;
+import user.Favourite;
 
 
 public class HomeScreen extends GridPane
@@ -40,24 +41,25 @@ public class HomeScreen extends GridPane
     {
     	super();
     	explorer = new Explorer();
-    	optionsArea = new OptionsArea();
+    	optionsArea = new OptionsArea(callbackObj);
         add(explorer, 0, 0);
         add(optionsArea, 1, 0);
     }
-
     
     public HomeScreen(HomeInitInfo init, GuiEventInterface callbackObj)
     {
     	super();
     	explorer = new Explorer();
+    	optionsArea = new OptionsArea(callbackObj);
         add(explorer, 0, 0);
+        add(optionsArea, 1, 0);
         this.callbackObj = callbackObj;
-        explorer.addStationsAll(init.getAllStations(), 
+        explorer.addStationsAll(init.getAllStations(),
         		StationButton -> onStationClicked(StationButton));
-        
+        explorer.addStationsFav(init.user.getFavs(), f -> onFavClicked(f));
     }
     
-    void onFavClicked(Station station)
+    void onFavClicked(Favourite station)
     {
     	optionsArea.setStationFav(station);
     }
@@ -74,6 +76,6 @@ public class HomeScreen extends GridPane
     
     public void startShowing()
     {   	
-
+    	
     }
 }

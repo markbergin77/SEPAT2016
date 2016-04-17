@@ -13,8 +13,8 @@ public class SaveUserTest
 		try {
 			StationList stations = Bom.getAllStations();
 			User user = User.create();
-			user.getFaves().add(Favourite.create(stations.get(0)));
-			user.getFaves().add(Favourite.create(stations.get(3)));
+			user.getFavs().add(Favourite.create(stations.get(0)));
+			user.getFavs().add(Favourite.create(stations.get(3)));
 			user.saveUser("data/user");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

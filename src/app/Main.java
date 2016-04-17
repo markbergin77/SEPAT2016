@@ -15,6 +15,7 @@ import data.Bom;
 import data.Station;
 import data.StationList;
 import gui.GuiEventInterface;
+import gui.HomeInitInfo;
 import gui.HomeScreen;
 import gui.SafeTask;
 import gui.SplashScreen;
@@ -28,6 +29,7 @@ import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import user.User;
 
 public class Main extends Application 
 	implements GuiEventInterface
@@ -49,6 +51,7 @@ public class Main extends Application
 	StationList allStations;
 	HomeScreen homeScreen;
 	Scene scene;
+	User user;
 	
 	public static void main(String args[])
     {
@@ -60,10 +63,8 @@ public class Main extends Application
 	{
 	    window.setTitle("aids");
 		window.setResizable(false);
-        window.setOnCloseRequest(e -> System.exit(0));
-        
+        window.setOnCloseRequest(e -> onQuit());
         SplashScreen splash = new SplashScreen();
-        
         EasyTask getStationsTask = new EasyTask(() ->
         { 
         	try {
@@ -79,10 +80,16 @@ public class Main extends Application
 				splash.loadingUpdate("Error: couldn't connect. Please restart");
 			}
         	// Tricky: loadingUpdate actually does a runLater()
+        	splash.loadingUpdate("Loading user");
+			try {
+				user = new User("data/user");
+			} catch (Exception e1) {
+				user = new User();
+			}
         	splash.loadingUpdate("Creating GUI elements");
-			homeScreen = new HomeScreen();
+        	HomeInitInfo homeInit = new HomeInitInfo(allStations, user);
+			homeScreen = new HomeScreen(homeInit, this);
 			scene = new Scene(homeScreen);
-			homeScreen.getExplorer().addStationsAll(allStations, s -> {});
 			splash.loadingUpdate("");
 			splash.startClosing();
         });
@@ -99,6 +106,12 @@ public class Main extends Application
         /* Now start the chain of tasks, 
          * getStationsTask was the first.*/
         queueTask(getStationsTask);
+	}
+	
+	void onQuit()
+	{
+		user.saveUser("data/user");
+		System.exit(0);
 	}
 	
 	void openChartWindow()
@@ -124,5 +137,13 @@ public class Main extends Application
 		Scene plotScene = new Scene(tempPlot);
 		newPlotWindow.setTitle("Temperature");
 		newPlotWindow.setScene(plotScene);
+	}
+
+	@Override
+	public void onAddFav(Station station) 
+	{
+		/* Add to user's fav list
+		 * 
+		 */
 	}
 }

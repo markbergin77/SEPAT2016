@@ -43,8 +43,8 @@ public class SplashScreen implements LoadingUpdater
 	Label loadingActivity;
 	Rectangle ldBarEffect;
 	
-	Duration fadeInDuration = Duration.millis(1000);
-	Duration fadeOutDuration = Duration.millis(1000);
+	Duration fadeInDuration = Duration.millis(1);
+	Duration fadeOutDuration = Duration.millis(1);
 
 	Object loadingUpdateCallback;
 	EventHandler<ActionEvent> onClosed;

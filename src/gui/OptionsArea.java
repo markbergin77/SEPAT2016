@@ -7,10 +7,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import user.Favourite;
 /* This goes to the right of the explorer
  * and has buttons to open plots of weather
  * data for the selected station in "Explorer" */
-public class OptionsArea extends GridPane
+public class OptionsArea extends VBox
 {
 	/* When a button is pressed, send a
 	 * message to this object through one 
@@ -25,25 +26,29 @@ public class OptionsArea extends GridPane
 	
 	static double defaultWidth = 400;
 	
-	public OptionsArea()
+	Station selectedStation;
+	
+	public OptionsArea(GuiEventInterface callbackObj)
 	{
+		this.callbackObj = callbackObj;
 		this.setPrefSize(defaultWidth, HomeScreen.defaultHeight);
 		promptLabel.setPrefWidth(defaultWidth);
 		promptLabel.setAlignment(Pos.BASELINE_CENTER);
 		promptLabel.setFont(new Font(24));
 		spacingBox.setPrefHeight(promptInsetY);
-		add(spacingBox, 0, 0);
-		add(promptLabel, 0, 1);
+		getChildren().addAll(spacingBox, promptLabel);
 	}
 	
 	void removePrompt()
 	{
 		getChildren().removeAll(spacingBox, promptLabel);
 	}
+	
 
-	public void setStationFav(Station station) 
+	public void setStationFav(Favourite fav) 
 	{
 		removePrompt();
+		
 	}
 
 	public void setStation(Station station) 

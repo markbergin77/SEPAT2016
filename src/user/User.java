@@ -11,12 +11,12 @@ public class User
 {
 	FavouritesList faves;
 	
-	private User()
+	public User()
 	{
 		faves = FavouritesList.create();
 	}
 	//File writing details
-	private User(String pathToFile) throws FileNotFoundException
+	public User(String pathToFile) throws FileNotFoundException
 	{
 		try 
 		{
@@ -44,7 +44,7 @@ public class User
 		}
 	}
 	
-	public FavouritesList getFaves()
+	public FavouritesList getFavs()
 	{
 		return faves;
 	}
