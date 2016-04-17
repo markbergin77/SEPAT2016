@@ -9,5 +9,6 @@ public class TempPlot extends GridPane
 	{
 		/* Create controls on the bottom
 		 * to control the time scale */
+		
 	}
 }

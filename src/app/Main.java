@@ -137,7 +137,10 @@ public class Main extends Application
 		Scene plotScene = new Scene(tempPlot);
 		newPlotWindow.setTitle("Temperature");
 		newPlotWindow.setScene(plotScene);
+		
 	}
+	
+	
 
 	@Override
 	public void onAddFav(Station station) 

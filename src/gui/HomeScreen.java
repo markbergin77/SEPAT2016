@@ -59,9 +59,9 @@ public class HomeScreen extends GridPane
         explorer.addStationsFav(init.user.getFavs(), f -> onFavClicked(f));
     }
     
-    void onFavClicked(Favourite station)
+    void onFavClicked(Favourite fav)
     {
-    	optionsArea.setStationFav(station);
+    	optionsArea.setStationFav(fav);
     }
     
     void onStationClicked(Station station)
