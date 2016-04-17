@@ -39,12 +39,12 @@ public class HomeScreen extends GridPane
     
     void onFavClicked(Favourite fav)
     {
-    	optionsArea.setStationFav(fav);
+    	optionsArea.addTabForFav(fav);
     }
     
     void onStationClicked(Station station)
     {
-    	optionsArea.setStation(station);
+    	optionsArea.addTabForStation(station);
     }
     
     public Explorer getExplorer()
