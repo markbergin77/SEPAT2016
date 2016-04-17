@@ -1,4 +1,4 @@
-package guiLookTest;
+package guiPlotsTest;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

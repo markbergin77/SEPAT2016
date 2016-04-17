@@ -9,7 +9,7 @@ import gui.GuiEventInterface;
 import gui.HomeInitInfo;
 import gui.HomeScreen;
 import gui.SplashScreen;
-import guiDataPlots.TempPlot;
+import guiPlots.TempPlot;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;

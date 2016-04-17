@@ -1,4 +1,4 @@
-package guiDataPlots;
+package guiPlots;
 
 import data.Station;
 import javafx.scene.layout.GridPane;
