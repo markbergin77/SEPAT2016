@@ -24,11 +24,12 @@ public class OptionsArea extends VBox
 	TabPane tabPane = new TabPane();
 	boolean noTabs;
 	/* Text displayed before any station selected */
-	String promptText = "Please select a station";
+	String promptText = "Select a station";
 	Label promptLabel = new Label(promptText);
 	/* Looks ugly if right at top */
 	static double promptInsetY = 16;
 	VBox promptSpacingBox = new VBox();
+	int nTabs;
 	
 		
 	public OptionsArea(GuiEventInterface callbackObj)
@@ -36,6 +37,7 @@ public class OptionsArea extends VBox
 		this.callbackObj = callbackObj;
 		this.setPrefSize(defaultWidth, HomeScreen.defaultHeight);
 		noTabs = true;
+		nTabs = 0;
 		setupPrompt();
 		addPrompt();
 	}
@@ -58,11 +60,29 @@ public class OptionsArea extends VBox
 		promptSpacingBox.setPrefHeight(promptInsetY);
 	}
 	
+	void onTabAdded()
+	{
+		nTabs++;
+	}
 	
+	void onTabClosed()
+	{
+		if(--nTabs == 0)
+		{
+			removeTabPane();
+			addPrompt();
+			noTabs = true;
+		}
+	}
 	
 	void addTabPane()
 	{
 		getChildren().add(tabPane);
+	}
+	
+	void removeTabPane()
+	{
+		getChildren().remove(tabPane);
 	}
 	
 	void addPrompt()
@@ -79,10 +99,18 @@ public class OptionsArea extends VBox
 	public void addTabForFav(Favourite fav) 
 	{
 		addingTabChecks();
+		OptionsTab newTab = new OptionsTab(fav.getStation().getName());
+		newTab.setOnClosed(e -> onTabClosed());
+		tabPane.getTabs().add(newTab);
+		onTabAdded();
 	}
 
 	public void addTabForStation(Station station) 
 	{
 		addingTabChecks();
+		OptionsTab newTab = new OptionsTab(station.getName());
+		newTab.setOnClosed(e -> onTabClosed());
+		tabPane.getTabs().add(newTab);
+		onTabAdded();
 	}	
 }
