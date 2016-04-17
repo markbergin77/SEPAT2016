@@ -1,23 +1,17 @@
 package bomWeatherGui;
 
 import java.awt.Dimension;
-import java.awt.Point;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import bomData.Station;
 import bomData.StationList;
-
 /**
  * Created by Pavel Nikolaev on 13/03/2016.
  */
-
-
 import javafx.animation.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.*;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -30,7 +24,6 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.*;
 import javafx.util.Duration;
-
 
 public class HomeScreen 
 {
@@ -97,173 +90,7 @@ public class HomeScreen
         backgroundImageView.toBack();
         backgroundImageView.setOpacity(0);
     }
-    // An early attempt at calculating sizes instead
-    // of having different presets.
-    //What even is half of this?
-    // Where you re-creating everything entirely?
-    //Don't answer, I don't want to know
-    private void createGuiElements(Dimension size) 
-    {
-    	rootPane = new StackPane();
-        // Create Plot
-        plotPane = new StackPane();
-        int plotWidth = (int) (1.85 * size.width / 3);
-        int plotHeight = (int) (1.1 * size.height / 2);
-        System.out.println(plotHeight);
-        plotRect = new Rectangle(plotWidth, plotHeight);
-        weatherPlot = new LineChart<Number,Number>(new NumberAxis(),new NumberAxis());
-        weatherPlot.setMaxSize(plotWidth, plotHeight - 50);
-        weatherPlot.setOpacity(1);
-        plotRect.setArcHeight(20);
-        plotRect.setArcWidth(20);
-        plotRect.setOpacity(1);
-        plotRect.setStroke(Color.LIGHTSLATEGRAY);
-        plotRect.setFill(Color.rgb(38,38,38));
-        plotRect.setStrokeWidth(2);
-        plotPane.getChildren().addAll(plotRect,weatherPlot);
-        plotPane.setMaxSize(plotWidth, plotHeight - 50);
-        StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
-        
-        // Create table
-        tablePane = new StackPane();
-        dataTable = new TableView<>();
-        dataTable.setOpacity(0.9);
-        dataTable.setPlaceholder(new Label("Select a station"));
-        tablePane.getChildren().addAll(dataTable);
-        StackPane.setAlignment(dataTable,Pos.CENTER);
-        int tableHeight = (int) (1.2 * size.height / 4);
-        tablePane.setMaxSize(plotWidth,tableHeight);
-        tablePane.setOpacity(1);
-        
-        // Create explorer
-        StackPane explorerPane = new StackPane();
-        explorerRect = new Rectangle(430,625);
-        explorerRect.setArcHeight(20);
-        explorerRect.setArcWidth(20);
-        explorerRect.setOpacity(1);
-        explorerRect.setStroke(Color.LIGHTSLATEGRAY);
-        explorerRect.setFill(Color.rgb(38, 38, 38));
-        explorerRect.setStrokeWidth(2);
-        explorerPane.getChildren().addAll(explorerRect);
-        int explMaxW = (int) (1.0 * size.width / 3);
-        int explMaxH = (int) (6.0 * size.height / 7);
-        explMaxH = plotHeight + tableHeight;
-        explorerPane.setMaxSize(430,635);
-
-        explorerTabsPane = new TabPane();
-        int explTabsMaxW = explMaxW - 10;
-        int explTabsMaxH = explMaxH - 20;
-        explorerTabsPane.setMaxSize(explTabsMaxW, explTabsMaxH);
-        explorerTabsPane.setOpacity(1);
-        
-        Tab allStationsTab = new Tab();
-        allStationsTab.setText("All stations");
-        StackPane allStationsPane = new StackPane();
-        allStationsPane.setPrefSize(explTabsMaxW,explTabsMaxH);
-
-        ScrollPane stationsScroll = new ScrollPane();
-        stationsScroll.setPrefSize(explTabsMaxW,explTabsMaxH);
-        stationsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        stationsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        TextField searchBar = new TextField();
-
-        searchBar.setMaxSize(180,25);
-        searchBar.setPromptText("Search stations");
-        searchBar.setOpacity(0.9);
-
-        allStationsPane.getChildren().addAll(stationsScroll, searchBar);
-        allStationsPane.setPadding(new Insets(0,0,10,0));
-        StackPane.setMargin(searchBar, new Insets(0,210,530,0));
-        StackPane.setAlignment(stationsScroll,Pos.CENTER);
-
-        VBox stationListBox = stationListPane.getVBox();
-        stationsScroll.setContent(stationListBox);
-        stationsScroll.setFitToWidth(true);
-        stationsScroll.setFitToHeight(true);
-        allStationsTab.setContent(allStationsPane);
-        
-      //------------------------------------------------------------------------------------------//
-        //call the updateList() in Stationslist.java
-
-        searchBar.setOnKeyPressed(e -> {
-
-          //  final VBox updatedContent = list.updateList();
-          //  stationsScroll.setContent(updatedContent);
-
-        });
-        //------------------------------------------------------------------------------------------//
-
-
-        //----------------------------------------------------//
-        //need to implement this for the 3 larger screen sizes
-        Tab favsTab = new Tab();
-        favsTab.setText("Favourites");
-        StackPane paneTab2 = new StackPane();
-        allStationsTab.setClosable(false);
-        favsTab.setClosable(false);
-        //----------------------------------------------------//
-
-        explorerTabsPane.getTabs().addAll(allStationsTab,favsTab);
-        explorerTabsPane.setTabMinWidth(180);
-        explorerTabsPane.setTabMinHeight(35);
-
-        explorerPane.getChildren().add(explorerTabsPane);
-        StackPane.setMargin(explorerTabsPane, new Insets(2, 0, 0, 0));
-        explorerPane.setPadding(new Insets(0,0,0,0));
-
-        plotRect.setId("rect");
-        plotRect.applyCss();
-
-        explorerRect.setId("rect3");
-        explorerRect.applyCss();
-        
-        // Toolbar
-        exitButton = new Button("X");
-        exitButton.setId("exit");
-        exitButton.setMaxSize(50,25);
-
-        exitButton.setOnMouseEntered(e -> exitButton.setId("exit-h"));
-        exitButton.setOnMouseExited(e -> exitButton.setId("exit"));
-        exitButton.setOnMousePressed(e ->  System.exit(1));
-        
-        toolBar = new ToolBar(exitButton);
-        toolBar.setMaxSize(1350,35);
-        toolBar.setOpacity(1);
-
-        setDraggable(rootPane);
-        setDraggable(toolBar);
-
-        exportGraph = new Button("Open Graph");
-        exportGraph.setMinSize(150, 25);
-        exportGraph.setId("exportbutton");
-        exportGraph.toFront();
-        exportGraph.setOpacity(1);
-
-        exportGraph.setOnMouseEntered(e -> exportGraph.getStyleClass().add("export-button-bright"));
-        exportGraph.setOnMouseExited(e -> exportGraph.getStyleClass().remove("export-button-bright"));
-
-        exportGraph.setOnMousePressed(e -> {
-
-
-
-        });
-        exportGraph.setOnMouseReleased(e -> exportGraph.getStyleClass().remove("export-button-press"));
-
-        StackPane.setMargin(exportGraph,new Insets(140,0,0,1045));
-        StackPane.setMargin(plotPane,new Insets(0,0,200,450));
-        StackPane.setMargin(tablePane,new Insets(455,0,0,450));
-        StackPane.setMargin(explorerPane,new Insets(30,830,0,0));
-        StackPane.setAlignment(toolBar, Pos.TOP_CENTER);
-
-        rootPane.setAlignment(Pos.CENTER);
-        rootPane.getChildren().addAll(toolBar,plotPane,tablePane,explorerPane,exportGraph);
-        
-        scene = new Scene(rootPane,size.width,size.height);
-        scene.setFill(Color.TRANSPARENT);
-
-        Utilities util = new Utilities();
-        util.getCss(scene);
-	}
+    
 
 	public Scene getScene()
     {
@@ -1153,26 +980,199 @@ public class HomeScreen
         return sizePreset;
     }
 
-   /* public void setEffects(Node node, double width, double height){
-
-        Rectangle boxEffect = new Rectangle(width,height);
-        boxEffect.setArcHeight(10.0);
-        boxEffect.setArcWidth(10.0);
-
-        boxEffect.setFill(Color.TRANSPARENT);
-        boxEffect.setStrokeWidth(2);
-        boxEffect.setStroke(Color.gray(1, 0.15));
-
-        node.setOnMousePressed(e ->{
-
-            ScaleTransition scaleTransition1 = new ScaleTransition(Duration.millis(800), boxEffect);
-            scaleTransition1.setByX(0.1f);
-            scaleTransition1.setByY(0.9f);
-            scaleTransition1.setCycleCount(1);
-            scaleTransition1.setAutoReverse(false);
-            scaleTransition1.play();
-
-        });
-    }*/
-
 }
+
+
+
+
+
+/*  ARCHIVE 17/04/2016,    Wasn't used pushed to bottom of class.
+//An early attempt at calculating sizes instead
+private void createGuiElements(Dimension size) 
+{
+	rootPane = new StackPane();
+    // Create Plot
+    plotPane = new StackPane();
+    int plotWidth = (int) (1.85 * size.width / 3);
+    int plotHeight = (int) (1.1 * size.height / 2);
+    System.out.println(plotHeight);
+    plotRect = new Rectangle(plotWidth, plotHeight);
+    weatherPlot = new LineChart<Number,Number>(new NumberAxis(),new NumberAxis());
+    weatherPlot.setMaxSize(plotWidth, plotHeight - 50);
+    weatherPlot.setOpacity(1);
+    plotRect.setArcHeight(20);
+    plotRect.setArcWidth(20);
+    plotRect.setOpacity(1);
+    plotRect.setStroke(Color.LIGHTSLATEGRAY);
+    plotRect.setFill(Color.rgb(38,38,38));
+    plotRect.setStrokeWidth(2);
+    plotPane.getChildren().addAll(plotRect,weatherPlot);
+    plotPane.setMaxSize(plotWidth, plotHeight - 50);
+    StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
+    
+    // Create table
+    tablePane = new StackPane();
+    dataTable = new TableView<>();
+    dataTable.setOpacity(0.9);
+    dataTable.setPlaceholder(new Label("Select a station"));
+    tablePane.getChildren().addAll(dataTable);
+    StackPane.setAlignment(dataTable,Pos.CENTER);
+    int tableHeight = (int) (1.2 * size.height / 4);
+    tablePane.setMaxSize(plotWidth,tableHeight);
+    tablePane.setOpacity(1);
+    
+    // Create explorer
+    StackPane explorerPane = new StackPane();
+    explorerRect = new Rectangle(430,625);
+    explorerRect.setArcHeight(20);
+    explorerRect.setArcWidth(20);
+    explorerRect.setOpacity(1);
+    explorerRect.setStroke(Color.LIGHTSLATEGRAY);
+    explorerRect.setFill(Color.rgb(38, 38, 38));
+    explorerRect.setStrokeWidth(2);
+    explorerPane.getChildren().addAll(explorerRect);
+    int explMaxW = (int) (1.0 * size.width / 3);
+    int explMaxH = (int) (6.0 * size.height / 7);
+    explMaxH = plotHeight + tableHeight;
+    explorerPane.setMaxSize(430,635);
+
+    explorerTabsPane = new TabPane();
+    int explTabsMaxW = explMaxW - 10;
+    int explTabsMaxH = explMaxH - 20;
+    explorerTabsPane.setMaxSize(explTabsMaxW, explTabsMaxH);
+    explorerTabsPane.setOpacity(1);
+    
+    Tab allStationsTab = new Tab();
+    allStationsTab.setText("All stations");
+    StackPane allStationsPane = new StackPane();
+    allStationsPane.setPrefSize(explTabsMaxW,explTabsMaxH);
+
+    ScrollPane stationsScroll = new ScrollPane();
+    stationsScroll.setPrefSize(explTabsMaxW,explTabsMaxH);
+    stationsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+    stationsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    TextField searchBar = new TextField();
+
+    searchBar.setMaxSize(180,25);
+    searchBar.setPromptText("Search stations");
+    searchBar.setOpacity(0.9);
+
+    allStationsPane.getChildren().addAll(stationsScroll, searchBar);
+    allStationsPane.setPadding(new Insets(0,0,10,0));
+    StackPane.setMargin(searchBar, new Insets(0,210,530,0));
+    StackPane.setAlignment(stationsScroll,Pos.CENTER);
+
+    VBox stationListBox = stationListPane.getVBox();
+    stationsScroll.setContent(stationListBox);
+    stationsScroll.setFitToWidth(true);
+    stationsScroll.setFitToHeight(true);
+    allStationsTab.setContent(allStationsPane);
+    
+  //------------------------------------------------------------------------------------------//
+    //call the updateList() in Stationslist.java
+
+    searchBar.setOnKeyPressed(e -> {
+
+      //  final VBox updatedContent = list.updateList();
+      //  stationsScroll.setContent(updatedContent);
+
+    });
+    //------------------------------------------------------------------------------------------//
+
+
+    //----------------------------------------------------//
+    //need to implement this for the 3 larger screen sizes
+    Tab favsTab = new Tab();
+    favsTab.setText("Favourites");
+    StackPane paneTab2 = new StackPane();
+    allStationsTab.setClosable(false);
+    favsTab.setClosable(false);
+    //----------------------------------------------------//
+
+    explorerTabsPane.getTabs().addAll(allStationsTab,favsTab);
+    explorerTabsPane.setTabMinWidth(180);
+    explorerTabsPane.setTabMinHeight(35);
+
+    explorerPane.getChildren().add(explorerTabsPane);
+    StackPane.setMargin(explorerTabsPane, new Insets(2, 0, 0, 0));
+    explorerPane.setPadding(new Insets(0,0,0,0));
+
+    plotRect.setId("rect");
+    plotRect.applyCss();
+
+    explorerRect.setId("rect3");
+    explorerRect.applyCss();
+    
+    // Toolbar
+    exitButton = new Button("X");
+    exitButton.setId("exit");
+    exitButton.setMaxSize(50,25);
+
+    exitButton.setOnMouseEntered(e -> exitButton.setId("exit-h"));
+    exitButton.setOnMouseExited(e -> exitButton.setId("exit"));
+    exitButton.setOnMousePressed(e ->  System.exit(1));
+    
+    toolBar = new ToolBar(exitButton);
+    toolBar.setMaxSize(1350,35);
+    toolBar.setOpacity(1);
+
+    setDraggable(rootPane);
+    setDraggable(toolBar);
+
+    exportGraph = new Button("Open Graph");
+    exportGraph.setMinSize(150, 25);
+    exportGraph.setId("exportbutton");
+    exportGraph.toFront();
+    exportGraph.setOpacity(1);
+
+    exportGraph.setOnMouseEntered(e -> exportGraph.getStyleClass().add("export-button-bright"));
+    exportGraph.setOnMouseExited(e -> exportGraph.getStyleClass().remove("export-button-bright"));
+
+    exportGraph.setOnMousePressed(e -> {
+
+
+
+    });
+    exportGraph.setOnMouseReleased(e -> exportGraph.getStyleClass().remove("export-button-press"));
+
+    StackPane.setMargin(exportGraph,new Insets(140,0,0,1045));
+    StackPane.setMargin(plotPane,new Insets(0,0,200,450));
+    StackPane.setMargin(tablePane,new Insets(455,0,0,450));
+    StackPane.setMargin(explorerPane,new Insets(30,830,0,0));
+    StackPane.setAlignment(toolBar, Pos.TOP_CENTER);
+
+    rootPane.setAlignment(Pos.CENTER);
+    rootPane.getChildren().addAll(toolBar,plotPane,tablePane,explorerPane,exportGraph);
+    
+    scene = new Scene(rootPane,size.width,size.height);
+    scene.setFill(Color.TRANSPARENT);
+
+    Utilities util = new Utilities();
+    util.getCss(scene);
+}
+*/
+
+
+
+//Archived 17/04/2016, previous commented out by Pavel
+/* public void setEffects(Node node, double width, double height){
+
+Rectangle boxEffect = new Rectangle(width,height);
+boxEffect.setArcHeight(10.0);
+boxEffect.setArcWidth(10.0);
+
+boxEffect.setFill(Color.TRANSPARENT);
+boxEffect.setStrokeWidth(2);
+boxEffect.setStroke(Color.gray(1, 0.15));
+
+node.setOnMousePressed(e ->{
+
+    ScaleTransition scaleTransition1 = new ScaleTransition(Duration.millis(800), boxEffect);
+    scaleTransition1.setByX(0.1f);
+    scaleTransition1.setByY(0.9f);
+    scaleTransition1.setCycleCount(1);
+    scaleTransition1.setAutoReverse(false);
+    scaleTransition1.play();
+
+});
+}*/

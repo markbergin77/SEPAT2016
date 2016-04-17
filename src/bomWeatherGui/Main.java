@@ -195,11 +195,8 @@ public class Main extends Application
         fT3.play();
 
     }
-    /*Loading function
-     * This is used for calling other transitions I believe?
-     * Actually I don't know what the hell this is used for
-     * Going to change some of this
-     */
+    
+    //Loading function
     public void load(){
 
         FadeTransition fadeTransition
@@ -249,18 +246,7 @@ public class Main extends Application
         scaleTransition1.play();
 
     }
-    //This function isn't called?
-    //Have no idea what it's used for
-    public void oncomplete(){
-        continueButton.toFront();
-        continueButton.setVisible(true);
-
-        FadeTransition fT2
-                = new FadeTransition(Duration.millis(2000), continueButton);
-        fT2.setFromValue(0.0);
-        fT2.setToValue(1.0);
-        fT2.play();
-    }
+   
     //allows the gui window to be dragged around by the user
     public void dragWindow(Scene scene){
 
@@ -280,3 +266,18 @@ public class Main extends Application
 
 
 }
+
+// Archived on 17/04/16,  wasn't used throughout the application.
+// Complete button that was archived because it wasn't neccersary
+/*
+public void oncomplete(){
+    continueButton.toFront();
+    continueButton.setVisible(true);
+
+    FadeTransition fT2
+            = new FadeTransition(Duration.millis(2000), continueButton);
+    fT2.setFromValue(0.0);
+    fT2.setToValue(1.0);
+    fT2.play();
+}
+*/

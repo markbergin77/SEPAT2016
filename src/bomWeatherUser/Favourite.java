@@ -1,8 +1,6 @@
 package bomWeatherUser;
 
-import java.io.IOException;
 import java.io.Serializable;
-
 import bomData.Station;
 
 public class Favourite implements Serializable

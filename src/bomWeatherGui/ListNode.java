@@ -2,14 +2,8 @@ package bomWeatherGui;
 
 
 import bomData.Station;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -48,6 +42,25 @@ public class ListNode extends Parent {
         getChildren().add(pane);
     }
 
+  
+    //Table used for graphically representing recent observations
+    //wthr last 72 hours classes
+  
+
+	public Station getStation() 
+	{
+		// TODO Auto-generated method stub
+		return station;
+	}
+	
+	
+	
+}
+
+
+
+// Archived 17/04/2016, line chart details that aren't used
+/*  
     public LineChart<Number,Number> returnChart(){
 
         final NumberAxis xAxis = new NumberAxis();
@@ -78,41 +91,38 @@ public class ListNode extends Parent {
         lineChart.getData().add(series);
 
         return lineChart;
-
-    }
-    //Table used for graphically representing recent observations
-    //wthr last 72 hours classes
-    public TableView<String> getTable(int width,int height){
-
-        TableView<String> table = new TableView<String>();
-        table.setMaxSize(width,height);
-        table.setEditable(false);
-        table.getItems().addAll("HEY");
-        table.setPadding(new Insets(1,1,10,1));
-        TableColumn<String,String> collumn1 = new TableColumn<String,String>("Temp");
-        TableColumn<String,String> collumn2 = new TableColumn<String,String>("Humidity");
-        TableColumn<String,String> collumn3 = new TableColumn<String,String>("Blah");
-        TableColumn<String,String> collumn4 = new TableColumn<String,String>("Blah");
-
-        collumn1.setPrefWidth((width/4)-1);
-        collumn2.setPrefWidth((width/4)-1);
-        collumn3.setPrefWidth((width/4)-1);
-        collumn4.setPrefWidth((width/4)-1);
-
-        collumn1.setResizable(false);
-        collumn2.setResizable(false);   ////should get data from the station being passed in the constructor
-        collumn3.setResizable(false);
-        collumn4.setResizable(false);
-
-
-        table.getColumns().addAll( collumn1, collumn2, collumn3, collumn4);
-
-        return table;
-    }
-
-	public Station getStation() 
-	{
-		// TODO Auto-generated method stub
-		return station;
 	}
+*/
+
+
+//Archived 17/04/2016 basic table design that isn't used in the current state of the product.
+//Usefull in it's own testing class, like the chart above
+/*
+public TableView<String> getTable(int width,int height){
+
+    TableView<String> table = new TableView<String>();
+    table.setMaxSize(width,height);
+    table.setEditable(false);
+    table.getItems().addAll("HEY");
+    table.setPadding(new Insets(1,1,10,1));
+    TableColumn<String,String> collumn1 = new TableColumn<String,String>("Temp");
+    TableColumn<String,String> collumn2 = new TableColumn<String,String>("Humidity");
+    TableColumn<String,String> collumn3 = new TableColumn<String,String>("Blah");
+    TableColumn<String,String> collumn4 = new TableColumn<String,String>("Blah");
+
+    collumn1.setPrefWidth((width/4)-1);
+    collumn2.setPrefWidth((width/4)-1);
+    collumn3.setPrefWidth((width/4)-1);
+    collumn4.setPrefWidth((width/4)-1);
+
+    collumn1.setResizable(false);
+    collumn2.setResizable(false);   ////should get data from the station being passed in the constructor
+    collumn3.setResizable(false);
+    collumn4.setResizable(false);
+
+
+    table.getColumns().addAll( collumn1, collumn2, collumn3, collumn4);
+
+    return table;
 }
+*/

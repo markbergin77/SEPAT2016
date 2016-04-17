@@ -10,7 +10,7 @@ import java.util.TimerTask;
 /**
  * Created by Pavel Nikolaev on 14/03/2016.
  */
-//Another function for grabbing CSS details??????
+//Another function for grabbing CSS details based on scene
 public class Utilities{
 
     public void getCss(Scene scene){

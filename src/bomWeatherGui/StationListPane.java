@@ -4,15 +4,8 @@ import bomData.Station;
 import bomData.StationList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.chart.LineChart;
-import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-
-import java.util.LinkedList;
-import java.util.Vector;
-
 public class StationListPane {
 
     private static VBox vbox;

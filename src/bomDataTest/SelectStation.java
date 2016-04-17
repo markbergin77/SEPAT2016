@@ -4,14 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Vector;
-
 import bomData.Bom;
 import bomData.Station;
 import bomData.StationList;
-import bomData.WthrSampleCoarse;
 import bomData.WthrSampleFine;
-import bomWeatherUser.Favourite;
-import bomWeatherUser.FavouriteList;
 
 public class SelectStation 
 {

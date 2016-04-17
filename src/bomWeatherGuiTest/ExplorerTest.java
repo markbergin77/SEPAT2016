@@ -10,8 +10,8 @@ import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-//This does nothing.
-// Might remove
+//Empty test for explorer, doesn't currently do anything.
+//Would recommend removing
 public class ExplorerTest extends Application
 {
 	public static void main(String args[])

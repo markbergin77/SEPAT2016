@@ -1,24 +1,15 @@
 package bomWeatherApp;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.Toolkit;
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import bomData.Bom;
 import bomData.StationList;
 import bomWeatherGui.HomeScreen;
 import bomWeatherGui.SplashScreen;
-import bomWeatherGui.StationListPane;
-import bomWeatherGui.SafeTask;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;

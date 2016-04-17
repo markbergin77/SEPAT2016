@@ -1,6 +1,5 @@
 package bomWeatherApp;
 
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 
 public class EasyTask extends Task
