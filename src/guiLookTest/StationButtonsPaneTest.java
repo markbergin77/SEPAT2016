@@ -11,7 +11,7 @@ public class StationButtonsPaneTest extends Application
 {
 	public void start(Stage window) throws Exception 
 	{
-		
+		//Testing the list of locations, back before there was a favourites tab
 	    window.setTitle("Login");
 		window.setResizable(false);
         window.setOnCloseRequest(e -> System.exit(0));

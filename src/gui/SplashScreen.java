@@ -46,7 +46,7 @@ public class SplashScreen implements LoadingUpdater
 	{
 		return scene;
 	}
-
+    //Splash screen details, user views when launching app
 	public SplashScreen() 
 	{
 		window = new Stage();
@@ -99,7 +99,7 @@ public class SplashScreen implements LoadingUpdater
 	{
 		// Not using Css yet (simple)
 	}
-	
+	//Calling fading animations
 	void addFadeIn(Node node, Duration dur)
 	{
 		FadeTransition fade = new FadeTransition(dur, node);
@@ -119,7 +119,7 @@ public class SplashScreen implements LoadingUpdater
 		addFadeIn(node, dur);
 		addFadeOut(node, dur);
 	}
-
+	//Used when application closes
 	public void startClosing() 
 	{
 		fadeOuts.lastElement().setOnFinished(e -> 
@@ -136,7 +136,7 @@ public class SplashScreen implements LoadingUpdater
 			fade.play();
 		}		
 	}
-
+    //Functions detailing animations
 	private void startAnims()
 	{
 		FadeTransition ldBarCyclicFade = 

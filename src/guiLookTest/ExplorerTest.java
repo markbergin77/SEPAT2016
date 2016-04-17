@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 public class ExplorerTest extends Application
 {
+	//Explorer test, includes pan for location lists and favorites tab
 	StationList allStations;	
 	@Override
 	public void start(Stage window) throws Exception 

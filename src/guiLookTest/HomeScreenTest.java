@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 public class HomeScreenTest extends Application
 {
+	//testing class for entire homescreen view
 	StationList allStations;	
 	@Override
 	public void start(Stage window) throws Exception 

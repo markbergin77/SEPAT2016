@@ -12,7 +12,7 @@ public class GuiAppUtils
 		double xOffset;
 		double yOffset;
 	};
-	
+	//Class for dragging the window around
 	public static void setDragsWindow(Scene scene, Stage window)
 	{
 		Offset newOffset = new Offset();

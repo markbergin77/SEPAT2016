@@ -10,7 +10,7 @@ public class StationButtonTest extends Application
 {
 	public void start(Stage window) throws Exception 
 	{
-		
+		//The roughest design we had, purely showing button that is preceeded by station list
 	    window.setTitle("Login");
 		window.setResizable(false);
         window.setOnCloseRequest(e -> System.exit(0));
