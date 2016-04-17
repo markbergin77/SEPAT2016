@@ -114,16 +114,6 @@ public class Main extends Application
 		System.exit(0);
 	}
 	
-	void openChartWindow()
-	{
-		
-	}
-	
-	void startResizingWindowAnim(Stage window, Dimension toSize)
-	{
-		
-	}
-	
 	private void queueTask(Task<?> task)
 	{
 		exec.submit(task);
@@ -139,8 +129,6 @@ public class Main extends Application
 		newPlotWindow.setScene(plotScene);
 		
 	}
-	
-	
 
 	@Override
 	public void onAddFav(Station station) 
