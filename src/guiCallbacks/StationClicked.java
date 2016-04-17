@@ -5,5 +5,5 @@ import gui.StationButton;
 
 public interface StationClicked 
 {
-	abstract void onStationClicked(StationButton button);
+	abstract void onStationClicked(Station station);
 }

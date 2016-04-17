@@ -34,7 +34,7 @@ public class StationButton extends Button
     	// Text/image alignment
     	setAlignment(Pos.CENTER_LEFT);
     }
-
+    
 	public Station getStation() 
 	{
 		return station;

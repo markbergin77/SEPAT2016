@@ -21,38 +21,18 @@ import data.Station;
 import data.StationList;
 import guiCallbacks.StationClicked;
 
-public class StationButtonsPane extends GridPane
+public class StationsPaneAll extends StationsPane
 {
-    VBox vbox;
-    ScrollPane scrollPane;
-    TextField searchBox;
+    
     /* why the variable? Because otherwise,
      * if we change the handler, we have to 
        loop through all the buttons and change
        them individually. */
     StationClicked clickHandler;
 
-    public StationButtonsPane()
+    public StationsPaneAll()
     {
     	super();
-    	vbox = new VBox(0);
-    	scrollPane = new ScrollPane();
-    	scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-    	scrollPane.setContent(vbox);
-    	scrollPane.setPrefHeight(400);
-    	scrollPane.setPrefViewportWidth(StationButton.buttonWidth);
-    	scrollPane.setFitToWidth(true);
-    	searchBox = new TextField();
-    	searchBox.setPromptText("Search...");
-    	searchBox.setPrefWidth(scrollPane.getWidth());
-    	searchBox.setOnKeyPressed(e -> searchBoxKeyPressed(e));
-    	add(searchBox, 0, 0);
-    	add(scrollPane, 0, 1);
-    }
-    
-    void searchBoxKeyPressed(KeyEvent e)
-    {
-    	
     }
     
     /* For testing purposes, no click handler */
@@ -61,7 +41,7 @@ public class StationButtonsPane extends GridPane
     	for (Station bomStation : bomStations)
     	{
     		StationButton node = new StationButton(bomStation);
-            vbox.getChildren().add(node);
+            getVBox().getChildren().add(node);
             node.toFront();
     	}
     }
@@ -73,11 +53,17 @@ public class StationButtonsPane extends GridPane
     	for (Station bomStation : bomStations)
     	{
     		StationButton node = new StationButton(bomStation);
-    		node.setOnMouseClicked(
-    				e -> this.clickHandler.onStationClicked(node));
-            vbox.getChildren().add(node);
+    		node.setOnMouseClicked(e -> onStationClicked(e));
+    		getVBox().getChildren().add(node);
             node.toFront();
     	}
+    }
+    
+    void onStationClicked(MouseEvent e)
+    {
+    	StationButton button = (StationButton)e.getSource();
+    	/* Do anything to the button's appearance you want */
+    	clickHandler.onStationClicked(button.getStation());
     }
     
     public void setOnButtonClicked(StationClicked clickHandler)
@@ -85,9 +71,7 @@ public class StationButtonsPane extends GridPane
     	this.clickHandler = clickHandler;
     }
 
-    public VBox getVBox(){
-        return vbox;
-    }
+    
 
     public VBox updateList(){
 

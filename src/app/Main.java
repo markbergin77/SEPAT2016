@@ -14,13 +14,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import data.Bom;
 import data.Station;
 import data.StationList;
-import gui.GuiCallbacks;
+import gui.GuiEventInterface;
 import gui.HomeScreen;
 import gui.SafeTask;
 import gui.SplashScreen;
 import gui.StationButton;
-import gui.StationButtonsPane;
+import gui.StationsPaneAll;
 import guiCallbacks.StationClicked;
+import guiDataPlots.TempPlot;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -29,7 +30,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Main extends Application 
-	implements GuiCallbacks
+	implements GuiEventInterface
 {
 	/* This service will finish one at a time
 	 * on another thread so that we don't block
@@ -116,14 +117,12 @@ public class Main extends Application
 	}
 
 	@Override
-	public void onStationClicked(StationButton button) 
+	public void onOpenTempPlot(Station station) 
 	{
-		
-	}
-
-	@Override
-	public void onSearch(StationButtonsPane list, String searchTerm) 
-	{
-		
+		TempPlot tempPlot = new TempPlot(station);
+		Stage newPlotWindow = new Stage();
+		Scene plotScene = new Scene(tempPlot);
+		newPlotWindow.setTitle("Temperature");
+		newPlotWindow.setScene(plotScene);
 	}
 }

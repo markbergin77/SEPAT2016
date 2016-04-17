@@ -9,11 +9,11 @@ import java.io.ObjectOutputStream;
 
 public class User 
 {
-	FavouriteList faves;
+	FavouritesList faves;
 	
 	private User()
 	{
-		faves = FavouriteList.create();
+		faves = FavouritesList.create();
 	}
 	//File writing details
 	private User(String pathToFile) throws FileNotFoundException
@@ -24,7 +24,7 @@ public class User
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			try 
 			{
-				faves = (FavouriteList) ois.readObject();
+				faves = (FavouritesList) ois.readObject();
 			} 
 			catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -44,7 +44,7 @@ public class User
 		}
 	}
 	
-	public FavouriteList getFaves()
+	public FavouritesList getFaves()
 	{
 		return faves;
 	}
@@ -79,7 +79,7 @@ public class User
 	}
 	
 	//Sorts the favourites  on a number of views basis.
-	public void SortFavourites(FavouriteList list)
+	public void SortFavourites(FavouritesList list)
 		{	
 			boolean notSorted = true;
 			while (notSorted)

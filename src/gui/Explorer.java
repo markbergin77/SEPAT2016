@@ -5,6 +5,7 @@ import java.awt.Point;
 
 import data.Station;
 import data.StationList;
+import guiCallbacks.FavClicked;
 import guiCallbacks.StationClicked;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import user.FavouritesList;
 
 /* Interface through which user selects weather stations.
  */
@@ -20,8 +22,8 @@ public class Explorer extends StackPane
 	TabPane tabPane;
 	Tab allStationsTab;
 	Tab favouritesTab;
-	StationButtonsPane allStationsPane;
-	StationButtonsPane favouritesPane;
+	StationsPaneAll allStationsPane;
+	StationsPaneFav favouritesPane;
 	
 	
 	
@@ -33,8 +35,8 @@ public class Explorer extends StackPane
 	
 	void createGuiElements()
 	{
-		allStationsPane = new StationButtonsPane();
-		favouritesPane = new StationButtonsPane();
+		allStationsPane = new StationsPaneAll();
+		favouritesPane = new StationsPaneFav();
 		tabPane = new TabPane();
 		allStationsTab = new Tab();
 		allStationsTab.setContent(allStationsPane);
@@ -46,6 +48,11 @@ public class Explorer extends StackPane
 		favouritesTab.setClosable(false);
 		tabPane.getTabs().addAll(allStationsTab, favouritesTab);
 		getChildren().addAll(tabPane);
+	}
+	
+	public void addStationsFav(FavouritesList stations, FavClicked listener)
+	{
+		favouritesPane.createFavButtons(stations, listener);
 	}
 
 	/* Add stations to the "all stations" tab. */

@@ -11,7 +11,7 @@ import data.StationList;
 import data.WthrSampleCoarse;
 import data.WthrSampleFine;
 import user.Favourite;
-import user.FavouriteList;
+import user.FavouritesList;
 
 public class SelectStation 
 {

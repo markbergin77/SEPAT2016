@@ -2,7 +2,7 @@ package user;
 
 import java.util.Vector;
 
-public class FavouriteList extends Vector<Favourite> 
+public class FavouritesList extends Vector<Favourite> 
 {
 	
 	/**
@@ -11,9 +11,9 @@ public class FavouriteList extends Vector<Favourite>
 	private static final long serialVersionUID = 4022414816209237935L;
 
 	//Initialize vector of favourites
-	public static FavouriteList create()
+	public static FavouritesList create()
 	{
-		FavouriteList favourites = new FavouriteList();
+		FavouritesList favourites = new FavouritesList();
 		return favourites;
 	}
 

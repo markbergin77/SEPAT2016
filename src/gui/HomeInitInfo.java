@@ -3,7 +3,7 @@ package gui;
 import data.StationList;
 import user.User;
 
-public class HomeInitObjects 
+public class HomeInitInfo 
 {
 	StationList allStations;
 	User user;

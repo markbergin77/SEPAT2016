@@ -9,11 +9,11 @@ public class Favourite implements Serializable
 {
 	// Integer is serializable
 	private Integer timesViewed;
-	Station loc;
+	Station station;
 	
 	private Favourite(Station loc, int timesViewed) 
 	{
-		this.loc = loc;
+		this.station = loc;
 		this.timesViewed = timesViewed; 
 	}
 	
@@ -29,7 +29,7 @@ public class Favourite implements Serializable
 	
 	public Station getLoc()
 	{
-		return loc;
+		return station;
 	}
 	
 	//Function for returning the favourite as a station (to use in weather stations
@@ -37,13 +37,18 @@ public class Favourite implements Serializable
 	public Station view()
 	{
 		++timesViewed;
-		return loc;
+		return station;
 	}
 	
 	public String toString()
 	{
 		String output = "Favourite:\nstation: ";
-		output += loc.getName();
+		output += station.getName();
 		return output;
+	}
+
+	public Station getStation() 
+	{
+		return station;
 	}		
 }
