@@ -72,9 +72,9 @@ public class MultipleMonthMultipleLine extends Application{
         }
         
         /* these were reversed Rad */
-        for(int i= 0; i < dataCharlton.size()-1; i++)
+        for(int i= 0; i < dataCharlton.size(); i++)
         	seriesCharlton.getData().add(new XYChart.Data(dataCharlton.get(i).getDate(),Float.parseFloat(dataCharlton.get(i).getTemp3pm())));
-        for(int i= 0; i < dataEdenhope.size()-1; i++)
+        for(int i= 0; i < dataEdenhope.size(); i++)
         	seriesEdenhope.getData().add(new XYChart.Data(dataEdenhope.get(i).getDate(),Float.parseFloat(dataEdenhope.get(i).getTemp3pm())));
         
         Scene scene  = new Scene(lineChart,800,600);
