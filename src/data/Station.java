@@ -49,6 +49,7 @@ public class Station implements Serializable
 	}
 
 	// Function for filling Empty Station with data (periods of 30 minutes up to 3 days)
+	@Deprecated
 	public WthrSamplesFine getWthrLast72hr()
 	{
 		WthrSamplesFine samples = new WthrSamplesFine();
@@ -165,6 +166,7 @@ public class Station implements Serializable
 	}
     // Function For grabbing broader (later) historical observations
 	// Month in the format YYYYMM, 201603 would be March 2016.
+	@Deprecated
 	public WthrSamplesDaily getWthrLastMonth(String month) throws IOException
 	{
 		WthrSamplesDaily samples = null;
@@ -226,6 +228,7 @@ public class Station implements Serializable
 	}
 	/*Scrapes data from CSV file on line by line basis
 	  And adds to object*/
+	@Deprecated
 	private WthrSamplesDaily processCsv(CSVReader csvReader) throws IOException {
 		String[] nextLine = null;
 		WthrSamplesDaily samples = new WthrSamplesDaily();
