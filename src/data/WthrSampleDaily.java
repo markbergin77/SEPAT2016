@@ -1,7 +1,7 @@
 package data;
 
 //Data types/attributes provided by BOM data, used for Monthly Observations
-public class WthrSampleCoarse
+public class WthrSampleDaily
 {
 	private String date;
 	private String minTemp;
@@ -25,7 +25,7 @@ public class WthrSampleCoarse
 	private String windSpd3pm;
 	private String meanSeaLevelPressure3pm;
 
-	public WthrSampleCoarse(String date, String minTemp, String maxTemp, String rain, String evap,
+	public WthrSampleDaily(String date, String minTemp, String maxTemp, String rain, String evap,
 			String sun, String maxWindGustDir, String maxWindGustSpd, String maxWindGustTime, String temp9am,
 			String relHumidity9am, String cloud9am, String windDir9am, String windSpd9am,
 			String meanSeaLevelPressure9am, String temp3pm, String relHumidity3pm, String cloud3pm, String windDir3pm,

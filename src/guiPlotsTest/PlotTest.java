@@ -4,7 +4,7 @@ package guiPlotsTest;
 import data.Bom;
 import data.Station;
 import data.StationList;
-import data.Wthr72hr;
+import data.WthrSamplesFine;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -43,7 +43,7 @@ public class PlotTest extends Application{
         XYChart.Series temperatures = new XYChart.Series();
         temperatures.setName(charlston.getName());
         //Prints the weather for Charlston in the most recent time 
-        Wthr72hr tester = charlston.getWthrLast72hr();      
+        WthrSamplesFine tester = charlston.getWthrLast72hr();      
         for(int i=tester.size()-1 ; i > 0; i--)
         {
         	/*Per requirements state

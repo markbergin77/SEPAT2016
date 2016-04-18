@@ -49,9 +49,9 @@ public class Station implements Serializable
 	}
 
 	// Function for filling Empty Station with data (periods of 30 minutes up to 3 days)
-	public Wthr72hr getWthrLast72hr()
+	public WthrSamplesFine getWthrLast72hr()
 	{
-		Wthr72hr samples = new Wthr72hr();
+		WthrSamplesFine samples = new WthrSamplesFine();
 	    //Weather data for Recent observations stored as Json format.
 		try
 		{
@@ -165,9 +165,9 @@ public class Station implements Serializable
 	}
     // Function For grabbing broader (later) historical observations
 	// Month in the format YYYYMM, 201603 would be March 2016.
-	public WthrMonth getWthrLastMonth(String month) throws IOException
+	public WthrSamplesDaily getWthrLastMonth(String month) throws IOException
 	{
-		WthrMonth samples = null;
+		WthrSamplesDaily samples = null;
 		Boolean fileExists = false;
 		File filePath = new File("data/"+ this.getName() + '-' +month + ".csv");
 		File dirPath = new File("data");
@@ -226,9 +226,9 @@ public class Station implements Serializable
 	}
 	/*Scrapes data from CSV file on line by line basis
 	  And adds to object*/
-	private WthrMonth processCsv(CSVReader csvReader) throws IOException {
+	private WthrSamplesDaily processCsv(CSVReader csvReader) throws IOException {
 		String[] nextLine = null;
-		WthrMonth samples = new WthrMonth();
+		WthrSamplesDaily samples = new WthrSamplesDaily();
 		
 		
 		while ((nextLine = csvReader.readNext()) != null)
@@ -258,7 +258,7 @@ public class Station implements Serializable
 			String windDir3pm = nextLine[19];
 			String windSpd3pm = nextLine[20];
 			String meanSeaLevelPressure3pm = nextLine[21];
-			samples.add(new WthrSampleCoarse(date, minTemp, maxTemp, rain, evap, sun, maxWindGustDir, maxWindGustSpd,
+			samples.add(new WthrSampleDaily(date, minTemp, maxTemp, rain, evap, sun, maxWindGustDir, maxWindGustSpd,
 					maxWindGustTime, temp9am, relHumidity9am, cloud9am, windDir9am, windSpd9am,
 					meanSeaLevelPressure9am, temp3pm, relHumidity3pm, cloud3pm, windDir3pm, windSpd3pm,
 					meanSeaLevelPressure3pm));

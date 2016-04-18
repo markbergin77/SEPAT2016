@@ -6,8 +6,8 @@ import java.util.Enumeration;
 import data.Bom;
 import data.Station;
 import data.StationList;
-import data.WthrMonth;
-import data.WthrSampleCoarse;
+import data.WthrSamplesDaily;
+import data.WthrSampleDaily;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -55,19 +55,19 @@ public class MultipleMonthMultipleLine extends Application{
         seriesEdenhope.setName(edenhope.getName());
         
         //Prints the weather for Charlton, March 2016 
-        WthrMonth dataCharlton = new WthrMonth();
-        for (WthrSampleCoarse sample: charlton.getWthrLastMonth("201602")) {
+        WthrSamplesDaily dataCharlton = new WthrSamplesDaily();
+        for (WthrSampleDaily sample: charlton.getWthrLastMonth("201602")) {
         	dataCharlton.addElement(sample);
         }
-        for (WthrSampleCoarse sample: charlton.getWthrLastMonth("201603")) {
+        for (WthrSampleDaily sample: charlton.getWthrLastMonth("201603")) {
         	dataCharlton.addElement(sample);
         }
         
-        WthrMonth dataEdenhope = new WthrMonth();
-        for (WthrSampleCoarse sample: edenhope.getWthrLastMonth("201602")) {
+        WthrSamplesDaily dataEdenhope = new WthrSamplesDaily();
+        for (WthrSampleDaily sample: edenhope.getWthrLastMonth("201602")) {
         	dataEdenhope.addElement(sample);
         }
-        for (WthrSampleCoarse sample: edenhope.getWthrLastMonth("201603")) {
+        for (WthrSampleDaily sample: edenhope.getWthrLastMonth("201603")) {
         	dataEdenhope.addElement(sample);
         }
         
