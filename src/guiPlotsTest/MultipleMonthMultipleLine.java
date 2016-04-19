@@ -93,6 +93,8 @@ public class MultipleMonthMultipleLine extends Application{
         lineChart.getData().addAll(seriesMinTemp, seriesMaxTemp, series9amTemp, series3pmTemp);
         lineChart.setCreateSymbols(false);
         
+        graph.setScene(scene);
+        
         Legend legend = (Legend)lineChart.lookup(".chart-legend");
         ObservableList legendChildren = legend.getChildren();
         Object legendMinTemp = legendChildren.get(0);
@@ -100,12 +102,18 @@ public class MultipleMonthMultipleLine extends Application{
         	 
             @Override
             public void handle(MouseEvent arg0) {
-               lineChart.getData();
+            	URL url = this.getClass().getResource("test.css");
+                String test = url.toExternalForm();
+                if (scene.getStylesheets().contains(test)) {
+                	scene.getStylesheets().remove(test);
+                }
+                else {
+                	scene.getStylesheets().add(test);
+                }	
             }
    
         });
         
-        graph.setScene(scene);
         URL url = this.getClass().getResource("graph.css");
         String css = url.toExternalForm();
         scene.getStylesheets().add(css);
