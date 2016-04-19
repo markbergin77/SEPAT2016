@@ -50,54 +50,59 @@ public class PlotTest extends Application{
         String currentDay = null;
         boolean dateChosen = false;
         //important: arrays fixed for the time being with 9am being index 0
-        WthrSampleFine[] wthrArray = new WthrSampleFine[3];
-        
+        WthrSamplesFine earlyMorns = new WthrSamplesFine();
+        WthrSamplesFine middays = new WthrSamplesFine();
+        WthrSamplesFine nights = new WthrSamplesFine();
+        WthrSamplesFine lateNights = new WthrSamplesFine();
         for(int i=tester.size()-1 ; i > 0; i--)
         {
-        	/*Per requirements state
-        	 * b. The program should be able to graph the temperature history for each site
-			 * in the favourites list, including the max, min, 9am and 3pm temperatures 
-        	 */
+        	int time24hours = 0;
+        	// Fun graph, different graph
+        	String testPrint = tester.get(i).getLocalDateTime();
         	String[] dateSplit = tester.get(i).getLocalDateTime().split("/");
-        	
-        	if(dateChosen = false)
-        	{       		
-            	currentDay = dateSplit[0];
-            	dateChosen = true;
+        	String[] timeSplit = dateSplit[1].split(":");
+        	String timeconcat = timeSplit[0] + timeSplit[1];
+        	//Makes sure it's split
+        	String[] amHourTime = timeconcat.split("am");
+        	String finalTime;
+        	if(amHourTime[0].contains("pm"))
+        	{
+        	String[] pmHourTime = timeconcat.split("pm");
+        	time24hours = Integer.parseInt(pmHourTime[0]);
+        	finalTime = Integer.toString(time24hours + 12);
+        	}
+        	else{
+        	time24hours = Integer.parseInt(amHourTime[0]);
+        	finalTime = Integer.toString(time24hours);
         	}
         	
-        	if(dateSplit[0] != currentDay)
+        	if(5 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) >= 10)
         	{        		
-        		dateChosen = false;
-        		sortArray(wthrArray);
-        		//Then I have to add them to graph
-        		
+        		earlyMorns.add(tester.get(i));
+        		System.out.println("Morn");
         	}
-        	
-        	//Prints 9ams and 3pms
-        	if(tester.get(i).getLocalDateTime().contains("09:00am"))
-        	{        		
-        		wthrArray[0] = tester.get(i);
-        	}
-        	if(tester.get(i).getLocalDateTime().contains("03:00pm"))
+        	if(11 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) >= 16)
         	{
-        		wthrArray[1] = tester.get(i);
+        		middays.add(tester.get(i));
+        		System.out.println("aft");
         	}
-        	if(Integer.parseInt(tester.get(i).getAirTemp()) < Integer.parseInt(wthrArray[2].getAirTemp()) | wthrArray[2] == null)
+        	if(17 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) >= 22)
         	{
-        		wthrArray[2] = tester.get(i);
+        		nights.add(tester.get(i));
+        		System.out.println("night");
         	}
-        	if(Integer.parseInt(tester.get(i).getAirTemp()) > Integer.parseInt(wthrArray[2].getAirTemp()))
+        	if(23 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) >= 4)
         	{
-        		wthrArray[3] = tester.get(i);
+        		lateNights.add(tester.get(i));
+        		System.out.println("late");
         	}
         	
-        	//Now have to sort them by time in an array
-        	
-        	
-        	
-        	
+        	//Now have to sort them by time in an array      	
         }
+        temperatures.getData().add(new XYChart.Data("Early Morning Average",averageTemp(earlyMorns)));
+        temperatures.getData().add(new XYChart.Data("Midday Average",averageTemp(middays)));  
+        temperatures.getData().add(new XYChart.Data("Night Average",averageTemp(nights)));
+        temperatures.getData().add(new XYChart.Data("Late Night Average",averageTemp(lateNights)));
         Scene scene  = new Scene(lineChart,800,600);
         lineChart.getData().add(temperatures);
        
@@ -105,27 +110,15 @@ public class PlotTest extends Application{
         graph.show();
 	}
 	
-	void sortArray(WthrSampleFine[] wthrArray)
+	float averageTemp(WthrSamplesFine samples)
 	{
-		 int n = wthrArray.length;
-		 //Setting temp as the first int, don't want to fill out constructor
-         WthrSampleFine temp = wthrArray[0];
-         
-         for(int i=0; i < n; i++){
-                 for(int j=1; j < (n-i); j++){
-                	 //Splits from 17/02:00pm to now   02 and 00pm
-                	 //only two instances of data per hour, 
-                     String[] dateSplit = wthrArray[j].getLocalDateTime().split("/");
-                     String[] timeSplit = dateSplit[1].split(":");
-                     
-                     
-                         if(wthrArray[j-1] > wthrArray[j]){
-                                 //swap the elements!
-                                 temp = wthrArray[j-1];
-                                 wthrArray[j-1] = wthrArray[j];
-                                 wthrArray[j] = temp;
-                         }
-                 }
+		float average = 0;
+		for(WthrSampleFine index : samples)
+		{
+			average += Float.parseFloat(index.getAirTemp());
+		}
+		average = average/samples.size();
+		System.out.println(average);
+		return average;
 	}
-}
 }

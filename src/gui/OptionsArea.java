@@ -93,6 +93,19 @@ public class OptionsArea extends VBox
 		getChildren().removeAll(promptSpacingBox, promptLabel);
 	}
 	
+	Tab findTabFor(Station station)
+	{
+		for(Tab optionsTab : tabPane.getTabs())
+		{
+			OptionsPaneBase pane = (OptionsPaneBase) optionsTab.getContent();
+			if(pane.getStation().equals(station))
+			{
+				return optionsTab;
+			}
+		}
+		return null;
+	}
+	
 	public boolean hasTabFor(Station station)
 	{
 		
@@ -133,5 +146,11 @@ public class OptionsArea extends VBox
 	{
 		OptionsPaneNotFav newPane = new OptionsPaneNotFav(station, callbackObj);
 		addTabFor(newPane);
+	}
+
+	public void selectTabFor(Station station) 
+	{
+		Tab tab = findTabFor(station);
+		tabSelectionModel.select(tab);
 	}	
 }

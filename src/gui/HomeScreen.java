@@ -47,6 +47,10 @@ public class HomeScreen extends GridPane
     		optionsArea.addTab(fav);
     		optionsArea.selectLastAddedTab();
     	}
+    	else
+    	{
+    		optionsArea.selectTabFor(fav.getStation());
+    	}
     }
     
     void onStationClicked(Station station)
@@ -64,6 +68,10 @@ public class HomeScreen extends GridPane
     			optionsArea.addTab(possibleFav);
     		}
     		optionsArea.selectLastAddedTab();
+    	}
+    	else
+    	{
+    		optionsArea.selectTabFor(station);
     	}
     }
     
