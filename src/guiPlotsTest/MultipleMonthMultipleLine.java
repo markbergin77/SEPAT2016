@@ -56,7 +56,7 @@ public class MultipleMonthMultipleLine extends Application{
         seriesEdenhope.setName(edenhope.getName());
         
         //Prints the weather for Charlton, March 2016 
-        YearMonth start = YearMonth.of(2015, 11);
+        YearMonth start = YearMonth.of(2015, 1);
         YearMonth end = YearMonth.of(2016, 3);
         
         WthrSamplesDaily dataCharlton = new WthrSamplesDaily();

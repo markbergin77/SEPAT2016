@@ -356,8 +356,11 @@ public class Bom
 		WthrSamplesDaily samples = new WthrSamplesDaily();
 		end = end.plusMonths(1);
 		while (!start.equals(end)) {
-			for (WthrSampleDaily sample: getWthrLastMonth(station, start)) {
-				samples.addElement(sample);
+			WthrSamplesDaily sampleMonth = getWthrLastMonth(station, start);
+			if (sampleMonth != null) {
+				for (WthrSampleDaily sample: sampleMonth) {
+					samples.addElement(sample);
+				}
 			}
 			start = start.plusMonths(1);
 		}
