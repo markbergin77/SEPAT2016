@@ -1,6 +1,7 @@
 package guiPlotsTest;
 
 
+import java.time.YearMonth;
 import java.util.Enumeration;
 
 import data.Bom;
@@ -56,18 +57,20 @@ public class MultipleMonthMultipleLine extends Application{
         
         //Prints the weather for Charlton, March 2016 
         WthrSamplesDaily dataCharlton = new WthrSamplesDaily();
-        for (WthrSampleDaily sample: charlton.getWthrLastMonth("201602")) {
+        YearMonth test1 = YearMonth.of(2016, 02);
+        YearMonth test2 = YearMonth.of(2016, 03);
+        for (WthrSampleDaily sample: Bom.getWthrLastMonth(charlton, test1)) {
         	dataCharlton.addElement(sample);
         }
-        for (WthrSampleDaily sample: charlton.getWthrLastMonth("201603")) {
+        for (WthrSampleDaily sample: Bom.getWthrLastMonth(charlton, test2)) {
         	dataCharlton.addElement(sample);
         }
         
         WthrSamplesDaily dataEdenhope = new WthrSamplesDaily();
-        for (WthrSampleDaily sample: edenhope.getWthrLastMonth("201602")) {
+        for (WthrSampleDaily sample: Bom.getWthrLastMonth(edenhope, test1)) {
         	dataEdenhope.addElement(sample);
         }
-        for (WthrSampleDaily sample: edenhope.getWthrLastMonth("201603")) {
+        for (WthrSampleDaily sample: Bom.getWthrLastMonth(edenhope, test2)) {
         	dataEdenhope.addElement(sample);
         }
         

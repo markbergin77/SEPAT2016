@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -247,17 +249,18 @@ public class Bom
 
 	// Function For grabbing broader (later) historical observations
 	// Month in the format YYYYMM, 201603 would be March 2016.
-	public static WthrSamplesDaily getWthrLastMonth(Station station, String month) throws IOException {
+	public static WthrSamplesDaily getWthrLastMonth(Station station, YearMonth date) throws IOException {
+		String dateString = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
 		WthrSamplesDaily samples = null;
 		Boolean fileExists = false;
-		File filePath = new File("data/" + station.getName() + '-' + month + ".csv");
+		File filePath = new File("data/" + station.getName() + '-' + dateString + ".csv");
 		File dirPath = new File("data");
 		// Checks directory for any previous downloads
 		if (!dirPath.isDirectory()) {
 			dirPath.mkdir();
 		} else {
 			for (String fileName : dirPath.list()) {
-				if (fileName.equals(month))
+				if (fileName.equals(dateString))
 					fileExists = true;
 			}
 		}
@@ -273,7 +276,7 @@ public class Bom
 				if (link.text().contains("Recent months")) {
 					url = link.attr("href");
 					csvUrl = "http://www.bom.gov.au"
-							+ url.replace("dwo/", "dwo/" + month + "/text/").replace("latest.shtml", month + ".csv");
+							+ url.replace("dwo/", "dwo/" + dateString + "/text/").replace("latest.shtml", dateString + ".csv");
 
 					// Testing code
 					// System.out.println(this.getName() + " " + csvUrl);
