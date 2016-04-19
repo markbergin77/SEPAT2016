@@ -1,4 +1,3 @@
-.chart-line-symbol { visibility: hidden; }
 .chart-series-line { 
     -fx-opacity: .7;
     -fx-stroke-width: 2px;
