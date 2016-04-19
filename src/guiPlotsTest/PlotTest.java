@@ -40,61 +40,70 @@ public class PlotTest extends Application{
         yAxis.setLabel("Temperature in Degrees");
         //Creates linechart based on string and number, can be changed to other things
         final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);              
-        lineChart.setTitle("TESTER");       
+        lineChart.setTitle("Last 72 hour averages");       
         XYChart.Series temperatures = new XYChart.Series();
         temperatures.setName(charlston.getName());
         //Prints the weather for Charlston in the most recent time 
         WthrSamplesFine tester = charlston.getWthrLast72hr();
-        
-        //Variables needed for min/max temps in any given day
-        String currentDay = null;
-        boolean dateChosen = false;
+
         //important: arrays fixed for the time being with 9am being index 0
         WthrSamplesFine earlyMorns = new WthrSamplesFine();
         WthrSamplesFine middays = new WthrSamplesFine();
         WthrSamplesFine nights = new WthrSamplesFine();
         WthrSamplesFine lateNights = new WthrSamplesFine();
+        
         for(int i=tester.size()-1 ; i > 0; i--)
         {
         	int time24hours = 0;
         	// Fun graph, different graph
         	String testPrint = tester.get(i).getLocalDateTime();
+        	//System.out.println(testPrint);
         	String[] dateSplit = tester.get(i).getLocalDateTime().split("/");
         	String[] timeSplit = dateSplit[1].split(":");
         	String timeconcat = timeSplit[0] + timeSplit[1];
         	//Makes sure it's split
+        	System.out.println(timeconcat);
         	String[] amHourTime = timeconcat.split("am");
         	String finalTime;
         	if(amHourTime[0].contains("pm"))
         	{
         	String[] pmHourTime = timeconcat.split("pm");
         	time24hours = Integer.parseInt(pmHourTime[0]);
-        	finalTime = Integer.toString(time24hours + 12);
+        	finalTime = Integer.toString(time24hours + 1200);
         	}
         	else{
         	time24hours = Integer.parseInt(amHourTime[0]);
         	finalTime = Integer.toString(time24hours);
         	}
+        	//System.out.println(finalTime);
+        	//to deal with the period of 2300 to 0400 the next day.
+        	if(Integer.parseInt(finalTime) < 0400)
+        	{
+        		int earlyHours = Integer.parseInt(finalTime);
+        		finalTime = Integer.toString(earlyHours + 2400);
+        	}
         	
-        	if(5 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) >= 10)
+        	if(500 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) <= 1000)
         	{        		
         		earlyMorns.add(tester.get(i));
-        		System.out.println("Morn");
+        		
         	}
-        	if(11 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) >= 16)
+        	if(1100 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) <= 1600)
         	{
         		middays.add(tester.get(i));
-        		System.out.println("aft");
+        		
         	}
-        	if(17 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) >= 22)
+        	if(1700 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) <= 2200)
         	{
         		nights.add(tester.get(i));
-        		System.out.println("night");
+        	
         	}
-        	if(23 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) >= 4)
+        	//instead of going back to 0, we need to increase the time until the next day so 4 am
+        	// will be 2800 (2400 + 0400)
+        	if(2300 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) <= 2800)
         	{
         		lateNights.add(tester.get(i));
-        		System.out.println("late");
+        		
         	}
         	
         	//Now have to sort them by time in an array      	
