@@ -1,9 +1,7 @@
 package guiPlotsTest;
 
-
 import java.net.URL;
 import java.time.YearMonth;
-import java.util.Enumeration;
 
 import com.sun.javafx.charts.Legend;
 
@@ -55,23 +53,24 @@ public class MultipleMonthMultipleLine extends Application{
         //Creates linechart based on string and number, can be changed to other things
         final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);              
         lineChart.setTitle(charlton.getName());       
-        XYChart.Series seriesMinTemp = new XYChart.Series();
-        XYChart.Series seriesMaxTemp = new XYChart.Series();
-        XYChart.Series series9amTemp = new XYChart.Series();
-        XYChart.Series series3pmTemp = new XYChart.Series();
+        XYChart.Series seriesTempMin = new XYChart.Series();
+        XYChart.Series seriesTempMax = new XYChart.Series();
+        XYChart.Series seriesTemp9am = new XYChart.Series();
+        XYChart.Series seriesTemp3pm = new XYChart.Series();
         
-        seriesMinTemp.setName("Minimum Temperature");
-        seriesMaxTemp.setName("Maximum Temperature");
-        series9amTemp.setName("9am Temperature");
-        series3pmTemp.setName("3pm Temperature");
-         
+        // Set Legend labels
+        seriesTempMin.setName("Minimum Temperature");
+        seriesTempMax.setName("Maximum Temperature");
+        seriesTemp9am.setName("9am Temperature");
+        seriesTemp3pm.setName("3pm Temperature");
+        
+        // Use 12 most recent months of data
         YearMonth start = YearMonth.now().minusMonths(12);
         YearMonth end = YearMonth.now().plusMonths(1);
         
         WthrSamplesDaily dataCharlton = new WthrSamplesDaily();
         dataCharlton = Bom.getWthrRange(charlton, start, end);
         
-        /* these were reversed Rad */
         for(WthrSampleDaily sample: dataCharlton) {
         	String date = sample.getDate();
         	String tempMax = sample.getMaxTemp();
@@ -79,40 +78,53 @@ public class MultipleMonthMultipleLine extends Application{
         	String temp9am = sample.getTemp9am();
         	String temp3pm = sample.getTemp3pm();
         	
+        	// Check if the string is null, due to FILE NOT FOUND
         	if (tempMin.length() > 0)
-        		seriesMinTemp.getData().add(new XYChart.Data(date,Float.parseFloat(tempMin)));
+        		seriesTempMin.getData().add(new XYChart.Data(date,Float.parseFloat(tempMin)));
         	if (tempMax.length() > 0)
-        		seriesMaxTemp.getData().add(new XYChart.Data(date,Float.parseFloat(tempMax)));
+        		seriesTempMax.getData().add(new XYChart.Data(date,Float.parseFloat(tempMax)));
         	if (temp9am.length() > 0)
-        		series9amTemp.getData().add(new XYChart.Data(date,Float.parseFloat(temp9am)));
+        		seriesTemp9am.getData().add(new XYChart.Data(date,Float.parseFloat(temp9am)));
         	if (temp3pm.length() > 0)
-        		series3pmTemp.getData().add(new XYChart.Data(date,Float.parseFloat(temp3pm)));
+        		seriesTemp3pm.getData().add(new XYChart.Data(date,Float.parseFloat(temp3pm)));
         }
         
         Scene scene  = new Scene(lineChart,800,600);
-        lineChart.getData().addAll(seriesMinTemp, seriesMaxTemp, series9amTemp, series3pmTemp);
-        lineChart.setCreateSymbols(false);
-        
         graph.setScene(scene);
         
+        lineChart.getData().addAll(seriesTempMin, seriesTempMax, seriesTemp9am, seriesTemp3pm);
+        
+        // Remove markers from line
+        lineChart.setCreateSymbols(false);
+        
+        // Hacky solution, add a css class to each line
+        String[] lineClasses = {"tempMin", "tempMax", "temp9am", "temp3pm"};
+        seriesTempMin.getNode().getStyleClass().add(lineClasses[0]);
+        seriesTempMax.getNode().getStyleClass().add(lineClasses[1]);
+        seriesTemp9am.getNode().getStyleClass().add(lineClasses[2]);
+        seriesTemp3pm.getNode().getStyleClass().add(lineClasses[3]);
+        
+        // Get access to the legend
         Legend legend = (Legend)lineChart.lookup(".chart-legend");
         ObservableList legendChildren = legend.getChildren();
-        Object legendMinTemp = legendChildren.get(0);
-        ((Node) legendMinTemp).setOnMouseClicked(new EventHandler<MouseEvent>(){
-        	 
-            @Override
-            public void handle(MouseEvent arg0) {
-            	URL url = this.getClass().getResource("test.css");
-                String test = url.toExternalForm();
-                if (scene.getStylesheets().contains(test)) {
-                	scene.getStylesheets().remove(test);
+        
+        // Add a click listener to each legend item
+        for (int i = 0; i < lineClasses.length; i++) {
+        	Object legendChild = legendChildren.get(i);
+        	// Need the "." as class specifier, e.g. .class
+        	Node line = lineChart.lookup("." + lineClasses[i]);
+        	((Node) legendChild).setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e) {
+                	if (line.isVisible()) {
+                		line.setVisible(false);
+                	}
+                	else {
+                		line.setVisible(true);
+                	}
                 }
-                else {
-                	scene.getStylesheets().add(test);
-                }	
-            }
-   
-        });
+            });
+        }
         
         URL url = this.getClass().getResource("graph.css");
         String css = url.toExternalForm();
