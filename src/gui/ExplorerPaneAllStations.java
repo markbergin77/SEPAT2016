@@ -7,6 +7,7 @@ import data.Station;
 import data.StationList;
 import guiCallbacks.StationClicked;
 
+/* List of all stations in BOM database */
 public class ExplorerPaneAllStations extends ExplorerPane
 {
     
@@ -26,7 +27,7 @@ public class ExplorerPaneAllStations extends ExplorerPane
     {
     	for (Station bomStation : bomStations)
     	{
-    		ExplorerButtonStation node = new ExplorerButtonStation(bomStation);
+    		ExplorerButtonNotFav node = new ExplorerButtonNotFav(bomStation);
             getVBox().getChildren().add(node);
             node.toFront();
     	}
@@ -38,7 +39,7 @@ public class ExplorerPaneAllStations extends ExplorerPane
     	this.clickHandler = clickHandler;
     	for (Station bomStation : bomStations)
     	{
-    		ExplorerButtonStation node = new ExplorerButtonStation(bomStation);
+    		ExplorerButtonNotFav node = new ExplorerButtonNotFav(bomStation);
     		node.setOnMouseClicked(e -> onStationClicked(e));
     		getVBox().getChildren().add(node);
             node.toFront();
@@ -47,7 +48,7 @@ public class ExplorerPaneAllStations extends ExplorerPane
     
     void onStationClicked(MouseEvent e)
     {
-    	ExplorerButtonStation button = (ExplorerButtonStation)e.getSource();
+    	ExplorerButtonNotFav button = (ExplorerButtonNotFav)e.getSource();
     	/* Do anything to the button's appearance you want */
     	clickHandler.onStationClicked(button.getStation());
     }

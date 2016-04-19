@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent;
 import user.Favourite;
 import user.FavouritesList;
 
+/* List of all stations in User's favourites list */
 public class ExplorerPaneFavourites extends ExplorerPane
 {
 	FavClicked clickHandler;
@@ -21,13 +22,13 @@ public class ExplorerPaneFavourites extends ExplorerPane
 	
 	void onFavClicked(MouseEvent e)
 	{
-		FavButton button = (FavButton)e.getSource();
+		ExplorerButtonFav button = (ExplorerButtonFav)e.getSource();
 		clickHandler.favClicked(button.getFav());
 	}
 	
 	public void addFavourite(Favourite fav)
 	{
-		FavButton node = new FavButton(fav);
+		ExplorerButtonFav node = new ExplorerButtonFav(fav);
 		node.setOnMouseClicked(e -> onFavClicked(e));
 		getVBox().getChildren().add(node);
         node.toFront();

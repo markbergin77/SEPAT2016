@@ -5,7 +5,7 @@ import javafx.scene.layout.*;
 import user.Favourite;
 import user.User;
 
-
+/* The root of all the User's activities */
 public class HomeScreen extends GridPane
 {
     Explorer explorer;

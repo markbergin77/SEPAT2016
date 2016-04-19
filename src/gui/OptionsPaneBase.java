@@ -6,9 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
-/* Goes in the OptionsArea which is/has
- * a TapPane.
- */
+/* All the options for one station.
+ * Goes in the OptionsArea which is/has
+ * a TapPane. */
 public class OptionsPaneBase extends VBox
 {
 	Station station;

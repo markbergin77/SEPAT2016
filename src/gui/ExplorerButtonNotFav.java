@@ -6,7 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
 
-public class ExplorerButtonStation extends Button 
+public class ExplorerButtonNotFav extends Button 
 {
 	static double buttonWidth = 150;
   //  private String LOCATION;
@@ -14,7 +14,7 @@ public class ExplorerButtonStation extends Button
   //  private Boolean RAINING, SUNNY;
     private Station station;
 
-    public ExplorerButtonStation(Station station)
+    public ExplorerButtonNotFav(Station station)
     {
     	super(station.getName());
     	this.station = station;

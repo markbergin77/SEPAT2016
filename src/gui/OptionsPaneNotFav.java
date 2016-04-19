@@ -3,7 +3,7 @@ package gui;
 import data.Station;
 import javafx.scene.control.Button;
 
-/* Options tab for a station that is 
+/* Adds options for a station that is 
  * not a favourite */
 public class OptionsPaneNotFav extends OptionsPaneBase
 {

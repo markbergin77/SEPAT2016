@@ -5,6 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+/* Mostly static functions that will aid 
+ * a Main class extending Javafx Application */
 public class GuiAppUtils 
 {
 	static class Offset

@@ -22,7 +22,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 /* Creates the gui components necessary to
-display a splash screen. */
+display a splash screen. Currently displays
+the splash screen immediately upon construction.
+I expect that to change at some point. */
 public class SplashScreen implements LoadingUpdater
 {
 	Stage window;
