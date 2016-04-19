@@ -1,6 +1,7 @@
 package guiPlotsTest;
 
 
+import java.net.URL;
 import java.time.YearMonth;
 import java.util.Enumeration;
 
@@ -86,6 +87,8 @@ public class MultipleMonthMultipleLine extends Application{
         lineChart.getData().addAll(seriesMinTemp, seriesMaxTemp, series9amTemp, series3pmTemp);
         graph.setScene(scene);
         graph.show();
+        URL url = this.getClass().getResource("graph.css");
+        String css = url.toExternalForm();
+        scene.getStylesheets().add(css);
 	}
-	
 }
