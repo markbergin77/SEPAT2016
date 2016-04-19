@@ -37,8 +37,6 @@ public class MultipleMonthMultipleLine extends Application{
 		
 		//Just using Charlton as a test
 		Station charlton = allStations.get(0);
-		//Just using Edenhope as a test
-		Station edenhope = allStations.get(7);
 		graph.setTitle("Line Chart Sample");
 		
 		//Category axis is needed for non ints, while number is needed for ints
@@ -49,30 +47,43 @@ public class MultipleMonthMultipleLine extends Application{
         
         //Creates linechart based on string and number, can be changed to other things
         final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);              
-        lineChart.setTitle("Daily Readings");       
-        XYChart.Series seriesCharlton = new XYChart.Series();
-        XYChart.Series seriesEdenhope = new XYChart.Series();
-        seriesCharlton.setName(charlton.getName());
-        seriesEdenhope.setName(edenhope.getName());
+        lineChart.setTitle(charlton.getName());       
+        XYChart.Series seriesMinTemp = new XYChart.Series();
+        XYChart.Series seriesMaxTemp = new XYChart.Series();
+        XYChart.Series series9amTemp = new XYChart.Series();
+        XYChart.Series series3pmTemp = new XYChart.Series();
         
-        //Prints the weather for Charlton, March 2016 
-        YearMonth start = YearMonth.of(2015, 1);
-        YearMonth end = YearMonth.of(2016, 3);
+        seriesMinTemp.setName("Minimum Temperature");
+        seriesMaxTemp.setName("Maximum Temperature");
+        series9amTemp.setName("9am Temperature");
+        series3pmTemp.setName("3pm Temperature");
+         
+        YearMonth start = YearMonth.now().minusMonths(12);
+        YearMonth end = YearMonth.now().plusMonths(1);
         
         WthrSamplesDaily dataCharlton = new WthrSamplesDaily();
         dataCharlton = Bom.getWthrRange(charlton, start, end);
         
-        WthrSamplesDaily dataEdenhope = new WthrSamplesDaily();
-        dataEdenhope = Bom.getWthrRange(edenhope, start, end);
-        
         /* these were reversed Rad */
-        for(int i= 0; i < dataCharlton.size(); i++)
-        	seriesCharlton.getData().add(new XYChart.Data(dataCharlton.get(i).getDate(),Float.parseFloat(dataCharlton.get(i).getTemp3pm())));
-        for(int i= 0; i < dataEdenhope.size(); i++)
-        	seriesEdenhope.getData().add(new XYChart.Data(dataEdenhope.get(i).getDate(),Float.parseFloat(dataEdenhope.get(i).getTemp3pm())));
+        for(WthrSampleDaily sample: dataCharlton) {
+        	String date = sample.getDate();
+        	String tempMax = sample.getMaxTemp();
+        	String tempMin = sample.getMinTemp();
+        	String temp9am = sample.getTemp9am();
+        	String temp3pm = sample.getTemp3pm();
+        	
+        	if (tempMin.length() > 0)
+        		seriesMinTemp.getData().add(new XYChart.Data(date,Float.parseFloat(tempMin)));
+        	if (tempMax.length() > 0)
+        		seriesMaxTemp.getData().add(new XYChart.Data(date,Float.parseFloat(tempMax)));
+        	if (temp9am.length() > 0)
+        		series9amTemp.getData().add(new XYChart.Data(date,Float.parseFloat(temp9am)));
+        	if (temp3pm.length() > 0)
+        		series3pmTemp.getData().add(new XYChart.Data(date,Float.parseFloat(temp3pm)));
+        }
         
         Scene scene  = new Scene(lineChart,800,600);
-        lineChart.getData().addAll(seriesCharlton, seriesEdenhope);
+        lineChart.getData().addAll(seriesMinTemp, seriesMaxTemp, series9amTemp, series3pmTemp);
         graph.setScene(scene);
         graph.show();
 	}

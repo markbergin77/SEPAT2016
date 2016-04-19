@@ -352,9 +352,9 @@ public class Bom
 		return samples;
 	}
 	
+	// [start, end), excludes end
 	public static WthrSamplesDaily getWthrRange(Station station, YearMonth start, YearMonth end) throws IOException {
 		WthrSamplesDaily samples = new WthrSamplesDaily();
-		end = end.plusMonths(1);
 		while (!start.equals(end)) {
 			WthrSamplesDaily sampleMonth = getWthrLastMonth(station, start);
 			if (sampleMonth != null) {
