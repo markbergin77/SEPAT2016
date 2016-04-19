@@ -36,7 +36,7 @@ public class PlotTest extends Application{
 		//Category axis is needed for non ints, while number is needed for ints
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Every 30 mins");
+        xAxis.setLabel("Averages of daily periods");
         yAxis.setLabel("Temperature in Degrees");
         //Creates linechart based on string and number, can be changed to other things
         final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);              
@@ -46,38 +46,40 @@ public class PlotTest extends Application{
         //Prints the weather for Charlston in the most recent time 
         WthrSamplesFine tester = charlston.getWthrLast72hr();
 
-        //important: arrays fixed for the time being with 9am being index 0
+        //Need seperate list to associate each time of day with a specific "zone" or period
         WthrSamplesFine earlyMorns = new WthrSamplesFine();
         WthrSamplesFine middays = new WthrSamplesFine();
         WthrSamplesFine nights = new WthrSamplesFine();
         WthrSamplesFine lateNights = new WthrSamplesFine();
         
+        //Goes through entire list of recorded location entries
         for(int i=tester.size()-1 ; i > 0; i--)
         {
         	int time24hours = 0;
-        	// Fun graph, different graph
-        	String testPrint = tester.get(i).getLocalDateTime();
-        	//System.out.println(testPrint);
+        	
+        	//Splits the given time date into it's raw form of xxxxam or pm
         	String[] dateSplit = tester.get(i).getLocalDateTime().split("/");
         	String[] timeSplit = dateSplit[1].split(":");
         	String timeconcat = timeSplit[0] + timeSplit[1];
-        	//Makes sure it's split
-        	System.out.println(timeconcat);
-        	String[] amHourTime = timeconcat.split("am");
         	String finalTime;
-        	if(amHourTime[0].contains("pm"))
+        	//Checks if it contains am or pm, if pm, we need to change it to 24 hour format
+        	if(timeconcat.contains("pm"))
         	{
         	String[] pmHourTime = timeconcat.split("pm");
         	time24hours = Integer.parseInt(pmHourTime[0]);
         	finalTime = Integer.toString(time24hours + 1200);
         	}
         	else{
+        	String[] amHourTime = timeconcat.split("am");
         	time24hours = Integer.parseInt(amHourTime[0]);
         	finalTime = Integer.toString(time24hours);
         	}
-        	//System.out.println(finalTime);
-        	//to deal with the period of 2300 to 0400 the next day.
-        	if(Integer.parseInt(finalTime) < 0400)
+        	/* To deal with the late night period of 11pm to 4am
+        	 * we can't really check for a value in between 11pm and 4am 
+        	 * so we make 4am into a 24 hour next day kind of thing
+        	 * from 2300 - 0400 the next day we make 0400 = 2800 
+        	 */
+        	if(Integer.parseInt(finalTime) < 400)
         	{
         		int earlyHours = Integer.parseInt(finalTime);
         		finalTime = Integer.toString(earlyHours + 2400);
@@ -88,7 +90,10 @@ public class PlotTest extends Application{
         		earlyMorns.add(tester.get(i));
         		
         	}
-        	if(1100 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) <= 1600)
+        	//Weird situation checking inbetween periods of both am and pm (11am - 4pm), 12pm now turns to 2400 and we don't want to check 12
+        	//as that's 12 in the morning
+        	if(1100 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) <= 1600 & Integer.parseInt(finalTime) != 1200 
+        	   || Integer.parseInt(finalTime) == 2400)
         	{
         		middays.add(tester.get(i));
         		
@@ -98,9 +103,9 @@ public class PlotTest extends Application{
         		nights.add(tester.get(i));
         	
         	}
-        	//instead of going back to 0, we need to increase the time until the next day so 4 am
-        	// will be 2800 (2400 + 0400)
-        	if(2300 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) <= 2800)
+        	//once again, we don't want 2400 as that's 12 pm, we want am for this check
+        	if(2300 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) <= 2800 & Integer.parseInt(finalTime) != 2400 
+             	   || Integer.parseInt(finalTime) == 1200)
         	{
         		lateNights.add(tester.get(i));
         		
