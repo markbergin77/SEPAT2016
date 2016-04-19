@@ -6,7 +6,7 @@ import data.Bom;
 import data.Station;
 import data.StationList;
 import gui.GuiEventInterface;
-import gui.HomeInitInfo;
+import gui.HomeScreenInit;
 import gui.HomeScreen;
 import gui.SplashScreen;
 import guiPlots.TempPlot;
@@ -73,7 +73,7 @@ public class Main extends Application
 				user = new User();
 			}
         	splash.loadingUpdate("Creating GUI elements");
-        	HomeInitInfo homeInit = new HomeInitInfo(allStations, user);
+        	HomeScreenInit homeInit = new HomeScreenInit(allStations, user);
 			homeScreen = new HomeScreen(homeInit, this);
 			scene = new Scene(homeScreen);
 			splash.loadingUpdate("");

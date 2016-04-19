@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.Vector;
+
 import data.Station;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -18,41 +20,29 @@ import user.Favourite;
 public class OptionsArea extends VBox
 {
 	static double defaultWidth = 400;
+	/* Looks ugly if right at top */
+	static double promptInsetY = 16;
 	/* When a button is pressed, send a
 	 * message to this object through one 
 	 * of the documented interface methods */
 	GuiEventInterface callbackObj;
 	TabPane tabPane = new TabPane();
-	boolean noTabs;
 	/* Text displayed before any station selected */
 	String promptText = "Select a station";
 	Label promptLabel = new Label(promptText);
-	/* Looks ugly if right at top */
-	static double promptInsetY = 16;
+	
 	VBox promptSpacingBox = new VBox();
 	int nTabs;
-	
 		
 	public OptionsArea(GuiEventInterface callbackObj)
 	{
 		this.callbackObj = callbackObj;
 		this.setPrefSize(defaultWidth, HomeScreen.defaultHeight);
-		noTabs = true;
 		nTabs = 0;
 		setupPrompt();
 		addPrompt();
 	}
-	
-	void addingTabChecks()
-	{
-		if(noTabs)
-		{
-			removePrompt();
-			addTabPane();
-			noTabs = false;
-		}
-	}
-	
+
 	void setupPrompt()
 	{
 		promptLabel.setPrefWidth(defaultWidth);
@@ -61,9 +51,15 @@ public class OptionsArea extends VBox
 		promptSpacingBox.setPrefHeight(promptInsetY);
 	}
 	
-	void onTabAdded()
+	void onAddingTab()
 	{
+		if(nTabs == 0)
+		{
+			removePrompt();
+			addTabPane();
+		}
 		nTabs++;
+		
 	}
 	
 	void onTabClosed()
@@ -72,7 +68,6 @@ public class OptionsArea extends VBox
 		{
 			removeTabPane();
 			addPrompt();
-			noTabs = true;
 		}
 	}
 	
@@ -94,28 +89,40 @@ public class OptionsArea extends VBox
 	void removePrompt()
 	{
 		getChildren().removeAll(promptSpacingBox, promptLabel);
-		noTabs = false;
 	}
-
-	public void addTab(Favourite fav) 
+	
+	public boolean hasTabFor(Station station)
 	{
-		addingTabChecks();
-		OptionsPaneFav newPane = new OptionsPaneFav(fav, callbackObj);
-		Tab newTab = new Tab(fav.getStation().getName());
+		
+		for(Tab optionsTab : tabPane.getTabs())
+		{
+			OptionsPaneBase pane = (OptionsPaneBase) optionsTab.getContent();
+			if(pane.getStation().equals(station))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	void addTabFor(OptionsPaneBase newPane)
+	{
+		Tab newTab = new Tab(newPane.getStation().getName());
 		newTab.setOnClosed(e -> onTabClosed());
 		newTab.setContent(newPane);
+		onAddingTab();
 		tabPane.getTabs().add(newTab);
-		onTabAdded();
+	}
+	
+	public void addTab(Favourite fav) 
+	{
+		OptionsPaneFav newPane = new OptionsPaneFav(fav, callbackObj);
+		addTabFor(newPane);
 	}
 
 	public void addTab(Station station) 
 	{
-		addingTabChecks();
-		OptionsPaneBase newPane = new OptionsPaneNotFav(station, callbackObj);
-		Tab newTab = new Tab(station.getName());
-		newTab.setOnClosed(e -> onTabClosed());
-		newTab.setContent(newPane);
-		tabPane.getTabs().add(newTab);
-		onTabAdded();
+		OptionsPaneNotFav newPane = new OptionsPaneNotFav(station, callbackObj);
+		addTabFor(newPane);
 	}	
 }

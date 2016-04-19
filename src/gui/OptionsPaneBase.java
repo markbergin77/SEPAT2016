@@ -38,4 +38,9 @@ public class OptionsPaneBase extends VBox
 	{
 		getChildren().add(node);
 	}
+
+	public Station getStation() 
+	{
+		return station;
+	}
 }

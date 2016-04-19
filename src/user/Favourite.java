@@ -7,18 +7,18 @@ import data.Station;
 public class Favourite implements Serializable
 {
 	// Integer is serializable
-	private Integer timesViewed;
+	FavouriteData favData;
 	Station station;
 	
 	public Favourite(Station loc, int timesViewed) 
 	{
 		this.station = loc;
-		this.timesViewed = timesViewed; 
+		this.favData = new FavouriteData(timesViewed); 
 	}
 	
 	public int timesViewed()
 	{
-		return timesViewed;
+		return favData.timesViewed;
 	}
 	
 	public static Favourite create(Station loc)
@@ -35,7 +35,7 @@ public class Favourite implements Serializable
 	//Remember to increment times Viewed by one
 	public Station view()
 	{
-		++timesViewed;
+		++favData.timesViewed;
 		return station;
 	}
 	
@@ -49,5 +49,10 @@ public class Favourite implements Serializable
 	public Station getStation() 
 	{
 		return station;
+	}
+
+	public FavouriteData getData() 
+	{
+		return favData;
 	}		
 }

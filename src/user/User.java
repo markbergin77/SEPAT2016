@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import data.Station;
+
 public class User 
 {
 	FavouritesList faves;
@@ -98,5 +100,16 @@ public class User
 			}
 							
 		}
+	public Favourite favFor(Station station) 
+	{
+		for (Favourite fav : faves)
+		{
+			if(fav.getStation().equals(station))
+			{
+				return fav;
+			}
+		}
+		return null;
+	}
 				
 }

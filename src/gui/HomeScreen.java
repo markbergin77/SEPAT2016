@@ -3,12 +3,14 @@ package gui;
 import data.Station;
 import javafx.scene.layout.*;
 import user.Favourite;
+import user.User;
 
 
 public class HomeScreen extends GridPane
 {
     Explorer explorer;
     OptionsArea optionsArea;
+    User user;
     
     static double defaultHeight = 400;
     
@@ -24,9 +26,10 @@ public class HomeScreen extends GridPane
         add(optionsArea, 1, 0);
     }
     
-    public HomeScreen(HomeInitInfo init, GuiEventInterface callbackObj)
+    public HomeScreen(HomeScreenInit init, GuiEventInterface callbackObj)
     {
     	super();
+    	user = init.user;
     	explorer = new Explorer();
     	optionsArea = new OptionsArea(callbackObj);
         add(explorer, 0, 0);
@@ -39,12 +42,28 @@ public class HomeScreen extends GridPane
     
     void onFavClicked(Favourite fav)
     {
-    	optionsArea.addTab(fav);
+    	if(! optionsArea.hasTabFor(fav.getStation()))
+    	{
+    		optionsArea.addTab(fav);
+    	}
     }
     
     void onStationClicked(Station station)
     {
-    	optionsArea.addTab(station);
+    	if(! optionsArea.hasTabFor(station))
+    	{
+    		/* Is this station on the Favourites list? */
+    		Favourite possibleFav = user.favFor(station);
+    		if(possibleFav == null)
+    		{
+    			optionsArea.addTab(station);
+    		}
+    		else
+    		{
+    			optionsArea.addTab(possibleFav);
+    		}
+    		
+    	}
     }
     
     public Explorer getExplorer()
