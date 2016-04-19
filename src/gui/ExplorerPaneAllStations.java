@@ -7,7 +7,7 @@ import data.Station;
 import data.StationList;
 import guiCallbacks.StationClicked;
 
-public class StationsPaneAll extends StationsPane
+public class ExplorerPaneAllStations extends ExplorerPane
 {
     
     /* why the variable? Because otherwise,
@@ -16,7 +16,7 @@ public class StationsPaneAll extends StationsPane
        them individually. */
     StationClicked clickHandler;
 
-    public StationsPaneAll()
+    public ExplorerPaneAllStations()
     {
     	super();
     }
@@ -26,7 +26,7 @@ public class StationsPaneAll extends StationsPane
     {
     	for (Station bomStation : bomStations)
     	{
-    		StationButton node = new StationButton(bomStation);
+    		ExplorerButtonStation node = new ExplorerButtonStation(bomStation);
             getVBox().getChildren().add(node);
             node.toFront();
     	}
@@ -38,7 +38,7 @@ public class StationsPaneAll extends StationsPane
     	this.clickHandler = clickHandler;
     	for (Station bomStation : bomStations)
     	{
-    		StationButton node = new StationButton(bomStation);
+    		ExplorerButtonStation node = new ExplorerButtonStation(bomStation);
     		node.setOnMouseClicked(e -> onStationClicked(e));
     		getVBox().getChildren().add(node);
             node.toFront();
@@ -47,7 +47,7 @@ public class StationsPaneAll extends StationsPane
     
     void onStationClicked(MouseEvent e)
     {
-    	StationButton button = (StationButton)e.getSource();
+    	ExplorerButtonStation button = (ExplorerButtonStation)e.getSource();
     	/* Do anything to the button's appearance you want */
     	clickHandler.onStationClicked(button.getStation());
     }

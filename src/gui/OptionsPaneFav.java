@@ -3,11 +3,10 @@ package gui;
 import javafx.scene.control.Button;
 import user.Favourite;
 
-public class OptionsTabFav extends OptionsTabBase
+public class OptionsPaneFav extends OptionsPaneBase
 {
-	OptionsTabFav(Favourite fav, GuiEventInterface eventHandler)
+	OptionsPaneFav(Favourite fav, GuiEventInterface eventHandler)
 	{
 		super(fav.getStation(), eventHandler);
-		
 	}
 }

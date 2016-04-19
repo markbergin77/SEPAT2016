@@ -1,7 +1,7 @@
 package guiLookTest;
 
 import data.Station;
-import gui.StationButton;
+import gui.ExplorerButtonStation;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -15,7 +15,7 @@ public class StationButtonTest extends Application
 		window.setResizable(false);
         window.setOnCloseRequest(e -> System.exit(0));
         Station station = new Station("Station Name", "", "", "");
-		StationButton button = new StationButton(station);
+		ExplorerButtonStation button = new ExplorerButtonStation(station);
 		window.setScene(new Scene(button));
     	window.sizeToScene();
     	window.centerOnScreen();

@@ -3,6 +3,7 @@ package gui;
 import data.Station;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -96,20 +97,24 @@ public class OptionsArea extends VBox
 		noTabs = false;
 	}
 
-	public void addTabForFav(Favourite fav) 
+	public void addTab(Favourite fav) 
 	{
 		addingTabChecks();
-		OptionsTabFav newTab = new OptionsTabFav(fav, callbackObj);
+		OptionsPaneFav newPane = new OptionsPaneFav(fav, callbackObj);
+		Tab newTab = new Tab(fav.getStation().getName());
 		newTab.setOnClosed(e -> onTabClosed());
+		newTab.setContent(newPane);
 		tabPane.getTabs().add(newTab);
 		onTabAdded();
 	}
 
-	public void addTabForStation(Station station) 
+	public void addTab(Station station) 
 	{
 		addingTabChecks();
-		OptionsTabBase newTab = new OptionsTabNotFav(station, callbackObj);
+		OptionsPaneBase newPane = new OptionsPaneNotFav(station, callbackObj);
+		Tab newTab = new Tab(station.getName());
 		newTab.setOnClosed(e -> onTabClosed());
+		newTab.setContent(newPane);
 		tabPane.getTabs().add(newTab);
 		onTabAdded();
 	}	

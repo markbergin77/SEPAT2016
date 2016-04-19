@@ -5,7 +5,7 @@ import javafx.scene.input.MouseEvent;
 import user.Favourite;
 import user.FavouritesList;
 
-public class StationsPaneFav extends StationsPane
+public class ExplorerPaneFavourites extends ExplorerPane
 {
 	FavClicked clickHandler;
 	// used for when favourites are selected

@@ -127,4 +127,10 @@ public class Main extends Application
 		}
 		
 	}
+
+	@Override
+	public void onOpenHisTempPlot(Station station) 
+	{
+				
+	}
 }

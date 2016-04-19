@@ -7,13 +7,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-public class StationsPane extends GridPane
+public class ExplorerPane extends GridPane
 {
 	//Scroll box/list, where favorites are located on program
 	VBox vbox;
     ScrollPane scrollPane;
     TextField searchBox;
-    public StationsPane()
+    public ExplorerPane()
     {
     	super();
     	vbox = new VBox(0);
@@ -21,7 +21,7 @@ public class StationsPane extends GridPane
     	scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
     	scrollPane.setContent(vbox);
     	scrollPane.setPrefHeight(HomeScreen.defaultHeight);
-    	scrollPane.setPrefViewportWidth(StationButton.buttonWidth);
+    	scrollPane.setPrefViewportWidth(ExplorerButtonStation.buttonWidth);
     	scrollPane.setFitToWidth(true);
     	searchBox = new TextField();
     	searchBox.setPromptText("Search...");

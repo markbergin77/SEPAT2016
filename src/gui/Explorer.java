@@ -16,8 +16,8 @@ public class Explorer extends StackPane
 	TabPane tabPane;
 	Tab allStationsTab;
 	Tab favouritesTab;
-	StationsPaneAll allStationsPane;
-	StationsPaneFav favouritesPane;
+	ExplorerPaneAllStations allStationsPane;
+	ExplorerPaneFavourites favouritesPane;
 	
 	
 	
@@ -29,8 +29,8 @@ public class Explorer extends StackPane
 	
 	void createGuiElements()
 	{
-		allStationsPane = new StationsPaneAll();
-		favouritesPane = new StationsPaneFav();
+		allStationsPane = new ExplorerPaneAllStations();
+		favouritesPane = new ExplorerPaneFavourites();
 		tabPane = new TabPane();
 		allStationsTab = new Tab();
 		allStationsTab.setContent(allStationsPane);
