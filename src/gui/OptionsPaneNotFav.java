@@ -13,8 +13,14 @@ public class OptionsPaneNotFav extends OptionsPaneBase
 	public OptionsPaneNotFav(Station station, GuiEventInterface eventHandler) 
 	{
 		super(station, eventHandler);
-		addToFavsButton.setOnMouseClicked(e -> eventHandler.onAddFav(station));
+		addToFavsButton.setOnMouseClicked(e -> onAddFav());
 		addOptionTop(addToFavsButton);
+	}
+	
+	void onAddFav()
+	{
+		removeOption(addToFavsButton);
+		eventHandler.onAddFav(station);
 	}
 
 }

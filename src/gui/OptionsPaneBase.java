@@ -29,6 +29,16 @@ public class OptionsPaneBase extends VBox
 		
 	}
 	
+	void removeOption(Parent node)
+	{
+		getChildren().remove(node);
+	}
+	
+	void removeOptionTop()
+	{
+		getChildren().remove(0);
+	}
+	
 	void addOptionTop(Parent node)
 	{
 		getChildren().add(0, node);

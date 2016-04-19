@@ -5,6 +5,7 @@ import java.util.Vector;
 import data.Station;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
@@ -27,6 +28,7 @@ public class OptionsArea extends VBox
 	 * of the documented interface methods */
 	GuiEventInterface callbackObj;
 	TabPane tabPane = new TabPane();
+	SingleSelectionModel<Tab> tabSelectionModel = tabPane.getSelectionModel();
 	/* Text displayed before any station selected */
 	String promptText = "Select a station";
 	Label promptLabel = new Label(promptText);
@@ -103,6 +105,13 @@ public class OptionsArea extends VBox
 			}
 		}
 		return false;
+	}
+	
+	void selectLastAddedTab()
+	{
+		tabSelectionModel.select(
+				tabPane.getTabs().get(
+						tabPane.getTabs().size() - 1));
 	}
 	
 	void addTabFor(OptionsPaneBase newPane)

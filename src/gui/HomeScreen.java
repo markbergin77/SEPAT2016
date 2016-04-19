@@ -45,6 +45,7 @@ public class HomeScreen extends GridPane
     	if(! optionsArea.hasTabFor(fav.getStation()))
     	{
     		optionsArea.addTab(fav);
+    		optionsArea.selectLastAddedTab();
     	}
     }
     
@@ -62,7 +63,7 @@ public class HomeScreen extends GridPane
     		{
     			optionsArea.addTab(possibleFav);
     		}
-    		
+    		optionsArea.selectLastAddedTab();
     	}
     }
     
