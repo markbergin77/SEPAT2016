@@ -5,17 +5,23 @@ import java.net.URL;
 import java.time.YearMonth;
 import java.util.Enumeration;
 
+import com.sun.javafx.charts.Legend;
+
 import data.Bom;
 import data.Station;
 import data.StationList;
 import data.WthrSamplesDaily;
 import data.WthrSampleDaily;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 //Testing class for line graph, includes viewing temperature of locations
@@ -86,6 +92,19 @@ public class MultipleMonthMultipleLine extends Application{
         Scene scene  = new Scene(lineChart,800,600);
         lineChart.getData().addAll(seriesMinTemp, seriesMaxTemp, series9amTemp, series3pmTemp);
         lineChart.setCreateSymbols(false);
+        
+        Legend legend = (Legend)lineChart.lookup(".chart-legend");
+        ObservableList legendChildren = legend.getChildren();
+        Object legendMinTemp = legendChildren.get(0);
+        ((Node) legendMinTemp).setOnMouseClicked(new EventHandler<MouseEvent>(){
+        	 
+            @Override
+            public void handle(MouseEvent arg0) {
+               lineChart.getData();
+            }
+   
+        });
+        
         graph.setScene(scene);
         URL url = this.getClass().getResource("graph.css");
         String css = url.toExternalForm();
