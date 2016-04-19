@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -75,30 +76,52 @@ public class Bom
 	{
 		//Use of Jsoup Framework
 		StationList stations = new StationList();
-		Document doc = Jsoup.connect(stateAllUrl(state))
-				.get();
-		Elements tbodies = doc.select("tbody");
-		Elements links = tbodies.select("a");
-		for (Element link : links)
-		{
-			String url = link.attr("href");
-			if (url.contains("products") && !url.contains("#"))
-			{
-				String htmlUrl = "http://www.bom.gov.au" + url;
-				String jsonUrl = 
-						"http://www.bom.gov.au" + url.replace("products", "fwo").replace("shtml", "json");
-				String name = link.text();
-				// Some names have an asterisk on the page
-				if (name.endsWith("*"))
-				{
-					name = name.substring(0, name.length() - 1);
-				}
-				// Returns station of Observations
-				stations.add(new Station(name, jsonUrl, htmlUrl, stateName(state)));
-				
+		int i = 0;
+		int numTries = 3;
+		Document doc = null;
+		Boolean successfulConnection = false;
+		while (i < numTries) {
+			try {
+				doc = Jsoup.connect(stateAllUrl(state))
+						.get();
+				successfulConnection = true;
+				break;
 			}
+			catch(SocketTimeoutException e) {
+				System.out.println("Issue Connecting, Retrying, Attempt Number: " + i + 1);
+			}
+			i++;
 		}
-		return stations;
+		
+		if (successfulConnection) {
+			Elements tbodies = doc.select("tbody");
+			Elements links = tbodies.select("a");
+			for (Element link : links)
+			{
+				String url = link.attr("href");
+				if (url.contains("products") && !url.contains("#"))
+				{
+					String htmlUrl = "http://www.bom.gov.au" + url;
+					String jsonUrl = 
+							"http://www.bom.gov.au" + url.replace("products", "fwo").replace("shtml", "json");
+					String name = link.text();
+					// Some names have an asterisk on the page
+					if (name.endsWith("*"))
+					{
+						name = name.substring(0, name.length() - 1);
+					}
+					// Returns station of Observations
+					stations.add(new Station(name, jsonUrl, htmlUrl, stateName(state)));
+					
+				}
+			}
+			return stations;
+		}
+		else {
+			// could not connect
+			return null;
+		}
+		
 	}
 	
 	//List of fixed states needed to find appropriate stations
@@ -270,34 +293,57 @@ public class Bom
 			String url;
 			String csvUrl;
 			String htmlUrl = station.getHtmlUrl();
-			Document doc = Jsoup.connect(htmlUrl).get();
-			Elements links = doc.select("a");
-			for (Element link : links) {
-				if (link.text().contains("Recent months")) {
-					url = link.attr("href");
-					csvUrl = "http://www.bom.gov.au"
-							+ url.replace("dwo/", "dwo/" + dateString + "/text/").replace("latest.shtml", dateString + ".csv");
+			int i = 0;
+			int numTries = 3;
+			Document doc = null;
+			Boolean successfulConnection = false;
+			
+			while (i < numTries) {
+				try {
+					doc = Jsoup.connect(htmlUrl).get();
+					successfulConnection = true;
+					break;
+				}
+				catch(SocketTimeoutException e) {
+					System.out.println("Issue Connecting, Retrying, Attempt Number: " + i + 1);
+				}
+				i++;
+			}
+			
+			if (successfulConnection) {
+				Elements links = doc.select("a");
+				for (Element link : links) {
+					if (link.text().contains("Recent months")) {
+						url = link.attr("href");
+						csvUrl = "http://www.bom.gov.au"
+								+ url.replace("dwo/", "dwo/" + dateString + "/text/").replace("latest.shtml", dateString + ".csv");
 
-					// Testing code
-					// System.out.println(this.getName() + " " + csvUrl);
+						// Testing code
+						// System.out.println(this.getName() + " " + csvUrl);
 
-					try (BufferedReader csvStream = new BufferedReader(
-							new InputStreamReader(new URL(csvUrl).openStream()))) {
-						CSVReader csvReader = new CSVReader(csvStream);
-						try (CSVWriter csvWriter = new CSVWriter(new FileWriter(filePath))) {
-							while ((nextLine = csvReader.readNext()) != null) {
-								csvWriter.writeNext(nextLine);
+						try (BufferedReader csvStream = new BufferedReader(
+								new InputStreamReader(new URL(csvUrl).openStream()))) {
+							CSVReader csvReader = new CSVReader(csvStream);
+							try (CSVWriter csvWriter = new CSVWriter(new FileWriter(filePath))) {
+								while ((nextLine = csvReader.readNext()) != null) {
+									csvWriter.writeNext(nextLine);
+								}
 							}
+							csvReader.close();
 						}
-						csvReader.close();
-					}
-					// Some locations lack desired data
-					catch (FileNotFoundException e) {
-						System.out.println("FILE NOT FOUND");
-						return null;
+						// Some locations lack desired data
+						catch (FileNotFoundException e) {
+							System.out.println("FILE NOT FOUND");
+							return null;
+						}
 					}
 				}
 			}
+			else {
+				// Could not connect
+				return null;
+			}
+			
 		}
 		try (BufferedReader csvStream = new BufferedReader(new FileReader(filePath))) {
 			CSVReader csvReader = new CSVReader(csvStream);
@@ -305,7 +351,20 @@ public class Bom
 		}
 		return samples;
 	}
-
+	
+	public static WthrSamplesDaily getWthrRange(Station station, YearMonth start, YearMonth end) throws IOException {
+		WthrSamplesDaily samples = new WthrSamplesDaily();
+		end = end.plusMonths(1);
+		while (!start.equals(end)) {
+			for (WthrSampleDaily sample: getWthrLastMonth(station, start)) {
+				samples.addElement(sample);
+			}
+			start = start.plusMonths(1);
+		}
+		
+		
+		return samples;
+	}
 	/*
 	 * Scrapes data from CSV file on line by line basis And adds to object
 	 */

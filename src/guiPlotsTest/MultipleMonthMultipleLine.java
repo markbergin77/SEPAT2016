@@ -56,23 +56,14 @@ public class MultipleMonthMultipleLine extends Application{
         seriesEdenhope.setName(edenhope.getName());
         
         //Prints the weather for Charlton, March 2016 
+        YearMonth start = YearMonth.of(2015, 11);
+        YearMonth end = YearMonth.of(2016, 3);
+        
         WthrSamplesDaily dataCharlton = new WthrSamplesDaily();
-        YearMonth test1 = YearMonth.of(2016, 02);
-        YearMonth test2 = YearMonth.of(2016, 03);
-        for (WthrSampleDaily sample: Bom.getWthrLastMonth(charlton, test1)) {
-        	dataCharlton.addElement(sample);
-        }
-        for (WthrSampleDaily sample: Bom.getWthrLastMonth(charlton, test2)) {
-        	dataCharlton.addElement(sample);
-        }
+        dataCharlton = Bom.getWthrRange(charlton, start, end);
         
         WthrSamplesDaily dataEdenhope = new WthrSamplesDaily();
-        for (WthrSampleDaily sample: Bom.getWthrLastMonth(edenhope, test1)) {
-        	dataEdenhope.addElement(sample);
-        }
-        for (WthrSampleDaily sample: Bom.getWthrLastMonth(edenhope, test2)) {
-        	dataEdenhope.addElement(sample);
-        }
+        dataEdenhope = Bom.getWthrRange(edenhope, start, end);
         
         /* these were reversed Rad */
         for(int i= 0; i < dataCharlton.size(); i++)
