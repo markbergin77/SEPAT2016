@@ -6,27 +6,56 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import data.Station;
+import javafx.scene.effect.Light.Point;
 
-public class User 
+public class User implements Serializable
 {
 	FavouritesList faves;
+	Integer mainWindowX, mainWindowY;
+	
 	
 	public User()
 	{
+		mainWindowX = new Integer(0);
+		mainWindowY = new Integer(0);
 		faves = FavouritesList.create();
 	}
-	//File writing details
-	public User(String pathToFile) throws FileNotFoundException
+	
+	
+	User(boolean bullshit)
 	{
+		
+	}
+	
+	public void setMainWindowPosSave(double d, double e)
+	{
+		mainWindowX = (int)d;
+		mainWindowY = (int)e;
+	}
+	
+	public FavouritesList getFavs()
+	{
+		return faves;
+	}
+	
+	public static User create()
+	{
+		return new User();
+	}
+	
+	public static User loadUser(String pathToFile) throws FileNotFoundException
+	{
+		User newUser = new User(false);
 		try 
 		{
 			FileInputStream fis = new FileInputStream(pathToFile);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			try 
 			{
-				faves = (FavouritesList) ois.readObject();
+				newUser = (User) ois.readObject();
 			} 
 			catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -44,30 +73,16 @@ public class User
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	public FavouritesList getFavs()
-	{
-		return faves;
-	}
-	
-	public static User create()
-	{
-		return new User();
-	}
-	
-	public static User loadUser(String pathToFile) throws FileNotFoundException
-	{
-		return new User(pathToFile);
+		return newUser;
 	}
 	//Saves user to file
-	public void saveUser(String path)
+	public static void saveUser(User user, String path)
 	{
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(path);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(faves);
+			oos.writeObject(user);
 			fos.close();
 			oos.close();
 		} catch (FileNotFoundException e) {
@@ -110,6 +125,16 @@ public class User
 			}
 		}
 		return null;
+	}
+
+	public double getWindowY()
+	{
+		return mainWindowY;
+	}
+	
+	public double getWindowX() 
+	{
+		return mainWindowX;
 	}
 				
 }

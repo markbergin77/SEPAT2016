@@ -32,12 +32,13 @@ public class Main extends Application
 		        t.setDaemon(true); 
 		        return t ;
 		    });
-    
+    Stage window;
     Dimension homeWindowSize;
 	StationList allStations;
 	HomeScreen homeScreen;
 	Scene scene;
 	User user;
+	boolean newUser = false;
 	
 	public static void main(String args[])
     {
@@ -47,6 +48,7 @@ public class Main extends Application
 	@Override
 	public void start(Stage window) throws Exception 
 	{
+		this.window = window;
 	    window.setTitle("aids");
 		window.setResizable(false);
         window.setOnCloseRequest(e -> onQuit());
@@ -68,8 +70,9 @@ public class Main extends Application
         	// Tricky: loadingUpdate actually does a runLater()
         	splash.loadingUpdate("Loading user");
 			try {
-				user = new User("data/user");
+				user = User.loadUser("data/user");
 			} catch (Exception e1) {
+				newUser = true;
 				user = new User();
 			}
         	splash.loadingUpdate("Creating GUI elements");
@@ -85,7 +88,15 @@ public class Main extends Application
         	window.setScene(scene);
         	homeScreen.startShowing();
         	window.sizeToScene();
-        	window.centerOnScreen();
+        	if(newUser)
+        	{
+        		window.centerOnScreen();
+        	}
+        	else
+        	{
+        		window.setX(user.getWindowX());
+            	window.setY(user.getWindowY());
+        	}
         	window.show();
         });
         
@@ -96,7 +107,8 @@ public class Main extends Application
 	
 	void onQuit()
 	{
-		user.saveUser("data/user");
+		user.setMainWindowPosSave(window.getX(), window.getY());
+		User.saveUser(user, "data/user");
 		System.exit(0);
 	}
 	

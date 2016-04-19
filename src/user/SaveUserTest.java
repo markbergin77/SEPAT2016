@@ -15,7 +15,7 @@ public class SaveUserTest
 			User user = User.create();
 			user.getFavs().add(Favourite.create(stations.get(0)));
 			user.getFavs().add(Favourite.create(stations.get(3)));
-			user.saveUser("data/user");
+			User.saveUser(user, "data/user");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
