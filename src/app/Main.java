@@ -14,6 +14,7 @@ import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import user.Favourite;
 import user.User;
 
 public class Main extends Application 
@@ -105,21 +106,25 @@ public class Main extends Application
 	}
 
 	@Override
-	public void onOpenTempPlot(Station station) 
+	public void onOpen72TempPlot(Station station) 
 	{
-		TempPlot tempPlot = new TempPlot(station);
+		TempPlot tempPlot72Hr = new TempPlot(station);
 		Stage newPlotWindow = new Stage();
-		Scene plotScene = new Scene(tempPlot);
+		Scene plotScene = new Scene(tempPlot72Hr);
 		newPlotWindow.setTitle("Temperature");
 		newPlotWindow.setScene(plotScene);
-		
 	}
 
 	@Override
 	public void onAddFav(Station station) 
 	{
-		/* Add to user's fav list
-		 * 
-		 */
+		/* Add to user's fav list */
+		if(! user.getFavs().hasForStation(station))
+		{
+			Favourite newFav = Favourite.create(station);
+			user.getFavs().add(newFav);
+			homeScreen.getExplorer().onAddFavourite(newFav);
+		}
+		
 	}
 }

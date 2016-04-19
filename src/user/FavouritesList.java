@@ -2,6 +2,8 @@ package user;
 
 import java.util.Vector;
 
+import data.Station;
+
 public class FavouritesList extends Vector<Favourite> 
 {
 	
@@ -15,6 +17,18 @@ public class FavouritesList extends Vector<Favourite>
 	{
 		FavouritesList favourites = new FavouritesList();
 		return favourites;
+	}
+
+	public boolean hasForStation(Station station) 
+	{
+		for (Favourite fav : this)
+		{
+			if(fav.getStation().equals(station))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

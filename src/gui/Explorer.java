@@ -6,6 +6,7 @@ import guiCallbacks.StationClicked;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
+import user.Favourite;
 import user.FavouritesList;
 
 /* Interface through which user selects weather stations.
@@ -41,6 +42,11 @@ public class Explorer extends StackPane
 		favouritesTab.setClosable(false);
 		tabPane.getTabs().addAll(allStationsTab, favouritesTab);
 		getChildren().addAll(tabPane);
+	}
+	
+	public void onAddFavourite(Favourite fav)
+	{
+		favouritesPane.addFavourite(fav);
 	}
 	
 	public void addStationsFav(FavouritesList stations, FavClicked listener)

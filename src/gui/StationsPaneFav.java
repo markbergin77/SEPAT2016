@@ -15,10 +15,7 @@ public class StationsPaneFav extends StationsPane
     	this.clickHandler = clickHandler;
     	for (Favourite fav : favs)
     	{
-    		FavButton node = new FavButton(fav);
-    		node.setOnMouseClicked(e -> onFavClicked(e));
-    		getVBox().getChildren().add(node);
-            node.toFront();
+    		addFavourite(fav);
     	}
     }
 	
@@ -26,5 +23,13 @@ public class StationsPaneFav extends StationsPane
 	{
 		FavButton button = (FavButton)e.getSource();
 		clickHandler.favClicked(button.getFav());
+	}
+	
+	public void addFavourite(Favourite fav)
+	{
+		FavButton node = new FavButton(fav);
+		node.setOnMouseClicked(e -> onFavClicked(e));
+		getVBox().getChildren().add(node);
+        node.toFront();
 	}
 }

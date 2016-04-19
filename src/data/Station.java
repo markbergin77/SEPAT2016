@@ -47,6 +47,14 @@ public class Station implements Serializable
 	{
 		// TODO Auto-generated constructor stub
 	}
+	
+	public boolean equals(Station station)
+	{
+		return this.name.equals(station.name) 
+				&& this.jsonUrl.equals(station.jsonUrl) 
+				&& this.htmlUrl.equals(station.htmlUrl)
+				&& this.state.equals(station.state);
+	}
 
 	// Function for filling Empty Station with data (periods of 30 minutes up to 3 days)
 	@Deprecated

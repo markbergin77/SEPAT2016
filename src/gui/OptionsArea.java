@@ -99,7 +99,7 @@ public class OptionsArea extends VBox
 	public void addTabForFav(Favourite fav) 
 	{
 		addingTabChecks();
-		OptionsTab newTab = new OptionsTab(fav.getStation().getName());
+		OptionsTabFav newTab = new OptionsTabFav(fav, callbackObj);
 		newTab.setOnClosed(e -> onTabClosed());
 		tabPane.getTabs().add(newTab);
 		onTabAdded();
@@ -108,7 +108,7 @@ public class OptionsArea extends VBox
 	public void addTabForStation(Station station) 
 	{
 		addingTabChecks();
-		OptionsTab newTab = new OptionsTab(station.getName());
+		OptionsTabBase newTab = new OptionsTabNotFav(station, callbackObj);
 		newTab.setOnClosed(e -> onTabClosed());
 		tabPane.getTabs().add(newTab);
 		onTabAdded();

@@ -10,7 +10,7 @@ public class Favourite implements Serializable
 	private Integer timesViewed;
 	Station station;
 	
-	private Favourite(Station loc, int timesViewed) 
+	public Favourite(Station loc, int timesViewed) 
 	{
 		this.station = loc;
 		this.timesViewed = timesViewed; 
