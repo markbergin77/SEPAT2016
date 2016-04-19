@@ -88,7 +88,8 @@ public class Bom
 				break;
 			}
 			catch(SocketTimeoutException e) {
-				System.out.println("Issue Connecting, Retrying, Attempt Number: " + i + 1);
+				int attemptNum = i + 1;
+				System.out.println("Attempting to Fetch Stations " + attemptNum);
 			}
 			i++;
 		}
@@ -305,7 +306,8 @@ public class Bom
 					break;
 				}
 				catch(SocketTimeoutException e) {
-					System.out.println("Issue Connecting, Retrying, Attempt Number: " + i + 1);
+					int attemptNum = i + 1;
+					System.out.println("Attempting to Fetch CSV " + attemptNum);
 				}
 				i++;
 			}

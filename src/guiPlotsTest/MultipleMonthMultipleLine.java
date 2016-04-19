@@ -85,6 +85,7 @@ public class MultipleMonthMultipleLine extends Application{
         
         Scene scene  = new Scene(lineChart,800,600);
         lineChart.getData().addAll(seriesMinTemp, seriesMaxTemp, series9amTemp, series3pmTemp);
+        lineChart.setCreateSymbols(false);
         graph.setScene(scene);
         URL url = this.getClass().getResource("graph.css");
         String css = url.toExternalForm();
