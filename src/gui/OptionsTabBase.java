@@ -16,6 +16,8 @@ public class OptionsTabBase extends Tab
 	VBox vbox;
 	String button72HrText = "Open 72 Hour Temperature Plot";
 	Button open72HrPlotButton = new Button(button72HrText);
+	String buttonHisTempTxt = "Open Historical Temperature Plot";
+	Button OpenHisTempPlotButton= new Button(buttonHisTempTxt);
 	public OptionsTabBase(Station station, GuiEventInterface eventHandler)
 	{
 		super();
@@ -25,8 +27,9 @@ public class OptionsTabBase extends Tab
 		this.eventHandler = eventHandler;
 		setText(station.getName());
 		open72HrPlotButton.setOnMouseClicked(e -> eventHandler.onOpen72TempPlot(station));
-		open72HrPlotButton.toFront();
+		
 		addOption(open72HrPlotButton);
+		
 	}
 	
 	void addOptionTop(Parent node)
