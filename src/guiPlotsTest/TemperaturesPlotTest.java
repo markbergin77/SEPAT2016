@@ -8,8 +8,6 @@ import data.StationList;
 import guiPlots.TemperaturesPlot;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.stage.Stage;
 
 public class TemperaturesPlotTest extends Application{
@@ -23,9 +21,9 @@ public class TemperaturesPlotTest extends Application{
 	{
 		//Grabbing stations
 		try {
-					allStations = Bom.getAllStations();
+			allStations = Bom.getAllStations();
 		} catch (Exception e1) {
-				e1.printStackTrace();
+			e1.printStackTrace();
 		}
 		
 		// Pick a station to test
@@ -37,11 +35,9 @@ public class TemperaturesPlotTest extends Application{
 			return;
 		}
 		
-		final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-		TemperaturesPlot lineChart = new TemperaturesPlot(station, xAxis, yAxis);
+		TemperaturesPlot lineChart = new TemperaturesPlot(station);
 		
-		Scene scene  = new Scene(lineChart,800,600);
+		Scene scene  = new Scene(lineChart);
 		primaryStage.setScene(scene);
         URL url = this.getClass().getResource("graph.css");
         String css = url.toExternalForm();

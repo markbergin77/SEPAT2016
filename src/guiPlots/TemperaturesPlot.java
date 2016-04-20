@@ -18,20 +18,25 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 
-public class TemperaturesPlot extends LineChart<String, Number>
+public class TemperaturesPlot extends GridPane
 {
-	final CategoryAxis xAxis = new CategoryAxis();
-    final NumberAxis yAxis = new NumberAxis();
+	
     
     
-	public TemperaturesPlot(Station station, CategoryAxis xAxis, NumberAxis yAxis) throws IOException {
-		super(xAxis, yAxis);
+	public TemperaturesPlot(Station station) throws IOException {
+		super();
+		final CategoryAxis xAxis = new CategoryAxis();
+	    final NumberAxis yAxis = new NumberAxis();
+	    LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
 		
 		xAxis.setLabel("Date");
         yAxis.setLabel("Temperature in Degrees");
-        this.setTitle(station.getName());
+        lineChart.setTitle(station.getName());
         
         YearMonth start = YearMonth.now().minusMonths(12);
         YearMonth end = YearMonth.now().plusMonths(1);
@@ -69,10 +74,10 @@ public class TemperaturesPlot extends LineChart<String, Number>
         		seriesTemp3pm.getData().add(new XYChart.Data<String, Number>(date,Float.parseFloat(temp3pm)));
         }
         
-        this.getData().addAll(seriesTempMin, seriesTempMax, seriesTemp9am, seriesTemp3pm);
+        lineChart.getData().addAll(seriesTempMin, seriesTempMax, seriesTemp9am, seriesTemp3pm);
         
      // Remove markers from line
-        this.setCreateSymbols(false);
+        lineChart.setCreateSymbols(false);
         
         // Hacky solution, add a css class to each line
         String[] lineClasses = {"tempMin", "tempMax", "temp9am", "temp3pm"};
@@ -82,14 +87,14 @@ public class TemperaturesPlot extends LineChart<String, Number>
         seriesTemp3pm.getNode().getStyleClass().add(lineClasses[3]);
         
         // Get access to the legend
-        Legend legend = (Legend)this.lookup(".chart-legend");
+        Legend legend = (Legend)lineChart.lookup(".chart-legend");
         ObservableList<Node> legendChildren = legend.getChildren();
         
         // Add a click listener to each legend item
         for (int i = 0; i < lineClasses.length; i++) {
         	Object legendChild = legendChildren.get(i);
         	// Need the "." as class specifier, e.g. .class
-        	Node line = this.lookup("." + lineClasses[i]);
+        	Node line = lineChart.lookup("." + lineClasses[i]);
         	((Node) legendChild).setOnMouseClicked(new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent e) {
@@ -102,5 +107,18 @@ public class TemperaturesPlot extends LineChart<String, Number>
                 }
             });
         }
+        
+        // Allow children to resize vertically
+        ColumnConstraints columnConstraints = new ColumnConstraints();
+        columnConstraints.setHgrow(Priority.ALWAYS);
+        this.getColumnConstraints().add(columnConstraints);
+        
+        // Allow children to resize horizontally
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setVgrow(Priority.ALWAYS);
+        this.getRowConstraints().add(rowConstraints);
+        
+        // add the lineChart to the gridPane
+        this.add(lineChart, 0, 0);
 	}
 }
