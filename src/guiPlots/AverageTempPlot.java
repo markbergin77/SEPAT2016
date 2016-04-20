@@ -134,5 +134,10 @@ public class AverageTempPlot extends GridPane {
 		System.out.println(average);
 		return average;
 	}
+	
+	public String getCssPath()
+	{
+		return cssPath;
+	}
 }
 
