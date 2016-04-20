@@ -84,7 +84,7 @@ public class MultipleMonthMultipleLine extends Application{
         	String temp9am = sample.getTemp9am();
         	String temp3pm = sample.getTemp3pm();
         	
-        	// Check if the string is null, due to FILE NOT FOUND
+        	// Check if the string is null or blank, due to FILE NOT FOUND
         	if (tempMin.length() > 0)
         		seriesTempMin.getData().add(new XYChart.Data(date,Float.parseFloat(tempMin)));
         	if (tempMax.length() > 0)
