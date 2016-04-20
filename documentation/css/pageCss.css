@@ -1,0 +1,34 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+div {
+    height: 100%;
+    float: left;
+}
+#left {
+    width:220px;
+    background-color: white;
+}
+#center {
+    
+    margin: auto;
+    width: 60%;
+    border: 3px solid #73AD21;
+    padding: 10px;
+}
+#right {
+    width: 220px;
+    background-color: white;
+}
+
+header {
+    
+    background: white;
+    margin: auto;
+    width: 50%;    
+    border: 3px solid black;
+}
+
+}
+
