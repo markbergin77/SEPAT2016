@@ -39,9 +39,7 @@ public class HisTempPlotTest extends Application{
 		
 		Scene scene  = new Scene(lineChart);
 		primaryStage.setScene(scene);
-        URL url = this.getClass().getResource(lineChart.getCssPath());
-        String css = url.toExternalForm();
-        scene.getStylesheets().add(css);
+        scene.getStylesheets().add(lineChart.getCssPath());
         primaryStage.show();
 		
 	}
