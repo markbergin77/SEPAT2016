@@ -5,12 +5,12 @@ import java.net.URL;
 import data.Bom;
 import data.Station;
 import data.StationList;
-import guiPlots.TemperaturesPlot;
+import guiPlots.HisTempPlot;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class TemperaturesPlotTest extends Application{
+public class HisTempPlotTest extends Application{
 	StationList allStations;
 	public static void main(String args[])
     {
@@ -35,11 +35,11 @@ public class TemperaturesPlotTest extends Application{
 			return;
 		}
 		
-		TemperaturesPlot lineChart = new TemperaturesPlot(station);
+		HisTempPlot lineChart = new HisTempPlot(station);
 		
 		Scene scene  = new Scene(lineChart);
 		primaryStage.setScene(scene);
-        URL url = this.getClass().getResource("graph.css");
+        URL url = this.getClass().getResource(lineChart.getCssPath());
         String css = url.toExternalForm();
         scene.getStylesheets().add(css);
         primaryStage.show();

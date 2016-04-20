@@ -8,7 +8,7 @@ import data.StationList;
 import guiCallbacks.StationClicked;
 
 /* List of all stations in BOM database */
-public class ExplorerPaneAllStations extends ExplorerPane
+public class ExplorerPaneAllStations extends ExplorerPaneBase
 {
     
     /* why the variable? Because otherwise,
@@ -16,7 +16,15 @@ public class ExplorerPaneAllStations extends ExplorerPane
        loop through all the buttons and change
        them individually. */
     StationClicked clickHandler;
-
+    
+    StationList stations;
+    
+    public ExplorerPaneAllStations(StationList stations)
+    {
+    	super();
+    }
+    
+    /* For testing */
     public ExplorerPaneAllStations()
     {
     	super();

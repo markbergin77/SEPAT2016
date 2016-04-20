@@ -15,7 +15,7 @@ public class HomeScreen extends GridPane
     static double defaultHeight = 400;
     
     GuiEventInterface callbackObj;
-
+    
     /* for testing purposes, no interaction */
     public HomeScreen()
     {

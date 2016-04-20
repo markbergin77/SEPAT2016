@@ -6,7 +6,7 @@ import user.Favourite;
 import user.FavouritesList;
 
 /* List of all stations in User's favourites list */
-public class ExplorerPaneFavourites extends ExplorerPane
+public class ExplorerPaneFavourites extends ExplorerPaneBase
 {
 	FavClicked clickHandler;
 	// used for when favourites are selected

@@ -1,5 +1,7 @@
 package app;
 import java.awt.Dimension;
+import java.io.IOException;
+import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import data.Bom;
@@ -10,6 +12,7 @@ import gui.HomeScreenInit;
 import gui.HomeScreen;
 import gui.SplashScreen;
 import guiPlots.TempPlot;
+import guiPlots.HisTempPlot;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -20,7 +23,7 @@ import user.User;
 public class Main extends Application 
 	implements GuiEventInterface
 {
-	/* This service will finish one at a time
+	/* This service will finish tasks one at a time
 	 * on another thread so that we don't block
 	 * the gui thread */
     ExecutorService exec = 
@@ -32,6 +35,8 @@ public class Main extends Application
 		        t.setDaemon(true); 
 		        return t ;
 		    });
+    
+    
     Stage window;
     Dimension homeWindowSize;
 	StationList allStations;
@@ -143,6 +148,17 @@ public class Main extends Application
 	@Override
 	public void onOpenHisTempPlot(Station station) 
 	{
-				
+		HisTempPlot tempPlot = null;
+		try {
+			tempPlot = new HisTempPlot(station);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Stage newWindow = new Stage();
+		Scene newScene = new Scene(tempPlot);
+		newScene.getStylesheets().add(tempPlot.getCssPath());
+		newWindow.setScene(newScene);
+		newWindow.show();
 	}
 }

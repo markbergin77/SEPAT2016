@@ -1,6 +1,7 @@
 package guiPlots;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.YearMonth;
 
 import com.sun.javafx.charts.Legend;
@@ -23,13 +24,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
-public class TemperaturesPlot extends GridPane
+public class HisTempPlot extends GridPane
 {
+	private String cssPath;
+	static String cssFileName = "HisTempPlot.css";
 	
-    
-    
-	public TemperaturesPlot(Station station) throws IOException {
+	public HisTempPlot(Station station) throws IOException
+	{
 		super();
+		URL url = this.getClass().getResource(cssFileName);
+        cssPath = url.toExternalForm();
 		final CategoryAxis xAxis = new CategoryAxis();
 	    final NumberAxis yAxis = new NumberAxis();
 	    LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
@@ -120,5 +124,10 @@ public class TemperaturesPlot extends GridPane
         
         // add the lineChart to the gridPane
         this.add(lineChart, 0, 0);
+	}
+
+	public String getCssPath()
+	{
+		return cssPath;
 	}
 }

@@ -17,6 +17,7 @@ public class OptionsPaneBase extends VBox
 	Button open72HrPlotButton = new Button(button72HrText);
 	String buttonHisTempTxt = "Open Historical Temperature Plot";
 	Button OpenHisTempPlotButton= new Button(buttonHisTempTxt);
+	
 	public OptionsPaneBase(Station station, GuiEventInterface eventHandler)
 	{
 		super();
@@ -26,7 +27,6 @@ public class OptionsPaneBase extends VBox
 		OpenHisTempPlotButton.setOnMouseClicked(e -> eventHandler.onOpenHisTempPlot(station));
 		addOption(OpenHisTempPlotButton);
 		addOption(open72HrPlotButton);
-		
 	}
 	
 	void removeOption(Parent node)

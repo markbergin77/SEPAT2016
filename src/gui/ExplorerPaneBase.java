@@ -3,18 +3,22 @@ package gui;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 /* Base class for lists of stations
  * is a child of the Explorer */
-public class ExplorerPane extends GridPane
+public class ExplorerPaneBase extends GridPane
 {
 	//Scroll box/list, where favorites are located on program
 	VBox vbox;
     ScrollPane scrollPane;
     TextField searchBox;
-    public ExplorerPane()
+    
+    
+    
+    public ExplorerPaneBase()
     {
     	super();
     	vbox = new VBox(0);
@@ -34,7 +38,10 @@ public class ExplorerPane extends GridPane
     
     void searchBoxKeyPressed(KeyEvent e)
     {
-    	
+    	if(e.getCode() == KeyCode.ENTER)
+    	{
+    		String searchTerm = searchBox.getText();
+    	}
     }
     
     public VBox getVBox()
