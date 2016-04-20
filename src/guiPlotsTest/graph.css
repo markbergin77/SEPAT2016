@@ -1,5 +1,4 @@
 .chart-series-line { 
-    /* Opacity refuses to work for some reason
-    -fx-opacity: 0.1; */
+    -fx-opacity: 0.8;
     -fx-stroke-width: 1.75px;
 }

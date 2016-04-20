@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
@@ -54,7 +55,14 @@ public class Bom
 	{
 		StationList stations = new StationList();
 		for (State state : State.values()) {
-			stations.addAll(getStations(state));
+			StationList allStations = getStations(state);
+			if (allStations != null) {
+				stations.addAll(allStations);
+			}
+			else {
+				return null;
+			}
+			
 		}
 		return stations;
 	}
@@ -90,6 +98,9 @@ public class Bom
 			catch(SocketTimeoutException e) {
 				int attemptNum = i + 1;
 				System.out.println("Attempting to Fetch Stations " + attemptNum);
+			}
+			catch(UnknownHostException e) {
+				System.out.println("Unknown Host, Possibly No Internet Connection");
 			}
 			i++;
 		}

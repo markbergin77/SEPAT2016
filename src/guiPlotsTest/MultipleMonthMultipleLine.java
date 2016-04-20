@@ -41,7 +41,13 @@ public class MultipleMonthMultipleLine extends Application{
 	}
 		
 		//Just using Charlton as a test
-		Station charlton = allStations.get(0);
+		Station charlton = null;
+		if (allStations != null) {
+			charlton = allStations.get(0);
+		}
+		else {
+			return;
+		}
 		graph.setTitle("Line Chart Sample");
 		
 		//Category axis is needed for non ints, while number is needed for ints
@@ -88,10 +94,7 @@ public class MultipleMonthMultipleLine extends Application{
         	if (temp3pm.length() > 0)
         		seriesTemp3pm.getData().add(new XYChart.Data(date,Float.parseFloat(temp3pm)));
         }
-        
-        Scene scene  = new Scene(lineChart,800,600);
-        graph.setScene(scene);
-        
+               
         lineChart.getData().addAll(seriesTempMin, seriesTempMax, seriesTemp9am, seriesTemp3pm);
         
         // Remove markers from line
@@ -126,6 +129,8 @@ public class MultipleMonthMultipleLine extends Application{
             });
         }
         
+        Scene scene  = new Scene(lineChart,800,600);
+        graph.setScene(scene);
         URL url = this.getClass().getResource("graph.css");
         String css = url.toExternalForm();
         scene.getStylesheets().add(css);
