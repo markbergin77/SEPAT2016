@@ -12,7 +12,7 @@ public class HomeScreen extends GridPane
     OptionsArea optionsArea;
     User user;
     
-    static double defaultHeight = 400;
+    public static double defaultHeight = 400;
     
     GuiEventInterface callbackObj;
     

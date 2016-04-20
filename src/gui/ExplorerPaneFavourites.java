@@ -33,7 +33,8 @@ public class ExplorerPaneFavourites extends ExplorerPaneBase
 	{
 		ExplorerButtonFav node = new ExplorerButtonFav(fav);
 		node.setOnMouseClicked(e -> onFavClicked(e));
-		getVBox().getChildren().add(node);
-        node.toFront();
+		addButton(node);
 	}
+
+	
 }

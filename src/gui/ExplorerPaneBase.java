@@ -1,5 +1,11 @@
 package gui;
 
+import java.util.Vector;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -16,7 +22,7 @@ public class ExplorerPaneBase extends GridPane
     ScrollPane scrollPane;
     TextField searchBox;
     
-    
+    Vector<Button> allButtons = new Vector<Button>();
     
     public ExplorerPaneBase()
     {
@@ -31,10 +37,36 @@ public class ExplorerPaneBase extends GridPane
     	searchBox = new TextField();
     	searchBox.setPromptText("Search...");
     	searchBox.setPrefWidth(scrollPane.getWidth());
-    	searchBox.setOnKeyPressed(e -> searchBoxKeyPressed(e));
+    	searchBox.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+			{
+				for(Button button: allButtons) {
+					String label = button.getText();
+					if (label.toLowerCase().contains(newValue.toLowerCase())) {
+						if(! vbox.getChildren().contains(button))
+						{
+							vbox.getChildren().add(button);
+						}
+					}
+					else {
+						if(vbox.getChildren().contains(button))
+						{
+							vbox.getChildren().remove(button);
+						}
+					}
+				}
+			}
+		});
     	add(searchBox, 0, 0);
     	add(scrollPane, 0, 1);
     }
+    
+    protected void addButton(Button node) 
+    {
+		vbox.getChildren().add(node);
+		allButtons.add(node);		
+	}
     
     void searchBoxKeyPressed(KeyEvent e)
     {

@@ -120,7 +120,7 @@ public class OptionsArea extends VBox
 		return false;
 	}
 	
-	void selectLastAddedTab()
+	public void selectLastAddedTab()
 	{
 		tabSelectionModel.select(
 				tabPane.getTabs().get(

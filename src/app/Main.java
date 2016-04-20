@@ -1,15 +1,14 @@
 package app;
 import java.awt.Dimension;
 import java.io.IOException;
-import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import data.Bom;
 import data.Station;
 import data.StationList;
 import gui.GuiEventInterface;
-import gui.HomeScreenInit;
 import gui.HomeScreen;
+import gui.HomeScreenInit;
 import gui.SplashScreen;
 import guiPlots.Plot72hrTemp;
 import guiPlots.PlotHistoricalTemp;

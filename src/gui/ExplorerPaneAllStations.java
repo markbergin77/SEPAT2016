@@ -49,8 +49,7 @@ public class ExplorerPaneAllStations extends ExplorerPaneBase
     	{
     		ExplorerButtonNotFav node = new ExplorerButtonNotFav(bomStation);
     		node.setOnMouseClicked(e -> onStationClicked(e));
-    		getVBox().getChildren().add(node);
-            node.toFront();
+    		addButton(node);
     	}
     }
     
