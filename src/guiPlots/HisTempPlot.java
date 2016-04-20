@@ -80,7 +80,7 @@ public class HisTempPlot extends GridPane
         
         lineChart.getData().addAll(seriesTempMin, seriesTempMax, seriesTemp9am, seriesTemp3pm);
         
-     // Remove markers from line
+        // Remove markers from line
         lineChart.setCreateSymbols(false);
         
         // Hacky solution, add a css class to each line

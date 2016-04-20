@@ -12,6 +12,7 @@ import gui.HomeScreenInit;
 import gui.HomeScreen;
 import gui.SplashScreen;
 import guiPlots.TempPlot;
+import guiPlots.CurrTempPlot;
 import guiPlots.HisTempPlot;
 import javafx.application.Application;
 import javafx.concurrent.Task;
@@ -125,11 +126,18 @@ public class Main extends Application
 	@Override
 	public void onOpen72TempPlot(Station station) 
 	{
-		TempPlot tempPlot72Hr = new TempPlot(station);
-		Stage newPlotWindow = new Stage();
-		Scene plotScene = new Scene(tempPlot72Hr);
-		newPlotWindow.setTitle("Temperature");
-		newPlotWindow.setScene(plotScene);
+		CurrTempPlot tempPlot = null;
+		try {
+			tempPlot = new CurrTempPlot(station);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Stage newWindow = new Stage();
+		Scene newScene = new Scene(tempPlot);
+		newScene.getStylesheets().add(tempPlot.getCssPath());
+		newWindow.setScene(newScene);
+		newWindow.show();
 	}
 
 	@Override
