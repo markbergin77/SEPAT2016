@@ -1,51 +1,40 @@
-package guiPlotsTest;
+package guiPlots;
 
+import java.io.IOException;
+import java.net.URL;
 
-import data.Bom;
 import data.Station;
-import data.StationList;
 import data.WthrSampleFine;
 import data.WthrSamplesFine;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.stage.Stage;
-//Testing class for line graph, includes viewing temperature of locations
-public class AveragePeriodTemps extends Application{
-	StationList allStations;
-	public static void main(String args[])
-    {
-        launch(args);
-    }
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 
+public class AverageTempPlot extends GridPane {
+
+	private String cssPath;
+	static String cssFileName = "HisTempPlot.css";
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public void start(Stage graph) throws Exception {
-		//Grabbing stations
-		try {
-			allStations = Bom.getAllStations();
-	} catch (Exception e1) {
-		e1.printStackTrace();
-	}
-		//Just using Charlston as a test
-		Station charlston = allStations.get(0);	
-		graph.setTitle("Line Chart Sample");
-		//Category axis is needed for non ints, while number is needed for ints
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Averages of daily periods");
-        yAxis.setLabel("Temperature in Degrees");
-        //Creates linechart based on string and number, can be changed to other things
-        final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);              
-        lineChart.setTitle("Last 72 hour averages");       
-        XYChart.Series temperatures = new XYChart.Series();
-        temperatures.setName(charlston.getName());
-        //Prints the weather for Charlston in the most recent time 
-        WthrSamplesFine tester = charlston.getWthrLast72hr();
+	public AverageTempPlot(Station station) throws IOException {
+		super();
+		URL url = this.getClass().getResource(cssFileName);
+        cssPath = url.toExternalForm();
+		final CategoryAxis xAxis = new CategoryAxis();
+	    final NumberAxis yAxis = new NumberAxis();
+	    LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
+        lineChart.setTitle(station.getName());
+        xAxis.setLabel("Time Periods");
+        yAxis.setLabel("Average Temperature in Degrees");
+        
+        WthrSamplesFine location = station.getWthrLast72hr();
+        
+        XYChart.Series<String, Number> temperatures = new XYChart.Series<String, Number>();
 
         //Need seperate list to associate each time of day with a specific "zone" or period
         WthrSamplesFine earlyMorns = new WthrSamplesFine();
@@ -54,12 +43,12 @@ public class AveragePeriodTemps extends Application{
         WthrSamplesFine lateNights = new WthrSamplesFine();
         
         //Goes through entire list of recorded location entries
-        for(int i=tester.size()-1 ; i > 0; i--)
+        for(int i=location.size()-1 ; i > 0; i--)
         {
         	int time24hours = 0;
         	
         	//Splits the given time date into it's raw form of xxxxam or pm
-        	String[] dateSplit = tester.get(i).getLocalDateTime().split("/");
+        	String[] dateSplit = location.get(i).getLocalDateTime().split("/");
         	String[] timeSplit = dateSplit[1].split(":");
         	String timeconcat = timeSplit[0] + timeSplit[1];
         	String finalTime;
@@ -88,7 +77,7 @@ public class AveragePeriodTemps extends Application{
         	
         	if(500 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) <= 1000)
         	{        		
-        		earlyMorns.add(tester.get(i));
+        		earlyMorns.add(location.get(i));
         		
         	}
         	//Weird situation checking inbetween periods of both am and pm (11am - 4pm), 12pm now turns to 2400 and we don't want to check 12
@@ -96,35 +85,44 @@ public class AveragePeriodTemps extends Application{
         	if(1100 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) <= 1600 & Integer.parseInt(finalTime) != 1200 
         	   || Integer.parseInt(finalTime) == 2400)
         	{
-        		middays.add(tester.get(i));
+        		middays.add(location.get(i));
         		
         	}
         	if(1700 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) <= 2200)
         	{
-        		nights.add(tester.get(i));
+        		nights.add(location.get(i));
         	
         	}
         	//once again, we don't want 2400 as that's 12 pm, we want am for this check
         	if(2300 <= Integer.parseInt(finalTime) & Integer.parseInt(finalTime) <= 2800 & Integer.parseInt(finalTime) != 2400 
              	   || Integer.parseInt(finalTime) == 1200)
         	{
-        		lateNights.add(tester.get(i));
+        		lateNights.add(location.get(i));
         		
         	}
         	
-        	//Now have to sort them by time in an array      	
-        }
+        }     	
+        
         temperatures.getData().add(new XYChart.Data("Early Morning Average",averageTemp(earlyMorns)));
         temperatures.getData().add(new XYChart.Data("Midday Average",averageTemp(middays)));  
         temperatures.getData().add(new XYChart.Data("Night Average",averageTemp(nights)));
         temperatures.getData().add(new XYChart.Data("Late Night Average",averageTemp(lateNights)));
-        Scene scene  = new Scene(lineChart,800,600);
-        lineChart.getData().add(temperatures);
-       
-        graph.setScene(scene);
-        graph.show();
+   
+        // Allow children to resize vertically
+        ColumnConstraints columnConstraints = new ColumnConstraints();
+        columnConstraints.setHgrow(Priority.ALWAYS);
+        this.getColumnConstraints().add(columnConstraints);
+        
+        // Allow children to resize horizontally
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setVgrow(Priority.ALWAYS);
+        this.getRowConstraints().add(rowConstraints);
+        
+        // add the lineChart to the gridPane
+        this.add(lineChart, 0, 0);
 	}
 	
+
 	float averageTemp(WthrSamplesFine samples)
 	{
 		float average = 0;
@@ -137,3 +135,4 @@ public class AveragePeriodTemps extends Application{
 		return average;
 	}
 }
+
