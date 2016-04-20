@@ -40,8 +40,14 @@ public class ExplorerPaneBase extends GridPane
     {
     	if(e.getCode() == KeyCode.ENTER)
     	{
-    		String searchTerm = searchBox.getText();
+    		searchBoxEnterPressed();
     	}
+    }
+    
+    void searchBoxEnterPressed()
+    {
+    	String searchTerm = searchBox.getText();
+    	
     }
     
     public VBox getVBox()

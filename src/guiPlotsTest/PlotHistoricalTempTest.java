@@ -5,12 +5,12 @@ import java.net.URL;
 import data.Bom;
 import data.Station;
 import data.StationList;
-import guiPlots.HisTempPlot;
+import guiPlots.PlotHistoricalTemp;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class HisTempPlotTest extends Application{
+public class PlotHistoricalTempTest extends Application{
 	StationList allStations;
 	public static void main(String args[])
     {
@@ -35,7 +35,7 @@ public class HisTempPlotTest extends Application{
 			return;
 		}
 		
-		HisTempPlot lineChart = new HisTempPlot(station);
+		PlotHistoricalTemp lineChart = new PlotHistoricalTemp(station);
 		
 		Scene scene  = new Scene(lineChart);
 		primaryStage.setScene(scene);

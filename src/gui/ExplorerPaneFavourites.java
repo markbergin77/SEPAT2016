@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.Vector;
+
 import guiCallbacks.FavClicked;
 import javafx.scene.input.MouseEvent;
 import user.Favourite;
@@ -9,6 +11,7 @@ import user.FavouritesList;
 public class ExplorerPaneFavourites extends ExplorerPaneBase
 {
 	FavClicked clickHandler;
+		
 	// used for when favourites are selected
 	public void createFavButtons(FavouritesList favs, 
     		FavClicked clickHandler)

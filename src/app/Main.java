@@ -11,9 +11,8 @@ import gui.GuiEventInterface;
 import gui.HomeScreenInit;
 import gui.HomeScreen;
 import gui.SplashScreen;
-import guiPlots.TempPlot;
-import guiPlots.CurrTempPlot;
-import guiPlots.HisTempPlot;
+import guiPlots.Plot72hrTemp;
+import guiPlots.PlotHistoricalTemp;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -126,9 +125,9 @@ public class Main extends Application
 	@Override
 	public void onOpen72TempPlot(Station station) 
 	{
-		CurrTempPlot tempPlot = null;
+		Plot72hrTemp tempPlot = null;
 		try {
-			tempPlot = new CurrTempPlot(station);
+			tempPlot = new Plot72hrTemp(station);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -156,9 +155,9 @@ public class Main extends Application
 	@Override
 	public void onOpenHisTempPlot(Station station) 
 	{
-		HisTempPlot tempPlot = null;
+		PlotHistoricalTemp tempPlot = null;
 		try {
-			tempPlot = new HisTempPlot(station);
+			tempPlot = new PlotHistoricalTemp(station);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -16,12 +16,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
-public class AverageTempPlot extends GridPane {
+public class PlotAveTemp extends PlotBase 
+{
 
 	private String cssPath;
 	static String cssFileName = "HisTempPlot.css";
 	
-	public AverageTempPlot(Station station) throws IOException {
+	public PlotAveTemp(Station station) throws IOException {
 		super();
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();

@@ -14,7 +14,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 //Testing class for line graph, includes viewing temperature of locations
-public class AveragePeriodTemps extends Application{
+public class PlotAveTempTest extends Application{
 	StationList allStations;
 	public static void main(String args[])
     {

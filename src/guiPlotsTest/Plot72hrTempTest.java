@@ -3,12 +3,12 @@ package guiPlotsTest;
 import data.Bom;
 import data.Station;
 import data.StationList;
-import guiPlots.CurrTempPlot;
+import guiPlots.Plot72hrTemp;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class CurrTempPlotTest extends Application{
+public class Plot72hrTempTest extends Application{
 	StationList allStations;
 	public static void main(String args[])
     {
@@ -33,7 +33,7 @@ public class CurrTempPlotTest extends Application{
 			return;
 		}
 		
-		CurrTempPlot lineChart = new CurrTempPlot(station);
+		Plot72hrTemp lineChart = new Plot72hrTemp(station);
 		
 		Scene scene  = new Scene(lineChart);
 		primaryStage.setScene(scene);

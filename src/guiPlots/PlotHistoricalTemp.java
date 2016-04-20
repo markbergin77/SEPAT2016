@@ -24,12 +24,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
-public class HisTempPlot extends GridPane
+public class PlotHistoricalTemp extends PlotBase
 {
 	private String cssPath;
 	static String cssFileName = "HisTempPlot.css";
 	
-	public HisTempPlot(Station station) throws IOException
+	public PlotHistoricalTemp(Station station) throws IOException
 	{
 		super();
 		URL url = this.getClass().getResource(cssFileName);
