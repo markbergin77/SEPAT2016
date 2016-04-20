@@ -55,6 +55,12 @@ public class guiTableTest extends Application {
         TableColumn<WthrSampleDaily, String> temp9am = new TableColumn<>("temp9am");
         TableColumn<WthrSampleDaily, String> temp3pm = new TableColumn<>("temp3pm");
 
+        date.setSortable(false);
+        maxTemp.setSortable(false);
+        minTemp.setSortable(false);
+        temp3pm.setSortable(false);
+        temp9am.setSortable(false);
+
         TableColumn<WthrSampleDaily, String> windDir9am = new TableColumn<>("windDir9am");
         TableColumn<WthrSampleDaily, String> windSpd9am = new TableColumn<>("windSpd9am");
         TableColumn<WthrSampleDaily, String> windDir3pm = new TableColumn<>("windDir3pm");
@@ -62,6 +68,14 @@ public class guiTableTest extends Application {
         TableColumn<WthrSampleDaily, String> maxWindGustDir = new TableColumn<>("maxWindGustDir");
         TableColumn<WthrSampleDaily, String> maxWindGustSpd = new TableColumn<>("maxWindGustSpd");
         TableColumn<WthrSampleDaily, String> maxWindGustTime = new TableColumn<>("maxWindGustTime");
+
+        windDir3pm.setSortable(false);
+        windDir9am.setSortable(false);
+        windSpd3pm.setSortable(false);
+        windSpd9am.setSortable(false);
+        maxWindGustDir.setSortable(false);
+        maxWindGustSpd.setSortable(false);
+        maxWindGustTime.setSortable(false);
 
         TableColumn<WthrSampleDaily, String> relHumidity9am = new TableColumn<>("relHumidity9am");
         TableColumn<WthrSampleDaily, String> relHumidity3pm = new TableColumn<>("relHumidity3pm");
@@ -73,6 +87,11 @@ public class guiTableTest extends Application {
         TableColumn<WthrSampleDaily, String> evap = new TableColumn<>("Evaporation");
         TableColumn<WthrSampleDaily, String> sun = new TableColumn<>("sun");
 
+        relHumidity3pm.setSortable(false);
+        relHumidity9am.setSortable(false);
+        rain.setSortable(false);
+        evap.setSortable(false);
+        sun.setSortable(false);
 
         date.setCellValueFactory(new PropertyValueFactory<WthrSampleDaily, String>("date"));
         maxTemp.setCellValueFactory(new PropertyValueFactory<WthrSampleDaily, String>("maxTemp"));
@@ -104,6 +123,7 @@ public class guiTableTest extends Application {
         TableColumn humidity = new TableColumn("Humidity");
         TableColumn pressure = new TableColumn("Pressure");
 
+
         temp.getColumns().addAll(maxTemp, minTemp, temp9am, temp3pm);
         wind.getColumns().addAll(windDir9am, windSpd9am, windDir3pm, windSpd3pm,
                 maxWindGustDir, maxWindGustSpd, maxWindGustTime);
@@ -111,15 +131,17 @@ public class guiTableTest extends Application {
         pressure.getColumns().addAll(meanSeaLevelPressure9am, meanSeaLevelPressure3pm);
 
         dataTable.getColumns().setAll(date, temp, wind, humidity, pressure);
-        dataTable.setMinSize(1000,500);
+        dataTable.setMinSize(780,450);
+        dataTable.setEditable(false);
 
         VBox container = new VBox();
         container.setAlignment(Pos.CENTER);
         container.getChildren().add(dataTable);
-        container.setMinSize(1000,500);
+        container.setMinSize(780,450);
+
 
         Window.setTitle("Table test");
-        Scene scene = new Scene(container, 1000, 500);
+        Scene scene = new Scene(container, 780, 450);
         Window.setScene(scene);
         Window.show();
 
