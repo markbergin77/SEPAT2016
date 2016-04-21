@@ -53,7 +53,7 @@ public class Main extends Application
 	Scene scene;
 	User user;
 	boolean newUser = false;
-	PlotWindows openPlotWindows = new PlotWindows();
+	PlotWindows plotWindows = new PlotWindows();
 	
 	public static void main(String args[])
     {
@@ -117,6 +117,7 @@ public class Main extends Application
             	window.setY(user.getWindowY());
         	}
         	window.show();
+        	plotWindows.addAll(user.restorePlotWindows());
         });
         
         /* Now start the chain of tasks, 
@@ -155,7 +156,7 @@ public class Main extends Application
 			}
 		
 		PlotWindow newWindow = new PlotWindow(tempPlot);
-		openPlotWindows.add(newWindow);
+		plotWindows.add(newWindow);
 	}
 
 	@Override
@@ -188,6 +189,6 @@ public class Main extends Application
 			e.printStackTrace();
 		}
 		PlotWindow newWindow = new PlotWindow(tempPlot);
-		openPlotWindows.add(newWindow);
+		plotWindows.add(newWindow);
 	}
 }

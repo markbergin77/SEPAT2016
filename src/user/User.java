@@ -9,25 +9,43 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import data.Station;
+import guiPlots.PlotWindow;
+import guiPlots.PlotWindows;
 import javafx.scene.effect.Light.Point;
 
 public class User implements Serializable
 {
 	FavouritesList faves;
 	Integer mainWindowX, mainWindowY;
-	
+	PlotWindowsSaved storedPlots;
 	
 	public User()
 	{
 		mainWindowX = new Integer(0);
 		mainWindowY = new Integer(0);
 		faves = FavouritesList.create();
+		storedPlots = new PlotWindowsSaved();
 	}
 	
-	
-	User(boolean bullshit)
+
+	public PlotWindows restorePlotWindows()
 	{
-		
+		PlotWindows windowsOut = new PlotWindows();
+		for (PlotWindowSaved savedWindow : storedPlots)
+		{
+			/* Create a fully formed PlotWindow object and 
+			 * add it to windowsOut. */
+		}
+		return windowsOut;
+	}
+	
+	public void storePlotWindows(PlotWindows windows)
+	{
+		for (PlotWindow window : windows)
+		{
+			/* Create a PlotWindowSaved object 
+			 * and add it to storedPlots */
+		}
 	}
 	
 	public void setMainWindowPosSave(double d, double e)
@@ -73,7 +91,7 @@ public class User implements Serializable
 	
 	public static User loadUser(String pathToFile) throws FileNotFoundException
 	{
-		User newUser = new User(false);
+		User newUser = null;
 		try 
 		{
 			FileInputStream fis = new FileInputStream(pathToFile);

@@ -11,5 +11,11 @@ import java.util.Vector;
  * to be saved in the User file later */
 public class PlotWindows extends Vector<PlotWindow>
 {
-    
+    public void showAll()
+    {
+    	for (PlotWindow window : this)
+    	{
+    		window.show();
+    	}
+    }
 }

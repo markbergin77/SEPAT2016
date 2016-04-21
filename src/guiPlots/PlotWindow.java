@@ -10,11 +10,15 @@ import javafx.stage.Stage;
 public class PlotWindow extends Stage
 {
 	Scene scene;
+	PlotBase plot;
 	public PlotWindow(PlotBase plot)
 	{
+		this.plot = plot;
 		scene = new Scene(plot);
 		scene.getStylesheets().add(plot.getCssPath());
 		setScene(scene);
 		show();
 	}
+	
+	
 }
