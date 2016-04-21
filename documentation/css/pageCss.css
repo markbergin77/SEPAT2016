@@ -1,6 +1,8 @@
 html, body {
     height: 100%;
     margin: 0;
+    font-family:'Old Standard TT',serif;
+
 }
 div {
     height: 100%;
@@ -14,6 +16,7 @@ div {
     text-align:center;
     width:34%;
     display:inline-block;
+    height: 140%;
 
 }
 #right {
@@ -30,17 +33,17 @@ div {
 
 header {
   color: white; 
-  transition: all 500ms ease-in-out;
   width: 100%;
   height: 100px;
   text-align: center;
   background: #4dc3ff;
-  z-index: 2;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  line-height: 90px;
+  font-size:24px;
 }
 
 a {
     color: inherit;
+    text-decoration: none;
 }
 ul {
     vertical-align: middle
