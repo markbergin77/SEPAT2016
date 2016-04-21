@@ -41,7 +41,7 @@ public class User implements Serializable
 		try {
 
 			//change the path to whatever later
-			fos = new FileOutputStream("windowLocation.txt");
+			fos = new FileOutputStream("mainLocation.txt");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(mainWindowPos);
 			fos.close();

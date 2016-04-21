@@ -43,6 +43,7 @@ public class Main extends Application
 	Scene scene;
 	User user;
 	boolean newUser = false;
+	PlotWindowsOpen windowSaver;
 	
 	public static void main(String args[])
     {
@@ -112,6 +113,7 @@ public class Main extends Application
 	void onQuit()
 	{
 		user.setMainWindowPosSave(window.getX(), window.getY());
+		windowSaver.saveWindowLocations();
 		User.saveUser(user, "data/user");
 		System.exit(0);
 	}
@@ -136,6 +138,7 @@ public class Main extends Application
 		newScene.getStylesheets().add(tempPlot.getCssPath());
 		newWindow.setScene(newScene);
 		newWindow.show();
+		windowSaver.addWindow(newWindow);
 	}
 
 	@Override
@@ -166,5 +169,6 @@ public class Main extends Application
 		newScene.getStylesheets().add(tempPlot.getCssPath());
 		newWindow.setScene(newScene);
 		newWindow.show();
+		windowSaver.addWindow(newWindow);
 	}
 }
