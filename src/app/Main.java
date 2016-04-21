@@ -87,7 +87,6 @@ public class Main extends Application
 				splash.loadingUpdate("Something went wrong. Please restart");
 				return;
 			}
-        	
         	// Tricky: loadingUpdate actually does a runLater()
         	splash.loadingUpdate("Loading user");
 			try {

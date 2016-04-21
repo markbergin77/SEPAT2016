@@ -25,6 +25,9 @@ import com.google.gson.JsonSyntaxException;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 public class Station implements Serializable
 {
 	private String name;
@@ -277,8 +280,19 @@ public class Station implements Serializable
 
         public float[] findAverageTemps(Station station){
         
-        WthrSamplesFine location = station.getWthrLast72hr();
+        WthrSamplesFine location = new WthrSamplesFine();
+        try {
+			location = Bom.getWthrLast72hr(station);
+		} catch (IOException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Cannot access BoM JSON server");
+			alert.setContentText("Please check your internet connection and try again");
 
+			alert.showAndWait();
+			e.printStackTrace();
+			return null;	
+		}
         //Need seperate list to associate each time of day with a specific "zone" or period
         WthrSamplesFine earlyMorns = new WthrSamplesFine();
         WthrSamplesFine middays = new WthrSamplesFine();
