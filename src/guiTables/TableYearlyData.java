@@ -1,4 +1,4 @@
-package GuiTableTest;
+package guiTables;
 import data.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -15,34 +15,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Pavel Nikolaev on 20/04/2016.
+ * Created by Pavel Nikolaev on 21/04/2016.
  */
-public class guiTableTest extends Application {
 
-    StationList allStations;
+
+public class TableYearlyData extends Application{
+
     TableView dataTable;
 
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         launch(args);
     }
 
-    public void start(Stage Window) throws Exception {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
 
-        //----------------------------------------------------------------------------------//
-        // grabbing all the stations
+        StationList list = Bom.getAllStations();
+        displayTable(list.get(0));
+    }
 
-        try {
-            allStations = Bom.getAllStations();
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
 
-        //--------------------------------------------------------------------------------//
-        //  creating a table of monthly data. currently not styled
+    public void displayTable(Station station){
+
+        Stage window = new Stage();
+        window.setTitle(station.getName());
+
+        //  creating a table of monthly data
 
         dataTable = new TableView<WthrSampleDaily>();
-        ObservableList content = getData();
-        dataTable.setItems(content);
+        try {
+            ObservableList content = getData(station);
+            dataTable.setItems(content);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         //-------------------------------------------------------------------------------------//
         // in order to create a table you have to specify the class / type of object it is representing
@@ -139,15 +147,13 @@ public class guiTableTest extends Application {
         container.getChildren().add(dataTable);
         container.setMinSize(780,450);
 
-
-        Window.setTitle("Table test");
         Scene scene = new Scene(container, 780, 450);
-        Window.setScene(scene);
-        Window.show();
+        window.setScene(scene);
+        window.show();
 
     }
 
-    public ObservableList getData() throws Exception {
+    public ObservableList getData(Station station) throws Exception {
 
         // here we create a list of weather sample objects
         // each weather sample object contains data from charlton on a particular day
@@ -155,15 +161,13 @@ public class guiTableTest extends Application {
 
         List list = new ArrayList();
 
-        Station charlton = allStations.get(0);
         YearMonth start = YearMonth.now().minusMonths(12);
         YearMonth end = YearMonth.now().plusMonths(1);
 
-        WthrSamplesDaily dataCharlton = new WthrSamplesDaily();
-        dataCharlton = Bom.getWthrRange(charlton, start, end);
+        WthrSamplesDaily stationData = new WthrSamplesDaily();
 
-
-        for (WthrSampleDaily sample : dataCharlton) {
+        stationData = Bom.getWthrRange(station, start, end);
+        for (WthrSampleDaily sample : stationData) {
             list.add(sample);
         }
 
@@ -171,5 +175,4 @@ public class guiTableTest extends Application {
 
         return data;
     }
-
 }
