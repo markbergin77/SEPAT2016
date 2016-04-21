@@ -52,13 +52,25 @@ public class PlotWindowsOpen
 
     public void reOpenWindows(){
 
-        ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("javaObjects.txt"));
+        try {
+            FileInputStream fis = new FileInputStream("plotWindowLocations.txt");
+            ObjectInputStream os = new ObjectInputStream(fis);
 
+            WindowLocation windowLocation = (WindowLocation)os.readObject();
+
+        }catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException e1) {
+
+            // have a look at using the Alert.java class in the gui to raise
+            // alerts that the user can actually see
+            // instead of just printing the stack trace which the user
+            // probably wont understand anyway
+            // its a static method and no object instantiation needed
+            e1.printStackTrace();
+        }
+        catch(ClassNotFoundException e){
+            e.printStackTrace();
+        }
     }
-
-
-
-
-
-
 }
