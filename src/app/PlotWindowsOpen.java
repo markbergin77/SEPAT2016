@@ -56,7 +56,11 @@ public class PlotWindowsOpen
             FileInputStream fis = new FileInputStream("plotWindowLocations.txt");
             ObjectInputStream os = new ObjectInputStream(fis);
 
-            WindowLocation windowLocation = (WindowLocation)os.readObject();
+            WindowLocation windowLocation = (WindowLocation) os.readObject();
+            
+            while(!windowLocation.equals(null)) {
+                windowLocation = (WindowLocation) os.readObject();
+            }
 
         }catch (FileNotFoundException ex) {
             ex.printStackTrace();
