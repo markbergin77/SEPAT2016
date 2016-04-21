@@ -35,7 +35,7 @@ public class OptionsArea extends VBox
 	
 	VBox promptSpacingBox = new VBox();
 	int nTabs;
-		
+	
 	public OptionsArea(GuiEventInterface callbackObj)
 	{
 		this.callbackObj = callbackObj;
