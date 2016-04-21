@@ -87,7 +87,8 @@ public class Plot72hrTemp extends PlotBase
         // add the lineChart to the gridPane
         this.add(lineChart, 0, 0);
 	}
-
+	
+	@Override 
 	public String getCssPath()
 	{
 		return cssPath;

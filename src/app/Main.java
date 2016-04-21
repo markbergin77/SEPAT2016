@@ -18,6 +18,8 @@ import gui.HomeScreenInit;
 import gui.SplashScreen;
 import guiPlots.Plot72hrTemp;
 import guiPlots.PlotHistoricalTemp;
+import guiPlots.PlotWindow;
+import guiPlots.PlotWindows;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -51,7 +53,7 @@ public class Main extends Application
 	Scene scene;
 	User user;
 	boolean newUser = false;
-	PlotWindowsOpen windowSaver;
+	PlotWindows openPlotWindows = new PlotWindows();
 	
 	public static void main(String args[])
     {
@@ -125,7 +127,6 @@ public class Main extends Application
 	void onQuit()
 	{
 		user.setMainWindowPosSave(window.getX(), window.getY());
-		windowSaver.saveWindowLocations();
 		User.saveUser(user, "data/user");
 		System.exit(0);
 	}
@@ -153,12 +154,8 @@ public class Main extends Application
 				System.out.println(e.getStackTrace());
 			}
 		
-		Stage newWindow = new Stage();
-		Scene newScene = new Scene(tempPlot);
-		newScene.getStylesheets().add(tempPlot.getCssPath());
-		newWindow.setScene(newScene);
-		newWindow.show();
-		windowSaver.addWindow(newWindow);
+		PlotWindow newWindow = new PlotWindow(tempPlot);
+		openPlotWindows.add(newWindow);
 	}
 
 	@Override
@@ -190,11 +187,7 @@ public class Main extends Application
 			alert.showAndWait();
 			e.printStackTrace();
 		}
-		Stage newWindow = new Stage();
-		Scene newScene = new Scene(tempPlot);
-		newScene.getStylesheets().add(tempPlot.getCssPath());
-		newWindow.setScene(newScene);
-		newWindow.show();
-		windowSaver.addWindow(newWindow);
+		PlotWindow newWindow = new PlotWindow(tempPlot);
+		openPlotWindows.add(newWindow);
 	}
 }

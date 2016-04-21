@@ -136,6 +136,7 @@ public class PlotAveTemp extends PlotBase
 		return average;
 	}
 	
+	@Override
 	public String getCssPath()
 	{
 		return cssPath;

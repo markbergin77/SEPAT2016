@@ -8,4 +8,9 @@ public class PlotBase extends GridPane
 	{
 		super();
 	}
+	
+	public String getCssPath()
+	{
+		return null;
+	}
 }
