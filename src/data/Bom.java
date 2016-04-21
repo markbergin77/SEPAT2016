@@ -28,49 +28,70 @@ import com.google.gson.JsonSyntaxException;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
-/* Use this class to communicate with the 
- * bureau of meteorology and get information
- * about it.
+/**
+ * Static Class that accesses the BoM website to fetch weather data. Currently
+ * supports two types of historic weather data. Fine: 72hrs of ~30min readings
+ * in a JSON format. Coarse: up to 12mths of daily readings in a CSV format.
+ * 
+ * @author Mark Bergin, Radmilo Lega, Lawrence Millar-Madigan, Pavel Nikolaev
  */
 
-public class Bom 
+public class Bom
 {
-	enum State { vic, nsw, tas, wa, sa, nt, qld, ant };
-	
+	enum State
+	{
+		vic, nsw, tas, wa, sa, nt, qld, ant
+	};
+
 	static String[] bomStateAliases()
 	{
-		String[] states = { "vic", "nsw", "tas", "wa", "sa", "nt", "qld", "ant" };
+		String[] states =
+		{ "vic", "nsw", "tas", "wa", "sa", "nt", "qld", "ant" };
 		return states;
 	}
-	
-	/* The URL of a shtml page that contains a table 
-	 * of all of the state's stations. */
+
+	/*
+	 * The URL of a shtml page that contains a table of all of the state's
+	 * stations.
+	 */
 	static String stateAllUrl(State state)
 	{
 		String stateStr = stateName(state);
 		return "http://www.bom.gov.au/" + stateStr + "/observations/" + stateStr + "all.shtml";
 	}
-	// TO DO - ARCHIVE   MARK JOB ONLY 
+
+	// TO DO - ARCHIVE MARK JOB ONLY
 	public static StationList getAllStations() throws IOException
 	{
 		StationList stations = new StationList();
-		for (State state : State.values()) {
+		for (State state : State.values())
+		{
 			StationList allStations = getStations(state);
-			if (allStations != null) {
+			if (allStations != null)
+			{
 				stations.addAll(allStations);
-			}
-			else {
+			} else
+			{
 				return null;
 			}
-			
+
 		}
 		return stations;
 	}
-	// Adds station details to separate list, 
+
+	/**
+	 * Facilitates acquiring all stations on program startup and allows the
+	 * display of a progress bar.
+	 * 
+	 * @param progressNotifier
+	 *            LoadingUpdater to track fetch progress for loading bar
+	 * @return StationList containing Station objects of all stations
+	 * @throws IOException
+	 */
 	public static StationList getAllStations(LoadingUpdater progressNotifier) throws IOException
 	{
 		StationList stations = new StationList();
-		//Also provides info for user on current state
+		// Also provides info for user on current state
 		for (State state : State.values())
 		{
 			progressNotifier.loadingUpdate("Loading " + state + " stations");
@@ -79,33 +100,42 @@ public class Bom
 		progressNotifier.loadingUpdate("");
 		return stations;
 	}
-	//Grabs station location, saves details to object instances
+
+	/**
+	 * 
+	 * @param state
+	 *            The state to fetch data for, e.g. vic, nsw, qld.
+	 * @return StationList containing Station objects of specified station
+	 * @throws IOException
+	 */
 	public static StationList getStations(State state) throws IOException
 	{
-		//Use of Jsoup Framework
+		// Use of Jsoup Framework
 		StationList stations = new StationList();
 		int i = 0;
 		int numTries = 3;
 		Document doc = null;
 		Boolean successfulConnection = false;
-		while (i < numTries) {
-			try {
-				doc = Jsoup.connect(stateAllUrl(state))
-						.get();
+		while (i < numTries)
+		{
+			try
+			{
+				doc = Jsoup.connect(stateAllUrl(state)).get();
 				successfulConnection = true;
 				break;
-			}
-			catch(SocketTimeoutException e) {
+			} catch (SocketTimeoutException e)
+			{
 				int attemptNum = i + 1;
 				System.out.println("Attempting to Fetch Stations " + attemptNum);
-			}
-			catch(UnknownHostException e) {
+			} catch (UnknownHostException e)
+			{
 				System.out.println("Unknown Host, Possibly No Internet Connection");
 			}
 			i++;
 		}
-		
-		if (successfulConnection) {
+
+		if (successfulConnection)
+		{
 			Elements tbodies = doc.select("tbody");
 			Elements links = tbodies.select("a");
 			for (Element link : links)
@@ -114,8 +144,7 @@ public class Bom
 				if (url.contains("products") && !url.contains("#"))
 				{
 					String htmlUrl = "http://www.bom.gov.au" + url;
-					String jsonUrl = 
-							"http://www.bom.gov.au" + url.replace("products", "fwo").replace("shtml", "json");
+					String jsonUrl = "http://www.bom.gov.au" + url.replace("products", "fwo").replace("shtml", "json");
 					String name = link.text();
 					// Some names have an asterisk on the page
 					if (name.endsWith("*"))
@@ -124,19 +153,19 @@ public class Bom
 					}
 					// Returns station of Observations
 					stations.add(new Station(name, jsonUrl, htmlUrl, stateName(state)));
-					
+
 				}
 			}
 			return stations;
-		}
-		else {
+		} else
+		{
 			// could not connect
 			return null;
 		}
-		
+
 	}
-	
-	//List of fixed states needed to find appropriate stations
+
+	// List of fixed states needed to find appropriate stations
 	static String stateName(State state)
 	{
 		String stateStr = "";
@@ -171,17 +200,24 @@ public class Bom
 		}
 		return stateStr;
 	}
-	
-	// Function for filling Empty Station with data (periods of 30 minutes up to
-	// 3 days)
-	public static WthrSamplesFine getWthrLast72hr(Station station) {
+
+	/**
+	 * 
+	 * @param station
+	 *            the station to fetch fine data from
+	 * @return adds data to Station object supplied to method
+	 */
+	public static WthrSamplesFine getWthrLast72hr(Station station)
+	{
 		WthrSamplesFine samples = new WthrSamplesFine();
 		// Weather data for Recent observations stored as Json format.
-		try {
+		try
+		{
 			JsonArray rootArray = new JsonParser()
 					.parse(new BufferedReader(new InputStreamReader(new URL(station.getJsonUrl()).openStream())))
 					.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("data");
-			for (JsonElement element : rootArray) {
+			for (JsonElement element : rootArray)
+			{
 				// Grabs all information through BOM's JSON Data
 				JsonObject reading = element.getAsJsonObject();
 
@@ -274,17 +310,29 @@ public class Bom
 			}
 		}
 		// TODO
-		catch (JsonIOException e) {
-		} catch (JsonSyntaxException e) {
-		} catch (MalformedURLException e) {
-		} catch (IOException e) {
+		catch (JsonIOException e)
+		{
+		} catch (JsonSyntaxException e)
+		{
+		} catch (MalformedURLException e)
+		{
+		} catch (IOException e)
+		{
 		}
 		return samples;
 	}
 
-	// Function For grabbing broader (later) historical observations
-	// Date format YYYYMM, 201603 would be March 2016.
-	public static WthrSamplesDaily getWthrLastMonth(Station station, YearMonth date) throws IOException {
+	/**
+	 * 
+	 * @param station
+	 *            Station to fetch coarse data from
+	 * @param date
+	 *            which month of data to fetch, yyyyMM
+	 * @return adds data to Station object supplied to method
+	 * @throws IOException
+	 */
+	public static WthrSamplesDaily getWthrLastMonth(Station station, YearMonth date) throws IOException
+	{
 		String dateString = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
 		String thisMonth = YearMonth.now().format(DateTimeFormatter.ofPattern("yyyyMM"));
 		WthrSamplesDaily samples = null;
@@ -293,17 +341,22 @@ public class Bom
 		File monthPath = new File("data/" + station.getName() + '-' + thisMonth + ".csv");
 		File dirPath = new File("data");
 		// Checks directory for any previous downloads
-		if (!dirPath.isDirectory()) {
+		if (!dirPath.isDirectory())
+		{
 			dirPath.mkdir();
-		} else {
-			for (String fileName : dirPath.list()) {
-				// Don't use local data for current month, could have been updated
+		} else
+		{
+			for (String fileName : dirPath.list())
+			{
+				// Don't use local data for current month, could have been
+				// updated
 				if (fileName.equals(filePath.getName()) && !fileName.equals(monthPath.getName()))
 					fileExists = true;
 			}
 		}
 		// Grabs File, BOM represents this data in CSV format.
-		if (!fileExists) {
+		if (!fileExists)
+		{
 			String[] nextLine;
 			String url;
 			String csvUrl;
@@ -312,85 +365,117 @@ public class Bom
 			int numTries = 3;
 			Document doc = null;
 			Boolean successfulConnection = false;
-			
-			while (i < numTries) {
-				try {
+
+			while (i < numTries)
+			{
+				try
+				{
 					doc = Jsoup.connect(htmlUrl).get();
 					successfulConnection = true;
 					break;
-				}
-				catch(SocketTimeoutException e) {
+				} catch (SocketTimeoutException e)
+				{
 					int attemptNum = i + 1;
 					System.out.println("Attempting to Fetch CSV " + attemptNum);
 				}
 				i++;
 			}
-			
-			if (successfulConnection) {
+
+			if (successfulConnection)
+			{
 				Elements links = doc.select("a");
-				for (Element link : links) {
-					if (link.text().contains("Recent months")) {
+				for (Element link : links)
+				{
+					if (link.text().contains("Recent months"))
+					{
 						url = link.attr("href");
-						csvUrl = "http://www.bom.gov.au"
-								+ url.replace("dwo/", "dwo/" + dateString + "/text/").replace("latest.shtml", dateString + ".csv");
+						csvUrl = "http://www.bom.gov.au" + url.replace("dwo/", "dwo/" + dateString + "/text/")
+								.replace("latest.shtml", dateString + ".csv");
 
 						try (BufferedReader csvStream = new BufferedReader(
-								new InputStreamReader(new URL(csvUrl).openStream()))) {
+								new InputStreamReader(new URL(csvUrl).openStream())))
+						{
 							CSVReader csvReader = new CSVReader(csvStream);
-							try (CSVWriter csvWriter = new CSVWriter(new FileWriter(filePath))) {
-								while ((nextLine = csvReader.readNext()) != null) {
+							try (CSVWriter csvWriter = new CSVWriter(new FileWriter(filePath)))
+							{
+								while ((nextLine = csvReader.readNext()) != null)
+								{
 									csvWriter.writeNext(nextLine);
 								}
 							}
 							csvReader.close();
 						}
 						// Some locations lack desired data
-						catch (FileNotFoundException e) {
+						catch (FileNotFoundException e)
+						{
 							System.out.println("FILE NOT FOUND");
 							return null;
 						}
 					}
 				}
-			}
-			else {
+			} else
+			{
 				// Could not connect
 				return null;
 			}
-			
 		}
-		try (BufferedReader csvStream = new BufferedReader(new FileReader(filePath))) {
+		try (BufferedReader csvStream = new BufferedReader(new FileReader(filePath)))
+		{
 			CSVReader csvReader = new CSVReader(csvStream);
 			samples = processCsv(csvReader);
 		}
 		return samples;
 	}
-	
-	// [start, end), excludes end
-	public static WthrSamplesDaily getWthrRange(Station station, YearMonth start, YearMonth end) throws IOException {
+
+	/**
+	 * [start, end), excludes end
+	 * 
+	 * @param station
+	 *            Station to fetch coarse data from
+	 * @param start
+	 *            Starting month, inclusive
+	 * @param end
+	 *            Ending month, exclusive
+	 * @return
+	 * @throws IOException
+	 */
+	public static WthrSamplesDaily getWthrRange(Station station, YearMonth start, YearMonth end) throws IOException
+	{
 		WthrSamplesDaily samples = new WthrSamplesDaily();
-		while (!start.equals(end)) {
+		while (!start.equals(end))
+		{
 			WthrSamplesDaily sampleMonth = getWthrLastMonth(station, start);
-			if (sampleMonth != null) {
-				for (WthrSampleDaily sample: sampleMonth) {
+			if (sampleMonth != null)
+			{
+				for (WthrSampleDaily sample : sampleMonth)
+				{
 					samples.addElement(sample);
 				}
 			}
 			start = start.plusMonths(1);
 		}
-		
-		
+
 		return samples;
 	}
-	/*
-	 * Scrapes data from CSV file on line by line basis And adds to object
+
+	/**
+	 * Processes csv supplied into WthrSampleDaily objects.
+	 * 
+	 * @param csvReader
+	 *            access to csv data to process
+	 * @return
+	 * @throws IOException
 	 */
-	private static WthrSamplesDaily processCsv(CSVReader csvReader) throws IOException {
+	private static WthrSamplesDaily processCsv(CSVReader csvReader) throws IOException
+	{
 		String[] nextLine = null;
 		WthrSamplesDaily samples = new WthrSamplesDaily();
 
-		while ((nextLine = csvReader.readNext()) != null) {
+		while ((nextLine = csvReader.readNext()) != null)
+		{
 			// The csv files are irregular, don't know how many lines to skip
-			if (nextLine.length != 22 || nextLine[1].equals("Date")) {
+			if (nextLine.length != 22 || nextLine[1].equals("Date"))
+			{
 				continue;
 			}
 			String date = nextLine[1];
