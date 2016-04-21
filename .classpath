@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/uni/git/SEPAT2016/ext/gson-2.6.2/gson-2.6.2.jar"/>
-	<classpathentry kind="lib" path="/home/uni/git/SEPAT2016/ext/jsoup-1.8.3/jsoup-1.8.3.jar"/>
-	<classpathentry kind="lib" path="/home/uni/git/SEPAT2016/ext/opencsv-3.7/opencsv-3.7.jar"/>
-	<classpathentry kind="lib" path="/home/uni/git/SEPAT2016/ext/commons-lang3-3.0/commons-lang3-3.0.jar"/>
+	<classpathentry kind="lib" path="ext/gson-2.6.2/gson-2.6.2.jar"/>
+	<classpathentry kind="lib" path="ext/jsoup-1.8.3/jsoup-1.8.3.jar"/>
+	<classpathentry kind="lib" path="ext/opencsv-3.7/opencsv-3.7.jar"/>
+	<classpathentry kind="lib" path="ext/commons-lang3-3.0/commons-lang3-3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
