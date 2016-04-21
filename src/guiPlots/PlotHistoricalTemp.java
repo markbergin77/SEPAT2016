@@ -18,6 +18,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -29,9 +31,9 @@ public class PlotHistoricalTemp extends PlotBase
 	private String cssPath;
 	static String cssFileName = "HisTempPlot.css";
 	
-	public PlotHistoricalTemp(Station station) throws IOException
+	public PlotHistoricalTemp(Station station)
 	{
-		super();
+		super(station);
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();
 		final CategoryAxis xAxis = new CategoryAxis();
@@ -46,7 +48,18 @@ public class PlotHistoricalTemp extends PlotBase
         YearMonth end = YearMonth.now().plusMonths(1);
         
         WthrSamplesDaily wthrSamplesDaily = new WthrSamplesDaily();
-        wthrSamplesDaily = Bom.getWthrRange(station, start, end);
+        try {
+			wthrSamplesDaily = Bom.getWthrRange(station, start, end);
+		} catch (IOException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Cannot access BoM JSON server");
+			alert.setContentText("Please check your internet connection and try again");
+
+			alert.showAndWait();
+			e.printStackTrace();
+			return;
+		}
         
         // Init series
         XYChart.Series<String, Number> seriesTempMin = new XYChart.Series<String, Number>();

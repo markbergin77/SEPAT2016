@@ -23,6 +23,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -34,9 +36,9 @@ public class Plot72hrTemp extends PlotBase
 	private String cssPath;
 	static String cssFileName = "CurrTempPlot.css";
 	
-	public Plot72hrTemp(Station station) throws JsonIOException, JsonSyntaxException, MalformedURLException, IOException
+	public Plot72hrTemp(Station station) 
 	{
-		super();
+		super(station);
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();
 		final CategoryAxis xAxis = new CategoryAxis();
@@ -48,7 +50,18 @@ public class Plot72hrTemp extends PlotBase
         lineChart.setTitle(station.getName());
         
         WthrSamplesFine wthrSamplesFine = new WthrSamplesFine();
-        wthrSamplesFine = Bom.getWthrLast72hr(station);
+        try {
+			wthrSamplesFine = Bom.getWthrLast72hr(station);
+		} catch (JsonIOException | JsonSyntaxException | IOException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Cannot access BoM JSON server");
+			alert.setContentText("Please check your internet connection and try again");
+
+			alert.showAndWait();
+			e.printStackTrace();
+			return;
+		}
         
         // Init series
         XYChart.Series<String, Number> seriesAirTemp = new XYChart.Series<String, Number>();

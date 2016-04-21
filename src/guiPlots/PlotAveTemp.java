@@ -23,7 +23,7 @@ public class PlotAveTemp extends PlotBase
 	static String cssFileName = "HisTempPlot.css";
 	
 	public PlotAveTemp(Station station) throws IOException {
-		super();
+		super(station);
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();
 		final CategoryAxis xAxis = new CategoryAxis();

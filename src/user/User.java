@@ -33,8 +33,7 @@ public class User implements Serializable
 		PlotWindows windowsOut = new PlotWindows();
 		for (PlotWindowSaved savedWindow : storedPlots)
 		{
-			/* Create a fully formed PlotWindow object and 
-			 * add it to windowsOut. */
+			windowsOut.add(savedWindow.restorePlotWindow());
 		}
 		return windowsOut;
 	}
@@ -43,8 +42,7 @@ public class User implements Serializable
 	{
 		for (PlotWindow window : windows)
 		{
-			/* Create a PlotWindowSaved object 
-			 * and add it to storedPlots */
+			storedPlots.add(new PlotWindowSaved(window));
 		}
 	}
 	

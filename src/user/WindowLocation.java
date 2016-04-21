@@ -9,7 +9,7 @@ public class WindowLocation implements Serializable {
 
     // class for storing the users window position
 
-    private double xPos, yPos;
+    double xPos, yPos;
 
     public WindowLocation (double xPos, double yPos){
         this.xPos = xPos;

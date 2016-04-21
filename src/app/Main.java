@@ -118,6 +118,7 @@ public class Main extends Application
         	}
         	window.show();
         	plotWindows.addAll(user.restorePlotWindows());
+        	plotWindows.showAll();
         });
         
         /* Now start the chain of tasks, 
@@ -128,6 +129,7 @@ public class Main extends Application
 	void onQuit()
 	{
 		user.setMainWindowPosSave(window.getX(), window.getY());
+		user.storePlotWindows(plotWindows);
 		User.saveUser(user, "data/user");
 		System.exit(0);
 	}
@@ -140,22 +142,9 @@ public class Main extends Application
 	@Override
 	public void onOpen72TempPlot(Station station) 
 	{
-		Plot72hrTemp tempPlot = null;
-			try
-			{
-				tempPlot = new Plot72hrTemp(station);
-			} catch (Exception e)
-			{
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Error");
-				alert.setHeaderText("Cannot access BoM JSON server");
-				alert.setContentText("Please check your internet connection and try again");
-
-				alert.showAndWait();
-				System.out.println(e.getStackTrace());
-			}
-		
+		Plot72hrTemp tempPlot = new Plot72hrTemp(station);
 		PlotWindow newWindow = new PlotWindow(tempPlot);
+		newWindow.show();
 		plotWindows.add(newWindow);
 	}
 
@@ -169,26 +158,14 @@ public class Main extends Application
 			user.getFavs().add(newFav);
 			homeScreen.getExplorer().onAddFavourite(newFav);
 		}
-		
 	}
 
 	@Override
 	public void onOpenHisTempPlot(Station station) 
 	{
-		PlotHistoricalTemp tempPlot = null;
-		try {
-			tempPlot = new PlotHistoricalTemp(station);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Cannot access BoM JSON server");
-			alert.setContentText("Please check your internet connection and try again");
-
-			alert.showAndWait();
-			e.printStackTrace();
-		}
+		PlotHistoricalTemp tempPlot = new PlotHistoricalTemp(station);
 		PlotWindow newWindow = new PlotWindow(tempPlot);
+		newWindow.show();
 		plotWindows.add(newWindow);
 	}
 }
