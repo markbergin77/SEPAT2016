@@ -283,19 +283,22 @@ public class Bom
 	}
 
 	// Function For grabbing broader (later) historical observations
-	// Month in the format YYYYMM, 201603 would be March 2016.
+	// Date format YYYYMM, 201603 would be March 2016.
 	public static WthrSamplesDaily getWthrLastMonth(Station station, YearMonth date) throws IOException {
 		String dateString = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
+		String thisMonth = YearMonth.now().format(DateTimeFormatter.ofPattern("yyyyMM"));
 		WthrSamplesDaily samples = null;
 		Boolean fileExists = false;
 		File filePath = new File("data/" + station.getName() + '-' + dateString + ".csv");
+		File monthPath = new File("data/" + station.getName() + '-' + thisMonth + ".csv");
 		File dirPath = new File("data");
 		// Checks directory for any previous downloads
 		if (!dirPath.isDirectory()) {
 			dirPath.mkdir();
 		} else {
 			for (String fileName : dirPath.list()) {
-				if (fileName.equals(dateString))
+				// Don't use local data for current month, could have been updated
+				if (fileName.equals(filePath.getName()) && !fileName.equals(monthPath.getName()))
 					fileExists = true;
 			}
 		}
@@ -330,9 +333,6 @@ public class Bom
 						url = link.attr("href");
 						csvUrl = "http://www.bom.gov.au"
 								+ url.replace("dwo/", "dwo/" + dateString + "/text/").replace("latest.shtml", dateString + ".csv");
-
-						// Testing code
-						// System.out.println(this.getName() + " " + csvUrl);
 
 						try (BufferedReader csvStream = new BufferedReader(
 								new InputStreamReader(new URL(csvUrl).openStream()))) {
