@@ -16,7 +16,8 @@ div {
     text-align:center;
     width:34%;
     display:inline-block;
-    height: 140%;
+    height:auto;
+    overflow:auto;
 
 }
 #right {
@@ -48,6 +49,8 @@ a {
 ul {
     vertical-align: middle
 }
-
+img{
+  padding:10px;
+}
 }
 
