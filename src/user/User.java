@@ -28,13 +28,17 @@ public class User implements Serializable
 	}
 	
 
-	public PlotWindows restorePlotWindows()
+	public PlotWindows reconstructPlotWindows()
 	{
 		PlotWindows windowsOut = new PlotWindows();
 		for (PlotWindowSaved savedWindow : storedPlots)
 		{
 			windowsOut.add(savedWindow.restorePlotWindow());
 		}
+		/* If you don't do this, window left open on close
+		 * will restore on every open for ever. 
+		 * perhaps make different variable for "loaded" plotWindows? */
+		storedPlots.clear();
 		return windowsOut;
 	}
 	
@@ -50,31 +54,6 @@ public class User implements Serializable
 	{
 		mainWindowX = (int)d;
 		mainWindowY = (int)e;
-
-		WindowLocation mainWindowPos = new WindowLocation(mainWindowX, mainWindowY);
-
-		FileOutputStream fos;
-		try {
-
-			//change the path to whatever later
-			fos = new FileOutputStream("mainLocation.txt");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(mainWindowPos);
-			fos.close();
-			oos.close();
-		} catch (FileNotFoundException ex) {
-			ex.printStackTrace();
-		} catch (IOException e1) {
-
-			// have a look at using the Alert.java class in the gui to raise
-			// alerts that the user can actually see
-			// instead of just printing the stack trace which the user
-			// probably wont understand anyway
-			// its a static method and no object instantiation needed
-			e1.printStackTrace();
-		}
-
-
 	}
 	
 	public FavouritesList getFavs()

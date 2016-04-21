@@ -3,7 +3,7 @@ package guiPlotsTest;
 import data.Bom;
 import data.Station;
 import data.StationList;
-import guiPlots.Plot72hrTemp;
+import guiPlots.PlotLast72hrTemp;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -33,7 +33,7 @@ public class Plot72hrTempTest extends Application{
 			return;
 		}
 		
-		Plot72hrTemp lineChart = new Plot72hrTemp(station);
+		PlotLast72hrTemp lineChart = new PlotLast72hrTemp(station);
 		
 		Scene scene  = new Scene(lineChart);
 		primaryStage.setScene(scene);

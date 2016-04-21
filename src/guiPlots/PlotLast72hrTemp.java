@@ -31,12 +31,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 
-public class Plot72hrTemp extends PlotBase
+public class PlotLast72hrTemp extends PlotBase
 {
 	private String cssPath;
 	static String cssFileName = "CurrTempPlot.css";
 	
-	public Plot72hrTemp(Station station) 
+	public PlotLast72hrTemp(Station station) 
 	{
 		super(station);
 		URL url = this.getClass().getResource(cssFileName);

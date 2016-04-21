@@ -16,8 +16,9 @@ import gui.GuiEventInterface;
 import gui.HomeScreen;
 import gui.HomeScreenInit;
 import gui.SplashScreen;
-import guiPlots.Plot72hrTemp;
+import guiPlots.PlotLast72hrTemp;
 import guiPlots.PlotHistoricalTemp;
+import guiPlots.PlotType;
 import guiPlots.PlotWindow;
 import guiPlots.PlotWindows;
 import javafx.application.Application;
@@ -117,7 +118,11 @@ public class Main extends Application
             	window.setY(user.getWindowY());
         	}
         	window.show();
-        	plotWindows.addAll(user.restorePlotWindows());
+        	plotWindows.addAll(user.reconstructPlotWindows());
+        	plotWindows.setOnCloseRequest(event -> 
+        	{
+        		plotWindows.remove((PlotWindow)event.getSource());
+        	});
         	plotWindows.showAll();
         });
         
@@ -142,10 +147,21 @@ public class Main extends Application
 	@Override
 	public void onOpen72TempPlot(Station station) 
 	{
-		Plot72hrTemp tempPlot = new Plot72hrTemp(station);
-		PlotWindow newWindow = new PlotWindow(tempPlot);
-		newWindow.show();
-		plotWindows.add(newWindow);
+		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Last72Hr);
+		if(existingPlotWindow == null)
+		{		
+			PlotLast72hrTemp tempPlot = new PlotLast72hrTemp(station);
+			PlotWindow newWindow = new PlotWindow(tempPlot);
+			newWindow.show();
+			newWindow.setOnCloseRequest(e -> {
+				plotWindows.remove(newWindow);
+			});
+			plotWindows.add(newWindow);
+		}
+		else
+		{
+			existingPlotWindow.toFront();
+		}
 	}
 
 	@Override
@@ -163,9 +179,20 @@ public class Main extends Application
 	@Override
 	public void onOpenHisTempPlot(Station station) 
 	{
-		PlotHistoricalTemp tempPlot = new PlotHistoricalTemp(station);
-		PlotWindow newWindow = new PlotWindow(tempPlot);
-		newWindow.show();
-		plotWindows.add(newWindow);
+		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Historical);
+		if (existingPlotWindow == null)
+		{
+			PlotHistoricalTemp tempPlot = new PlotHistoricalTemp(station);
+			PlotWindow newWindow = new PlotWindow(tempPlot);
+			newWindow.show();
+			newWindow.setOnCloseRequest(e -> {
+				plotWindows.remove(newWindow);
+			});
+			plotWindows.add(newWindow);
+		}
+		else
+		{
+			existingPlotWindow.toFront();
+		}
 	}
 }
