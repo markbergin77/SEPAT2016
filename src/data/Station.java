@@ -27,9 +27,6 @@ import com.opencsv.CSVWriter;
 
 public class Station implements Serializable
 {
-	/**
-	 * 
-	 */
 	private String name;
 	private String jsonUrl;
 	private String htmlUrl;

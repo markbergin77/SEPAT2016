@@ -17,6 +17,7 @@ import gui.HomeScreen;
 import gui.HomeScreenInit;
 import gui.SplashScreen;
 import guiPlots.PlotLast72hrTemp;
+import guiPlots.PlotBase;
 import guiPlots.PlotHistoricalTemp;
 import guiPlots.PlotType;
 import guiPlots.PlotWindow;
@@ -118,11 +119,7 @@ public class Main extends Application
             	window.setY(user.getWindowY());
         	}
         	window.show();
-        	plotWindows.addAll(user.reconstructPlotWindows());
-        	plotWindows.setOnCloseRequest(event -> 
-        	{
-        		plotWindows.remove((PlotWindow)event.getSource());
-        	});
+        	addPlotWindows(user.reconstructPlotWindows());
         	plotWindows.showAll();
         });
         
@@ -143,6 +140,25 @@ public class Main extends Application
 	{
 		exec.submit(task);
 	}
+	
+	void openPlot(PlotBase plot)
+	{
+		PlotWindow newWindow = new PlotWindow(plot);
+		newWindow.show();
+		newWindow.setOnCloseRequest(e -> {
+			plotWindows.remove(newWindow);
+		});
+		plotWindows.add(newWindow);
+	}
+	
+	void addPlotWindows(PlotWindows windows)
+	{
+		plotWindows.addAll(windows);
+    	plotWindows.setOnCloseRequest(event -> 
+    	{
+    		plotWindows.remove((PlotWindow)event.getSource());
+    	});
+	}
 
 	@Override
 	public void onOpen72TempPlot(Station station) 
@@ -150,13 +166,7 @@ public class Main extends Application
 		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Last72Hr);
 		if(existingPlotWindow == null)
 		{		
-			PlotLast72hrTemp tempPlot = new PlotLast72hrTemp(station);
-			PlotWindow newWindow = new PlotWindow(tempPlot);
-			newWindow.show();
-			newWindow.setOnCloseRequest(e -> {
-				plotWindows.remove(newWindow);
-			});
-			plotWindows.add(newWindow);
+			openPlot(new PlotLast72hrTemp(station));
 		}
 		else
 		{
@@ -182,13 +192,7 @@ public class Main extends Application
 		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Historical);
 		if (existingPlotWindow == null)
 		{
-			PlotHistoricalTemp tempPlot = new PlotHistoricalTemp(station);
-			PlotWindow newWindow = new PlotWindow(tempPlot);
-			newWindow.show();
-			newWindow.setOnCloseRequest(e -> {
-				plotWindows.remove(newWindow);
-			});
-			plotWindows.add(newWindow);
+			openPlot(new PlotHistoricalTemp(station));
 		}
 		else
 		{

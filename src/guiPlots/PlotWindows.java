@@ -3,7 +3,7 @@ package guiPlots;
 import javafx.event.EventHandler;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
-import user.WindowLocation;
+import user.WindowProps;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -12,14 +12,15 @@ import guiPlots.PlotWindow;
 
 public class PlotWindowSaved implements Serializable
 {
-	WindowLocation location;
+	WindowProps props;
 	Station station;
 	PlotType type;
 	
 	public PlotWindowSaved(PlotWindow window)
 	{
 		PlotBase plot = window.getPlot();
-		this.location = new WindowLocation(window.getX(), window.getY());
+		this.props = new WindowProps(window.getX(), window.getY(),
+				window.getWidth(), window.getHeight());
 		this.station = plot.getStation();
 		if(plot instanceof PlotLast72hrTemp)
 		{
@@ -46,8 +47,10 @@ public class PlotWindowSaved implements Serializable
 			break;
 		}
 		PlotWindow window = new PlotWindow(plot);
-		window.setX(location.xPos);
-		window.setY(location.yPos);
+		window.setX(props.xPos);
+		window.setY(props.yPos);
+		window.setWidth(props.xSize);
+		window.setHeight(props.ySize);
 		return window;
 	}
 }
