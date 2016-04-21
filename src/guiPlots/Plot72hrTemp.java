@@ -1,9 +1,12 @@
 package guiPlots;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.YearMonth;
 
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.sun.javafx.charts.Legend;
 
 import data.Bom;
@@ -31,7 +34,7 @@ public class Plot72hrTemp extends PlotBase
 	private String cssPath;
 	static String cssFileName = "CurrTempPlot.css";
 	
-	public Plot72hrTemp(Station station) throws IOException
+	public Plot72hrTemp(Station station) throws JsonIOException, JsonSyntaxException, MalformedURLException, IOException
 	{
 		super();
 		URL url = this.getClass().getResource(cssFileName);

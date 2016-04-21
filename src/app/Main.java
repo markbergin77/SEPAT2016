@@ -1,8 +1,14 @@
 package app;
 import java.awt.Dimension;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+
 import data.Bom;
 import data.Station;
 import data.StationList;
@@ -15,6 +21,8 @@ import guiPlots.PlotHistoricalTemp;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import user.Favourite;
 import user.User;
@@ -64,14 +72,18 @@ public class Main extends Application
         		/* Pass in splash so that this function can update
         		 * the splash screen's text when something changes.*/
 					allStations = Bom.getAllStations(splash);
-			} catch (Exception e1) {
+			} catch (UnknownHostException e) {
 				/* TODO User might not be able to connect to BOM!
 				 * Must put something on the splash screen,  
 				 * Use splash.loadingUpdate(String)
 				 * maybe retry connecting in a loop */
-				e1.printStackTrace();
 				splash.loadingUpdate("Error: couldn't connect. Please restart");
+				return;
+			} catch (Exception e) {
+				splash.loadingUpdate("Something went wrong. Please restart");
+				return;
 			}
+        	
         	// Tricky: loadingUpdate actually does a runLater()
         	splash.loadingUpdate("Loading user");
 			try {
@@ -127,12 +139,20 @@ public class Main extends Application
 	public void onOpen72TempPlot(Station station) 
 	{
 		Plot72hrTemp tempPlot = null;
-		try {
-			tempPlot = new Plot72hrTemp(station);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try
+			{
+				tempPlot = new Plot72hrTemp(station);
+			} catch (Exception e)
+			{
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Cannot access BoM JSON server");
+				alert.setContentText("Please check your internet connection and try again");
+
+				alert.showAndWait();
+				System.out.println(e.getStackTrace());
+			}
+		
 		Stage newWindow = new Stage();
 		Scene newScene = new Scene(tempPlot);
 		newScene.getStylesheets().add(tempPlot.getCssPath());
@@ -162,6 +182,12 @@ public class Main extends Application
 			tempPlot = new PlotHistoricalTemp(station);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Cannot access BoM JSON server");
+			alert.setContentText("Please check your internet connection and try again");
+
+			alert.showAndWait();
 			e.printStackTrace();
 		}
 		Stage newWindow = new Stage();

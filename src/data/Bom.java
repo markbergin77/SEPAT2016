@@ -61,7 +61,7 @@ public class Bom
 	}
 
 	// TO DO - ARCHIVE MARK JOB ONLY
-	public static StationList getAllStations() throws IOException
+	public static StationList getAllStations() throws UnknownHostException, IOException
 	{
 		StationList stations = new StationList();
 		for (State state : State.values())
@@ -108,7 +108,7 @@ public class Bom
 	 * @return StationList containing Station objects of specified station
 	 * @throws IOException
 	 */
-	public static StationList getStations(State state) throws IOException
+	public static StationList getStations(State state) throws IOException, UnknownHostException
 	{
 		// Use of Jsoup Framework
 		StationList stations = new StationList();
@@ -127,9 +127,6 @@ public class Bom
 			{
 				int attemptNum = i + 1;
 				System.out.println("Attempting to Fetch Stations " + attemptNum);
-			} catch (UnknownHostException e)
-			{
-				System.out.println("Unknown Host, Possibly No Internet Connection");
 			}
 			i++;
 		}
@@ -206,118 +203,110 @@ public class Bom
 	 * @param station
 	 *            the station to fetch fine data from
 	 * @return adds data to Station object supplied to method
+	 * @throws IOException
+	 * @throws MalformedURLException
+	 * @throws JsonSyntaxException
+	 * @throws JsonIOException
 	 */
 	public static WthrSamplesFine getWthrLast72hr(Station station)
+			throws JsonIOException, JsonSyntaxException, MalformedURLException, IOException
 	{
 		WthrSamplesFine samples = new WthrSamplesFine();
 		// Weather data for Recent observations stored as Json format.
-		try
+		JsonArray rootArray = new JsonParser()
+				.parse(new BufferedReader(new InputStreamReader(new URL(station.getJsonUrl()).openStream())))
+				.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("data");
+		for (JsonElement element : rootArray)
 		{
-			JsonArray rootArray = new JsonParser()
-					.parse(new BufferedReader(new InputStreamReader(new URL(station.getJsonUrl()).openStream())))
-					.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("data");
-			for (JsonElement element : rootArray)
-			{
-				// Grabs all information through BOM's JSON Data
-				JsonObject reading = element.getAsJsonObject();
+			// Grabs all information through BOM's JSON Data
+			JsonObject reading = element.getAsJsonObject();
 
-				String localDateTime;
-				JsonElement localDateTimeJson = reading.get("local_date_time");
-				if (localDateTimeJson.isJsonNull())
-					localDateTime = "-";
-				else
-					localDateTime = localDateTimeJson.getAsString();
+			String localDateTime;
+			JsonElement localDateTimeJson = reading.get("local_date_time");
+			if (localDateTimeJson.isJsonNull())
+				localDateTime = "-";
+			else
+				localDateTime = localDateTimeJson.getAsString();
 
-				String localDateTimeFull;
-				JsonElement localDateTimeFullJson = reading.get("local_date_time_full");
-				if (localDateTimeFullJson.isJsonNull())
-					localDateTimeFull = "-";
-				else
-					localDateTimeFull = localDateTimeFullJson.getAsString();
+			String localDateTimeFull;
+			JsonElement localDateTimeFullJson = reading.get("local_date_time_full");
+			if (localDateTimeFullJson.isJsonNull())
+				localDateTimeFull = "-";
+			else
+				localDateTimeFull = localDateTimeFullJson.getAsString();
 
-				String apparentT;
-				JsonElement apparentTJson = reading.get("apparent_t");
-				if (apparentTJson.isJsonNull())
-					apparentT = "-";
-				else
-					apparentT = apparentTJson.getAsString();
+			String apparentT;
+			JsonElement apparentTJson = reading.get("apparent_t");
+			if (apparentTJson.isJsonNull())
+				apparentT = "-";
+			else
+				apparentT = apparentTJson.getAsString();
 
-				String cloud;
-				JsonElement cloudJson = reading.get("cloud");
-				if (cloudJson.isJsonNull())
-					cloud = "-";
-				else
-					cloud = cloudJson.getAsString();
+			String cloud;
+			JsonElement cloudJson = reading.get("cloud");
+			if (cloudJson.isJsonNull())
+				cloud = "-";
+			else
+				cloud = cloudJson.getAsString();
 
-				String gustKmh;
-				JsonElement gustKmhJson = reading.get("gust_kmh");
-				if (gustKmhJson.isJsonNull())
-					gustKmh = "-";
-				else
-					gustKmh = gustKmhJson.getAsString();
+			String gustKmh;
+			JsonElement gustKmhJson = reading.get("gust_kmh");
+			if (gustKmhJson.isJsonNull())
+				gustKmh = "-";
+			else
+				gustKmh = gustKmhJson.getAsString();
 
-				String gustKt;
-				JsonElement gustKtJson = reading.get("gust_kt");
-				if (gustKtJson.isJsonNull())
-					gustKt = "-";
-				else
-					gustKt = gustKtJson.getAsString();
+			String gustKt;
+			JsonElement gustKtJson = reading.get("gust_kt");
+			if (gustKtJson.isJsonNull())
+				gustKt = "-";
+			else
+				gustKt = gustKtJson.getAsString();
 
-				String airTemp;
-				JsonElement airTempJson = reading.get("air_temp");
-				if (airTempJson.isJsonNull())
-					airTemp = "-";
-				else
-					airTemp = airTempJson.getAsString();
+			String airTemp;
+			JsonElement airTempJson = reading.get("air_temp");
+			if (airTempJson.isJsonNull())
+				airTemp = "-";
+			else
+				airTemp = airTempJson.getAsString();
 
-				String relHumidity;
-				JsonElement relHumidityJson = reading.get("rel_hum");
-				if (relHumidityJson.isJsonNull())
-					relHumidity = "-";
-				else
-					relHumidity = relHumidityJson.getAsString();
+			String relHumidity;
+			JsonElement relHumidityJson = reading.get("rel_hum");
+			if (relHumidityJson.isJsonNull())
+				relHumidity = "-";
+			else
+				relHumidity = relHumidityJson.getAsString();
 
-				String dewPt;
-				JsonElement dewPtJson = reading.get("dewpt");
-				if (dewPtJson.isJsonNull())
-					dewPt = "-";
-				else
-					dewPt = dewPtJson.getAsString();
+			String dewPt;
+			JsonElement dewPtJson = reading.get("dewpt");
+			if (dewPtJson.isJsonNull())
+				dewPt = "-";
+			else
+				dewPt = dewPtJson.getAsString();
 
-				String windDir;
-				JsonElement windDirJson = reading.get("wind_dir");
-				if (windDirJson.isJsonNull())
-					windDir = "-";
-				else
-					windDir = windDirJson.getAsString();
+			String windDir;
+			JsonElement windDirJson = reading.get("wind_dir");
+			if (windDirJson.isJsonNull())
+				windDir = "-";
+			else
+				windDir = windDirJson.getAsString();
 
-				String windSpdKmh;
-				JsonElement windSpdKmhJson = reading.get("wind_spd_kmh");
-				if (windSpdKmhJson.isJsonNull())
-					windSpdKmh = "-";
-				else
-					windSpdKmh = windSpdKmhJson.getAsString();
+			String windSpdKmh;
+			JsonElement windSpdKmhJson = reading.get("wind_spd_kmh");
+			if (windSpdKmhJson.isJsonNull())
+				windSpdKmh = "-";
+			else
+				windSpdKmh = windSpdKmhJson.getAsString();
 
-				String windSpdKt;
-				JsonElement windSpdKtJson = reading.get("wind_spd_kt");
-				if (windSpdKtJson.isJsonNull())
-					windSpdKt = "-";
-				else
-					windSpdKt = windSpdKtJson.getAsString();
-				// Add's Station's observation data to vector
-				samples.add(new WthrSampleFine(localDateTime, localDateTimeFull, apparentT, cloud, gustKmh, gustKt,
-						airTemp, relHumidity, dewPt, windDir, windSpdKmh, windSpdKt));
-			}
-		}
-		// TODO
-		catch (JsonIOException e)
-		{
-		} catch (JsonSyntaxException e)
-		{
-		} catch (MalformedURLException e)
-		{
-		} catch (IOException e)
-		{
+			String windSpdKt;
+			JsonElement windSpdKtJson = reading.get("wind_spd_kt");
+			if (windSpdKtJson.isJsonNull())
+				windSpdKt = "-";
+			else
+				windSpdKt = windSpdKtJson.getAsString();
+			// Add's Station's observation data to vector
+			samples.add(new WthrSampleFine(localDateTime, localDateTimeFull, apparentT, cloud, gustKmh, gustKt, airTemp,
+					relHumidity, dewPt, windDir, windSpdKmh, windSpdKt));
 		}
 		return samples;
 	}
@@ -406,11 +395,6 @@ public class Bom
 							csvReader.close();
 						}
 						// Some locations lack desired data
-						catch (FileNotFoundException e)
-						{
-							System.out.println("FILE NOT FOUND");
-							return null;
-						}
 					}
 				}
 			} else
