@@ -13,7 +13,7 @@ public class PlotBase extends VBox
 	/* So that we can overlay the same things 
 	 * on each plot child class */
 	ToolBar toolBar;
-	String refreshButtonLabel = "↻";
+	String refreshButtonLabel = "Refresh";
 	Button refreshButton;
 	
 	public PlotBase(Station station)

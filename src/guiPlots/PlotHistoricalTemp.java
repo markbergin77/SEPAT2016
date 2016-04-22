@@ -113,6 +113,11 @@ public class PlotHistoricalTemp extends PlotBase
 	private void addToAllSeries(WthrSamplesDaily wthrSamplesDaily) {
 		for(WthrSampleDaily sample: wthrSamplesDaily) {
         	String date = sample.getDate();
+        	String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
+        	String[] dateArray = date.split("-");
+        	int monthInt = Integer.parseInt(dateArray[1]);
+        	String month = months[monthInt - 1];
+        	date = dateArray[2] + "-" + month;
         	String tempMax = sample.getMaxTemp();
         	String tempMin = sample.getMinTemp();
         	String temp9am = sample.getTemp9am();
