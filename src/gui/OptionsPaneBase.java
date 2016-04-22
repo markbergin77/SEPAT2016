@@ -1,14 +1,11 @@
 package gui;
 
 import java.text.DecimalFormat;
-
 import data.Station;
-import data.StationList;
 import guiCallbacks.GuiEventInterface;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
 /* All the options for one station.
@@ -35,16 +32,6 @@ public class OptionsPaneBase extends VBox
 		float[] averageTemps = new float[3];
 		DecimalFormat roundtotwo = new DecimalFormat("##.00");
 		averageTemps = station.findAverageTemps(station);
-		Label labelHead = new Label(" Average Temperatures over the last three days:");
-		Label labelEarlyMornings = new Label(" From 5am-10am: " + roundtotwo.format(averageTemps[0]) + " degress celcius");
-		Label labelMidDays = new Label(" From 11am-4pm: " + roundtotwo.format(averageTemps[1]) + " degress celcius");
-		Label labelNights = new Label(" From 5pm-10pm: " + roundtotwo.format(averageTemps[2]) + " degress celcius");
-		Label labelLateNights = new Label(" From 11pm-4am: " + roundtotwo.format(averageTemps[3]) + " degress celcius");
-		/*addOption(labelHead);
-		addOption(labelEarlyMornings);
-		addOption(labelMidDays);
-		addOption(labelNights);
-		addOption(labelLateNights);*/
 		
 		plot72hrButton.setOnMouseClicked(e -> eventHandler.onOpen72TempPlot(station));
 		plotHisButton.setOnMouseClicked(e -> eventHandler.onOpenHisTempPlot(station));
@@ -54,6 +41,21 @@ public class OptionsPaneBase extends VBox
 		addOption(plotHisButton);
 		addOption(table72hrButton);
 		addOption(tableHisButton);
+		
+		//Cheap methods for spacing used
+		Label labelHead = new Label("		     Average Temperatures:");
+		Label labelEarlyMornings = new Label(" 	From 5am-10am: " + roundtotwo.format(averageTemps[0]) + " degress celcius");
+		Label labelMidDays = new Label(" 	From 11am-4pm: " + roundtotwo.format(averageTemps[1]) + " degress celcius");
+		Label labelNights = new Label(" 	From 5pm-10pm: " + roundtotwo.format(averageTemps[2]) + " degress celcius");
+		Label labelLateNights = new Label(" 	From 11pm-4am: " + roundtotwo.format(averageTemps[3]) + " degress celcius");
+		Label blankSpacing = new Label("");
+		addOptionText(blankSpacing);
+		addOptionText(labelHead);
+		addOptionText(labelEarlyMornings);
+		addOptionText(labelMidDays);
+		addOptionText(labelNights);
+		addOptionText(labelLateNights);
+		
 	}
 	
 	void removeOption(Parent node)
@@ -76,6 +78,12 @@ public class OptionsPaneBase extends VBox
 	{
 		node.setPrefWidth(OptionsArea.defaultWidth);
 		getChildren().add(node);
+	}
+	
+	void addOptionText(Label labelHead)
+	{
+		labelHead.setPrefWidth(OptionsArea.defaultWidth);
+		getChildren().add(labelHead);
 	}
 
 	public Station getStation() 

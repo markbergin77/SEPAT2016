@@ -1,7 +1,5 @@
 package gui;
 
-import java.util.Vector;
-
 import guiCallbacks.FavClicked;
 import javafx.scene.input.MouseEvent;
 import user.Favourite;

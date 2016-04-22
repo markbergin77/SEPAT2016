@@ -1,8 +1,6 @@
 package user;
 
-import java.io.IOException;
 import java.io.Serializable;
-
 import data.Station;
 import guiPlots.PlotLast72hrTemp;
 import guiPlots.PlotBase;

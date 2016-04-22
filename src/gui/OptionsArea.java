@@ -1,7 +1,5 @@
 package gui;
 
-import java.util.Vector;
-
 import data.Station;
 import guiCallbacks.GuiEventInterface;
 import javafx.geometry.Pos;
@@ -9,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import user.Favourite;

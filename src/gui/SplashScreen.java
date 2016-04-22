@@ -1,7 +1,6 @@
 package gui;
 
 import java.util.Vector;
-
 import data.LoadingUpdater;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -15,7 +14,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
