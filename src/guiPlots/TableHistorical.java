@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 
-public class TableYearlyData extends PlotBase
+public class TableHistorical extends PlotBase
 {
 	private String cssPath;
 	String cssFileName = "tables.css";
@@ -29,7 +29,7 @@ public class TableYearlyData extends PlotBase
 	
 	double tempFieldWidth = 36;
 	
-    public TableYearlyData(Station station) 
+    public TableHistorical(Station station) 
     {
 		super(station);
 		URL url = this.getClass().getResource(cssFileName);

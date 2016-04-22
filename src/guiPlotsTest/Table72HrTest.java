@@ -4,7 +4,7 @@ import data.Bom;
 import data.Station;
 import data.StationList;
 import guiPlots.PlotLast72hrTemp;
-import guiPlots.Table72HrData;
+import guiPlots.Table72Hr;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -34,7 +34,7 @@ public class Table72HrTest extends Application{
 			return;
 		}
 		
-		Table72HrData table = new Table72HrData(station);
+		Table72Hr table = new Table72Hr(station);
 		
 		Scene scene  = new Scene(table);
 		primaryStage.setScene(scene);

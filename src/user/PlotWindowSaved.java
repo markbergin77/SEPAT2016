@@ -9,8 +9,8 @@ import guiPlots.PlotBase;
 import guiPlots.PlotHistoricalTemp;
 import guiPlots.PlotType;
 import guiPlots.PlotWindow;
-import guiPlots.Table72HrData;
-import guiPlots.TableYearlyData;
+import guiPlots.Table72Hr;
+import guiPlots.TableHistorical;
 
 public class PlotWindowSaved implements Serializable
 {
@@ -32,11 +32,11 @@ public class PlotWindowSaved implements Serializable
 		{
 			type = PlotType.Historical;
 		}
-		else if(plot instanceof Table72HrData)
+		else if(plot instanceof Table72Hr)
 		{
 			type = PlotType.Table72Hr;
 		}
-		else if(plot instanceof TableYearlyData)
+		else if(plot instanceof TableHistorical)
 		{
 			type = PlotType.TableHistorical;
 		}
@@ -54,10 +54,10 @@ public class PlotWindowSaved implements Serializable
 			plot = new PlotLast72hrTemp(station);
 			break;
 		case Table72Hr:
-			plot = new Table72HrData(station);
+			plot = new Table72Hr(station);
 			break;
 		case TableHistorical:
-			plot = new TableYearlyData(station);
+			plot = new TableHistorical(station);
 		default:
 			break;
 		}

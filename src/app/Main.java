@@ -22,8 +22,8 @@ import guiPlots.PlotHistoricalTemp;
 import guiPlots.PlotType;
 import guiPlots.PlotWindow;
 import guiPlots.PlotWindows;
-import guiPlots.Table72HrData;
-import guiPlots.TableYearlyData;
+import guiPlots.Table72Hr;
+import guiPlots.TableHistorical;
 import guiTables.TableWindows72Hr;
 import guiTables.TableWindowsYearlyData;
 import javafx.application.Application;
@@ -212,7 +212,7 @@ public class Main extends Application
 		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Table72Hr);
 		if (existingPlotWindow == null)
 		{
-			openPlot(new Table72HrData(station));
+			openPlot(new Table72Hr(station));
 		}
 		else
 		{
@@ -228,7 +228,7 @@ public class Main extends Application
 		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Table72Hr);
 		if (existingPlotWindow == null)
 		{
-			openPlot(new TableYearlyData(station));
+			openPlot(new TableHistorical(station));
 		}
 		else
 		{

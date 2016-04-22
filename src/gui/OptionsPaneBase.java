@@ -23,7 +23,7 @@ public class OptionsPaneBase extends VBox
 	Button OpenHisTempPlotButton = new Button(buttonHisTempTxt);
 	String buttonTable72hrTxt = "Open 72hr Table";
 	Button OpenHisTable72hrButton = new Button(buttonTable72hrTxt);
-	String buttonTableYearlyTxt = "Open Yearly Table";
+	String buttonTableYearlyTxt = "Open Historical Table";
 	Button OpenHisTableYearlyButton = new Button(buttonTableYearlyTxt);
 	public OptionsPaneBase(Station station, GuiEventInterface eventHandler)
 	{

@@ -20,14 +20,14 @@ import java.util.List;
  * Created by Pavel Nikolaev on 21/04/2016.
  */
 
-public class Table72HrData extends PlotBase
+public class Table72Hr extends PlotBase
 {
 	private String cssPath;
 	String cssFileName = "tables.css";
 
 	TableView dataTable;
 	
-    public Table72HrData(Station station) 
+    public Table72Hr(Station station) 
     {
 		super(station);
 		URL url = this.getClass().getResource(cssFileName);

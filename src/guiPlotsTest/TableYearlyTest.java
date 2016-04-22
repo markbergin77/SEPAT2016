@@ -4,8 +4,8 @@ import data.Bom;
 import data.Station;
 import data.StationList;
 import guiPlots.PlotLast72hrTemp;
-import guiPlots.Table72HrData;
-import guiPlots.TableYearlyData;
+import guiPlots.Table72Hr;
+import guiPlots.TableHistorical;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -35,7 +35,7 @@ public class TableYearlyTest extends Application{
 			return;
 		}
 		
-		TableYearlyData table = new TableYearlyData(station);
+		TableHistorical table = new TableHistorical(station);
 		
 		Scene scene  = new Scene(table);
 		primaryStage.setScene(scene);
