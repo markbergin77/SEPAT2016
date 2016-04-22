@@ -1,23 +1,15 @@
 package guiPlots;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.YearMonth;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.sun.javafx.charts.Legend;
 
 import data.Bom;
 import data.Station;
-import data.WthrSampleDaily;
 import data.WthrSampleFine;
-import data.WthrSamplesDaily;
 import data.WthrSamplesFine;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -25,11 +17,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 
 public class PlotLast72hrTemp extends PlotBase
 {
@@ -55,16 +42,6 @@ public class PlotLast72hrTemp extends PlotBase
         
         // Remove markers from line
         lineChart.setCreateSymbols(false);
-
-        // Allow children to resize vertically
-        ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setHgrow(Priority.ALWAYS);
-        this.getColumnConstraints().add(columnConstraints);
-        
-        // Allow children to resize horizontally
-        RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setVgrow(Priority.ALWAYS);
-        this.getRowConstraints().add(rowConstraints);
         
         plot(station, seriesAirTemp);
         

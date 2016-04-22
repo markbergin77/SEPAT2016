@@ -21,9 +21,6 @@ import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 
 public class PlotHistoricalTemp extends PlotBase
 {
@@ -89,16 +86,6 @@ public class PlotHistoricalTemp extends PlotBase
                 }
             });
         }
-        
-        // Allow children to resize vertically
-        ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setHgrow(Priority.ALWAYS);
-        this.getColumnConstraints().add(columnConstraints);
-        
-        // Allow children to resize horizontally
-        RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setVgrow(Priority.ALWAYS);
-        this.getRowConstraints().add(rowConstraints);
         
         // add the lineChart to the gridPane
         assembleFrom(lineChart);
