@@ -98,7 +98,7 @@ public class PlotLast72hrTemp extends PlotBase
         this.getRowConstraints().add(rowConstraints);
         
         // add the lineChart to the gridPane
-        this.add(lineChart, 0, 0);
+        assembleFrom(lineChart);
 	}
 	
 	@Override 

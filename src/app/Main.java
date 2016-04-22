@@ -22,6 +22,8 @@ import guiPlots.PlotHistoricalTemp;
 import guiPlots.PlotType;
 import guiPlots.PlotWindow;
 import guiPlots.PlotWindows;
+import guiPlots.Table72HrData;
+import guiPlots.TableYearlyData;
 import guiTables.TableWindows72Hr;
 import guiTables.TableWindowsYearlyData;
 import javafx.application.Application;
@@ -58,8 +60,6 @@ public class Main extends Application
 	User user;
 	boolean newUser = false;
 	PlotWindows plotWindows = new PlotWindows();
-	TableWindows72Hr tables72Hr = new TableWindows72Hr();
-	TableWindowsYearlyData tablesYearlyData = new TableWindowsYearlyData();
 	
 	public static void main(String args[])
     {
@@ -207,28 +207,32 @@ public class Main extends Application
 	// test please --------------------------------
 	
 	@Override
-	public void onOpen72HrTable (Station station){
-		
-		String stationName = station.getName();
-		
-		if (tables72Hr.search(stationName) == false){
-			
-		}else{
-			tables72Hr.toFront(stationName);	
+	public void onOpen72HrTable (Station station)
+	{
+		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Table72Hr);
+		if (existingPlotWindow == null)
+		{
+			openPlot(new Table72HrData(station));
+		}
+		else
+		{
+			existingPlotWindow.toFront();
 		}
 	}
 	
 	// test please -------------------------------
 	
 	@Override
-	public void onOpenYearlyTable (Station station){
-		
-		String stationName = station.getName();
-		
-		if (tablesYearlyData.search(stationName) == false){
-			
-		}else{
-			tablesYearlyData.toFront(stationName);	
+	public void onOpenYearlyTable (Station station)
+	{
+		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Table72Hr);
+		if (existingPlotWindow == null)
+		{
+			openPlot(new TableYearlyData(station));
+		}
+		else
+		{
+			existingPlotWindow.toFront();
 		}
 	}
 	
