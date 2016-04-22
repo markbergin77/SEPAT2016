@@ -205,7 +205,8 @@ public class Main extends Application
 	
 	
 	// test please --------------------------------
-
+	
+	@Override
 	public void onOpen72HrTable (Station station){
 		
 		String stationName = station.getName();
@@ -219,6 +220,7 @@ public class Main extends Application
 	
 	// test please -------------------------------
 	
+	@Override
 	public void onOpenYearlyTable (Station station){
 		
 		String stationName = station.getName();

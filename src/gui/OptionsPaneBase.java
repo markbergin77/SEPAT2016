@@ -20,7 +20,11 @@ public class OptionsPaneBase extends VBox
 	String button72HrText = "Open 72 Hour Temperature Plot";
 	Button open72HrPlotButton = new Button(button72HrText);
 	String buttonHisTempTxt = "Open Historical Temperature Plot";
-	Button OpenHisTempPlotButton= new Button(buttonHisTempTxt);
+	Button OpenHisTempPlotButton = new Button(buttonHisTempTxt);
+	String buttonTable72hrTxt = "Open 72hr Table";
+	Button OpenHisTable72hrButton = new Button(buttonTable72hrTxt);
+	String buttonTableYearlyTxt = "Open Yearly Table";
+	Button OpenHisTableYearlyButton = new Button(buttonTableYearlyTxt);
 	public OptionsPaneBase(Station station, GuiEventInterface eventHandler)
 	{
 		super();
@@ -42,8 +46,12 @@ public class OptionsPaneBase extends VBox
 		
 		open72HrPlotButton.setOnMouseClicked(e -> eventHandler.onOpen72TempPlot(station));
 		OpenHisTempPlotButton.setOnMouseClicked(e -> eventHandler.onOpenHisTempPlot(station));
+		OpenHisTable72hrButton.setOnMouseClicked(e -> eventHandler.onOpen72HrTable(station));
+		OpenHisTableYearlyButton.setOnMouseClicked(e -> eventHandler.onOpenYearlyTable(station));
 		addOption(OpenHisTempPlotButton);
 		addOption(open72HrPlotButton);
+		addOption(OpenHisTable72hrButton);
+		addOption(OpenHisTableYearlyButton);
 	}
 	
 	void removeOption(Parent node)
