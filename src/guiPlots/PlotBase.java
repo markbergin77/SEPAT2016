@@ -14,7 +14,7 @@ public class PlotBase extends GridPane
 	/* So that we can overlay the same things 
 	 * on each plot child class */
 	StackPane plotStack;
-	String refreshButtonLabel = "Refresh";
+	String refreshButtonLabel = "↻";
 	Button refreshButton;
 	
 	public PlotBase(Station station)
@@ -44,7 +44,7 @@ public class PlotBase extends GridPane
 	{
 		plotStack.getChildren().add(node);
 		plotStack.getChildren().add(refreshButton);
-		StackPane.setAlignment(refreshButton, Pos.BOTTOM_RIGHT);
+		StackPane.setAlignment(refreshButton, Pos.TOP_LEFT);
 	}
 	
 	protected void reassembleFrom(Node node)
@@ -52,7 +52,7 @@ public class PlotBase extends GridPane
 		plotStack.getChildren().clear();
 		plotStack.getChildren().add(node);
 		plotStack.getChildren().add(refreshButton);
-		StackPane.setAlignment(refreshButton, Pos.BOTTOM_RIGHT);
+		StackPane.setAlignment(refreshButton, Pos.TOP_LEFT);
 	}
 	
 	protected void onRefresh()
