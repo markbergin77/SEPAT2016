@@ -59,6 +59,8 @@ public class PlotHistoricalTemp extends PlotBase
         // Remove markers from line
         lineChart.setCreateSymbols(false);
 
+        plot();
+        
         // Hacky solution, add a css class to each line
         String[] lineClasses = {"tempMin", "tempMax", "temp9am", "temp3pm"};
         seriesTempMin.getNode().getStyleClass().add(lineClasses[0]);
@@ -97,8 +99,6 @@ public class PlotHistoricalTemp extends PlotBase
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setVgrow(Priority.ALWAYS);
         this.getRowConstraints().add(rowConstraints);
-        
-        plot();
         
         // add the lineChart to the gridPane
         assembleFrom(lineChart);
