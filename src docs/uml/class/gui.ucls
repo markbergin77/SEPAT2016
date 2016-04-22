@@ -92,7 +92,7 @@
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <display labels="true" multiplicity="false"/>  
   </association>  
   <association id="13">    
     <end type="SOURCE" refId="1" navigable="false">      
@@ -104,7 +104,7 @@
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <display labels="true" multiplicity="false"/>  
   </association>  
   <association id="16">    
     <end type="SOURCE" refId="3" navigable="false">      
@@ -116,7 +116,7 @@
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <display labels="true" multiplicity="false"/>  
   </association>  
   <generalization id="19">    
     <end type="SOURCE" refId="4"/>    
@@ -136,7 +136,7 @@
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
+    <display labels="true" multiplicity="false"/>  
   </association>  
   <generalization id="24">    
     <end type="SOURCE" refId="5"/>    
