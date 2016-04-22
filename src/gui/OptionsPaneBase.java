@@ -1,14 +1,11 @@
 package gui;
 
 import java.text.DecimalFormat;
-
 import data.Station;
-import data.StationList;
 import guiCallbacks.GuiEventInterface;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
 /* All the options for one station.

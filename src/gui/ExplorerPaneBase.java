@@ -1,16 +1,12 @@
 package gui;
 
 import java.util.Vector;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 /* Base class for lists of stations
@@ -66,21 +62,7 @@ public class ExplorerPaneBase extends GridPane
     {
 		vbox.getChildren().add(node);
 		allButtons.add(node);		
-	}
-    
-    void searchBoxKeyPressed(KeyEvent e)
-    {
-    	if(e.getCode() == KeyCode.ENTER)
-    	{
-    		searchBoxEnterPressed();
-    	}
-    }
-    
-    void searchBoxEnterPressed()
-    {
-    	String searchTerm = searchBox.getText();
-    	
-    }
+	} 
     
     public VBox getVBox()
     {
