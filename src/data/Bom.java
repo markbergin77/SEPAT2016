@@ -323,9 +323,9 @@ public class Bom
 		String thisMonth = YearMonth.now().format(DateTimeFormatter.ofPattern("yyyyMM"));
 		WthrSamplesDaily samples = null;
 		Boolean fileExists = false;
-		File filePath = new File("data/" + station.getName() + '-' + dateString + ".csv");
-		File monthPath = new File("data/" + station.getName() + '-' + thisMonth + ".csv");
-		File dirPath = new File("data");
+		File filePath = new File("csv/" + station.getName() + '-' + dateString + ".csv");
+		File monthPath = new File("csv/" + station.getName() + '-' + thisMonth + ".csv");
+		File dirPath = new File("csv");
 		// Checks directory for any previous downloads
 		if (!dirPath.isDirectory())
 		{
