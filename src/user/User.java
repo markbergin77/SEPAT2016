@@ -7,11 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
 import data.Station;
 import guiPlots.PlotWindow;
 import guiPlots.PlotWindows;
-import javafx.scene.effect.Light.Point;
 
 public class User implements Serializable
 {

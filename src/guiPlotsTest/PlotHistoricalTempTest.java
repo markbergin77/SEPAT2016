@@ -1,7 +1,5 @@
 package guiPlotsTest;
 
-import java.net.URL;
-
 import data.Bom;
 import data.Station;
 import data.StationList;

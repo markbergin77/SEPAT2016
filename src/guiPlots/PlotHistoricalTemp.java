@@ -3,9 +3,7 @@ package guiPlots;
 import java.io.IOException;
 import java.net.URL;
 import java.time.YearMonth;
-
 import com.sun.javafx.charts.Legend;
-
 import data.Bom;
 import data.Station;
 import data.WthrSampleDaily;

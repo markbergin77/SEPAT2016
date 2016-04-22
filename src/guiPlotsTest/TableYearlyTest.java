@@ -3,8 +3,6 @@ package guiPlotsTest;
 import data.Bom;
 import data.Station;
 import data.StationList;
-import guiPlots.PlotLast72hrTemp;
-import guiPlots.Table72Hr;
 import guiPlots.TableHistorical;
 import javafx.application.Application;
 import javafx.scene.Scene;

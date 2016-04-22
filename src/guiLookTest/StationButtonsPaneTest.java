@@ -1,7 +1,5 @@
 package guiLookTest;
 
-import java.awt.Button;
-
 import data.Bom;
 import data.StationList;
 import gui.ExplorerButtonNotFav;
@@ -13,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class StationButtonsPaneTest extends Application
