@@ -48,6 +48,7 @@ public class PlotBase extends VBox
 	
 	protected void reassembleFrom(Node node)
 	{
+		getChildren().clear();
 		getChildren().add(toolBar);
 		getChildren().add(node);
 		VBox.setVgrow(node, Priority.ALWAYS);
