@@ -4,9 +4,19 @@
 }
 
 .chart-legend {
-    -fx-padding: 20px;
+    -fx-padding: 15px;
 }
 
 .chart-legend-item-symbol {
     -fx-fill: #000000;
+}
+
+.chart-vertical-grid-lines {
+    fx-stroke-width: 0;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke-width: 0;
+}
+.chart-alternative-row-fill {
+    -fx-stroke-width: 0;
 }
