@@ -35,10 +35,12 @@ public class PlotLast72hrTemp extends PlotBase
 {
 	private String cssPath;
 	static String cssFileName = "CurrTempPlot.css";
+	
 	final CategoryAxis xAxis = new CategoryAxis();
     final NumberAxis yAxis = new NumberAxis();
-    XYChart.Series<String, Number> seriesAirTemp = new XYChart.Series<String, Number>();
     LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
+    
+    XYChart.Series<String, Number> seriesAirTemp = new XYChart.Series<String, Number>();
     
 	public PlotLast72hrTemp(Station station) 
 	{
@@ -53,8 +55,6 @@ public class PlotLast72hrTemp extends PlotBase
         
         // Remove markers from line
         lineChart.setCreateSymbols(false);
-        
-        plot(station);
 
         // Allow children to resize vertically
         ColumnConstraints columnConstraints = new ColumnConstraints();
@@ -65,6 +65,8 @@ public class PlotLast72hrTemp extends PlotBase
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setVgrow(Priority.ALWAYS);
         this.getRowConstraints().add(rowConstraints);
+        
+        plot(station, seriesAirTemp);
         
         // add the lineChart to the gridPane
         assembleFrom(lineChart);
@@ -102,14 +104,14 @@ public class PlotLast72hrTemp extends PlotBase
         	
         	// Check if the string is null or blank
         	if (airTemp.length() > 0)
-        		seriesAirTemp.getData().add(new Data<String, Number>(date,Float.parseFloat(airTemp)));
+        		series.getData().add(new Data<String, Number>(date,Float.parseFloat(airTemp)));
         }
 	}
 	
-	private void plot(Station station) {
+	private void plot(Station station, XYChart.Series<String, Number> series) {
 		WthrSamplesFine wthrSamplesFine = getData(station);
-        addToSeries(wthrSamplesFine, seriesAirTemp);
-        lineChart.getData().add(seriesAirTemp);
+        addToSeries(wthrSamplesFine, series);
+        lineChart.getData().add(series);
 	}
 	
 	@Override
