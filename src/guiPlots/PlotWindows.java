@@ -42,13 +42,15 @@ public class PlotWindows extends Vector<PlotWindow>
 			case Table72Hr:
 				if(window.getPlot() instanceof Table72Hr)
 					rightType = true;
+				break;
 			case TableHistorical:
 				if(window.getPlot() instanceof TableHistorical)
 					rightType = true;
+				break;
 			default:
 				break;
 			}
-			if(rightType && window.getPlot().getStation() == station)
+			if(rightType && window.getPlot().getStation().equals(station))
 			{
 				return true;
 			}
@@ -75,13 +77,15 @@ public class PlotWindows extends Vector<PlotWindow>
 			case Table72Hr:
 				if(window.getPlot() instanceof Table72Hr)
 					rightType = true;
+				break;
 			case TableHistorical:
 				if(window.getPlot() instanceof TableHistorical)
 					rightType = true;
+				break;
 			default:
 				break;
 			}
-			if(rightType && window.getPlot().getStation() == station)
+			if(rightType && window.getPlot().getStation().equals(station))
 			{
 				return window;
 			}
