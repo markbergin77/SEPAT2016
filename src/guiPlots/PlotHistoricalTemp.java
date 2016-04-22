@@ -55,6 +55,8 @@ public class PlotHistoricalTemp extends PlotBase
         
         // Remove markers from line
         lineChart.setCreateSymbols(false);
+        lineChart.horizontalGridLinesVisibleProperty().set(false);
+        lineChart.verticalGridLinesVisibleProperty().set(false);
 
         plot();
         
@@ -111,8 +113,6 @@ public class PlotHistoricalTemp extends PlotBase
 	private void addToAllSeries(WthrSamplesDaily wthrSamplesDaily) {
 		for(WthrSampleDaily sample: wthrSamplesDaily) {
         	String date = sample.getDate();
-        	String[] dateArray = date.split("-");
-        	date = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0].substring(2);
         	String tempMax = sample.getMaxTemp();
         	String tempMin = sample.getMinTemp();
         	String temp9am = sample.getTemp9am();
