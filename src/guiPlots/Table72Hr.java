@@ -79,7 +79,7 @@ public class Table72Hr extends PlotBase
         windDir.setSortable(false);
 
 
-        date.setCellValueFactory(new PropertyValueFactory<WthrSampleFine, String>("localDateTimeFull"));
+        date.setCellValueFactory(new PropertyValueFactory<WthrSampleFine, String>("localDateTime"));
         gustKmh.setCellValueFactory(new PropertyValueFactory<WthrSampleFine, String>("gustKmh"));
         gustKt.setCellValueFactory(new PropertyValueFactory<WthrSampleFine, String>("gustKt"));
         airTemp.setCellValueFactory(new PropertyValueFactory<WthrSampleFine, String>("airTemp"));
