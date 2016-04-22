@@ -8,15 +8,18 @@ import javafx.scene.*;
 import javafx.stage.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
+import javafx.event.EventHandler;
 import javafx.geometry.*;
 
 
-public class Alert {
-
+public class Alert 
+{
+	Stage window;
     //Design and execution for any alerts needed
-    public static void displayAlert(String title, String message){
+    public Alert(String title, String message, EventHandler<WindowEvent> eventHandler)
+    {
 
-        Stage window = new Stage();
+        window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
 
         window.setTitle(title);
@@ -32,13 +35,12 @@ public class Alert {
         layout1.getChildren().addAll(label1,button1);
         layout1.setAlignment(Pos.CENTER);
 
-        Scene scene1 = new Scene(layout1,450,150);
+        Scene scene1 = new Scene(layout1);
 
         window.setScene(scene1);
         window.showAndWait();
-
-
+        window.setOnCloseRequest(eventHandler);
     }
 
-
+    
 }

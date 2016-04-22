@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import data.Bom;
 import data.Station;
 import data.StationList;
+import gui.Alert;
 import gui.HomeScreen;
 import gui.HomeScreenInit;
 import gui.SplashScreen;
@@ -51,6 +52,8 @@ public class Main extends Application
 	User user;
 	boolean newUser = false;
 	PlotWindows plotWindows = new PlotWindows();
+	String appName = "SEPAT2016";
+	MultipleInstanceLock preventMultInstances = new MultipleInstanceLock(appName);
 	
 	public static void main(String args[])
     {
@@ -61,7 +64,21 @@ public class Main extends Application
 	public void start(Stage window) throws Exception 
 	{
 		this.window = window;
-	    window.setTitle("SEPAT2016");
+		if(preventMultInstances.isAppActive())
+		{
+			Alert close = new Alert("Stop", "An instance of this program is already open. "
+					+ "\nPlease close the other instance or switch to it.",
+					e -> System.exit(0));
+		}
+		else
+		{
+			startAppNotDuplicate();
+		}
+	}
+	
+	private void startAppNotDuplicate() 
+	{
+		window.setTitle(appName);
 		window.setResizable(false);
         window.setOnCloseRequest(e -> onQuit());
         SplashScreen splash = new SplashScreen();
@@ -121,7 +138,7 @@ public class Main extends Application
          * getStationsTask was the first.*/
         queueTask(getStationsTask);
 	}
-	
+
 	void onQuit()
 	{
 		user.setMainWindowPosSave(window.getX(), window.getY());

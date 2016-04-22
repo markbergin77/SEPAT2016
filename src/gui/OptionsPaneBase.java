@@ -33,9 +33,6 @@ public class OptionsPaneBase extends VBox
 		setPrefWidth(OptionsArea.defaultWidth);
 		this.station = station;
 		this.eventHandler = eventHandler;
-		float[] averageTemps = new float[3];
-		DecimalFormat roundtotwo = new DecimalFormat("##.00");
-		averageTemps = station.findAverageTemps(station);
 		
 		plot72hrButton.setOnMouseClicked(e -> eventHandler.onOpen72TempPlot(station));
 		plotHisButton.setOnMouseClicked(e -> eventHandler.onOpenHisTempPlot(station));
@@ -48,7 +45,12 @@ public class OptionsPaneBase extends VBox
 		addOption(tableHisButton);
 		addOption(closePlotsButton);
 		
+		/* Some tasty data to add later */
 		//Cheap methods for spacing used
+		/*
+		float[] averageTemps = new float[3];
+		DecimalFormat roundtotwo = new DecimalFormat("##.00");
+		averageTemps = station.findAverageTemps(station);
 		Label labelHead = new Label("		     Average Temperatures:");
 		Label labelEarlyMornings = new Label(" 	From 5am-10am: " + roundtotwo.format(averageTemps[0]) + " degress celcius");
 		Label labelMidDays = new Label(" 	From 11am-4pm: " + roundtotwo.format(averageTemps[1]) + " degress celcius");
@@ -60,7 +62,7 @@ public class OptionsPaneBase extends VBox
 		addOptionText(labelEarlyMornings);
 		addOptionText(labelMidDays);
 		addOptionText(labelNights);
-		addOptionText(labelLateNights);
+		addOptionText(labelLateNights);*/
 		
 	}
 	
