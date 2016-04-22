@@ -46,7 +46,7 @@ public class Explorer extends StackPane
 	
 	public void onAddFavourite(Favourite fav)
 	{
-		favouritesPane.addFavourite(fav);
+		favouritesPane.addFavButton(fav);
 	}
 	
 	public void addStationsFav(FavouritesList stations, FavClicked listener)

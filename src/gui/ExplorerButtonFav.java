@@ -13,7 +13,7 @@ public class ExplorerButtonFav extends Button
 
 	public ExplorerButtonFav(Favourite fav)
 	    {
-	    	super(fav.getStation().getName());
+	    	super(fav.getStation().getName() + ", " + fav.getStation().getState());
 	    	this.fav = fav;
 	    	setMinWidth(buttonWidth);
 	    	setMaxWidth(buttonWidth);

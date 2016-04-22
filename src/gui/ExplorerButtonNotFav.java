@@ -16,7 +16,7 @@ public class ExplorerButtonNotFav extends Button
 
     public ExplorerButtonNotFav(Station station)
     {
-    	super(station.getName());
+    	super(station.getName() + ", " + station.getState());
     	this.station = station;
     	setMinWidth(buttonWidth);
     	setMaxWidth(buttonWidth);

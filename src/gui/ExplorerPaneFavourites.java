@@ -19,7 +19,7 @@ public class ExplorerPaneFavourites extends ExplorerPaneBase
     	this.clickHandler = clickHandler;
     	for (Favourite fav : favs)
     	{
-    		addFavourite(fav);
+    		addFavButton(fav);
     	}
     }
 	
@@ -29,7 +29,7 @@ public class ExplorerPaneFavourites extends ExplorerPaneBase
 		clickHandler.favClicked(button.getFav());
 	}
 	
-	public void addFavourite(Favourite fav)
+	public void addFavButton(Favourite fav)
 	{
 		ExplorerButtonFav node = new ExplorerButtonFav(fav);
 		node.setOnMouseClicked(e -> onFavClicked(e));

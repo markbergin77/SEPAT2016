@@ -18,16 +18,17 @@ public class OptionsPaneBase extends VBox
 	Station station;
 	GuiEventInterface eventHandler;	
 	String button72HrText = "Open 72 Hour Temperature Plot";
-	Button open72HrPlotButton = new Button(button72HrText);
+	Button plot72hrButton = new Button(button72HrText);
 	String buttonHisTempTxt = "Open Historical Temperature Plot";
-	Button OpenHisTempPlotButton = new Button(buttonHisTempTxt);
-	String buttonTable72hrTxt = "Open 72hr Table";
-	Button OpenHisTable72hrButton = new Button(buttonTable72hrTxt);
-	String buttonTableYearlyTxt = "Open Historical Table";
-	Button OpenHisTableYearlyButton = new Button(buttonTableYearlyTxt);
+	Button plotHisButton = new Button(buttonHisTempTxt);
+	String buttonTable72hrTxt = "Open 72 Hour Weather Table";
+	Button table72hrButton = new Button(buttonTable72hrTxt);
+	String buttonTableYearlyTxt = "Open Historical Weather Table";
+	Button tableHisButton = new Button(buttonTableYearlyTxt);
 	public OptionsPaneBase(Station station, GuiEventInterface eventHandler)
 	{
 		super();
+		setPrefWidth(OptionsArea.defaultWidth);
 		this.station = station;
 		this.eventHandler = eventHandler;
 		float[] averageTemps = new float[3];
@@ -44,14 +45,14 @@ public class OptionsPaneBase extends VBox
 		addOption(labelNights);
 		addOption(labelLateNights);*/
 		
-		open72HrPlotButton.setOnMouseClicked(e -> eventHandler.onOpen72TempPlot(station));
-		OpenHisTempPlotButton.setOnMouseClicked(e -> eventHandler.onOpenHisTempPlot(station));
-		OpenHisTable72hrButton.setOnMouseClicked(e -> eventHandler.onOpen72HrTable(station));
-		OpenHisTableYearlyButton.setOnMouseClicked(e -> eventHandler.onOpenHisTable(station));
-		addOption(OpenHisTempPlotButton);
-		addOption(open72HrPlotButton);
-		addOption(OpenHisTable72hrButton);
-		addOption(OpenHisTableYearlyButton);
+		plot72hrButton.setOnMouseClicked(e -> eventHandler.onOpen72TempPlot(station));
+		plotHisButton.setOnMouseClicked(e -> eventHandler.onOpenHisTempPlot(station));
+		table72hrButton.setOnMouseClicked(e -> eventHandler.onOpen72HrTable(station));
+		tableHisButton.setOnMouseClicked(e -> eventHandler.onOpenHisTable(station));
+		addOption(plot72hrButton);
+		addOption(plotHisButton);
+		addOption(table72hrButton);
+		addOption(tableHisButton);
 	}
 	
 	void removeOption(Parent node)
@@ -64,13 +65,15 @@ public class OptionsPaneBase extends VBox
 		getChildren().remove(0);
 	}
 	
-	void addOptionTop(Parent node)
+	void addOptionTop(Button node)
 	{
+		node.setPrefWidth(OptionsArea.defaultWidth);
 		getChildren().add(0, node);
 	}
 	
-	void addOption(Parent node)
+	void addOption(Button node)
 	{
+		node.setPrefWidth(OptionsArea.defaultWidth);
 		getChildren().add(node);
 	}
 

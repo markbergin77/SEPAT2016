@@ -20,7 +20,7 @@ import user.Favourite;
  * */
 public class OptionsArea extends VBox
 {
-	static double defaultWidth = 400;
+	static double defaultWidth = 250;
 	/* Looks ugly if right at top */
 	static double promptInsetY = 16;
 	/* When a button is pressed, send a
