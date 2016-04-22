@@ -18,11 +18,11 @@ import java.util.List;
  * Created by Pavel Nikolaev on 21/04/2016.
  */
 
-
-
-public class Table72HrData extends Application{
+public class Table72HrDataTEST extends Application{
 
     TableView dataTable;
+    Station station;
+    Stage window;
 
     public static void main(String args[])
     {
@@ -38,8 +38,10 @@ public class Table72HrData extends Application{
 
 
     public void displayTable(Station station){
+    	
+    	this.station = station;
 
-        Stage window = new Stage();
+        window = new Stage();
         window.setTitle(station.getName());
         window.initModality(Modality.APPLICATION_MODAL);
 
@@ -106,6 +108,7 @@ public class Table72HrData extends Application{
         Scene scene = new Scene(container, 665, 450);
         window.setScene(scene);
         window.show();
+        
 
     }
 
@@ -128,4 +131,10 @@ public class Table72HrData extends Application{
 
         return data;
     }
-}
+    public String getName(){
+    	return station.getName();
+    }
+    public void toFront(){
+    	window.toFront();
+    }
+ }

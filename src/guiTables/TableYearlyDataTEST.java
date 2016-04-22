@@ -19,9 +19,11 @@ import java.util.List;
  */
 
 
-public class TableYearlyData extends Application{
+public class TableYearlyDataTEST extends Application{
 
     TableView dataTable;
+    Stage window;
+    Station station;
 
     public static void main(String args[])
     {
@@ -37,8 +39,10 @@ public class TableYearlyData extends Application{
 
 
     public void displayTable(Station station){
+    	
+    	this.station = station;
 
-        Stage window = new Stage();
+        window = new Stage();
         window.setTitle(station.getName());
 
         //  creating a table of monthly data
@@ -174,5 +178,11 @@ public class TableYearlyData extends Application{
         ObservableList data = FXCollections.observableList(list);
 
         return data;
+    }
+    public String getName(){
+    	return station.getName();
+    }
+    public void toFront(){
+    	window.toFront();
     }
 }
