@@ -68,7 +68,7 @@ public class Main extends Application
 	public void start(Stage window) throws Exception 
 	{
 		this.window = window;
-	    window.setTitle("aids");
+	    window.setTitle("SEPAT2016");
 		window.setResizable(false);
         window.setOnCloseRequest(e -> onQuit());
         SplashScreen splash = new SplashScreen();
