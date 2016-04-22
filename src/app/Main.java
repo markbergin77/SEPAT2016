@@ -1,14 +1,8 @@
 package app;
 import java.awt.Dimension;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-
 import data.Bom;
 import data.Station;
 import data.StationList;
@@ -27,8 +21,6 @@ import guiPlots.TableHistorical;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import user.Favourite;
 import user.User;
