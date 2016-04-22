@@ -27,6 +27,7 @@ public class Table72Hr extends PlotBase
     public Table72Hr(Station station) 
     {
 		super(station);
+		setName(station.getName() + " 72 Hours Weather");
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();
 		createTable();

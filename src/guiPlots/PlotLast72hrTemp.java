@@ -32,6 +32,7 @@ public class PlotLast72hrTemp extends PlotBase
 	public PlotLast72hrTemp(Station station) 
 	{
 		super(station);
+		setName(station.getName() + " 72 Hours Temperatures");
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();
 		

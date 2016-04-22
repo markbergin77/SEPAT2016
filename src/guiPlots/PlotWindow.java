@@ -17,11 +17,10 @@ public class PlotWindow extends Stage
 		scene = new Scene(plot);
 		scene.getStylesheets().add(plot.getCssPath());
 		setScene(scene);
+		setTitle(plot.getName());
 	}
 	public PlotBase getPlot() 
 	{
 		return plot;
 	}
-	
-	
 }

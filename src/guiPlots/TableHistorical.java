@@ -29,6 +29,7 @@ public class TableHistorical extends PlotBase
     public TableHistorical(Station station) 
     {
 		super(station);
+		setName(station.getName() + " Historical Weather");
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();
 		createTable();

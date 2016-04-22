@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.StageStyle;
 
 public class PlotBase extends VBox
 {
@@ -15,6 +16,8 @@ public class PlotBase extends VBox
 	ToolBar toolBar;
 	String refreshButtonLabel = "Refresh";
 	Button refreshButton;
+	
+	String name = "";
 	
 	public PlotBase(Station station)
 	{
@@ -27,6 +30,11 @@ public class PlotBase extends VBox
 		});
 		
 		toolBar = new ToolBar(refreshButton);
+	}
+	
+	protected void setName(String name)
+	{
+		this.name = name;
 	}
 	
 	public String getCssPath()
@@ -57,5 +65,10 @@ public class PlotBase extends VBox
 	protected void onRefresh()
 	{
 		
+	}
+
+	public String getName() 
+	{
+		return name;
 	}
 }

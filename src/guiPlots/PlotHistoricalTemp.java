@@ -40,6 +40,7 @@ public class PlotHistoricalTemp extends PlotBase
 	public PlotHistoricalTemp(Station station)
 	{
 		super(station);
+		setName(station.getName() + " Historical Temperatures");
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();
 		
