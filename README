@@ -1,1 +1,56 @@
-Readme
+TEAM MEMBERS:
+	Mark Bergin - s3539565
+
+	Pavel Nikolaev - s3546424
+
+	Radmilo Lega - s3529812
+
+	Lawrence Millar-Madigan - s3284184
+
+Tutor's name & Lab Time:
+	Amir Homayoon Ashrafzadeh  Friday 08:30 - 10:30, Room 14.09.023
+
+Contribution of Each Team Member:
+	Lawrence:
+	- General maintnance of design and architecture,
+	- Final GUI Layout and backend structure,
+	- Skeleton designs for rest of the group, 
+	- Implementation of Station list onto GUI,
+	- Implementation of Station searching, in console stage,
+	- Final implementation of Station searching, in GUI stage,
+	- Final class diagram designs,
+	- Final implementation of favourites, in GUI stage,
+	
+	26%
+
+	Radmilo:
+	- Bom data connection and data collection,
+	- Final implementation of data Plotting onto GUI,
+	- Original implementation of Station searching, in GUI stage,
+
+	25%
+	
+	Pavel:
+	- Original GUI design and GUI framework,
+	- All animations and graphics to be used in Part 2 of the assignment,
+	- Final table design and implementation in GUI stage.
+
+	24.5%
+
+	Mark:
+	- Expansion on Station searching, in console stage,
+	- Original favourites design and implementation, in console stage,
+	- Original plot design and implementation, in GUI stage,
+	- Average temperature design and implementation in GUI stage,
+	- User documenation,
+
+	24.5%
+
+	All:
+	Refactoring, renaming and modulisation of each-others code.
+	
+	Total Contribution = 100%
+
+Bonus Mark Potential:
+	- Intention to maintain a Singleton design for solution
+	- The average temperatures displayed on location press (Extra functionality).
