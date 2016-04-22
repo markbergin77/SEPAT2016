@@ -1,6 +1,9 @@
-package user;
+package userTest;
 
 import java.io.FileNotFoundException;
+
+import user.Favourite;
+import user.User;
 
 public class LoadUserTest 
 {

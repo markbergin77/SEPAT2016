@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import data.Bom;
 import data.StationList;
-import gui.GuiAppUtils;
 import gui.SplashScreen;
 import javafx.application.Application;
 import javafx.concurrent.Task;
@@ -23,7 +22,6 @@ public class SplashScreenTest extends Application
 	public void start(Stage window) throws Exception 
 	{
 		SplashScreen splash = new SplashScreen();
-		GuiAppUtils.setDragsWindow(splash.getScene(), window);
 		window.setScene(splash.getScene());
 	    window.setTitle("Login");
 		window.setResizable(false);
@@ -50,10 +48,4 @@ public class SplashScreenTest extends Application
         getStationsTask.setOnSucceeded(e -> splash.startClosing());
         new Thread(getStationsTask).start();
 	}
-	
-	public void transSplashToHome()
-	{
-		
-	}
-
 }

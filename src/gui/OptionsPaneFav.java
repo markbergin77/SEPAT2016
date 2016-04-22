@@ -1,5 +1,6 @@
 package gui;
 
+import guiCallbacks.GuiEventInterface;
 import javafx.scene.control.Button;
 import user.Favourite;
 import user.FavouriteData;

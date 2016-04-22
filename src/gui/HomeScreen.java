@@ -1,6 +1,7 @@
 package gui;
 
 import data.Station;
+import guiCallbacks.GuiEventInterface;
 import javafx.scene.layout.*;
 import user.Favourite;
 import user.User;

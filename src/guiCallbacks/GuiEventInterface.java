@@ -1,4 +1,4 @@
-package gui;
+package guiCallbacks;
 
 import data.Station;
 

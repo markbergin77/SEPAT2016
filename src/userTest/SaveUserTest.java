@@ -1,9 +1,11 @@
-package user;
+package userTest;
 
 import java.io.IOException;
 
 import data.Bom;
 import data.StationList;
+import user.Favourite;
+import user.User;
 
 public class SaveUserTest 
 {

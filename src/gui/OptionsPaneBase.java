@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 import data.Station;
 import data.StationList;
+import guiCallbacks.GuiEventInterface;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

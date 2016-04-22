@@ -3,6 +3,7 @@ package gui;
 import java.util.Vector;
 
 import data.Station;
+import guiCallbacks.GuiEventInterface;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;
