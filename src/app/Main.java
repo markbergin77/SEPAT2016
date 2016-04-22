@@ -223,9 +223,9 @@ public class Main extends Application
 	// test please -------------------------------
 	
 	@Override
-	public void onOpenYearlyTable (Station station)
+	public void onOpenHisTable (Station station)
 	{
-		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Table72Hr);
+		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.TableHistorical);
 		if (existingPlotWindow == null)
 		{
 			openPlot(new TableHistorical(station));

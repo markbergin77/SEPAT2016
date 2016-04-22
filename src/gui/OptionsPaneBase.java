@@ -47,7 +47,7 @@ public class OptionsPaneBase extends VBox
 		open72HrPlotButton.setOnMouseClicked(e -> eventHandler.onOpen72TempPlot(station));
 		OpenHisTempPlotButton.setOnMouseClicked(e -> eventHandler.onOpenHisTempPlot(station));
 		OpenHisTable72hrButton.setOnMouseClicked(e -> eventHandler.onOpen72HrTable(station));
-		OpenHisTableYearlyButton.setOnMouseClicked(e -> eventHandler.onOpenYearlyTable(station));
+		OpenHisTableYearlyButton.setOnMouseClicked(e -> eventHandler.onOpenHisTable(station));
 		addOption(OpenHisTempPlotButton);
 		addOption(open72HrPlotButton);
 		addOption(OpenHisTable72hrButton);
