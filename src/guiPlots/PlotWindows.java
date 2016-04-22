@@ -39,6 +39,12 @@ public class PlotWindows extends Vector<PlotWindow>
 				if(window.getPlot() instanceof PlotLast72hrTemp)
 					rightType = true;
 				break;
+			case Table72Hr:
+				if(window.getPlot() instanceof Table72HrData)
+					rightType = true;
+			case TableHistorical:
+				if(window.getPlot() instanceof TableYearlyData)
+					rightType = true;
 			default:
 				break;
 			}
