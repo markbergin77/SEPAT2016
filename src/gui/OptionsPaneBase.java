@@ -23,6 +23,10 @@ public class OptionsPaneBase extends VBox
 	Button table72hrButton = new Button(buttonTable72hrTxt);
 	String buttonTableYearlyTxt = "Open Historical Weather Table";
 	Button tableHisButton = new Button(buttonTableYearlyTxt);
+	
+	String closePlotsText = "Close Open Charts";
+	Button closePlotsButton = new Button(closePlotsText);
+	
 	public OptionsPaneBase(Station station, GuiEventInterface eventHandler)
 	{
 		super();
@@ -37,10 +41,12 @@ public class OptionsPaneBase extends VBox
 		plotHisButton.setOnMouseClicked(e -> eventHandler.onOpenHisTempPlot(station));
 		table72hrButton.setOnMouseClicked(e -> eventHandler.onOpen72HrTable(station));
 		tableHisButton.setOnMouseClicked(e -> eventHandler.onOpenHisTable(station));
+		closePlotsButton.setOnMouseClicked(e -> eventHandler.onCloseAllPlots(station));
 		addOption(plot72hrButton);
 		addOption(plotHisButton);
 		addOption(table72hrButton);
 		addOption(tableHisButton);
+		addOption(closePlotsButton);
 		
 		//Cheap methods for spacing used
 		Label labelHead = new Label("		     Average Temperatures:");

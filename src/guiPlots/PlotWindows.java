@@ -19,6 +19,26 @@ public class PlotWindows extends Vector<PlotWindow>
     	}
     }
     
+    public void removePlotsFor(Station station)
+    {
+    	Vector<PlotWindow> windowsToRemove = new Vector<PlotWindow>();
+    	for (PlotWindow window : this)
+    	{
+    		if (window.getPlot().getStation().equals(station))
+    		{
+    			window.close();
+    			windowsToRemove.add(window);
+    		}
+    	}
+    	/* If we don't do this separately we get exceptions,
+    	 * because you can't modify a list while you're iterating
+    	 * through it. */
+    	for (PlotWindow window : windowsToRemove)
+    	{
+    		remove(window);
+    	}
+    }
+    
 	public boolean haveFor(Station station, PlotType type) 
 	{
 		for(PlotWindow window : this)

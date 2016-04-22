@@ -11,4 +11,5 @@ public interface GuiEventInterface
 	abstract void onAddFav(Station station);
 	abstract void onOpenHisTable (Station station);
 	abstract void onOpen72HrTable (Station station);
+	abstract void onCloseAllPlots(Station station);
 }

@@ -19,6 +19,7 @@ import guiPlots.PlotWindows;
 import guiPlots.Table72Hr;
 import guiPlots.TableHistorical;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -224,6 +225,12 @@ public class Main extends Application
 		{
 			existingPlotWindow.toFront();
 		}
+	}
+
+	@Override
+	public void onCloseAllPlots(Station station) 
+	{
+		plotWindows.removePlotsFor(station);	
 	}
 	
 	
