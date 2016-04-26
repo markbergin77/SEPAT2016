@@ -31,8 +31,8 @@ public class PlotAveTempTest extends Application{
 	} catch (Exception e1) {
 		e1.printStackTrace();
 	}
-		//Just using Charlston as a test
-		Station charlston = allStations.get(0);	
+		//Just using charlton as a test
+		Station charlton = allStations.get(0);	
 		graph.setTitle("Line Chart Sample");
 		//Category axis is needed for non ints, while number is needed for ints
         final CategoryAxis xAxis = new CategoryAxis();
@@ -43,9 +43,9 @@ public class PlotAveTempTest extends Application{
         final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);              
         lineChart.setTitle("Last 72 hour averages");       
         XYChart.Series temperatures = new XYChart.Series();
-        temperatures.setName(charlston.getName());
-        //Prints the weather for Charlston in the most recent time 
-        WthrSamplesFine tester = charlston.getWthrLast72hr();
+        temperatures.setName(charlton.getName());
+        //Prints the weather for charlton in the most recent time 
+        WthrSamplesFine tester = Bom.getWthrLast72hr(charlton);
 
         //Need seperate list to associate each time of day with a specific "zone" or period
         WthrSamplesFine earlyMorns = new WthrSamplesFine();

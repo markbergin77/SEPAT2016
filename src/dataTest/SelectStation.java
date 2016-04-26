@@ -3,6 +3,7 @@ package dataTest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.YearMonth;
 import java.util.Vector;
 
 import data.Bom;
@@ -21,7 +22,7 @@ public class SelectStation
 		//prints most recent observation.
 		System.out.println(matched.getName() + " selected.\nFirst weather sample:");
 		//Queries all the data regarding station
-		Vector<WthrSampleFine> samples = matched.getWthrLast72hr();
+		Vector<WthrSampleFine> samples = Bom.getWthrLast72hr(matched);
 		System.out.print(samples.get(0));
 	}
 	
@@ -35,7 +36,9 @@ public class SelectStation
 	    
 	    // Rad's testing code
 	    for (Station station: stations) {
-	    	station.getWthrLastMonth("201603");
+	    	YearMonth month;
+	    	YearMonth testDate = YearMonth.of(2016, 03);
+	    	Bom.getWthrLastMonth(station, testDate);
 	    }
 	    
 	    //User inputs station, searches for match

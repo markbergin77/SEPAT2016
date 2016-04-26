@@ -5,6 +5,8 @@ public class WthrSampleFine
 {
 	private String localDateTime;
 	private String localDateTimeFull;
+	private String lat;
+	private String lon;
 	private String apparentT;
 	private String cloud;
 	private String gustKmh;
@@ -16,13 +18,15 @@ public class WthrSampleFine
 	private String windSpdKmh;
 	private String windSpdKt;
 
-	public WthrSampleFine(String localDateTime, String localDateTimeFull, String apparentT, String cloud,
+	public WthrSampleFine(String localDateTime, String localDateTimeFull, String lat, String lon, String apparentT, String cloud,
 			String gustKmh, String gustKt, String airTemp, String relHumidity, String dewPt, String windDir,
 			String windSpdKmh, String windSpdKt)
 	{
 
 		this.localDateTime = localDateTime;
 		this.localDateTimeFull = localDateTimeFull;
+		this.lat = lat;
+		this.lon = lon;
 		this.apparentT = apparentT;
 		this.cloud = cloud;
 		this.gustKmh = gustKmh;

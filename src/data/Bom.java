@@ -231,6 +231,20 @@ public class Bom
 				localDateTimeFull = "-";
 			else
 				localDateTimeFull = localDateTimeFullJson.getAsString();
+			
+			String lat;
+			JsonElement latJson = reading.get("lat");
+			if (latJson.isJsonNull())
+				lat = "-";
+			else
+				lat = localDateTimeFullJson.getAsString();
+			
+			String lon;
+			JsonElement lonJson = reading.get("lon");
+			if (lonJson.isJsonNull())
+				lon = "-";
+			else
+				lon = localDateTimeFullJson.getAsString();
 
 			String apparentT;
 			JsonElement apparentTJson = reading.get("apparent_t");
@@ -302,7 +316,7 @@ public class Bom
 			else
 				windSpdKt = windSpdKtJson.getAsString();
 			// Add's Station's observation data to vector
-			samples.add(new WthrSampleFine(localDateTime, localDateTimeFull, apparentT, cloud, gustKmh, gustKt, airTemp,
+			samples.add(new WthrSampleFine(localDateTime, localDateTimeFull, lon, lat, apparentT, cloud, gustKmh, gustKt, airTemp,
 					relHumidity, dewPt, windDir, windSpdKmh, windSpdKt));
 		}
 		return samples;
