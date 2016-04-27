@@ -62,7 +62,17 @@ public class WthrSampleFine
 	{
 		return localDateTimeFull;
 	}
+	
+	public String getLat() 
+	{
+		return lat;
+	}
 
+	public String getLon() 
+	{
+		return lon;
+	}
+	
 	public String getApparentT()
 	{
 		return apparentT;

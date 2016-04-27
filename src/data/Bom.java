@@ -237,14 +237,14 @@ public class Bom
 			if (latJson.isJsonNull())
 				lat = "-";
 			else
-				lat = localDateTimeFullJson.getAsString();
+				lat = latJson.getAsString();
 			
 			String lon;
 			JsonElement lonJson = reading.get("lon");
 			if (lonJson.isJsonNull())
 				lon = "-";
 			else
-				lon = localDateTimeFullJson.getAsString();
+				lon = lonJson.getAsString();
 
 			String apparentT;
 			JsonElement apparentTJson = reading.get("apparent_t");
