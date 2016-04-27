@@ -316,7 +316,7 @@ public class Bom
 			else
 				windSpdKt = windSpdKtJson.getAsString();
 			// Add's Station's observation data to vector
-			samples.add(new WthrSampleFine(localDateTime, localDateTimeFull, lon, lat, apparentT, cloud, gustKmh, gustKt, airTemp,
+			samples.add(new WthrSampleFine(localDateTime, localDateTimeFull, lat, lon, apparentT, cloud, gustKmh, gustKt, airTemp,
 					relHumidity, dewPt, windDir, windSpdKmh, windSpdKt));
 		}
 		return samples;
