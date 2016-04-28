@@ -6,12 +6,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.zip.GZIPInputStream;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -210,9 +213,20 @@ public class Bom
 	{
 		WthrSamplesFine samples = new WthrSamplesFine();
 		// Weather data for Recent observations stored as Json format.
-		JsonArray rootArray = new JsonParser()
-				.parse(new BufferedReader(new InputStreamReader(new URL(station.getJsonUrl()).openStream())))
-				.getAsJsonObject().getAsJsonObject("observations").getAsJsonArray("data");
+		HttpURLConnection connection = (HttpURLConnection) new URL(station.getJsonUrl()).openConnection();
+		connection.setRequestProperty("Accept-Encoding", "gzip, deflate");
+		connection.connect();
+		String encoding = connection.getContentEncoding();
+		BufferedReader reader;
+		if (encoding != null && encoding.equalsIgnoreCase("gzip"))
+		{
+			reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(connection.getInputStream())));
+		} else
+		{
+			reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		}
+		JsonArray rootArray = new JsonParser().parse(reader).getAsJsonObject().getAsJsonObject("observations")
+				.getAsJsonArray("data");
 		for (JsonElement element : rootArray)
 		{
 			// Grabs all information through BOM's JSON Data
@@ -231,14 +245,14 @@ public class Bom
 				localDateTimeFull = "-";
 			else
 				localDateTimeFull = localDateTimeFullJson.getAsString();
-			
+
 			String lat;
 			JsonElement latJson = reading.get("lat");
 			if (latJson.isJsonNull())
 				lat = "-";
 			else
 				lat = latJson.getAsString();
-			
+
 			String lon;
 			JsonElement lonJson = reading.get("lon");
 			if (lonJson.isJsonNull())
@@ -316,8 +330,8 @@ public class Bom
 			else
 				windSpdKt = windSpdKtJson.getAsString();
 			// Add's Station's observation data to vector
-			samples.add(new WthrSampleFine(localDateTime, localDateTimeFull, lat, lon, apparentT, cloud, gustKmh, gustKt, airTemp,
-					relHumidity, dewPt, windDir, windSpdKmh, windSpdKt));
+			samples.add(new WthrSampleFine(localDateTime, localDateTimeFull, lat, lon, apparentT, cloud, gustKmh,
+					gustKt, airTemp, relHumidity, dewPt, windDir, windSpdKmh, windSpdKt));
 		}
 		return samples;
 	}
