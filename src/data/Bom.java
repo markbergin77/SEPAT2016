@@ -214,7 +214,7 @@ public class Bom
 		WthrSamplesFine samples = new WthrSamplesFine();
 		// Weather data for Recent observations stored as Json format.
 		HttpURLConnection connection = (HttpURLConnection) new URL(station.getJsonUrl()).openConnection();
-		connection.setRequestProperty("Accept-Encoding", "gzip, deflate");
+		connection.setRequestProperty("Accept-Encoding", "gzip");
 		connection.connect();
 		String encoding = connection.getContentEncoding();
 		BufferedReader reader;
