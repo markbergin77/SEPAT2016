@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -78,6 +80,9 @@ public class Station implements Serializable
 		WthrSamplesFine middays = new WthrSamplesFine();
 		WthrSamplesFine nights = new WthrSamplesFine();
 		WthrSamplesFine lateNights = new WthrSamplesFine();
+		
+		// Hacky fix for now, delete when you figure it out Mark
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/hh:mma");
 
 		// Goes through entire list of recorded location entries
 		for (int i = location.size() - 1; i > 0; i--)
@@ -85,20 +90,20 @@ public class Station implements Serializable
 			int time24hours = 0;
 
 			// Splits the given time date into it's raw form of xxxxam or pm
-			String[] dateSplit = location.get(i).getLocalDateTime().split("/");
+			String[] dateSplit = location.get(i).getLocalDateTime().format(formatter).split("/");
 			String[] timeSplit = dateSplit[1].split(":");
 			String timeconcat = timeSplit[0] + timeSplit[1];
 			String finalTime;
 			// Checks if it contains am or pm, if pm, we need to change it to 24
 			// hour format
-			if (timeconcat.contains("pm"))
+			if (timeconcat.contains("PM"))
 			{
-				String[] pmHourTime = timeconcat.split("pm");
+				String[] pmHourTime = timeconcat.split("PM");
 				time24hours = Integer.parseInt(pmHourTime[0]);
 				finalTime = Integer.toString(time24hours + 1200);
 			} else
 			{
-				String[] amHourTime = timeconcat.split("am");
+				String[] amHourTime = timeconcat.split("AM");
 				time24hours = Integer.parseInt(amHourTime[0]);
 				finalTime = Integer.toString(time24hours);
 			}

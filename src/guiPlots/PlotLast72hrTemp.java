@@ -2,6 +2,7 @@ package guiPlots;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
@@ -75,9 +76,10 @@ public class PlotLast72hrTemp extends PlotBase
 	private void addToSeries(WthrSamplesFine samples, XYChart.Series<String, Number> series) {
 		int samplesSize = samples.size();
         WthrSampleFine sample = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE-HH:mm");
         for(int i = samplesSize - 1; i > -1; i--) {
         	sample = samples.get(i);
-        	String date = sample.getLocalDateTime();
+        	String date = sample.getLocalDateTime().format(formatter);
         	String airTemp = sample.getAirTemp();
         	
         	// Check if the string is null or blank

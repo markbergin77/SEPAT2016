@@ -1,10 +1,11 @@
 package data;
 
+import java.time.LocalDateTime;
+
 //Data types/attributes provided by BOM data, used for Monthly Observations
 public class WthrSampleFine
 {
-	private String localDateTime;
-	private String localDateTimeFull;
+	private LocalDateTime localDateTime;
 	private String lat;
 	private String lon;
 	private String apparentT;
@@ -18,13 +19,12 @@ public class WthrSampleFine
 	private String windSpdKmh;
 	private String windSpdKt;
 
-	public WthrSampleFine(String localDateTime, String localDateTimeFull, String lat, String lon, String apparentT, String cloud,
+	public WthrSampleFine(LocalDateTime localDateTime, String lat, String lon, String apparentT, String cloud,
 			String gustKmh, String gustKt, String airTemp, String relHumidity, String dewPt, String windDir,
 			String windSpdKmh, String windSpdKt)
 	{
 
 		this.localDateTime = localDateTime;
-		this.localDateTimeFull = localDateTimeFull;
 		this.lat = lat;
 		this.lon = lon;
 		this.apparentT = apparentT;
@@ -53,14 +53,9 @@ public class WthrSampleFine
 		return output;
 	}
 
-	public String getLocalDateTime()
+	public LocalDateTime getLocalDateTime()
 	{
 		return localDateTime;
-	}
-
-	public String getLocalDateTimeFull()
-	{
-		return localDateTimeFull;
 	}
 	
 	public String getLat() 

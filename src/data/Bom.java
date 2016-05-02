@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.zip.GZIPInputStream;
@@ -227,24 +228,20 @@ public class Bom
 		}
 		JsonArray rootArray = new JsonParser().parse(reader).getAsJsonObject().getAsJsonObject("observations")
 				.getAsJsonArray("data");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 		for (JsonElement element : rootArray)
 		{
 			// Grabs all information through BOM's JSON Data
 			JsonObject reading = element.getAsJsonObject();
-
-			String localDateTime;
-			JsonElement localDateTimeJson = reading.get("local_date_time");
-			if (localDateTimeJson.isJsonNull())
-				localDateTime = "-";
-			else
-				localDateTime = localDateTimeJson.getAsString();
-
-			String localDateTimeFull;
+				
+			String localDateTimeFullString;
+			LocalDateTime localDateTime;
 			JsonElement localDateTimeFullJson = reading.get("local_date_time_full");
 			if (localDateTimeFullJson.isJsonNull())
-				localDateTimeFull = "-";
+				localDateTimeFullString = "-";
 			else
-				localDateTimeFull = localDateTimeFullJson.getAsString();
+				localDateTimeFullString = localDateTimeFullJson.getAsString();
+				localDateTime = LocalDateTime.parse(localDateTimeFullString, formatter);
 
 			String lat;
 			JsonElement latJson = reading.get("lat");
@@ -330,7 +327,7 @@ public class Bom
 			else
 				windSpdKt = windSpdKtJson.getAsString();
 			// Add's Station's observation data to vector
-			samples.add(new WthrSampleFine(localDateTime, localDateTimeFull, lat, lon, apparentT, cloud, gustKmh,
+			samples.add(new WthrSampleFine(localDateTime, lat, lon, apparentT, cloud, gustKmh,
 					gustKt, airTemp, relHumidity, dewPt, windDir, windSpdKmh, windSpdKt));
 		}
 		return samples;
