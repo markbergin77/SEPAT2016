@@ -2,6 +2,7 @@ package guiLookTest;
 
 import data.Bom;
 import data.StationList;
+import dataTest.SaveTestData;
 import gui.Explorer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -18,11 +19,7 @@ public class ExplorerTest extends Application
 	    window.setTitle("Login");
 		window.setResizable(false);
         window.setOnCloseRequest(e -> System.exit(0));
-        try {
-				allStations = Bom.getAllStations();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+        allStations = SaveTestData.loadAllStations();
         Explorer explorer = new Explorer();
 		explorer.addStationsAll(allStations);
 		Scene scene = new Scene(explorer);
