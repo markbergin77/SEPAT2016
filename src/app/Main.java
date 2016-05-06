@@ -10,7 +10,6 @@ import gui.Alert;
 import gui.HomeScreen;
 import gui.HomeScreenInit;
 import gui.SplashScreen;
-import guiCallbacks.GuiEventInterface;
 import guiPlots.PlotLast72hrTemp;
 import guiPlots.PlotBase;
 import guiPlots.PlotHistoricalTemp;
@@ -28,7 +27,7 @@ import user.Favourite;
 import user.User;
 
 public class Main extends Application 
-	implements GuiEventInterface
+	implements HomeScreen.EventInterface
 {
 	/* This service will finish tasks one at a time
 	 * on another thread so that we don't block

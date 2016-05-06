@@ -1,5 +1,6 @@
 package gui;
 
+import data.Station;
 import data.StationList;
 import guiCallbacks.FavClicked;
 import guiCallbacks.StationClicked;
@@ -13,17 +14,22 @@ import user.FavouritesList;
  */
 public class Explorer extends StackPane
 {	
+	public interface EventInterface 
+	{
+
+	}
 	TabPane tabPane;
 	Tab allStationsTab;
 	Tab favouritesTab;
 	ExplorerPaneAllStations allStationsPane;
 	ExplorerPaneFavourites favouritesPane;
 	
+	EventInterface callbackObj;
 	
-	
-	public Explorer()
+	public Explorer(EventInterface callbackObj)
 	{
 		super();
+		this.callbackObj = callbackObj;
 		createGuiElements();
 	}
 	

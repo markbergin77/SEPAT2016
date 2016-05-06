@@ -1,7 +1,6 @@
 package gui;
 
 import data.Station;
-import guiCallbacks.GuiEventInterface;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;
@@ -16,15 +15,26 @@ import user.Favourite;
  * 18/4/16: This area has tabs for having
  * multiple stations open at once.
  * */
-public class OptionsArea extends VBox
+public class OptionsArea extends VBox 
+	implements OptionsPaneFav.EventInterface, OptionsPaneNotFav.EventInterface
 {
+	public interface EventInterface 
+	{
+		abstract void onOpen72TempPlot(Station station);
+		abstract void onOpenHisTempPlot(Station station);
+		abstract void onAddFav(Station station);
+		abstract void onOpenHisTable (Station station);
+		abstract void onOpen72HrTable (Station station);
+		abstract void onCloseAllPlots(Station station);
+	}
+	
 	static double defaultWidth = 250;
 	/* Looks ugly if right at top */
 	static double promptInsetY = 16;
 	/* When a button is pressed, send a
 	 * message to this object through one 
 	 * of the documented interface methods */
-	GuiEventInterface callbackObj;
+	EventInterface callbackObj;
 	TabPane tabPane = new TabPane();
 	SingleSelectionModel<Tab> tabSelectionModel = tabPane.getSelectionModel();
 	/* Text displayed before any station selected */
@@ -34,7 +44,7 @@ public class OptionsArea extends VBox
 	VBox promptSpacingBox = new VBox();
 	int nTabs;
 	
-	public OptionsArea(GuiEventInterface callbackObj)
+	public OptionsArea(EventInterface callbackObj)
 	{
 		this.callbackObj = callbackObj;
 		this.setPrefSize(defaultWidth, HomeScreen.defaultHeight);
@@ -136,13 +146,13 @@ public class OptionsArea extends VBox
 	
 	public void addTab(Favourite fav) 
 	{
-		OptionsPaneFav newPane = new OptionsPaneFav(fav, callbackObj);
+		OptionsPaneFav newPane = new OptionsPaneFav(fav, this);
 		addTabFor(newPane);
 	}
 
 	public void addTab(Station station) 
 	{
-		OptionsPaneNotFav newPane = new OptionsPaneNotFav(station, callbackObj);
+		OptionsPaneNotFav newPane = new OptionsPaneNotFav(station, this);
 		addTabFor(newPane);
 	}
 
@@ -150,5 +160,77 @@ public class OptionsArea extends VBox
 	{
 		Tab tab = findTabFor(station);
 		tabSelectionModel.select(tab);
-	}	
+	}
+
+	@Override
+	public void onOpen72TempPlot(Favourite favourite)
+	{
+		callbackObj.onOpen72TempPlot(favourite.getStation());
+	}
+
+	@Override
+	public void onOpenHisTempPlot(Favourite favourite)
+	{
+		callbackObj.onOpenHisTempPlot(favourite.getStation());
+	}
+
+	@Override
+	public void onAddFav(Favourite favourite)
+	{
+		callbackObj.onAddFav(favourite.getStation());
+	}
+
+	@Override
+	public void onOpenHisTable(Favourite favourite)
+	{
+		callbackObj.onOpenHisTable(favourite.getStation());
+	}
+
+	@Override
+	public void onOpen72HrTable(Favourite favourite)
+	{
+		callbackObj.onOpen72HrTable(favourite.getStation());
+	}
+
+	@Override
+	public void onCloseAllPlots(Favourite favourite)
+	{
+		callbackObj.onCloseAllPlots(favourite.getStation());
+	}
+
+	@Override
+	public void onOpen72TempPlot(Station station)
+	{
+		callbackObj.onOpen72TempPlot(station);
+	}
+
+	@Override
+	public void onOpenHisTempPlot(Station station)
+	{
+		callbackObj.onOpenHisTempPlot(station);
+	}
+
+	@Override
+	public void onAddFav(Station station)
+	{
+		callbackObj.onAddFav(station);
+	}
+
+	@Override
+	public void onOpenHisTable(Station station)
+	{
+		callbackObj.onOpenHisTable(station);
+	}
+
+	@Override
+	public void onOpen72HrTable(Station station)
+	{
+		callbackObj.onOpen72HrTable(station);
+	}
+
+	@Override
+	public void onCloseAllPlots(Station station)
+	{
+		callbackObj.onCloseAllPlots(station);
+	}
 }

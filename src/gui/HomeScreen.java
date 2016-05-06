@@ -1,38 +1,47 @@
 package gui;
 
 import data.Station;
-import guiCallbacks.GuiEventInterface;
 import javafx.scene.layout.*;
 import user.Favourite;
 import user.User;
 
 /* The root of all the User's activities */
 public class HomeScreen extends GridPane
+	implements OptionsArea.EventInterface, Explorer.EventInterface
 {
+	public interface EventInterface 
+	{
+		abstract void onOpen72TempPlot(Station station);
+		abstract void onOpenHisTempPlot(Station station);
+		abstract void onAddFav(Station station);
+		abstract void onOpenHisTable (Station station);
+		abstract void onOpen72HrTable (Station station);
+		abstract void onCloseAllPlots(Station station);
+	}
     Explorer explorer;
     OptionsArea optionsArea;
     User user;
     
     public static double defaultHeight = 400;
     
-    GuiEventInterface callbackObj;
+    EventInterface callbackObj;
     
     /* for testing purposes, no interaction */
     public HomeScreen()
     {
     	super();
-    	explorer = new Explorer();
-    	optionsArea = new OptionsArea(callbackObj);
+    	explorer = new Explorer(this);
+    	optionsArea = new OptionsArea(this);
         add(explorer, 0, 0);
         add(optionsArea, 1, 0);
     }
     
-    public HomeScreen(HomeScreenInit init, GuiEventInterface callbackObj)
+    public HomeScreen(HomeScreenInit init, EventInterface callbackObj)
     {
     	super();
     	user = init.user;
-    	explorer = new Explorer();
-    	optionsArea = new OptionsArea(callbackObj);
+    	explorer = new Explorer(this);
+    	optionsArea = new OptionsArea(this);
         add(explorer, 0, 0);
         add(optionsArea, 1, 0);
         this.callbackObj = callbackObj;
@@ -85,4 +94,40 @@ public class HomeScreen extends GridPane
     {   	
     	
     }
+
+	@Override
+	public void onOpen72TempPlot(Station station)
+	{
+		callbackObj.onOpen72TempPlot(station);
+	}
+
+	@Override
+	public void onOpenHisTempPlot(Station station)
+	{
+		callbackObj.onOpenHisTempPlot(station);
+	}
+
+	@Override
+	public void onAddFav(Station station)
+	{
+		callbackObj.onAddFav(station);
+	}
+
+	@Override
+	public void onOpenHisTable(Station station)
+	{
+		callbackObj.onOpenHisTable(station);
+	}
+
+	@Override
+	public void onOpen72HrTable(Station station)
+	{
+		callbackObj.onOpen72HrTable(station);
+	}
+
+	@Override
+	public void onCloseAllPlots(Station station)
+	{
+		callbackObj.onCloseAllPlots(station);
+	}
 }
