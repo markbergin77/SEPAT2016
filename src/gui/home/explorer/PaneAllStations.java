@@ -5,7 +5,7 @@ import javafx.scene.layout.VBox;
 
 import data.Station;
 import data.StationList;
-import guiCallbacks.StationClicked;
+import gui.callbacks.StationClicked;
 
 /* List of all stations in BOM database */
 public class PaneAllStations extends PaneBase

@@ -1,6 +1,6 @@
 package gui.home.explorer;
 
-import guiCallbacks.FavClicked;
+import gui.callbacks.FavClicked;
 import javafx.scene.input.MouseEvent;
 import user.Favourite;
 import user.FavouritesList;
