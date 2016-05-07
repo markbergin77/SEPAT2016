@@ -7,18 +7,17 @@ import data.Bom;
 import data.Station;
 import data.StationList;
 import gui.Alert;
-import gui.HomeScreen;
-import gui.HomeScreenInit;
-import gui.SafeTask;
 import gui.SplashScreen;
-import guiPlots.PlotLast72hrTemp;
-import guiPlots.PlotBase;
-import guiPlots.PlotHistoricalTemp;
-import guiPlots.PlotType;
-import guiPlots.PlotWindow;
-import guiPlots.PlotWindows;
-import guiPlots.Table72Hr;
-import guiPlots.TableHistorical;
+import gui.home.HomeScreen;
+import gui.home.HomeScreenInit;
+import gui.plots.PlotBase;
+import gui.plots.HistoricalTemp;
+import gui.plots.Last72hrTemp;
+import gui.plots.PlotType;
+import gui.plots.PlotWindow;
+import gui.plots.PlotWindows;
+import gui.plots.Table72Hr;
+import gui.plots.TableHistorical;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -26,6 +25,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import user.Favourite;
 import user.User;
+import utilities.EasyTask;
+import utilities.JavaFXSafeTask;
+import utilities.MultipleInstanceLock;
 
 public class Main extends Application 
 	implements HomeScreen.EventInterface
@@ -170,7 +172,7 @@ public class Main extends Application
 		{
 			plot.fetchData();
 		});
-		SafeTask plotTask = new SafeTask(() ->
+		JavaFXSafeTask plotTask = new JavaFXSafeTask(() ->
 		{
 			plot.plotData();
 		});
@@ -202,7 +204,7 @@ public class Main extends Application
 		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Last72Hr);
 		if(existingPlotWindow == null)
 		{		
-			openPlot(new PlotLast72hrTemp(station));
+			openPlot(new Last72hrTemp(station));
 		}
 		else
 		{
@@ -228,7 +230,7 @@ public class Main extends Application
 		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Historical);
 		if (existingPlotWindow == null)
 		{
-			openPlot(new PlotHistoricalTemp(station));
+			openPlot(new HistoricalTemp(station));
 		}
 		else
 		{

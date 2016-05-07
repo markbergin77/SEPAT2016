@@ -1,0 +1,22 @@
+.chart-series-line { 
+    -fx-opacity: 0.8;
+    -fx-stroke-width: 1.75px;
+}
+
+.chart-legend {
+    -fx-padding: 15px;
+}
+
+.chart-legend-item-symbol {
+    -fx-fill: #000000;
+}
+
+.chart-vertical-grid-lines {
+    fx-stroke-width: 0;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke-width: 0;
+}
+.chart-alternative-row-fill {
+    -fx-stroke-width: 0;
+}

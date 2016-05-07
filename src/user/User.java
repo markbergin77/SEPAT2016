@@ -8,8 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import data.Station;
-import guiPlots.PlotWindow;
-import guiPlots.PlotWindows;
+import gui.plots.PlotWindow;
+import gui.plots.PlotWindows;
 
 public class User implements Serializable
 {

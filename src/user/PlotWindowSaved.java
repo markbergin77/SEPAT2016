@@ -2,13 +2,13 @@ package user;
 
 import java.io.Serializable;
 import data.Station;
-import guiPlots.PlotLast72hrTemp;
-import guiPlots.PlotBase;
-import guiPlots.PlotHistoricalTemp;
-import guiPlots.PlotType;
-import guiPlots.PlotWindow;
-import guiPlots.Table72Hr;
-import guiPlots.TableHistorical;
+import gui.plots.PlotBase;
+import gui.plots.HistoricalTemp;
+import gui.plots.Last72hrTemp;
+import gui.plots.PlotType;
+import gui.plots.PlotWindow;
+import gui.plots.Table72Hr;
+import gui.plots.TableHistorical;
 
 public class PlotWindowSaved implements Serializable
 {
@@ -22,11 +22,11 @@ public class PlotWindowSaved implements Serializable
 		this.props = new WindowProps(window.getX(), window.getY(),
 				window.getWidth(), window.getHeight());
 		this.station = plot.getStation();
-		if(plot instanceof PlotLast72hrTemp)
+		if(plot instanceof Last72hrTemp)
 		{
 			type = PlotType.Last72Hr;
 		}
-		else if(plot instanceof PlotHistoricalTemp)
+		else if(plot instanceof HistoricalTemp)
 		{
 			type = PlotType.Historical;
 		}
@@ -46,10 +46,10 @@ public class PlotWindowSaved implements Serializable
 		switch (type)
 		{
 		case Historical:
-			plot = new PlotHistoricalTemp(station);
+			plot = new HistoricalTemp(station);
 			break;
 		case Last72Hr:
-			plot = new PlotLast72hrTemp(station);
+			plot = new Last72hrTemp(station);
 			break;
 		case Table72Hr:
 			plot = new Table72Hr(station);
