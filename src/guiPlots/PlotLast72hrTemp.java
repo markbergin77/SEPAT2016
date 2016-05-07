@@ -10,6 +10,7 @@ import com.google.gson.JsonSyntaxException;
 import data.Bom;
 import data.Station;
 import data.WthrSampleFine;
+import data.WthrSamplesDaily;
 import data.WthrSamplesFine;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -23,7 +24,7 @@ public class PlotLast72hrTemp extends PlotBase
 {
 	private String cssPath;
 	static String cssFileName = "CurrTempPlot.css";
-	
+	WthrSamplesFine wthrSamplesFine;
 	final CategoryAxis xAxis = new CategoryAxis();
     final NumberAxis yAxis = new NumberAxis();
     LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
@@ -44,8 +45,8 @@ public class PlotLast72hrTemp extends PlotBase
         
         // Remove markers from line
         lineChart.setCreateSymbols(false);
-        
-        plot(station, seriesAirTemp);
+        lineChart.getData().add(seriesAirTemp);
+        //plot(station, seriesAirTemp);
         
         // add the lineChart to the gridPane
         assembleFrom(lineChart);
@@ -73,7 +74,8 @@ public class PlotLast72hrTemp extends PlotBase
 		}
 	}
 	
-	private void addToSeries(WthrSamplesFine samples, XYChart.Series<String, Number> series) {
+	private void addToSeries(WthrSamplesFine samples, XYChart.Series<String, Number> series) 
+	{
 		int samplesSize = samples.size();
         WthrSampleFine sample = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE-HH:mm");
@@ -88,16 +90,23 @@ public class PlotLast72hrTemp extends PlotBase
         }
 	}
 	
-	private void plot(Station station, XYChart.Series<String, Number> series) {
-		WthrSamplesFine wthrSamplesFine = getData(station);
-        addToSeries(wthrSamplesFine, series);
-        lineChart.getData().add(series);
+	@Override 
+	public void fetchData()
+	{
+		wthrSamplesFine = getData(station);
 	}
 	
 	@Override
-	protected void onRefresh() {
-		WthrSamplesFine wthrSamplesFine = getData(station);
+	public void plotData() 
+	{
+        addToSeries(wthrSamplesFine, seriesAirTemp);
+	}
+	
+	@Override
+	protected void onRefresh() 
+	{
 		seriesAirTemp.getData().clear();
-		addToSeries(wthrSamplesFine, seriesAirTemp);
+		fetchData();
+		plotData();
 	}
 }

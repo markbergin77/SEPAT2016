@@ -9,6 +9,7 @@ import data.StationList;
 import gui.Alert;
 import gui.HomeScreen;
 import gui.HomeScreenInit;
+import gui.SafeTask;
 import gui.SplashScreen;
 import guiPlots.PlotLast72hrTemp;
 import guiPlots.PlotBase;
@@ -130,6 +131,7 @@ public class Main extends Application
         	}
         	window.show();
         	addPlotWindows(user.reconstructPlotWindows());
+        	fillPlots();
         	plotWindows.showAll();
         });
         
@@ -159,6 +161,30 @@ public class Main extends Application
 			plotWindows.remove(newWindow);
 		});
 		plotWindows.add(newWindow);
+		fillPlot(plot);
+	}
+	
+	void fillPlot(PlotBase plot)
+	{
+		EasyTask fetchDataTask = new EasyTask(() ->
+		{
+			plot.fetchData();
+		});
+		SafeTask plotTask = new SafeTask(() ->
+		{
+			plot.plotData();
+		});
+		queueTask(fetchDataTask);
+		queueTask(plotTask);
+	}
+	
+	void  fillPlots()
+	{
+		for (PlotWindow window : plotWindows)
+		{
+			PlotBase plot = window.getPlot();
+			fillPlot(plot);
+		}
 	}
 	
 	void addPlotWindows(PlotWindows windows)

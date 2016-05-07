@@ -32,6 +32,11 @@ public class PlotBase extends VBox
 		toolBar = new ToolBar(refreshButton);
 	}
 	
+	public void plotData()
+	{
+		
+	}
+	
 	protected void setName(String name)
 	{
 		this.name = name;
@@ -70,5 +75,10 @@ public class PlotBase extends VBox
 	public String getName() 
 	{
 		return name;
+	}
+
+	public void fetchData()
+	{
+		
 	}
 }

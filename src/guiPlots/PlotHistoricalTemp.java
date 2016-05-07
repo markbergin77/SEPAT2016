@@ -24,7 +24,7 @@ public class PlotHistoricalTemp extends PlotBase
 {
 	private String cssPath;
 	static String cssFileName = "HisTempPlot.css";
-	
+	WthrSamplesDaily wthrSamplesDaily;
 	final CategoryAxis xAxis = new CategoryAxis();
     final NumberAxis yAxis = new NumberAxis();
     LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
@@ -57,8 +57,8 @@ public class PlotHistoricalTemp extends PlotBase
         lineChart.horizontalGridLinesVisibleProperty().set(false);
         lineChart.verticalGridLinesVisibleProperty().set(false);
 
-        plot();
-        
+        //plot();
+        lineChart.getData().addAll(seriesTempMin, seriesTempMax, seriesTemp9am, seriesTemp3pm);
         // Hacky solution, add a css class to each line
         String[] lineClasses = {"tempMin", "tempMax", "temp9am", "temp3pm"};
         seriesTempMin.getNode().getStyleClass().add(lineClasses[0]);
@@ -141,17 +141,24 @@ public class PlotHistoricalTemp extends PlotBase
 		seriesTemp3pm.getData().clear();
 	}
 	
-	private void plot() {
-		WthrSamplesDaily wthrSamplesDaily  = getData(station, start, end);
-        addToAllSeries(wthrSamplesDaily);
-        lineChart.getData().addAll(seriesTempMin, seriesTempMax, seriesTemp9am, seriesTemp3pm);
+	@Override 
+	public void fetchData()
+	{
+		wthrSamplesDaily = getData(station, start, end);
 	}
 	
 	@Override
-	protected void onRefresh() {
-		WthrSamplesDaily wthrSamplesDaily = getData(station, start, end);
+	public void plotData() 
+	{
+        addToAllSeries(wthrSamplesDaily);
+	}
+	
+	@Override
+	protected void onRefresh() 
+	{
 		clearAllSeries();
-		addToAllSeries(wthrSamplesDaily);
+		fetchData();
+		plotData();
 	}
 	
 	@Override

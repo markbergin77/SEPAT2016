@@ -23,7 +23,7 @@ public class TableHistorical extends PlotBase
 	private String cssPath;
 	String cssFileName = "tables.css";
 	TableView dataTable;
-	
+	ObservableList data;
 	double tempFieldWidth = 36;
 	
     public TableHistorical(Station station) 
@@ -39,13 +39,6 @@ public class TableHistorical extends PlotBase
     public void createTable()
     {
         dataTable = new TableView<WthrSampleDaily>();
-        try {
-            ObservableList content = getData();
-            dataTable.setItems(content);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
 
         //-------------------------------------------------------------------------------------//
         // in order to create a table you have to specify the class / type of object it is representing
@@ -142,30 +135,41 @@ public class TableHistorical extends PlotBase
         container.getChildren().add(dataTable);
         container.setMinSize(780,450);
     }
-
-    public ObservableList getData() throws Exception 
-    {
-
-        // here we create a list of weather sample objects
+    
+    @Override 
+	public void fetchData()
+	{
+    	// here we create a list of weather sample objects
         // each weather sample object contains data from charlton on a particular day
         // the values of each sample objects variables is automatically detected by the tableView
 
-        List list = new ArrayList();
+    	 try {
+    		 List list = new ArrayList();
 
-        YearMonth start = YearMonth.now().minusMonths(12);
-        YearMonth end = YearMonth.now().plusMonths(1);
+    	        YearMonth start = YearMonth.now().minusMonths(12);
+    	        YearMonth end = YearMonth.now().plusMonths(1);
 
-        WthrSamplesDaily stationData = new WthrSamplesDaily();
+    	        WthrSamplesDaily stationData = new WthrSamplesDaily();
 
-        stationData = Bom.getWthrRange(station, start, end);
-        for (WthrSampleDaily sample : stationData) {
-            list.add(sample);
-        }
+    	        stationData = Bom.getWthrRange(station, start, end);
+    	        for (WthrSampleDaily sample : stationData) {
+    	            list.add(sample);
+    	        }
 
-        ObservableList data = FXCollections.observableList(list);
-
-        return data;
-    }
+    	        data = FXCollections.observableList(list);
+         }
+         catch (Exception e){
+             e.printStackTrace();
+         }
+    	
+        
+	}
+    
+    @Override
+	public void plotData() 
+    {
+    	dataTable.setItems(data);
+	}
     
     @Override
     public String getCssPath()
@@ -176,7 +180,7 @@ public class TableHistorical extends PlotBase
     @Override
     public void onRefresh()
     {
-    	createTable();
-    	reassembleFrom(dataTable);
+    	fetchData();
+    	plotData();
     }
 }

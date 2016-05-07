@@ -27,7 +27,7 @@ public class OptionsPaneNotFav extends OptionsPaneBase
 	{
 		super(station);
 		this.eventHandler = eventHandler;
-		addToFavsButton.setOnMouseClicked(e -> eventHandler.onAddFav(station));
+		addToFavsButton.setOnMouseClicked(e -> onAddFav());
 		plot72hrButton.setOnMouseClicked(e -> eventHandler.onOpen72TempPlot(station));
 		plotHisButton.setOnMouseClicked(e -> eventHandler.onOpenHisTempPlot(station));
 		table72hrButton.setOnMouseClicked(e -> eventHandler.onOpen72HrTable(station));

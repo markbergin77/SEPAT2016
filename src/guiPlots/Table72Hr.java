@@ -21,7 +21,7 @@ public class Table72Hr extends PlotBase
 {
 	private String cssPath;
 	String cssFileName = "tables.css";
-
+	ObservableList content;
 	TableView dataTable;
 	
     public Table72Hr(Station station) 
@@ -41,13 +41,6 @@ public class Table72Hr extends PlotBase
         //  creating a table of monthly data
 
         dataTable = new TableView<WthrSampleDaily>();
-        try {
-            ObservableList content = getData(station);
-            dataTable.setItems(content);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
 
         //-------------------------------------------------------------------------------------//
         // in order to create a table you have to specify the class / type of object it is representing
@@ -126,10 +119,27 @@ public class Table72Hr extends PlotBase
         return data;
     }
     
+    @Override 
+	public void fetchData()
+	{
+    	try {
+            content = getData(station);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+	}
+    
+    @Override
+	public void plotData() 
+    {
+    	dataTable.setItems(content);
+	}
+    
     @Override
     public void onRefresh()
     {
-    	createTable();
-    	reassembleFrom(dataTable);
+    	fetchData();
+    	plotData();
     }
 }

@@ -4,11 +4,13 @@ import data.Bom;
 import data.StationList;
 import dataTest.SaveTestData;
 import gui.Explorer;
+import gui.Explorer.EventInterface;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ExplorerTest extends Application
+public class ExplorerTest extends Application 
+	implements Explorer.EventInterface
 {
 	//Explorer test, includes pan for location lists and favorites tab
 	StationList allStations;	
@@ -20,7 +22,7 @@ public class ExplorerTest extends Application
 		window.setResizable(false);
         window.setOnCloseRequest(e -> System.exit(0));
         allStations = SaveTestData.loadAllStations();
-        Explorer explorer = new Explorer();
+        Explorer explorer = new Explorer(this);
 		explorer.addStationsAll(allStations);
 		Scene scene = new Scene(explorer);
 		window.setScene(scene);
