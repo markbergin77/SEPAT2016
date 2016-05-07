@@ -12,7 +12,7 @@ import user.User;
 
 public class SaveTestData 
 {
-	static String pathAllStations = FolderPathHome.get() + "TestObjects/StationList";
+	static String pathAllStations = FolderPathHome.get() + "TestObjects/StationList.to";
 	public static void main(String args[])
     {
 		StationList stations;
