@@ -1,4 +1,4 @@
-package data;
+package data.samples;
 
 import java.util.Vector;
 

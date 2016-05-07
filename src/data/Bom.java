@@ -29,6 +29,11 @@ import com.google.gson.JsonSyntaxException;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+import data.samples.WthrSampleDaily;
+import data.samples.WthrSampleFine;
+import data.samples.WthrSamplesDaily;
+import data.samples.WthrSamplesFine;
+
 /**
  * Static Class that accesses the BoM website to fetch weather data. Currently
  * supports two types of historic weather data. Fine: 72hrs of ~30min readings

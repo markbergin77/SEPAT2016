@@ -9,7 +9,7 @@ import java.util.Vector;
 import data.Bom;
 import data.Station;
 import data.StationList;
-import data.WthrSampleFine;
+import data.samples.WthrSampleFine;
 
 public class SelectStation 
 {

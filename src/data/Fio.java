@@ -18,6 +18,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import data.samples.FioSampleDaily;
+import data.samples.FioSamplesDaily;
+import data.samples.WthrSamplesFine;
+
 public class Fio
 {
 	private static String baseUrl = "https://api.forecast.io/forecast/";

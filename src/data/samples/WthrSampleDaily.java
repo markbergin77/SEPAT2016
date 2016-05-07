@@ -1,4 +1,4 @@
-package data;
+package data.samples;
 
 //Data types/attributes provided by BOM data, used for Monthly Observations
 public class WthrSampleDaily

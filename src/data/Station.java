@@ -27,6 +27,8 @@ import com.google.gson.JsonSyntaxException;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+import data.samples.WthrSampleFine;
+import data.samples.WthrSamplesFine;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 

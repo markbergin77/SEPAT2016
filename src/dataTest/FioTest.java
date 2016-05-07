@@ -4,11 +4,11 @@ import java.io.IOException;
 
 import data.Bom;
 import data.Fio;
-import data.FioSampleDaily;
-import data.FioSamplesDaily;
 import data.Station;
 import data.StationList;
-import data.WthrSamplesFine;
+import data.samples.FioSampleDaily;
+import data.samples.FioSamplesDaily;
+import data.samples.WthrSamplesFine;
 
 public class FioTest
 {

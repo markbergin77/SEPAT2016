@@ -1,6 +1,9 @@
 package gui.plots;
 
 import data.*;
+import data.samples.WthrSampleDaily;
+import data.samples.WthrSampleFine;
+import data.samples.WthrSamplesFine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
