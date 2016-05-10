@@ -1,0 +1,618 @@
+/* the styling for each UI component
+*/
+
+.root {
+    -fx-background-color: #262626;
+    -fx-border-width: 2px;
+    -fx-background-radius: 10px;
+    -fx-opacity: 98%;
+    -fx-background-position: 0px 200px;
+
+}
+
+/* tool bar with linear gradient background
+*/
+.tool-bar {
+    -fx-min-width: 102%;
+    -fx-max-height: 45px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-radius: 9, 8, 5, 4, 3;
+}
+
+/* default button styling with linear gradient and
+rounded corners
+*/
+
+.button {
+    -fx-min-width: 180px;
+    -fx-min-height: 40px;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #00B4CC;
+    -fx-border-radius: 5px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-insets: 0, 3, 3, 3, 5;
+    -fx-background-radius: 9, 8, 5, 4, 3;
+    -fx-text-fill: #00B4CC;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, black, 25, 0.25, 0, 0)
+}
+
+#p1 {
+    -fx-border-radius: 2px;
+    -fx-background-radius: 2px;
+}
+
+/*default style for triangular buttons*/
+#t1 {
+    -fx-min-width: 50px;
+    -fx-min-height: 200px;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #00B4CC;
+    -fx-border-radius: 5px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-text-fill: #00B4CC;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, black, 25, 0.25, 0, 0)
+}
+
+#t2 {
+    -fx-min-width: 50px;
+    -fx-min-height: 200px;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #00B4CC;
+    -fx-border-radius: 5px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-text-fill: #00B4CC;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, black, 25, 0.25, 0, 0)
+}
+
+/* classes for when user hovers over button*/
+#button-hover-t {
+    -fx-min-width: 50px;
+    -fx-min-height: 200px;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #00dffc;
+    -fx-border-radius: 5px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-text-fill: #00dffc;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, #606060, 20, 0.3, 0, 0);
+
+}
+
+#t2-hover {
+    -fx-min-width: 50px;
+    -fx-min-height: 200px;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #00dffc;
+    -fx-border-radius: 5px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-text-fill: #00dffc;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, #606060, 20, 0.3, 0, 0);
+
+}
+
+/* styling various rectangles in use*/
+
+#rect {
+    -fx-background-color: #262626;
+    -fx-effect: dropshadow(three-pass-box, black, 28, 0.2, 0, 0);
+}
+
+#rect2 {
+    -fx-background-color: #262626;
+    -fx-effect: dropshadow(three-pass-box, black, 28, 0.2, 0, 0);
+}
+
+#rect3 {
+    -fx-background-color: #262626;
+    -fx-effect: dropshadow(three-pass-box, black, 28, 0.2, 0, 0);
+}
+
+/*different style for when the user clicks the button */
+
+.button-press {
+    -fx-min-width: 180px;
+    -fx-min-height: 40px;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #00dffc;
+    -fx-border-radius: 5px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-insets: 0, 2, 2, 2, 5;
+    -fx-background-radius: 9, 8, 5, 4, 3;
+    -fx-text-fill: #00B4CC;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(one-pass-box, silver, 20, 0.01%, 0, 0);
+
+}
+
+/* default style for all labe objects in the program */
+.label {
+    -fx-text-fill: #00dffc;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, black, 15, 0.5, 0, 0);
+}
+
+.label-hover {
+    -fx-text-fill: #00dffc;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, silver, 15, 0.5, 0, 0);
+}
+
+.button-hover {
+    -fx-min-width: 180px;
+    -fx-min-height: 40px;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: #00dffc;
+    -fx-border-radius: 5px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-insets: 0, 3, 3, 3, 5;
+    -fx-background-radius: 9, 8, 5, 4, 3;
+    -fx-text-fill: #00B4CC;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, #606060, 20, 0.3, 0, 0);
+}
+
+/*default style for all texfields unless overriden*/
+
+.text-field {
+    -fx-prompt-text-fill: #737373;
+    -fx-background-color: #333333;
+    -fx-border-radius: 0 12px 12px 0;
+    -fx-border-width: 1px;
+    -fx-background-radius: 0 12px 12px 0;
+    -fx-border-color: #00B4CC;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 24px;
+    -fx-text-fill: silver;
+    -fx-background-image: url('search.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: right 10 center;
+    -fx-background-insets: 2px;
+
+}
+
+#panel {
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-opacity: 0.9;
+}
+
+/* style for when the progressbar is working */
+
+.progress-bar > .track {
+    -fx-text-box-border: #00dffc;
+    -fx-control-inner-background: #606060;
+}
+
+.progress-bar {
+    -fx-min-width: 275px;
+    -fx-min-height: 25px;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #00dffc;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #00dffc;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, silver, 20, 0.3, 0, 0);
+}
+
+.progress-bar .bar {
+    -fx-padding: 5px;
+    -fx-background-insets: 2px;
+}
+
+/* style for exit button */
+
+#exit-h {
+    -fx-min-width: 50px;
+    -fx-min-height: 20px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-background-color: linear-gradient(#f47373 10%, #f47373 10%, #f74f4f 45%, #ff0000 66%, #e73827 100%);
+    -fx-text-alignment: center;
+    -fx-border-color: silver;
+    -fx-effect: dropshadow(three-pass-box, silver, 20, 0.1, 0, 0);
+}
+
+#minimize-h {
+    -fx-min-width: 50px;
+    -fx-min-height: 20px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #00dffc;
+    -fx-font-size: 12px;
+    -fx-text-alignment: center;
+    -fx-border-color: #00dffc;
+    -fx-effect: dropshadow(three-pass-box, silver, 20, 0.3, 0, 0);
+}
+
+#exit {
+    -fx-end-margin: 50px;
+    -fx-min-width: 50px;
+    -fx-min-height: 20px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-font-size: 12px;
+    -fx-text-fill: black;
+    -fx-border-color: lightslategray;
+    -fx-text-alignment: center;
+    -fx-background-color: linear-gradient(#f74747 15%, #f93434 45%, #f93434 45%, #ff0000 66%, #e73827 100%);
+
+}
+
+#minimize {
+    -fx-min-width: 50px;
+    -fx-min-height: 20px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-font-size: 12px;
+    -fx-text-alignment: center;
+    -fx-text-fill: #00B4CC;
+}
+
+.button-wait {
+
+    -fx-min-width: 200px;
+    -fx-min-height: 33px;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #00B4CC;
+    -fx-border-radius: 8px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-insets: 0, 3, 3, 3, 5;
+    -fx-background-radius: 9, 8, 5, 4, 3;
+    -fx-text-fill: #00B4CC;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, black, 25, 0.25, 0, 0)
+
+}
+
+/* styling various elements present within the tabPane */
+
+.tab-pane .tab {
+    -fx-border-radius: 5 5 0 0;
+    -fx-border-color: #00B4CC;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-radius: 5 5 0 0;
+    -fx-pref-height: 30px;
+    -fx-focus-color: transparent;
+}
+
+.tab-container {
+    -fx-border-color: transparent;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 10 0 0 17;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #00dffc;
+    -fx-font-weight: bold;
+    -fx-focus-color: transparent;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #00B4CC;
+    -fx-font-weight: bold;
+}
+
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab-pane {
+    /*-fx-effect: dropshadow(three-pass-box, black, 25, 0.25, 0, 0)*/
+}
+
+/* yet another button style */
+.button-wait-bright {
+    -fx-min-width: 200px;
+    -fx-min-height: 33px;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: #00dffc;
+    -fx-border-radius: 5px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-insets: 0, 3, 3, 3, 5;
+    -fx-background-radius: 9, 8, 5, 4, 3;
+    -fx-text-fill: #00dffc;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, #606060, 20, 0.3, 0, 0);
+}
+
+/*default style for all scrollPanes unless overriden*/
+
+.scroll-pane {
+    -fx-background-color: #262626;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 45px 17px 0px 15px;
+    -fx-padding: 55px 9px 10px 20px;
+    -fx-effect: dropshadow(three-pass-box, black, 25, 0.25, 0, 0);
+}
+
+.scroll-pane > .viewport {
+    -fx-background-radius: 10px;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar .thumb {
+
+    -fx-background-radius: 5px;
+    -fx-background-color: lightslategray;
+    -fx-opacity: 0.2;
+
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .decrement-button {
+
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-button {
+
+    -fx-background-color: transparent;
+}
+
+/*default style for all charts unless overriden*/
+
+.chart {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+    -fx-legend-visible: false;
+}
+
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+    -fx-border-color: transparent;
+}
+
+.chart-plot-background {
+
+    -fx-border-color: black;
+    -fx-padding: 0px;
+    -fx-opacity: 0.5;
+    -fx-background-color: linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+}
+
+.chart-content {
+
+    -fx-border-color: transparent;
+}
+
+.axis {
+    -fx-tick-mark-visible: false;
+    -fx-minor-tick-visible: false;
+    -fx-tick-length: 3;
+    -fx-minor-tick-length: 0;
+    -fx-border-color: transparent;
+}
+
+/*default style for all tables unless overriden*/
+
+.table-view {
+
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: lightslategray;
+    -fx-background-color: #262626;
+    -fx-effect: dropshadow(three-pass-box, black, 25, 0.25, 0, 0);
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+
+}
+
+.table-view .scroll-bar {
+    -fx-background-color: transparent;
+
+}
+
+.table-view .scroll-bar .thumb {
+
+    -fx-background-radius: 5px;
+    -fx-background-color: lightslategray;
+    -fx-opacity: 0.2;
+}
+
+.table-view .column-header-background .label {
+    -fx-font-size: 12px;
+}
+
+.table-view .column-header-background {
+
+    -fx-background-radius: 10 10 0 0;
+    -fx-border-radius: 10 10 0 0;
+
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+}
+
+.table-view .table-cell {
+    -fx-font-size: 14px;
+    -fx-text-fill: #020b02;
+}
+
+.table-view .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header {
+
+    -fx-border-radius: 10 10 0 0;
+    -fx-background-radius: 10 10 0 0;
+    -fx-background-color: transparent;
+}
+
+.table-row-cell {
+    -fx-border-color: transparent;
+    -fx-background-color: #373837;
+}
+
+.table-row-cell:odd {
+
+    -fx-background-color: #686868;
+    -fx-border-color: transparent;
+}
+
+.table-row-cell:selected {
+    -fx-border-color: transparent;
+}
+
+#exportbutton {
+
+    -fx-max-height: 33px;
+    -fx-min-height: 33px;
+}
+
+#exportbuttonsmall {
+
+    -fx-max-height: 30px;
+    -fx-min-height: 30px;
+    -fx-text-alignment: center;
+    -fx-font-size: 12px;
+}
+
+.export-button-bright {
+
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: #00dffc;
+    -fx-border-radius: 5px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-radius: 5px;
+    -fx-text-fill: #00dffc;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, #606060, 20, 0.3, 0, 0);
+
+}
+
+#menubutton {
+
+    -fx-min-width: 50px;
+    -fx-min-height: 20px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-background-color: linear-gradient(#E6DADA 0%, #274046 100%);
+    -fx-text-alignment: center;
+    -fx-border-color: silver;
+    -fx-effect: dropshadow(three-pass-box, black, 20, 0.2, 0, 0);
+    -fx-background-image: url('burger.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 20 20 20 20;
+
+}
+
+#menu-h {
+
+    -fx-min-width: 50px;
+    -fx-min-height: 20px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-background-color: linear-gradient(#E6DADA 0%, #274046 100%);
+    -fx-text-alignment: center;
+    -fx-border-color: silver;
+    -fx-effect: dropshadow(three-pass-box, silver, 20, 0.1, 0, 0);
+    -fx-background-image: url('burger.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 20 20 20 20;
+}
+
+.listbutton{
+
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #00B4CC;
+    -fx-border-radius: 5px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-insets: 0, 3, 3, 3, 5;
+    -fx-background-radius: 9, 8, 5, 4, 3;
+    -fx-text-fill: #00B4CC;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, black, 25, 0.25, 0, 0)
+}
+
+.listbutton-h{
+
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: #00dffc;
+    -fx-border-radius: 5px;
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%), linear-gradient(#020b02, #3a3a3a),
+    linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
+    linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
+    linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+    -fx-background-insets: 0, 3, 3, 3, 5;
+    -fx-background-radius: 9, 8, 5, 4, 3;
+    -fx-text-fill: #00B4CC;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, #606060, 20, 0.3, 0, 0);
+}
