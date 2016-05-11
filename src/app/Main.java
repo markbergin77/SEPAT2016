@@ -132,10 +132,10 @@ public class Main extends Application
         		window.setX(user.getWindowX());
             	window.setY(user.getWindowY());
         	}
-        	window.show();
         	addPlotWindows(user.reconstructPlotWindows());
         	fillPlots();
         	plotWindows.showAll();
+        	window.show();
         });
         
         /* Now start the chain of tasks, 
@@ -293,6 +293,19 @@ public class Main extends Application
 	public void onGoHome()
 	{
 		window.toFront();
+	}
+
+	@Override
+	public void onCloseAllPlots()
+	{
+		plotWindows.closeAll();
+		plotWindows.clear();
+	}
+
+	@Override
+	public void onClearFavs()
+	{
+		
 	}
 	
 	

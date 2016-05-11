@@ -3,6 +3,7 @@ package gui.home;
 import data.Station;
 import gui.home.explorer.Explorer;
 import gui.home.explorer.Explorer.EventInterface;
+import gui.home.globalOptions.GlobalOptionsArea;
 import gui.home.options.OptionsArea;
 import javafx.scene.layout.*;
 import user.Favourite;
@@ -11,6 +12,7 @@ import user.User;
 /* The root of all the User's activities */
 public class HomeScreen extends GridPane
 	implements OptionsArea.EventInterface, Explorer.EventInterface
+	, GlobalOptionsArea.EventInterface
 {
 	public interface EventInterface 
 	{
@@ -20,14 +22,17 @@ public class HomeScreen extends GridPane
 		abstract void onOpenHisTable (Station station);
 		abstract void onOpen72HrTable (Station station);
 		abstract void onCloseAllPlots(Station station);
+		abstract void onCloseAllPlots();
+		abstract void onClearFavs();
 	}
     Explorer explorer;
     OptionsArea optionsArea;
+    GlobalOptionsArea globalOptionsArea;
     User user;
     
     public static double defaultHeight = 400;
     
-    EventInterface callbackObj;
+    EventInterface eventHandler;
     
     /* for testing purposes, no interaction */
     public HomeScreen()
@@ -35,6 +40,7 @@ public class HomeScreen extends GridPane
     	super();
     	explorer = new Explorer(this);
     	optionsArea = new OptionsArea(this);
+    	globalOptionsArea = new GlobalOptionsArea(this);
         add(explorer, 0, 0);
         add(optionsArea, 1, 0);
     }
@@ -45,9 +51,11 @@ public class HomeScreen extends GridPane
     	user = init.user;
     	explorer = new Explorer(this);
     	optionsArea = new OptionsArea(this);
+    	globalOptionsArea = new GlobalOptionsArea(this);
         add(explorer, 0, 0);
         add(optionsArea, 1, 0);
-        this.callbackObj = callbackObj;
+        add(globalOptionsArea, 2, 0);
+        this.eventHandler = callbackObj;
         explorer.addStationsAll(init.getAllStations(),
         		StationButton -> onStationClicked(StationButton));
         explorer.addStationsFav(init.user.getFavs(), f -> onFavClicked(f));
@@ -101,36 +109,48 @@ public class HomeScreen extends GridPane
 	@Override
 	public void onOpen72TempPlot(Station station)
 	{
-		callbackObj.onOpen72TempPlot(station);
+		eventHandler.onOpen72TempPlot(station);
 	}
 
 	@Override
 	public void onOpenHisTempPlot(Station station)
 	{
-		callbackObj.onOpenHisTempPlot(station);
+		eventHandler.onOpenHisTempPlot(station);
 	}
 
 	@Override
 	public void onAddFav(Station station)
 	{
-		callbackObj.onAddFav(station);
+		eventHandler.onAddFav(station);
 	}
 
 	@Override
 	public void onOpenHisTable(Station station)
 	{
-		callbackObj.onOpenHisTable(station);
+		eventHandler.onOpenHisTable(station);
 	}
 
 	@Override
 	public void onOpen72HrTable(Station station)
 	{
-		callbackObj.onOpen72HrTable(station);
+		eventHandler.onOpen72HrTable(station);
 	}
 
 	@Override
 	public void onCloseAllPlots(Station station)
 	{
-		callbackObj.onCloseAllPlots(station);
+		eventHandler.onCloseAllPlots(station);
+	}
+
+	@Override
+	public void onCloseAllPlots()
+	{
+		eventHandler.onCloseAllPlots();
+	}
+
+	@Override
+	public void onClearFavs()
+	{
+		eventHandler.onClearFavs();		
 	}
 }

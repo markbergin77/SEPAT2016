@@ -22,7 +22,7 @@ public class PaneBase extends VBox
 	String buttonTableYearlyTxt = "Open Historical Weather Table";
 	Button tableHisButton = new Button(buttonTableYearlyTxt);
 	
-	String closePlotsText = "Close Open Charts";
+	String closePlotsText = "Close Charts";
 	Button closePlotsButton = new Button(closePlotsText);
 	
 	public PaneBase(Station station)

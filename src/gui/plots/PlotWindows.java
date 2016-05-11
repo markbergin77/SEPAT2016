@@ -116,4 +116,12 @@ public class PlotWindows extends Vector<PlotWindow>
 			window.setOnCloseRequest(handler);
 		}
 	}
+
+	public void closeAll()
+	{
+		for (PlotWindow win : this)
+		{
+			win.close();
+		}
+	}
 }
