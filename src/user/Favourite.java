@@ -16,6 +16,11 @@ public class Favourite implements Serializable
 		this.favData = new FavouriteData(timesViewed); 
 	}
 	
+	public boolean equals(Favourite other)
+	{
+		return station.equals(other.station);
+	}
+	
 	public int timesViewed()
 	{
 		return favData.timesViewed;

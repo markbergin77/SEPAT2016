@@ -24,7 +24,7 @@ public class HomeScreenTest extends Application
 			e1.printStackTrace();
 		}
         HomeScreen homeScreen = new HomeScreen();
-        homeScreen.getExplorer().addStationsAll(allStations);
+        //homeScreen.getExplorer().addStationsAll(allStations);
         Scene scene = new Scene(homeScreen);
 		window.setScene(scene);
     	window.sizeToScene();

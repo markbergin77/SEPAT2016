@@ -37,14 +37,21 @@ public class ExplorerTest extends Application
     }
 
 	@Override
-	public void onStationClicked(Station station)
+	public void onStationSel(Station station)
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onFavClicked(Favourite fav)
+	public void onFavSel(Favourite fav)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onFavRemove(Favourite fav)
 	{
 		// TODO Auto-generated method stub
 		

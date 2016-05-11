@@ -13,11 +13,32 @@ import user.FavouritesList;
 public class Explorer extends StackPane
 	implements PaneAllStations.EventInterface
 	, PaneFavourites.EventInterface
-{	
-	public interface EventInterface 
+{			
+	public Explorer(EventInterface callbackObj)
 	{
-		void onStationClicked(Station station);
-		void onFavClicked(Favourite fav);
+		super();
+		this.eventHandler = callbackObj;
+		createGuiElements();
+	}
+	
+	public void addStationsFav(FavouritesList stations)
+	{
+		favouritesPane.addFavButtons(stations);
+	}
+	
+	public void addStationsAll(StationList stations) 
+	{
+		allStationsPane.createStationButtons(stations);
+	}
+	
+	public void addFavourite(Favourite fav)
+	{
+		favouritesPane.addFavButton(fav);
+	}
+	
+	public void removeFavourite(Favourite fav)
+	{
+		favouritesPane.removeFav(fav);
 	}
 	
 	TabPane tabPane;
@@ -27,14 +48,7 @@ public class Explorer extends StackPane
 	PaneFavourites favouritesPane;
 	
 	EventInterface eventHandler;
-	
-	public Explorer(EventInterface callbackObj)
-	{
-		super();
-		this.eventHandler = callbackObj;
-		createGuiElements();
-	}
-	
+
 	void createGuiElements()
 	{
 		allStationsPane = new PaneAllStations(this);
@@ -52,30 +66,28 @@ public class Explorer extends StackPane
 		getChildren().addAll(tabPane);
 	}
 	
-	public void onAddFavourite(Favourite fav)
+	public interface EventInterface 
 	{
-		favouritesPane.addFavButton(fav);
+		abstract void onStationSel(Station station);
+		abstract void onFavSel(Favourite fav);
+		abstract void onFavRemove(Favourite fav);
 	}
 	
-	public void addStationsFav(FavouritesList stations)
-	{
-		favouritesPane.createFavButtons(stations);
-	}
-
-	public void addStationsAll(StationList stations) 
-	{
-		allStationsPane.createStationButtons(stations);
-	}
-
 	@Override
 	public void onFavClicked(Favourite fav)
 	{
-		eventHandler.onFavClicked(fav);		
+		eventHandler.onFavSel(fav);		
 	}
 
 	@Override
 	public void onStationClicked(Station station)
 	{
-		eventHandler.onStationClicked(station);
+		eventHandler.onStationSel(station);
+	}
+
+	@Override
+	public void onFavRemove(Favourite fav)
+	{
+		eventHandler.onFavRemove(fav);
 	}
 }

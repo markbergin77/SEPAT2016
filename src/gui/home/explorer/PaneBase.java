@@ -66,6 +66,12 @@ public class PaneBase extends GridPane
 		allButtons.add(node);		
 	} 
     
+    protected void removeButton(Button node)
+    {
+    	vbox.getChildren().remove(node);
+    	allButtons.remove(node);
+    }
+    
     public VBox getVBox()
     {
         return vbox;

@@ -12,39 +12,8 @@ import user.User;
 public class HomeScreen extends GridPane
 	implements OptionsArea.EventInterface, Explorer.EventInterface
 	, GlobalOptionsArea.EventInterface
-{
-	public interface EventInterface 
-	{
-		abstract void onOpen72TempPlot(Station station);
-		abstract void onOpenHisTempPlot(Station station);
-		abstract void onAddFav(Station station);
-		abstract void onOpenHisTable (Station station);
-		abstract void onOpen72HrTable (Station station);
-		abstract void onCloseAllPlots(Station station);
-		abstract void onCloseAllPlots();
-		abstract void onClearFavs();
-	}
-    Explorer explorer;
-    OptionsArea optionsArea;
-    GlobalOptionsArea globalOptionsArea;
-    User user;
-    
-    public static double defaultHeight = 400;
-    
-    EventInterface eventHandler;
-    
-    /* for testing purposes, no interaction */
-    public HomeScreen()
-    {
-    	super();
-    	explorer = new Explorer(this);
-    	optionsArea = new OptionsArea(this);
-    	globalOptionsArea = new GlobalOptionsArea(this);
-        add(explorer, 0, 0);
-        add(optionsArea, 1, 0);
-    }
-    
-    public HomeScreen(HomeScreenInit init, EventInterface eventHandler)
+{    
+	public HomeScreen(HomeScreenInit init, EventInterface eventHandler)
     {
     	super();
     	user = init.user;
@@ -58,9 +27,52 @@ public class HomeScreen extends GridPane
         explorer.addStationsAll(init.getAllStations());
         explorer.addStationsFav(init.user.getFavs());
     }
+	
+	public void addFavourite(Favourite newFav)
+	{
+		explorer.addFavourite(newFav);
+	}
+	
+	public void removeFavourite(Favourite newFav)
+	{
+		explorer.removeFavourite(newFav);
+	}
+	
+    /* for testing purposes, no interaction */
+    public HomeScreen()
+    {
+    	super();
+    	explorer = new Explorer(this);
+    	optionsArea = new OptionsArea(this);
+    	globalOptionsArea = new GlobalOptionsArea(this);
+        add(explorer, 0, 0);
+        add(optionsArea, 1, 0);
+    }
+    
+    Explorer explorer;
+    OptionsArea optionsArea;
+    GlobalOptionsArea globalOptionsArea;
+    User user;
+    
+    public static double defaultHeight = 400;
+    
+    EventInterface eventHandler;
+    
+    public interface EventInterface 
+	{
+		abstract void onOpen72TempPlot(Station station);
+		abstract void onOpenHisTempPlot(Station station);
+		abstract void onAddFav(Station station);
+		abstract void onOpenHisTable (Station station);
+		abstract void onOpen72HrTable (Station station);
+		abstract void onCloseAllPlots(Station station);
+		abstract void onCloseAllPlots();
+		abstract void onClearFavs();
+		abstract void onFavRemove(Favourite fav);
+	}
     
     @Override
-    public void onFavClicked(Favourite fav)
+    public void onFavSel(Favourite fav)
     {
     	if(! optionsArea.hasTabFor(fav.getStation()))
     	{
@@ -74,7 +86,7 @@ public class HomeScreen extends GridPane
     }
     
     @Override
-    public void onStationClicked(Station station)
+    public void onStationSel(Station station)
     {
     	if(! optionsArea.hasTabFor(station))
     	{
@@ -94,16 +106,6 @@ public class HomeScreen extends GridPane
     	{
     		optionsArea.selectTabFor(station);
     	}
-    }
-    
-    public Explorer getExplorer()
-    {
-    	return explorer;
-    }
-    
-    public void startShowing()
-    {   	
-    	
     }
 
 	@Override
@@ -158,5 +160,11 @@ public class HomeScreen extends GridPane
 	public void onCloseAllTabs()
 	{
 		optionsArea.closeAllTabs();
+	}
+
+	@Override
+	public void onFavRemove(Favourite fav)
+	{
+		eventHandler.onFavRemove(fav);
 	}
 }

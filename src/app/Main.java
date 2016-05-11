@@ -21,8 +21,11 @@ import gui.plots.Table72Hr;
 import gui.plots.TableHistorical;
 import javafx.application.Application;
 import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import user.Favourite;
 import user.User;
 import utilities.EasyTask;
@@ -121,7 +124,6 @@ public class Main extends Application
         splash.setOnClosed(e -> 
         {
         	window.setScene(scene);
-        	homeScreen.startShowing();
         	window.sizeToScene();
         	if(newUser)
         	{
@@ -226,7 +228,7 @@ public class Main extends Application
 		{
 			Favourite newFav = Favourite.create(station);
 			user.getFavs().add(newFav);
-			homeScreen.getExplorer().onAddFavourite(newFav);
+			homeScreen.addFavourite(newFav);
 		}
 	}
 
@@ -306,5 +308,12 @@ public class Main extends Application
 	public void onClearFavs()
 	{
 		
-	}	
+	}
+
+	@Override
+	public void onFavRemove(Favourite fav)
+	{
+		user.getFavs().remove(fav);
+		homeScreen.removeFavourite(fav);
+	}
 }
