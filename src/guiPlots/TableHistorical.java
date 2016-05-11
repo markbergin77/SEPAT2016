@@ -144,7 +144,8 @@ public class TableHistorical
             dataTable.setMinSize(730,200);
         }
         else {
-            dataTable.setMinSize(730,200);
+            dataTable.setMinSize(630,200);
+
         }
 
         dataTable.setEditable(false);

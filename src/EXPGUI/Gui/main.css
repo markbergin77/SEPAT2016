@@ -519,6 +519,10 @@ rounded corners
 
     -fx-max-height: 33px;
     -fx-min-height: 33px;
+    -fx-min-width: 130px;
+}
+.exportbutton{
+    -fx-min-width: 130px;
 }
 
 #exportbuttonsmall {
@@ -542,6 +546,7 @@ rounded corners
     -fx-background-radius: 5px;
     -fx-text-fill: #00dffc;
     -fx-font-size: 15px;
+    -fx-min-width: 130px;
     -fx-effect: dropshadow(three-pass-box, #606060, 20, 0.3, 0, 0);
 
 }

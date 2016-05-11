@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.YearMonth;
 
+import EXPGUI.Gui.HomeScreen;
 import EXPGUI.Gui.Utilities;
 import com.sun.javafx.charts.Legend;
 import data.Bom;
@@ -63,6 +64,10 @@ public class PlotHistoricalTemp //extends PlotBase
         seriesTempMax.setName("Maximum Temperature");
         seriesTemp9am.setName("9am Temperature");
         seriesTemp3pm.setName("3pm Temperature");
+
+        if(HomeScreen.getSize().equals("ML")){
+            xAxis.setLabel("");
+        }
 
 
         // Remove markers from line

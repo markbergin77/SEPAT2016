@@ -74,10 +74,10 @@ public class GraphPane extends Parent{
 
     public StackPane getGraphsmall(StackPane pane) {
 
-        Rectangle plotRect = new Rectangle(630,260);
+        Rectangle plotRect = new Rectangle(630,350);
         this.weatherPlot = new LineChart<Number,Number>(new NumberAxis(),new NumberAxis());
 
-        weatherPlot.setMaxSize(630,250);
+        weatherPlot.setMaxSize(630,350);
         //weatherPlot.setOpacity(0);
 
         plotRect.setArcHeight(20);
@@ -91,7 +91,7 @@ public class GraphPane extends Parent{
         plotRect.applyCss();
 
         pane.getChildren().addAll(plotRect,weatherPlot);
-        pane.setMaxSize(630,260);
+        pane.setMaxSize(630,350);
         StackPane.setAlignment(weatherPlot,Pos.TOP_CENTER);
       //  pane.setOpacity(0.97);
 
