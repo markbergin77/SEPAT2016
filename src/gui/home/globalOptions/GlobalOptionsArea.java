@@ -1,5 +1,6 @@
 package gui.home.globalOptions;
 
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -11,7 +12,7 @@ public class GlobalOptionsArea extends TabPane
 	{
 		public void onCloseAllPlots();
 		public void onClearFavs();
-		
+		public void onCloseAllTabs();
 	}
 	VBox vbox = new VBox();
 	String mainTabTitle = "Options";
@@ -24,18 +25,29 @@ public class GlobalOptionsArea extends TabPane
 	String clearFavsLabel = "Clear Favourites";
 	Button clearFavsButton = new Button(clearFavsLabel);
 	
+	String closeAllTabsLabel = "Close All Tabs";
+	Button closeAllTabsButton = new Button(closeAllTabsLabel);
+	
 	EventInterface eventHandler;
 	
 	public GlobalOptionsArea(EventInterface eventHandler)
 	{
 		super();
 		this.eventHandler = eventHandler;
-		vbox.getChildren().addAll(closeAllPlotsButton, clearFavsButton);
-		closeAllPlotsButton.setMinWidth(defaultWidth);
-		clearFavsButton.setMinWidth(defaultWidth);
+		vbox.getChildren().addAll(closeAllPlotsButton, clearFavsButton,
+				closeAllTabsButton);
+		for (Node node : vbox.getChildren())
+		{
+			Button button = (Button)node;
+			if(button != null)
+				button.setMinWidth(defaultWidth);
+		}
 		closeAllPlotsButton.setOnMouseClicked(e -> 
 		{
 			eventHandler.onCloseAllPlots();
+		});
+		closeAllTabsButton.setOnMouseClicked(e -> {
+			eventHandler.onCloseAllTabs();
 		});
 		mainTab.setContent(vbox);
 		mainTab.setClosable(false);

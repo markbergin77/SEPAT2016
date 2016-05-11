@@ -10,18 +10,26 @@ import gui.callbacks.StationClicked;
 /* List of all stations in BOM database */
 public class PaneAllStations extends PaneBase
 {
-    
+    public interface EventInterface
+    {
+    	void onStationClicked(Station station);
+    }
     /* why the variable? Because otherwise,
      * if we change the handler, we have to 
        loop through all the buttons and change
        them individually. */
-    StationClicked clickHandler;
+    EventInterface eventHandler;
     
     StationList stations;
     
     public PaneAllStations(StationList stations)
     {
     	super();
+    }
+    
+    public PaneAllStations(EventInterface eventHandler)
+    {
+    	this.eventHandler = eventHandler;
     }
     
     /* For testing */
@@ -36,36 +44,18 @@ public class PaneAllStations extends PaneBase
     	for (Station bomStation : bomStations)
     	{
     		ButtonNotFav node = new ButtonNotFav(bomStation);
-            getVBox().getChildren().add(node);
+    		node.setOnMouseClicked(e -> {
+    			onStationClicked(node.getStation());
+    		});
+            addButton(node);
             node.toFront();
     	}
     }
     
-    public void createStationButtons(StationList bomStations, 
-    		StationClicked clickHandler)
+    void onStationClicked(Station station)
     {
-    	this.clickHandler = clickHandler;
-    	for (Station bomStation : bomStations)
-    	{
-    		ButtonNotFav node = new ButtonNotFav(bomStation);
-    		node.setOnMouseClicked(e -> onStationClicked(e));
-    		addButton(node);
-    	}
-    }
-    
-    void onStationClicked(MouseEvent e)
-    {
-    	ButtonNotFav button = (ButtonNotFav)e.getSource();
-    	/* Do anything to the button's appearance you want */
-    	clickHandler.onStationClicked(button.getStation());
-    }
-    
-    public void setOnButtonClicked(StationClicked clickHandler)
-    {
-    	this.clickHandler = clickHandler;
-    }
-
-    
+    	eventHandler.onStationClicked(station);
+    }    
 
     public VBox updateList(){
 

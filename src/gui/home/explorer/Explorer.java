@@ -13,30 +13,34 @@ import user.FavouritesList;
 /* Interface through which user selects weather stations.
  */
 public class Explorer extends StackPane
+	implements PaneAllStations.EventInterface
+	, PaneFavourites.EventInterface
 {	
 	public interface EventInterface 
 	{
-
+		void onStationClicked(Station station);
+		void onFavClicked(Favourite fav);
 	}
+	
 	TabPane tabPane;
 	Tab allStationsTab;
 	Tab favouritesTab;
 	PaneAllStations allStationsPane;
 	PaneFavourites favouritesPane;
 	
-	EventInterface callbackObj;
+	EventInterface eventHandler;
 	
 	public Explorer(EventInterface callbackObj)
 	{
 		super();
-		this.callbackObj = callbackObj;
+		this.eventHandler = callbackObj;
 		createGuiElements();
 	}
 	
 	void createGuiElements()
 	{
-		allStationsPane = new PaneAllStations();
-		favouritesPane = new PaneFavourites();
+		allStationsPane = new PaneAllStations(this);
+		favouritesPane = new PaneFavourites(this);
 		tabPane = new TabPane();
 		allStationsTab = new Tab();
 		allStationsTab.setContent(allStationsPane);
@@ -55,19 +59,25 @@ public class Explorer extends StackPane
 		favouritesPane.addFavButton(fav);
 	}
 	
-	public void addStationsFav(FavouritesList stations, FavClicked listener)
+	public void addStationsFav(FavouritesList stations)
 	{
-		favouritesPane.createFavButtons(stations, listener);
+		favouritesPane.createFavButtons(stations);
 	}
 
-	/* Add stations to the "all stations" tab. */
-	public void addStationsAll(StationList stations, StationClicked listener) 
-	{
-		allStationsPane.createStationButtons(stations, listener);
-	}
-	/* For testing purposes, no click handler. */
 	public void addStationsAll(StationList stations) 
 	{
 		allStationsPane.createStationButtons(stations);
+	}
+
+	@Override
+	public void onFavClicked(Favourite fav)
+	{
+		eventHandler.onFavClicked(fav);		
+	}
+
+	@Override
+	public void onStationClicked(Station station)
+	{
+		eventHandler.onStationClicked(station);
 	}
 }

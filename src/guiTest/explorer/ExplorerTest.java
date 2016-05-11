@@ -1,12 +1,14 @@
 package guiTest.explorer;
 
 import data.Bom;
+import data.Station;
 import data.StationList;
 import gui.home.explorer.Explorer;
 import gui.home.explorer.Explorer.EventInterface;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import user.Favourite;
 import utilities.SaveTestData;
 
 public class ExplorerTest extends Application 
@@ -35,4 +37,18 @@ public class ExplorerTest extends Application
     {
         launch(args);
     }
+
+	@Override
+	public void onStationClicked(Station station)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onFavClicked(Favourite fav)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

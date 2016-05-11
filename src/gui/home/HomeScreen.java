@@ -45,7 +45,7 @@ public class HomeScreen extends GridPane
         add(optionsArea, 1, 0);
     }
     
-    public HomeScreen(HomeScreenInit init, EventInterface callbackObj)
+    public HomeScreen(HomeScreenInit init, EventInterface eventHandler)
     {
     	super();
     	user = init.user;
@@ -55,13 +55,13 @@ public class HomeScreen extends GridPane
         add(explorer, 0, 0);
         add(optionsArea, 1, 0);
         add(globalOptionsArea, 2, 0);
-        this.eventHandler = callbackObj;
-        explorer.addStationsAll(init.getAllStations(),
-        		StationButton -> onStationClicked(StationButton));
-        explorer.addStationsFav(init.user.getFavs(), f -> onFavClicked(f));
+        this.eventHandler = eventHandler;
+        explorer.addStationsAll(init.getAllStations());
+        explorer.addStationsFav(init.user.getFavs());
     }
     
-    void onFavClicked(Favourite fav)
+    @Override
+    public void onFavClicked(Favourite fav)
     {
     	if(! optionsArea.hasTabFor(fav.getStation()))
     	{
@@ -74,7 +74,8 @@ public class HomeScreen extends GridPane
     	}
     }
     
-    void onStationClicked(Station station)
+    @Override
+    public void onStationClicked(Station station)
     {
     	if(! optionsArea.hasTabFor(station))
     	{
@@ -152,5 +153,11 @@ public class HomeScreen extends GridPane
 	public void onClearFavs()
 	{
 		eventHandler.onClearFavs();		
+	}
+
+	@Override
+	public void onCloseAllTabs()
+	{
+		optionsArea.closeAllTabs();
 	}
 }

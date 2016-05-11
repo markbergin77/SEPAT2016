@@ -16,7 +16,7 @@ public class Alert
 {
 	Stage window;
     //Design and execution for any alerts needed
-    public Alert(String title, String message, EventHandler<WindowEvent> eventHandler)
+    public Alert(String title, String message, EventHandler<WindowEvent> onCloseHandler)
     {
 
         window = new Stage();
@@ -39,7 +39,7 @@ public class Alert
 
         window.setScene(scene1);
         window.showAndWait();
-        window.setOnCloseRequest(eventHandler);
+        window.setOnCloseRequest(onCloseHandler);
     }
 
     

@@ -44,13 +44,11 @@ public class OptionsArea extends VBox
 	Label promptLabel = new Label(promptText);
 	
 	VBox promptSpacingBox = new VBox();
-	int nTabs;
 	
 	public OptionsArea(EventInterface callbackObj)
 	{
 		this.callbackObj = callbackObj;
 		this.setPrefSize(defaultWidth, HomeScreen.defaultHeight);
-		nTabs = 0;
 		setupPrompt();
 		addPrompt();
 	}
@@ -65,18 +63,23 @@ public class OptionsArea extends VBox
 	
 	void onAddingTab()
 	{
-		if(nTabs == 0)
+		if(tabPane.getTabs().size() == 0)
 		{
 			removePrompt();
 			addTabPane();
-		}
-		nTabs++;
-		
+		}		
+	}
+	
+	public void closeAllTabs()
+	{
+		tabPane.getTabs().clear();
+		removeTabPane();
+		addPrompt();
 	}
 	
 	void onTabClosed()
 	{
-		if(--nTabs == 0)
+		if(tabPane.getTabs().size() == 0)
 		{
 			removeTabPane();
 			addPrompt();
