@@ -118,6 +118,8 @@ public class Controller implements Initializable {
                     @Override
                     protected Void call() throws Exception {
 
+                        scene = HomeScreen.getScene();
+
                         for (Station station : stationList) {
 
                             Button button = new Button(station.getName() + ", " + station.getState());
@@ -131,11 +133,19 @@ public class Controller implements Initializable {
                                 updateTable(station);
                             });
 
-                            button.setPrefSize(340, 65);
-                            scrollContent.getChildren().add(button);
-                            scrollContent.setMargin(button, new Insets(10, 0, 0, 17));
+                            if(HomeScreen.getSize().equals("L") ||HomeScreen.getSize().equals("MH")) {
+                                button.setPrefSize(340, 65);
+                                scrollContent.getChildren().add(button);
+                                scrollContent.setMargin(button, new Insets(10, 0, 0, 17));
+                            }
+                            else{
+                                button.setPrefSize(320,55);
+                                scrollContent.getChildren().add(button);
+                                scrollContent.setMargin(button, new Insets(10, 0, 0, 13));
+                            }
+
                         }
-                        scene = HomeScreen.getScene();
+
                         TimeUnit.SECONDS.sleep(1);
                         //displayPopUp();
 

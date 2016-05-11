@@ -19,12 +19,12 @@ public class TablePane extends Parent{
         switch(size){
             case 1:tablePane.setMaxSize(800, 200);
                 break;
-            case 2:tablePane.setMaxSize(800, 200);
+            case 2: tablePane.setMaxSize(730, 200);
                 break;
-            case 3:tablePane.setMaxSize(800, 200);
+            case 3:tablePane.setMaxSize(630, 200);
                 break;
             default:
-                tablePane.setMaxSize(800, 200);
+                tablePane.setMaxSize(730, 200);
                 break;
 
         }

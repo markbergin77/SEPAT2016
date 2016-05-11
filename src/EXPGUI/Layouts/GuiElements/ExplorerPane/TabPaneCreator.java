@@ -81,12 +81,130 @@ public class TabPaneCreator extends Parent {
         return tab;
     }
 
-    public static TabPane getTabMedium(TabPane tab) {
+    public  TabPane getTabMedium(TabPane tab) {
+
+        ScrollPaneCreator scrollPaneCreator = new ScrollPaneCreator();
+        scrollPaneCreator.setId("scrollpanecreator");
+
+        ScrollPane stationsScroll = new ScrollPane();
+        stationsScroll = scrollPaneCreator.getScroll(stationsScroll, 2);
+
+        tab.setId("tabpane");
+
+//        StackPane scrollpane = new StackPane();
+//        scrollpane.setPrefSize(420,400);
+//
+//        Rectangle rect = new Rectangle(420,500);
+//        rect.setArcHeight(20);
+//        rect.setArcWidth(20);
+//        //  explorerRect.setOpacity(0);
+//        rect.setStroke(Color.LIGHTSLATEGRAY);
+//        rect.setFill(Color.rgb(38, 38, 38));
+//        rect.setStrokeWidth(2);
+
+
+//        scrollpane.getChildren().addAll(rect,stationsScroll);
+
+        this.allStationsTab = new Tab();
+        allStationsTab.setId("allstationstab");
+        allStationsTab.setText("All stations");
+
+        StackPane allStationsPane = new StackPane();
+        allStationsPane.setMinSize(420, 520);
+
+        this.favsTab = new Tab();
+        favsTab.setId("favstab");
+        favsTab.setText("Favourites");
+        StackPane favsPane = new StackPane();
+        favsPane.setPrefSize(420, 520);
+
+        allStationsTab.setClosable(false);
+        favsTab.setClosable(false);
+
+        TextField searchBar = new TextField();
+
+        // creating a search bar
+        searchBar.setMaxSize(180, 25);
+        searchBar.setPromptText("Search stations");
+        searchBar.setOpacity(0.9);
+
+        // setting padding and adding the scrollbar and searchbar
+        //to the tab pane
+
+        allStationsPane.getChildren().addAll(stationsScroll,searchBar,scrollPaneCreator);
+        allStationsPane.setPadding(new Insets(0, 5, 10, 5));
+        StackPane.setMargin(searchBar, new Insets(0, 217, 495, 0));
+        StackPane.setMargin(stationsScroll, new Insets(0,5,0,0));
+
+        allStationsTab.setContent(allStationsPane);
+        tab.getTabs().addAll(allStationsTab, favsTab);
+        tab.setTabMinWidth(185);
+        tab.setTabMinHeight(35);
+
 
         return tab;
     }
 
-    public static TabPane getTabSmall(TabPane tab) {
+    public  TabPane getTabSmall(TabPane tab) {
+
+        ScrollPaneCreator scrollPaneCreator = new ScrollPaneCreator();
+        scrollPaneCreator.setId("scrollpanecreator");
+
+        ScrollPane stationsScroll = new ScrollPane();
+        stationsScroll = scrollPaneCreator.getScroll(stationsScroll, 3);
+
+        tab.setId("tabpane");
+
+//        StackPane scrollpane = new StackPane();
+//        scrollpane.setPrefSize(420,400);
+//
+//        Rectangle rect = new Rectangle(420,500);
+//        rect.setArcHeight(20);
+//        rect.setArcWidth(20);
+//        //  explorerRect.setOpacity(0);
+//        rect.setStroke(Color.LIGHTSLATEGRAY);
+//        rect.setFill(Color.rgb(38, 38, 38));
+//        rect.setStrokeWidth(2);
+
+
+//        scrollpane.getChildren().addAll(rect,stationsScroll);
+
+        this.allStationsTab = new Tab();
+        allStationsTab.setId("allstationstab");
+        allStationsTab.setText("All stations");
+
+        StackPane allStationsPane = new StackPane();
+        allStationsPane.setPrefSize(350, 400);
+
+        this.favsTab = new Tab();
+        favsTab.setId("favstab");
+        favsTab.setText("Favourites");
+        StackPane favsPane = new StackPane();
+        favsPane.setPrefSize(350, 400);
+
+        allStationsTab.setClosable(false);
+        favsTab.setClosable(false);
+
+        TextField searchBar = new TextField();
+
+        // creating a search bar
+        searchBar.setMaxSize(180, 25);
+        searchBar.setPromptText("Search stations");
+        searchBar.setOpacity(0.9);
+
+        // setting padding and adding the scrollbar and searchbar
+        //to the tab pane
+
+        allStationsPane.getChildren().addAll(stationsScroll,searchBar,scrollPaneCreator);
+        allStationsPane.setPadding(new Insets(0, 5, 10, 5));
+        StackPane.setMargin(searchBar, new Insets(0, 187.5, 385, 0));
+        StackPane.setMargin(stationsScroll, new Insets(0,5,0,0));
+
+        allStationsTab.setContent(allStationsPane);
+        tab.getTabs().addAll(allStationsTab, favsTab);
+        tab.setTabMinWidth(170);
+        tab.setTabMinHeight(35);
+
 
         return tab;
     }

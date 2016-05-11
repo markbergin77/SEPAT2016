@@ -10,20 +10,6 @@ import javafx.scene.control.ToolBar;
 public class CustomToolBar {
     public static ToolBar returnToolbar (ToolBar toolBar, int size){
 
-        switch(size){
-
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-
-            default:
-                break;
-        }
-
-
        //  creating a exit button for the toolbar
          Button exitButton = new Button("X");
          exitButton.setId("exit");
@@ -35,12 +21,21 @@ public class CustomToolBar {
          exitButton.setOnMouseExited(e -> exitButton.setId("exit"));
          exitButton.setOnMousePressed(e -> Main.returnControl().exit());
 
-
        // create a toolbar
-
         toolBar = new ToolBar(exitButton);
-        toolBar.setMaxSize(1350, 35);
-      //  toolBar.setOpacity(0);
+
+
+        switch(size){
+
+            case 1:toolBar.setMaxSize(1350, 35);
+                break;
+            case 2:  toolBar.setMaxSize(1260, 35);
+                break;
+            case 3:toolBar.setMaxSize(1100, 35);
+                break;
+            default: toolBar.setMaxSize(1260, 35);
+                break;
+        }
 
         return toolBar;
     }

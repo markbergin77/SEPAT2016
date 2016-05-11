@@ -59,7 +59,7 @@ public class HomeScreen {
 
         switch (switchCase) {
 
-            case 1:
+            case 2:
                 LayoutLarge layoutLarge = new LayoutLarge();
                 SCENE1 = layoutLarge.returnSceneLarge();
                 //layoutLarge.populateList();
@@ -67,13 +67,14 @@ public class HomeScreen {
                GuiEffects.resizeWindowIncrease(WINDOW, 1320, 740,screenWidth2,screenHeight);
                 break;
 
-            case 2:
-               // SCENE1 = layoutMedHigh.returnSceneMedHigh();
+            case 3:layoutMedHigh layoutMedHigh = new layoutMedHigh();
+                SCENE1 = layoutMedHigh.returnSceneMedHigh();
                 size = "MH";
                 GuiEffects.resizeWindowIncrease(WINDOW, 1260, 680,screenWidth2,screenHeight);
                 break;
-            case 3:
-                //SCENE1 = LayoutMedLow.returnSceneMedLow();
+            case 1:
+                LayoutMedLow layoutMedLow = new LayoutMedLow();
+                SCENE1 = layoutMedLow.returnSceneMedLow();
                 size = "ML";
                 GuiEffects.resizeWindowIncrease(WINDOW, 1100, 550,screenWidth2,screenHeight);
                 break;

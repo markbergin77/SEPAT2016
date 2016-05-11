@@ -1,4 +1,5 @@
 package guiPlots;
+import EXPGUI.Gui.HomeScreen;
 import data.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -135,14 +136,18 @@ public class TableHistorical
 //        pressure.getColumns().addAll(meanSeaLevelPressure9am, meanSeaLevelPressure3pm);
 
         dataTable.getColumns().setAll(date, temp, rain,evap,sun);
-        dataTable.setMinSize(800,200);
+
+        if( HomeScreen.getSize().equals("L")){
+            dataTable.setMinSize(800,200);
+        }
+        else if( HomeScreen.getSize().equals("MH")){
+            dataTable.setMinSize(730,200);
+        }
+        else {
+            dataTable.setMinSize(730,200);
+        }
+
         dataTable.setEditable(false);
-
-//        VBox container = new VBox();
-//        container.setAlignment(Pos.CENTER);
-//        container.getChildren().add(dataTable);
-//        container.setMinSize(780,450);
-
         return dataTable;
     }
 

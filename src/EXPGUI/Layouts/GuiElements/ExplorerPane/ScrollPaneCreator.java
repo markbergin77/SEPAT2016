@@ -23,7 +23,7 @@ public class ScrollPaneCreator extends Parent{
                 scroll.setMaxSize(425, 570);
                 break;
             case 2:
-                scroll.setPrefSize(420, 580);
+                scroll.setPrefSize(420, 550);
                 break;
             case 3:
                 scroll.setPrefSize(350, 475);

@@ -17,57 +17,70 @@ import javafx.scene.paint.Color;
  */
 public class layoutMedHigh {
 
+    private StackPane rootPane,graphPane,dataTable,explorerPane;
+
     public  Scene returnSceneMedHigh() {
 
-//
-//        StackPane rootPane = new StackPane();
-//
-//        StackPane graphPane = new StackPane();
-//        graphPane = GraphPane.getGraphMedium(graphPane);
-//
-//        StackPane dataTable = new StackPane();
-//        dataTable = TablePane.getTable(dataTable, 2);
-//
-//
-//        StackPane explorerPane = new StackPane();
-//        explorerPane = ExplorerPane.getExplorerMedium(explorerPane);
-//
-//        ToolBar toolBar = new ToolBar();
-//        toolBar = CustomToolBar.returnToolbar(toolBar, 2);
-//
-//        // button for creating a graph in a new window
+        GraphPane gP = new GraphPane();
+        TablePane tP = new TablePane();
+        ExplorerPane eP = new ExplorerPane();
+
+        gP.setId("gp");
+        tP.setId("tp");
+        eP.setId("ep");
+
+        this.rootPane = new StackPane();
+        rootPane.setId("rootpane");
+
+        this.graphPane = new StackPane();
+        graphPane = gP.getGraphMedium(graphPane);
+        graphPane.setId("graphpane");
+        graphPane.setOpacity(0);
+
+        this.dataTable = new StackPane();
+        dataTable = tP.getTable(dataTable, 2);
+        dataTable.setId("datatablepane");
+        dataTable.setOpacity(0);
+
+        this.explorerPane = new StackPane();
+        explorerPane = eP.getExplorerMedium(explorerPane);
+        explorerPane.setId("explorerpane");
+        explorerPane.setOpacity(0);
+
+        ToolBar toolBar = new ToolBar();
+        toolBar = CustomToolBar.returnToolbar(toolBar, 2);
+        toolBar.setId("toolbar");
+        toolBar.setOpacity(0);
+
+        // button for creating a graph in a new window
 //        Button exportGraph = new Button("Open Graph");
 //        exportGraph.setMinSize(150, 25);
 //        exportGraph.setId("exportbutton");
 //        exportGraph.toFront();
-//        // exportGraph.setOpacity(0);
-//
-//        //set different css styles when user hovers over button
+//        exportGraph.setOpacity(0);
+
+        //set different css styles when user hovers over button
 //        exportGraph.setOnMouseEntered(e -> exportGraph.getStyleClass().add("export-button-bright"));
 //        exportGraph.setOnMouseExited(e -> exportGraph.getStyleClass().remove("export-button-bright"));
-//
-//        StackPane.setMargin(exportGraph, new Insets(90, 0, 0, 985));
-//        StackPane.setMargin(graphPane, new Insets(0, 0, 190, 460));
-//        StackPane.setMargin(dataTable, new Insets(415, 0, 0, 460));
-//        StackPane.setMargin(explorerPane, new Insets(40, 760, 0, 0));
-//        StackPane.setAlignment(toolBar, Pos.TOP_CENTER);
-//
-//        // set default alignment
-//        rootPane.setAlignment(Pos.CENTER);
-//
-//        // adding all elements to be displayed
-//        rootPane.getChildren().addAll(toolBar, graphPane, dataTable, explorerPane, exportGraph);
-//
-//        // set the size of the current scene
-//        Scene scene = new Scene(rootPane, 1260, 680);
-//        scene.setFill(Color.TRANSPARENT);
-//
-//        Utilities util = new Utilities();
-//        util.getCss(scene);
-//
-//        return scene;
 
-          return null;
+
+     //   StackPane.setMargin(exportGraph, new Insets(90, 0, 0, 985));
+        StackPane.setMargin(graphPane, new Insets(0, 0, 190, 460));
+        StackPane.setMargin(dataTable, new Insets(415, 0, 0, 460));
+        StackPane.setMargin(explorerPane, new Insets(40, 760, 0, 0));
+        StackPane.setAlignment(toolBar, Pos.TOP_CENTER);
+
+        rootPane.setAlignment(Pos.CENTER);
+        rootPane.getChildren().addAll(toolBar, graphPane, dataTable, explorerPane);
+
+        // creating the scene with all the elements
+        Scene scene = new Scene(rootPane, 1260, 680);
+        scene.setFill(Color.TRANSPARENT);
+
+        Utilities util = new Utilities();
+        util.getCss(scene);
+
+        return scene;
 
     }
 

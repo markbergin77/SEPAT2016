@@ -43,7 +43,7 @@ public class ExplorerPane extends Parent {
 
     public   StackPane getExplorerMedium(StackPane pane) {
 
-        Rectangle explorerRect = new Rectangle(430, 625);
+        Rectangle explorerRect = new Rectangle(430, 580);
         explorerRect.setArcHeight(20);
         explorerRect.setArcWidth(20);
         // explorerRect.setOpacity(0);
@@ -56,11 +56,11 @@ public class ExplorerPane extends Parent {
 
         TabPaneCreator tabPaneCreator = new TabPaneCreator();
         this.tabPane = new TabPane();
-        tabPane = tabPaneCreator.getTabLarge(tabPane);
+        tabPane = tabPaneCreator.getTabMedium(tabPane);
         StackPane.setAlignment(tabPane,Pos.TOP_CENTER);
 
         pane.getChildren().addAll(explorerRect, tabPane);
-        pane.setMaxSize(430, 635);
+        pane.setMaxSize(430, 580);
 
         return pane;
 
@@ -68,7 +68,7 @@ public class ExplorerPane extends Parent {
 
     public  StackPane getExplorerSmall(StackPane pane) {
 
-        Rectangle explorerRect = new Rectangle(430, 625);
+        Rectangle explorerRect = new Rectangle(400, 475);
         explorerRect.setArcHeight(20);
         explorerRect.setArcWidth(20);
         // explorerRect.setOpacity(0);
@@ -81,12 +81,12 @@ public class ExplorerPane extends Parent {
 
         TabPaneCreator tabPaneCreator = new TabPaneCreator();
         this.tabPane = new TabPane();
-        tabPane = tabPaneCreator.getTabLarge(tabPane);
+        tabPane = tabPaneCreator.getTabSmall(tabPane);
 
         StackPane.setAlignment(tabPane,Pos.TOP_CENTER);
 
         pane.getChildren().addAll(explorerRect, tabPane);
-        pane.setMaxSize(430, 635);
+        pane.setMaxSize(400, 475);
 
         return pane;
 

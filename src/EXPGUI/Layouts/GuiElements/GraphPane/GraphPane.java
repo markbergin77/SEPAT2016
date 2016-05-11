@@ -20,7 +20,7 @@ public class GraphPane extends Parent{
         Rectangle plotRect = new Rectangle(800, 400);
         this.weatherPlot = new LineChart<Number, Number>(new NumberAxis(), new NumberAxis());
 
-        weatherPlot.setMaxSize(800, 350);
+        weatherPlot.setMaxSize(800, 370);
        // weatherPlot.setOpacity(0);
 
         plotRect.setArcHeight(20);
@@ -48,7 +48,7 @@ public class GraphPane extends Parent{
         Rectangle plotRect = new Rectangle(730, 350);
         this.weatherPlot = new LineChart<Number, Number>(new NumberAxis(), new NumberAxis());
 
-        weatherPlot.setMaxSize(730,300);
+        weatherPlot.setMaxSize(730,320);
         //weatherPlot.setOpacity(0);
 
         plotRect.setArcHeight(20);
@@ -77,7 +77,7 @@ public class GraphPane extends Parent{
         Rectangle plotRect = new Rectangle(630,260);
         this.weatherPlot = new LineChart<Number,Number>(new NumberAxis(),new NumberAxis());
 
-        weatherPlot.setMaxSize(630,230);
+        weatherPlot.setMaxSize(630,250);
         //weatherPlot.setOpacity(0);
 
         plotRect.setArcHeight(20);
