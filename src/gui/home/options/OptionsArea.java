@@ -18,16 +18,62 @@ import user.Favourite;
  * */
 public class OptionsArea extends VBox 
 	implements PaneFav.EventInterface, PaneNotFav.EventInterface
-{
-	public interface EventInterface 
+{	
+	public OptionsArea(EventInterface callbackObj)
 	{
-		abstract void onOpen72TempPlot(Station station);
-		abstract void onOpenHisTempPlot(Station station);
-		abstract void onAddFav(Station station);
-		abstract void onOpenHisTable (Station station);
-		abstract void onOpen72HrTable (Station station);
-		abstract void onCloseAllPlots(Station station);
+		this.callbackObj = callbackObj;
+		this.setPrefSize(defaultWidth, HomeScreen.defaultHeight);
+		setupPrompt();
+		addPrompt();
 	}
+	
+	public void addTab(Favourite fav) 
+	{
+		PaneFav newPane = new PaneFav(fav, this);
+		addTabFor(newPane);
+	}
+
+	public void addTab(Station station) 
+	{
+		PaneNotFav newPane = new PaneNotFav(station, this);
+		addTabFor(newPane);
+	}
+
+	public void selectTabFor(Station station) 
+	{
+		Tab tab = findTabFor(station);
+		tabSelectionModel.select(tab);
+	}
+	
+	public void selectLastAddedTab()
+	{
+		tabSelectionModel.select(
+				tabPane.getTabs().get(
+						tabPane.getTabs().size() - 1));
+	}
+
+	
+	public void closeAllTabs()
+	{
+		tabPane.getTabs().clear();
+		removeTabPane();
+		addPrompt();
+	}
+	
+	public boolean hasTabFor(Station station)
+	{
+		
+		for(Tab optionsTab : tabPane.getTabs())
+		{
+			PaneBase pane = (PaneBase) optionsTab.getContent();
+			if(pane.getStation().equals(station))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	static double defaultWidth = 250;
 	/* Looks ugly if right at top */
@@ -44,14 +90,6 @@ public class OptionsArea extends VBox
 	
 	VBox promptSpacingBox = new VBox();
 	
-	public OptionsArea(EventInterface callbackObj)
-	{
-		this.callbackObj = callbackObj;
-		this.setPrefSize(defaultWidth, HomeScreen.defaultHeight);
-		setupPrompt();
-		addPrompt();
-	}
-
 	void setupPrompt()
 	{
 		promptLabel.setPrefWidth(defaultWidth);
@@ -68,14 +106,7 @@ public class OptionsArea extends VBox
 			addTabPane();
 		}		
 	}
-	
-	public void closeAllTabs()
-	{
-		tabPane.getTabs().clear();
-		removeTabPane();
-		addPrompt();
-	}
-	
+		
 	void onTabClosed()
 	{
 		if(tabPane.getTabs().size() == 0)
@@ -118,27 +149,6 @@ public class OptionsArea extends VBox
 		return null;
 	}
 	
-	public boolean hasTabFor(Station station)
-	{
-		
-		for(Tab optionsTab : tabPane.getTabs())
-		{
-			PaneBase pane = (PaneBase) optionsTab.getContent();
-			if(pane.getStation().equals(station))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public void selectLastAddedTab()
-	{
-		tabSelectionModel.select(
-				tabPane.getTabs().get(
-						tabPane.getTabs().size() - 1));
-	}
-	
 	void addTabFor(PaneBase newPane)
 	{
 		Tab newTab = new Tab(newPane.getStation().getName());
@@ -148,22 +158,14 @@ public class OptionsArea extends VBox
 		tabPane.getTabs().add(newTab);
 	}
 	
-	public void addTab(Favourite fav) 
+	public interface EventInterface 
 	{
-		PaneFav newPane = new PaneFav(fav, this);
-		addTabFor(newPane);
-	}
-
-	public void addTab(Station station) 
-	{
-		PaneNotFav newPane = new PaneNotFav(station, this);
-		addTabFor(newPane);
-	}
-
-	public void selectTabFor(Station station) 
-	{
-		Tab tab = findTabFor(station);
-		tabSelectionModel.select(tab);
+		abstract void onOpen72TempPlot(Station station);
+		abstract void onOpenHisTempPlot(Station station);
+		abstract void onAddFav(Station station);
+		abstract void onOpenHisTable (Station station);
+		abstract void onOpen72HrTable (Station station);
+		abstract void onCloseAllPlots(Station station);
 	}
 
 	@Override
