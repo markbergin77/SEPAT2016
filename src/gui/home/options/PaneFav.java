@@ -1,6 +1,5 @@
 package gui.home.options;
 
-import data.Station;
 import user.Favourite;
 import user.FavouriteData;
 

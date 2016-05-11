@@ -36,7 +36,8 @@ public class MultipleInstanceLock
 
             Runtime.getRuntime().addShutdownHook(new Thread() {
                     // destroy the lock when the JVM is closing
-                    public void run() {
+                    @Override
+					public void run() {
                         closeLock();
                         deleteFile();
                     }

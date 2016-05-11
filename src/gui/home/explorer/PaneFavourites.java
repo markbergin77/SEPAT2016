@@ -1,7 +1,5 @@
 package gui.home.explorer;
 
-import data.Station;
-import gui.callbacks.FavClicked;
 import javafx.scene.input.MouseEvent;
 import user.Favourite;
 import user.FavouritesList;

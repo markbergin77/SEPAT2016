@@ -10,7 +10,6 @@ import com.google.gson.JsonSyntaxException;
 import data.Bom;
 import data.Station;
 import data.samples.WthrSampleFine;
-import data.samples.WthrSamplesDaily;
 import data.samples.WthrSamplesFine;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;

@@ -39,6 +39,7 @@ public class WthrSampleFine
 		this.windSpdKt = windSpdKt;
 	}
 
+	@Override
 	public String toString()
 	{
 		String output = new String("Date: ");

@@ -1,11 +1,9 @@
 package gui.home.explorer;
 
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import data.Station;
 import data.StationList;
-import gui.callbacks.StationClicked;
 
 /* List of all stations in BOM database */
 public class PaneAllStations extends PaneBase

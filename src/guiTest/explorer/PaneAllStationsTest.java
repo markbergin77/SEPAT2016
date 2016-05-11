@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 public class PaneAllStationsTest extends Application
 {
+	@Override
 	public void start(Stage window) throws Exception 
 	{
 		//Testing the list of locations, back before there was a favourites tab

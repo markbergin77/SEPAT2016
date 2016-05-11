@@ -2,7 +2,6 @@ package gui.home;
 
 import data.Station;
 import gui.home.explorer.Explorer;
-import gui.home.explorer.Explorer.EventInterface;
 import gui.home.globalOptions.GlobalOptionsArea;
 import gui.home.options.OptionsArea;
 import javafx.scene.layout.*;

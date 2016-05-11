@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.StageStyle;
 
 public class PlotBase extends VBox
 {

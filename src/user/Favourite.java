@@ -39,6 +39,7 @@ public class Favourite implements Serializable
 		return station;
 	}
 	
+	@Override
 	public String toString()
 	{
 		String output = "Favourite:\nstation: ";

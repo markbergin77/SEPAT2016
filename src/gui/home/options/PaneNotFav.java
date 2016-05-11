@@ -2,7 +2,6 @@ package gui.home.options;
 
 import data.Station;
 import javafx.scene.control.Button;
-import user.Favourite;
 
 /* Adds options for a station that is 
  * not a favourite */

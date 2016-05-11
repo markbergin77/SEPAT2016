@@ -1,6 +1,5 @@
 package gui.home.options;
 
-import java.text.DecimalFormat;
 import data.Station;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;

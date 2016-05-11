@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import data.Bom;
 import data.Station;
 import data.StationList;
@@ -10,16 +11,15 @@ import gui.Alert;
 import gui.SplashScreen;
 import gui.home.HomeScreen;
 import gui.home.HomeScreenInit;
-import gui.plots.PlotBase;
 import gui.plots.HistoricalTemp;
 import gui.plots.Last72hrTemp;
+import gui.plots.PlotBase;
 import gui.plots.PlotType;
 import gui.plots.PlotWindow;
 import gui.plots.PlotWindows;
 import gui.plots.Table72Hr;
 import gui.plots.TableHistorical;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -196,7 +196,7 @@ public class Main extends Application
 		plotWindows.addAll(windows);
     	plotWindows.setOnCloseRequest(event -> 
     	{
-    		plotWindows.remove((PlotWindow)event.getSource());
+    		plotWindows.remove(event.getSource());
     	});
     	for (PlotWindow win : windows)
     	{

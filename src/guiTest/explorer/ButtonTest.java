@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 public class ButtonTest extends Application
 {
+	@Override
 	public void start(Stage window) throws Exception 
 	{
 		//The roughest design we had, purely showing button that is preceeded by station list
