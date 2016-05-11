@@ -31,6 +31,7 @@ import utilities.MultipleInstanceLock;
 
 public class Main extends Application 
 	implements HomeScreen.EventInterface
+	, PlotBase.EventInterface
 {
 	/* This service will finish tasks one at a time
 	 * on another thread so that we don't block
@@ -163,6 +164,7 @@ public class Main extends Application
 			plotWindows.remove(newWindow);
 		});
 		plotWindows.add(newWindow);
+		plot.setEventHandler(this);
 		fillPlot(plot);
 	}
 	
@@ -196,6 +198,10 @@ public class Main extends Application
     	{
     		plotWindows.remove((PlotWindow)event.getSource());
     	});
+    	for (PlotWindow win : windows)
+    	{
+    		win.getPlot().setEventHandler(this);
+    	}
 	}
 
 	@Override
@@ -275,6 +281,18 @@ public class Main extends Application
 	public void onCloseAllPlots(Station station) 
 	{
 		plotWindows.removePlotsFor(station);	
+	}
+
+	@Override
+	public void onRefresh(PlotBase plot)
+	{
+		fillPlot(plot);
+	}
+
+	@Override
+	public void onGoHome()
+	{
+		window.toFront();
 	}
 	
 	
