@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$/.."/>
+	<lib name="gson-2.6.2.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/../ext/gson-2.6.2/gson-2.6.2.jar!/"/>
+	</lib>
+	<lib name="jsoup-1.8.3.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/../ext/jsoup-1.8.3/jsoup-1.8.3.jar!/"/>
+	</lib>
+	<lib name="opencsv-3.7.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/../ext/opencsv-3.7/opencsv-3.7.jar!/"/>
+	</lib>
+	<lib name="commons-lang3-3.0.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/../ext/commons-lang3-3.0/commons-lang3-3.0.jar!/"/>
+	</lib>
+</component>
