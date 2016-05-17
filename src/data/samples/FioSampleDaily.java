@@ -18,7 +18,7 @@ public class FioSampleDaily
 		this.tempMax = tempMax;
 	}
 	
-	public LocalDateTime getTime()
+	public LocalDateTime getDate()
 	{
 		return time;
 	}

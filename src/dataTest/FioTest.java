@@ -22,7 +22,7 @@ public class FioTest
 		
 		System.out.println("Readings for: " + testStation.getName());
 		for (FioSampleDaily sample: testSamples) {
-			System.out.println("Time: " + sample.getTime());
+			System.out.println("Time: " + sample.getDate());
 			System.out.println("    Min: " + sample.getTempMin());
 			System.out.println("    Max: " + sample.getTempMax());
 		}

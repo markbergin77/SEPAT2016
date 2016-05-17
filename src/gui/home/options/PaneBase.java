@@ -20,6 +20,8 @@ public class PaneBase extends VBox
 	Button table72hrButton = new Button(buttonTable72hrTxt);
 	String buttonTableYearlyTxt = "Open Historical Weather Table";
 	Button tableHisButton = new Button(buttonTableYearlyTxt);
+	String buttonExperimental = "Open Experimental Plot";
+	Button plotExperimental = new Button("Open Experimental Plot");
 	
 	String closePlotsText = "Close Charts";
 	Button closePlotsButton = new Button(closePlotsText);
@@ -34,6 +36,7 @@ public class PaneBase extends VBox
 		addOption(plotHisButton);
 		addOption(table72hrButton);
 		addOption(tableHisButton);
+		addOption(plotExperimental);
 		addOption(closePlotsButton);		
 	}
 	

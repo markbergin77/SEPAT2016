@@ -166,6 +166,7 @@ public class OptionsArea extends VBox
 		abstract void onOpenHisTable (Station station);
 		abstract void onOpen72HrTable (Station station);
 		abstract void onCloseAllPlots(Station station);
+		abstract void onExperimentalPlot(Station station);
 	}
 
 	@Override
@@ -238,5 +239,11 @@ public class OptionsArea extends VBox
 	public void onCloseAllPlots(Station station)
 	{
 		callbackObj.onCloseAllPlots(station);
+	}
+	
+	@Override
+	public void onExperimentalPlot(Station station)
+	{
+		callbackObj.onExperimentalPlot(station);
 	}
 }

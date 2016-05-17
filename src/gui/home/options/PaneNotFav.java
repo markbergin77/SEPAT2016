@@ -12,8 +12,9 @@ public class PaneNotFav extends PaneBase
 		abstract void onOpen72TempPlot(Station station);
 		abstract void onOpenHisTempPlot(Station station);
 		abstract void onAddFav(Station station);
-		abstract void onOpenHisTable (Station station);
-		abstract void onOpen72HrTable (Station station);
+		abstract void onOpenHisTable(Station station);
+		abstract void onOpen72HrTable(Station station);
+		abstract void onExperimentalPlot(Station station);
 		abstract void onCloseAllPlots(Station station);
 	}
 	
@@ -31,6 +32,7 @@ public class PaneNotFav extends PaneBase
 		table72hrButton.setOnMouseClicked(e -> eventHandler.onOpen72HrTable(station));
 		tableHisButton.setOnMouseClicked(e -> eventHandler.onOpenHisTable(station));
 		closePlotsButton.setOnMouseClicked(e -> eventHandler.onCloseAllPlots(station));
+		plotExperimental.setOnMouseClicked(e -> eventHandler.onExperimentalPlot(station));
 		addOptionTop(addToFavsButton);
 	}
 	

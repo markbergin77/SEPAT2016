@@ -69,6 +69,7 @@ public class HomeScreen extends GridPane
 		abstract void onCloseAllPlots();
 		abstract void onClearFavs();
 		abstract void onFavRemove(Favourite fav);
+		abstract void onExperimentalPlot(Station station);
 	}
     
     @Override
@@ -166,5 +167,11 @@ public class HomeScreen extends GridPane
 	public void onFavRemove(Favourite fav)
 	{
 		eventHandler.onFavRemove(fav);
+	}
+
+	@Override
+	public void onExperimentalPlot(Station station) {
+		eventHandler.onExperimentalPlot(station);
+		
 	}
 }

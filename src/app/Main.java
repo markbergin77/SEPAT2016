@@ -19,6 +19,7 @@ import gui.plots.PlotWindow;
 import gui.plots.PlotWindows;
 import gui.plots.Table72Hr;
 import gui.plots.TableHistorical;
+import gui.plots.ExperimentalPlot;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
@@ -239,6 +240,20 @@ public class Main extends Application
 		if (existingPlotWindow == null)
 		{
 			openPlot(new HistoricalTemp(station));
+		}
+		else
+		{
+			existingPlotWindow.toFront();
+		}
+	}
+	
+	@Override
+	public void onExperimentalPlot(Station station) 
+	{
+		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Historical);
+		if (existingPlotWindow == null)
+		{
+			openPlot(new ExperimentalPlot(station));
 		}
 		else
 		{
