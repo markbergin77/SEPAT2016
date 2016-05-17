@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -245,7 +246,7 @@ public class Bom
 			LocalDateTime localDateTime;
 			JsonElement localDateTimeFullJson = reading.get("local_date_time_full");
 			if (localDateTimeFullJson.isJsonNull())
-				localDateTimeFullString = "-";
+				localDateTimeFullString = null;
 			else
 				localDateTimeFullString = localDateTimeFullJson.getAsString();
 				localDateTime = LocalDateTime.parse(localDateTimeFullString, formatter);
@@ -483,6 +484,7 @@ public class Bom
 	{
 		String[] nextLine = null;
 		WthrSamplesDaily samples = new WthrSamplesDaily();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
 
 		while ((nextLine = csvReader.readNext()) != null)
 		{
@@ -491,7 +493,8 @@ public class Bom
 			{
 				continue;
 			}
-			String date = nextLine[1];
+			String dateString = nextLine[1];
+			LocalDate date = LocalDate.parse(dateString, formatter);
 			String minTemp = nextLine[2];
 			String maxTemp = nextLine[3];
 			String rain = nextLine[4];

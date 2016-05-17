@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class TableHistorical extends PlotBase
         // it then automatically detects the values within a particular instance of object
         // this is done when you specify the propertyValueFactory
 
-        TableColumn<WthrSampleDaily, String> date = new TableColumn<>("Date");
+        TableColumn<WthrSampleDaily, LocalDate> date = new TableColumn<>("Date");
         TableColumn<WthrSampleDaily, String> maxTemp = new TableColumn<>("maxTemp");
         TableColumn<WthrSampleDaily, String> minTemp = new TableColumn<>("minTemp");
         TableColumn<WthrSampleDaily, String> temp9am = new TableColumn<>("temp9am");
@@ -91,7 +92,7 @@ public class TableHistorical extends PlotBase
         evap.setSortable(false);
         sun.setSortable(false);
 
-        date.setCellValueFactory(new PropertyValueFactory<WthrSampleDaily, String>("date"));
+        date.setCellValueFactory(new PropertyValueFactory<WthrSampleDaily, LocalDate>("date"));
         maxTemp.setCellValueFactory(new PropertyValueFactory<WthrSampleDaily, String>("maxTemp"));
         minTemp.setCellValueFactory(new PropertyValueFactory<WthrSampleDaily, String>("minTemp"));
         temp9am.setCellValueFactory(new PropertyValueFactory<WthrSampleDaily, String>("temp9am"));

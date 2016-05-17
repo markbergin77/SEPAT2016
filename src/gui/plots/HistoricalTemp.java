@@ -2,7 +2,10 @@ package gui.plots;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+
 import com.sun.javafx.charts.Legend;
 import data.Bom;
 import data.Station;
@@ -110,13 +113,13 @@ public class HistoricalTemp extends PlotBase
 	}
 	
 	private void addToAllSeries(WthrSamplesDaily wthrSamplesDaily) {
+		if (wthrSamplesDaily == null) {
+			System.out.println("Null");
+			return;
+		}
 		for(WthrSampleDaily sample: wthrSamplesDaily) {
-        	String date = sample.getDate();
-        	String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
-        	String[] dateArray = date.split("-");
-        	int monthInt = Integer.parseInt(dateArray[1]);
-        	String month = months[monthInt - 1];
-        	date = dateArray[2] + "-" + month;
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-LL-yy");
+        	String date = sample.getDate().format(formatter);
         	String tempMax = sample.getMaxTemp();
         	String tempMin = sample.getMinTemp();
         	String temp9am = sample.getTemp9am();

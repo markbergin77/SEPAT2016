@@ -1,13 +1,15 @@
 package data.samples;
 
+import java.time.LocalDateTime;
+
 public class FioSampleDaily
 {
-	String time;
+	LocalDateTime time;
 	String icon;
 	String tempMin;
 	String tempMax;
 	
-	public FioSampleDaily(String time, String icon, String tempMin, String tempMax)
+	public FioSampleDaily(LocalDateTime time, String icon, String tempMin, String tempMax)
 	{
 		super();
 		this.time = time;
@@ -16,7 +18,7 @@ public class FioSampleDaily
 		this.tempMax = tempMax;
 	}
 	
-	public String getTime()
+	public LocalDateTime getTime()
 	{
 		return time;
 	}

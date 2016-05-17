@@ -1,9 +1,11 @@
 package data.samples;
 
+import java.time.LocalDate;
+
 //Data types/attributes provided by BOM data, used for Monthly Observations
 public class WthrSampleDaily
 {
-	private String date;
+	private LocalDate date;
 	private String minTemp;
 	private String maxTemp;
 	private String rain;
@@ -25,7 +27,7 @@ public class WthrSampleDaily
 	private String windSpd3pm;
 	private String meanSeaLevelPressure3pm;
 
-	public WthrSampleDaily(String date, String minTemp, String maxTemp, String rain, String evap,
+	public WthrSampleDaily(LocalDate date, String minTemp, String maxTemp, String rain, String evap,
 			String sun, String maxWindGustDir, String maxWindGustSpd, String maxWindGustTime, String temp9am,
 			String relHumidity9am, String cloud9am, String windDir9am, String windSpd9am,
 			String meanSeaLevelPressure9am, String temp3pm, String relHumidity3pm, String cloud3pm, String windDir3pm,
@@ -54,12 +56,12 @@ public class WthrSampleDaily
 		this.meanSeaLevelPressure3pm = meanSeaLevelPressure3pm;
 	}
 
-	public String getDate()
+	public LocalDate getDate()
 	{
 		return date;
 	}
 
-	public void setDate(String date)
+	public void setDate(LocalDate date)
 	{
 		this.date = date;
 	}

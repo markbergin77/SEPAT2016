@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
@@ -46,8 +49,17 @@ public class Fio
 		for (JsonElement element : rootArray)
 		{
 			JsonObject reading = element.getAsJsonObject();
-
-			String time = reading.get("time").getAsString();
+			
+			String timeString;
+			LocalDateTime time = null;
+			JsonElement timeJson = reading.get("time");
+			if (timeJson.isJsonNull()) {
+				time = null;
+			}
+			else {
+				timeString = timeJson.getAsString();
+				time = LocalDateTime.ofEpochSecond(Long.parseLong(timeString), 0, ZoneOffset.UTC);
+			}
 			String icon = reading.get("icon").getAsString();
 			String min = reading.get("temperatureMin").getAsString();
 			String max = reading.get("temperatureMax").getAsString();

@@ -17,7 +17,6 @@ public class FioTest
 		StationList stations = Bom.getAllStations();
 		Station testStation = stations.get(0);
 		// Need to fetch data to access lat and lon
-		WthrSamplesFine testTemp = Bom.getWthrLast72hr(testStation);
 		
 		FioSamplesDaily testSamples = Fio.getFioDaily(testStation);
 		
