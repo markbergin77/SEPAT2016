@@ -3,6 +3,7 @@ package gui.plots;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -73,6 +74,8 @@ public class ExperimentalPlot extends PlotBase
         String[] lineClasses = {"tempMin", "tempMax", "tempMinForecast", "tempMaxForecast"};
         seriesTempMin.getNode().getStyleClass().add(lineClasses[0]);
         seriesTempMax.getNode().getStyleClass().add(lineClasses[1]);
+        seriesTempMinForecast.getNode().getStyleClass().add(lineClasses[2]);
+        seriesTempMaxForecast.getNode().getStyleClass().add(lineClasses[3]);
         
         // Get access to the legend
         Legend legend = (Legend)lineChart.lookup(".chart-legend");
@@ -150,20 +153,35 @@ public class ExperimentalPlot extends PlotBase
         	if (tempMax.length() > 0)
         		seriesTempMax.getData().add(new XYChart.Data<String, Number>(date,Float.parseFloat(tempMax)));
         }
-		
+	
 		for(FioSampleDaily sample: fioSamplesDaily) {
-			LocalDateTime date = sample.getDate();
-			// TODO adjust time offset so it matches up, somehow
-			if (date.isAfter(LocalDateTime.now().minusHours(12))) {
-				String dateString = date.format(formatter);
-				String tempMax = sample.getTempMax();
-				String tempMin = sample.getTempMin();
-				
-				seriesTempMinForecast.getData().add(new Data<String, Number>(dateString,Float.parseFloat(tempMin)));
-				seriesTempMaxForecast.getData().add(new Data<String, Number>(dateString,Float.parseFloat(tempMax)));
+			LocalDateTime dateTime = sample.getDate();
+			LocalDate date = dateTime.toLocalDate();
+			String dateString = date.format(formatter);
+			
+			LocalDate lastMin = LocalDate.MIN;
+			int seriesMinSize = seriesTempMin.getData().size();
+			if (seriesMinSize > 0) {
+				String lastMinString = seriesTempMin.getData().get(seriesMinSize - 1).getXValue();
+				lastMin = LocalDate.parse(lastMinString, formatter);
 			}
 			
+			LocalDate lastMax = LocalDate.MAX;
+			int seriesMaxSize = seriesTempMax.getData().size();
+			if (seriesMaxSize > 0) {
+				String lastMaxString = seriesTempMax.getData().get(seriesMaxSize - 1).getXValue();
+				lastMax = LocalDate.parse(lastMaxString, formatter);
+			}
 			
+			if (date.isAfter(lastMin)) {
+				String tempMin = sample.getTempMin();
+				seriesTempMaxForecast.getData().add(new Data<String, Number>(dateString,Float.parseFloat(tempMin)));
+			}
+			
+			if (date.isAfter(lastMax)) {
+				String tempMax = sample.getTempMax();	
+				seriesTempMinForecast.getData().add(new Data<String, Number>(dateString,Float.parseFloat(tempMax)));
+			}
 		}
 	}
 	
