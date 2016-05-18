@@ -51,7 +51,7 @@ public class ExperimentalPlot extends PlotBase
 	public ExperimentalPlot(Station station)
 	{
 		super(station);
-		setName(station.getName() + " Historical Temperatures");
+		setName(station.getName() + " Past and Present Temperatures");
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();
 		
