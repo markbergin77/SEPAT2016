@@ -40,7 +40,7 @@ public class Main extends Application
 	/* This service will finish tasks one at a time
 	 * on another thread so that we don't block
 	 * the gui thread */
-    ExecutorService exec = 
+    static ExecutorService exec = 
     		Executors.newSingleThreadExecutor(
 		    r -> 
 		    {
@@ -59,8 +59,9 @@ public class Main extends Application
 	User user;
 	boolean newUser = false;
 	PlotWindows plotWindows = new PlotWindows();
-	String appName = "SEPAT2016";
-	MultipleInstanceLock preventMultInstances = new MultipleInstanceLock(appName);
+	static String appName = "SEPAT2016";
+	static MultipleInstanceLock preventMultInstances = 
+			new MultipleInstanceLock(appName);
 	
 	public static void main(String args[])
     {

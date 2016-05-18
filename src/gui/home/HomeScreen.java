@@ -28,6 +28,8 @@ public class HomeScreen extends GridPane
         explorer.addStationsFav(init.user.getFavs());
     }
 	
+	
+	
 	public void addFavourite(Favourite newFav)
 	{
 		explorer.addFavourite(newFav);
