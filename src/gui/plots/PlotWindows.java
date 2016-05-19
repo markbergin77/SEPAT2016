@@ -65,14 +65,6 @@ public class PlotWindows extends Vector<PlotWindow>
 		return null;
 	}
 
-	public void setOnCloseRequest(EventHandler<WindowEvent> handler) 
-	{
-		for(PlotWindow window : this)
-		{
-			window.setOnCloseRequest(handler);
-		}
-	}
-
 	public void closeAll()
 	{
 		for (PlotWindow win : this)

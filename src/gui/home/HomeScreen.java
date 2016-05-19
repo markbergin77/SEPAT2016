@@ -20,6 +20,8 @@ public class HomeScreen extends GridPane
     	explorer = new Explorer(this);
     	optionsArea = new OptionsArea(this);
     	globalOptionsArea = new GlobalOptionsArea(this);
+    	getRowConstraints().add(new RowConstraints());
+    	getRowConstraints().get(0).setVgrow(Priority.ALWAYS);
         add(explorer, 0, 0);
         add(optionsArea, 1, 0);
         add(globalOptionsArea, 2, 0);

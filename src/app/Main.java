@@ -87,7 +87,7 @@ public class Main extends Application
 	private void startAppNotDuplicate() 
 	{
 		window.setTitle(appName);
-		window.setResizable(false);
+		//window.setResizable(false);
         window.setOnCloseRequest(e -> onQuit());
         SplashScreen splash = new SplashScreen();
         EasyTask getStationsTask = new EasyTask(() ->
@@ -198,10 +198,12 @@ public class Main extends Application
 	void addPlotWindows(PlotWindows windows)
 	{
 		plotWindows.addAll(windows);
-    	plotWindows.setOnCloseRequest(event -> 
+    	for(PlotWindow window : windows)
     	{
-    		plotWindows.remove(event.getSource());
-    	});
+    		window.setOnCloseRequest(e -> {
+    			plotWindows.remove(window);
+    		});
+    	}
     	for (PlotWindow win : windows)
     	{
     		win.getPlot().setEventHandler(this);
