@@ -39,34 +39,12 @@ public class PlotWindows extends Vector<PlotWindow>
     	}
     }
     
-	public boolean haveFor(Station station, PlotType type) 
+	public boolean haveFor(Station station, Class type) 
 	{
 		for(PlotWindow window : this)
 		{
-			boolean rightType = false;
-			
-			switch (type)
-			{
-			case Historical:
-				if(window.getPlot() instanceof HistoricalTemp)
-					rightType = true;
-				break;
-			case Last72Hr:
-				if(window.getPlot() instanceof Last72hrTemp)
-					rightType = true;
-				break;
-			case Table72Hr:
-				if(window.getPlot() instanceof Table72Hr)
-					rightType = true;
-				break;
-			case TableHistorical:
-				if(window.getPlot() instanceof TableHistorical)
-					rightType = true;
-				break;
-			default:
-				break;
-			}
-			if(rightType && window.getPlot().getStation().equals(station))
+			if(window.getPlot().getClass().equals(type) 
+					&& window.getPlot().getStation().equals(station))
 			{
 				return true;
 			}
@@ -74,34 +52,12 @@ public class PlotWindows extends Vector<PlotWindow>
 		return false;
 	}
 
-	public PlotWindow windowFor(Station station, PlotType type) 
+	public PlotWindow windowFor(Station station, Class type) 
 	{
 		for(PlotWindow window : this)
 		{
-			boolean rightType = false;
-			
-			switch (type)
-			{
-			case Historical:
-				if(window.getPlot() instanceof HistoricalTemp)
-					rightType = true;
-				break;
-			case Last72Hr:
-				if(window.getPlot() instanceof Last72hrTemp)
-					rightType = true;
-				break;
-			case Table72Hr:
-				if(window.getPlot() instanceof Table72Hr)
-					rightType = true;
-				break;
-			case TableHistorical:
-				if(window.getPlot() instanceof TableHistorical)
-					rightType = true;
-				break;
-			default:
-				break;
-			}
-			if(rightType && window.getPlot().getStation().equals(station))
+			if(window.getPlot().getClass().equals(type) 
+					&& window.getPlot().getStation().equals(station))
 			{
 				return window;
 			}

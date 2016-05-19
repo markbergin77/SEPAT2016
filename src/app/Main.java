@@ -209,9 +209,21 @@ public class Main extends Application
 	}
 
 	@Override
+	public void onAddFav(Station station) 
+	{
+		/* Add to user's fav list */
+		if(! user.getFavs().hasForStation(station))
+		{
+			Favourite newFav = Favourite.create(station);
+			user.getFavs().add(newFav);
+			homeScreen.addFavourite(newFav);
+		}
+	}
+	
+	@Override
 	public void onOpen72TempPlot(Station station) 
 	{
-		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Last72Hr);
+		PlotWindow existingPlotWindow = plotWindows.windowFor(station, Last72hrTemp.class);
 		if(existingPlotWindow == null)
 		{		
 			openPlot(new Last72hrTemp(station));
@@ -223,21 +235,9 @@ public class Main extends Application
 	}
 
 	@Override
-	public void onAddFav(Station station) 
-	{
-		/* Add to user's fav list */
-		if(! user.getFavs().hasForStation(station))
-		{
-			Favourite newFav = Favourite.create(station);
-			user.getFavs().add(newFav);
-			homeScreen.addFavourite(newFav);
-		}
-	}
-
-	@Override
 	public void onOpenHisTempPlot(Station station) 
 	{
-		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Historical);
+		PlotWindow existingPlotWindow = plotWindows.windowFor(station, HistoricalTemp.class);
 		if (existingPlotWindow == null)
 		{
 			openPlot(new HistoricalTemp(station));
@@ -251,7 +251,7 @@ public class Main extends Application
 	@Override
 	public void onExperimentalPlot(Station station) 
 	{
-		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Historical);
+		PlotWindow existingPlotWindow = plotWindows.windowFor(station, ExperimentalPlot.class);
 		if (existingPlotWindow == null)
 		{
 			openPlot(new ExperimentalPlot(station));
@@ -268,7 +268,7 @@ public class Main extends Application
 	@Override
 	public void onOpen72HrTable (Station station)
 	{
-		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.Table72Hr);
+		PlotWindow existingPlotWindow = plotWindows.windowFor(station, Table72Hr.class);
 		if (existingPlotWindow == null)
 		{
 			openPlot(new Table72Hr(station));
@@ -284,7 +284,7 @@ public class Main extends Application
 	@Override
 	public void onOpenHisTable (Station station)
 	{
-		PlotWindow existingPlotWindow = plotWindows.windowFor(station, PlotType.TableHistorical);
+		PlotWindow existingPlotWindow = plotWindows.windowFor(station, TableHistorical.class);
 		if (existingPlotWindow == null)
 		{
 			openPlot(new TableHistorical(station));
