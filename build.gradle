@@ -1,0 +1,18 @@
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = 'app.Main'
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+		dependencies {
+			compile files('ext/jsoup-1.8.3/jsoup-1.8.3.jar','ext/commons-lang3-3.0/commons-lang3-3.0.jar', 
+			'ext/gson-2.6.2/gson-2.6.2.jar', 'ext/opencsv-3.7/opencsv-3.7.jar') 
+		}
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.13'
+}
