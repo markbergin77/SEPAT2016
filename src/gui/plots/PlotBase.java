@@ -1,11 +1,17 @@
 package gui.plots;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import data.Station;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class PlotBase extends VBox
 {
@@ -19,9 +25,9 @@ public class PlotBase extends VBox
 	Station station; 
 	/* So that we can overlay the same things 
 	 * on each plot child class */
-	String refreshButtonLabel = "Refresh";
+	static String refreshButtonLabel = "Refresh";
 	Button refreshButton = new Button(refreshButtonLabel);;
-	String homeButtonLabel = "Home";
+	static String homeButtonLabel = "Home";
 	Button homeButton = new Button(homeButtonLabel);
 	ToolBar toolBar = new ToolBar(refreshButton, homeButton);
 	
@@ -30,7 +36,17 @@ public class PlotBase extends VBox
 	public PlotBase(Station station)
 	{
 		super();
-		this.station = station;		
+		this.station = station;	
+		defInit();
+	}
+	
+	void defInit()
+	{
+		eventHandler = voidHandler;
+		refreshButton = new Button(refreshButtonLabel);;
+		homeButton = new Button(homeButtonLabel);
+		toolBar = new ToolBar(refreshButton, homeButton);
+		name = "";
 	}
 	
 	public void setEventHandler(EventInterface handler)
@@ -64,6 +80,18 @@ public class PlotBase extends VBox
 	public Station getStation()
 	{
 		return station;
+	}
+	
+	private void writeObject(ObjectOutputStream out) throws IOException
+	{
+		out.writeObject(station);
+		return;
+	}
+	
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
+	{
+		station = (Station)in.readObject();
+		defInit();
 	}
 	
 	protected void assembleFrom(Node node)
