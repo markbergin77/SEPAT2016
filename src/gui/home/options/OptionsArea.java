@@ -55,9 +55,12 @@ public class OptionsArea extends VBox
 	
 	public void closeAllTabs()
 	{
-		tabPane.getTabs().clear();
-		removeTabPane();
-		addPrompt();
+		if(tabPane.getTabs().size() != 0)
+		{
+			tabPane.getTabs().clear();
+			removeTabPane();
+			addPrompt();
+		}
 	}
 	
 	public boolean hasTabFor(Station station)
