@@ -21,6 +21,8 @@ import gui.plots.Table72Hr;
 import gui.plots.TableHistorical;
 import gui.plots.ExperimentalPlot;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -62,6 +64,7 @@ public class Main extends Application
 	static String appName = "SEPAT2016";
 	static MultipleInstanceLock preventMultInstances = 
 			new MultipleInstanceLock(appName);
+    private boolean splashClosed = false;
 	
 	public static void main(String args[])
     {
@@ -87,9 +90,10 @@ public class Main extends Application
 	private void startAppNotDuplicate() 
 	{
 		window.setTitle(appName);
-		window.setResizable(false);
         window.setOnCloseRequest(e -> onQuit());
         SplashScreen splash = new SplashScreen();
+
+
         EasyTask getStationsTask = new EasyTask(() ->
         { 
         	try {
@@ -119,6 +123,25 @@ public class Main extends Application
         	HomeScreenInit homeInit = new HomeScreenInit(allStations, user);
 			homeScreen = new HomeScreen(homeInit, this);
 			scene = new Scene(homeScreen);
+
+			// adding height and width changed listeners to the scene
+           // to allow proportional resizing of gui elements within the scene/window
+            scene.widthProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+                    if(splashClosed) {
+                        homeScreen.widthChanged((double) oldSceneWidth, (double) newSceneWidth);
+                        //doesnt actually do anything yet
+                    }
+                }
+            });
+            scene.heightProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+                    if(splashClosed) {
+                        homeScreen.heightChanged((double) oldSceneHeight, (double) newSceneHeight);
+                    }
+                }
+            });
+
 			splash.loadingUpdate("");
 			splash.startClosing();
         });
@@ -140,6 +163,9 @@ public class Main extends Application
         	fillPlots();
         	plotWindows.showAll();
         	window.show();
+            splashClosed = true;
+            window.setMinWidth(935);
+            window.setMinHeight(495);
         });
         
         /* Now start the chain of tasks, 

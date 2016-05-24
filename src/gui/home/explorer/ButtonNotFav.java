@@ -8,7 +8,8 @@ import javafx.scene.control.Button;
 
 public class ButtonNotFav extends Button 
 {
-	static double buttonWidth = 150;
+	static double buttonWidth = 260;
+	static double buttonHeight = 35;
   //  private String LOCATION;
   //  private int TEMP;
   //  private Boolean RAINING, SUNNY;
@@ -18,8 +19,10 @@ public class ButtonNotFav extends Button
     {
     	super(station.getName() + ", " + station.getState());
     	this.station = station;
-    	setMinWidth(buttonWidth);
-    	setMaxWidth(buttonWidth);
+        setMinWidth(buttonWidth);
+        setMaxWidth(buttonWidth+30);
+        setMaxHeight(buttonHeight);
+        setMinHeight(buttonHeight);
     	// Text/image alignment
     	setAlignment(Pos.CENTER_LEFT);
     }

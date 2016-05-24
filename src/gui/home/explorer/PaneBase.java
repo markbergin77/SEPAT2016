@@ -9,8 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+
 /* Base class for lists of stations
  * is a child of the Explorer */
 public class PaneBase extends GridPane
@@ -35,6 +35,7 @@ public class PaneBase extends GridPane
     	searchBox = new TextField();
     	searchBox.setPromptText("Search...");
     	searchBox.setPrefWidth(scrollPane.getWidth());
+
     	searchBox.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
@@ -58,6 +59,7 @@ public class PaneBase extends GridPane
 		});
     	add(searchBox, 0, 0);
     	add(scrollPane, 0, 1);
+        setVgrow(scrollPane,Priority.ALWAYS);
     }
     
     protected void addButton(Button node) 
@@ -71,7 +73,7 @@ public class PaneBase extends GridPane
     	vbox.getChildren().remove(node);
     	allButtons.remove(node);
     }
-    
+
     public VBox getVBox()
     {
         return vbox;

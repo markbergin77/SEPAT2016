@@ -64,6 +64,17 @@ public class Explorer extends StackPane
 		favouritesTab.setClosable(false);
 		tabPane.getTabs().addAll(allStationsTab, favouritesTab);
 		getChildren().addAll(tabPane);
+
+        tabPane.setTabMaxWidth(125);
+        tabPane.setTabMinWidth(125);
+        favouritesPane.setMaxWidth(300);
+        favouritesPane.setMinWidth(300);
+        allStationsPane.setMaxWidth(300);
+        allStationsPane.setMinWidth(300);
+        allStationsPane.scrollPane.setMinWidth(300);
+        allStationsPane.scrollPane.setMaxWidth(300);
+        favouritesPane.scrollPane.setMinWidth(300);
+        favouritesPane.scrollPane.setMaxWidth(300);
 	}
 	
 	public interface EventInterface 

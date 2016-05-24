@@ -176,6 +176,17 @@ public class HomeScreen extends GridPane
 	@Override
 	public void onExperimentalPlot(Station station) {
 		eventHandler.onExperimentalPlot(station);
-		
 	}
-}
+
+	public void widthChanged(double oldWidth, double newWidth){
+
+
+    }
+
+    public void heightChanged(double oldHeight, double newHeight){
+
+
+    }
+
+
+	}
