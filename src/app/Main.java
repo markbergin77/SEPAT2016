@@ -14,7 +14,6 @@ import gui.home.HomeScreenInit;
 import gui.plots.HistoricalTemp;
 import gui.plots.Last72hrTemp;
 import gui.plots.PlotBase;
-import gui.plots.PlotType;
 import gui.plots.PlotWindow;
 import gui.plots.PlotWindows;
 import gui.plots.Table72Hr;
@@ -24,11 +23,8 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import user.Favourite;
 import user.User;
 import utilities.EasyTask;
@@ -65,6 +61,7 @@ public class Main extends Application
 	static MultipleInstanceLock preventMultInstances = 
 			new MultipleInstanceLock(appName);
     private boolean splashClosed = false;
+    private double xPos,yPos;
 	
 	public static void main(String args[])
     {
@@ -92,7 +89,6 @@ public class Main extends Application
 		window.setTitle(appName);
         window.setOnCloseRequest(e -> onQuit());
         SplashScreen splash = new SplashScreen();
-
 
         EasyTask getStationsTask = new EasyTask(() ->
         { 
@@ -148,6 +144,7 @@ public class Main extends Application
         
         splash.setOnClosed(e -> 
         {
+			dragWindow(scene);
         	window.setScene(scene);
         	window.sizeToScene();
         	if(newUser)
@@ -362,4 +359,21 @@ public class Main extends Application
 		user.getFavs().remove(fav);
 		homeScreen.removeFavourite(fav);
 	}
+
+    public void dragWindow(Object obj) {
+
+        if (obj instanceof Scene) {
+            ((Scene)obj).setOnMousePressed(e -> {
+                this.xPos = window.getX() - e.getScreenX();
+                this.yPos = window.getY() - e.getScreenY();
+
+            });
+
+            ((Scene)obj).setOnMouseDragged(e -> {
+                window.setX(e.getScreenX() + this.xPos);
+                window.setY(e.getScreenY() + this.yPos);
+            });
+        }
+        //else if()......
+    }
 }
