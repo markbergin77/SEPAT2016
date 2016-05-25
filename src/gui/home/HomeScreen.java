@@ -15,6 +15,7 @@ public class HomeScreen extends GridPane
 {    
 	public HomeScreen(HomeScreenInit init, EventInterface eventHandler)
     {
+
     	super();
     	user = init.user;
     	explorer = new Explorer(this);
@@ -22,9 +23,13 @@ public class HomeScreen extends GridPane
     	globalOptionsArea = new GlobalOptionsArea(this);
     	getRowConstraints().add(new RowConstraints());
     	getRowConstraints().get(0).setVgrow(Priority.ALWAYS);
+
         add(explorer, 0, 0);
         add(optionsArea, 1, 0);
         add(globalOptionsArea, 2, 0);
+
+        setHgrow(optionsArea,Priority.ALWAYS);
+
         this.eventHandler = eventHandler;
         explorer.addStationsAll(init.getAllStations());
         explorer.addStationsFav(init.user.getFavs());

@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import user.Favourite;
@@ -16,13 +18,13 @@ import user.Favourite;
  * 18/4/16: This area has tabs for having
  * multiple stations open at once.
  * */
-public class OptionsArea extends VBox 
+public class OptionsArea extends GridPane
 	implements PaneFav.EventInterface, PaneNotFav.EventInterface
 {	
 	public OptionsArea(EventInterface callbackObj)
 	{
 		this.callbackObj = callbackObj;
-		this.setPrefSize(defaultWidth, HomeScreen.defaultHeight);
+
 		setupPrompt();
 		addPrompt();
 	}
@@ -78,7 +80,7 @@ public class OptionsArea extends VBox
 	}
 	
 	
-	static double defaultWidth = 250;
+	static double defaultWidth = 500;
 	/* Looks ugly if right at top */
 	static double promptInsetY = 16;
 	/* When a button is pressed, send a
@@ -95,6 +97,9 @@ public class OptionsArea extends VBox
 	
 	void setupPrompt()
 	{
+        setHgrow(tabPane, Priority.ALWAYS);
+        tabPane.setMaxWidth(800);
+
 		promptLabel.setPrefWidth(defaultWidth);
 		promptLabel.setAlignment(Pos.BASELINE_CENTER);
 		promptLabel.setFont(new Font(24));

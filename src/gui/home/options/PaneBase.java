@@ -47,7 +47,6 @@ public class PaneBase extends GridPane
         add(plotExperimental,0,5);
         add(closePlotsButton,0,6);
 
-
         for(Node child : getChildren()){
             setHgrow(child,Priority.ALWAYS);
             ((Button)child).setTextAlignment(TextAlignment.LEFT);
@@ -59,6 +58,8 @@ public class PaneBase extends GridPane
         ColumnConstraints c1 = new ColumnConstraints();
         c1.setPercentWidth(100);
         getColumnConstraints().add(c1);
+
+        setMaxWidth(800);
 
 	}
 	
