@@ -57,7 +57,6 @@ public class PaneAllStations extends PaneBase
 
     public VBox updateList(){
 
-
         return null;
     }
 
