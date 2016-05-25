@@ -19,8 +19,6 @@ public class PaneNotFav extends PaneBase
 	}
 	
 	EventInterface eventHandler;
-	String addToFavsMsg = "Add To Favourites";
-	Button addToFavsButton = new Button(addToFavsMsg);
 	
 	public PaneNotFav(Station station, EventInterface eventHandler) 
 	{
@@ -33,7 +31,6 @@ public class PaneNotFav extends PaneBase
 		tableHisButton.setOnMouseClicked(e -> eventHandler.onOpenHisTable(station));
 		closePlotsButton.setOnMouseClicked(e -> eventHandler.onCloseAllPlots(station));
 		plotExperimental.setOnMouseClicked(e -> eventHandler.onExperimentalPlot(station));
-		addOptionTop(addToFavsButton);
 	}
 	
 	void onAddFav()
