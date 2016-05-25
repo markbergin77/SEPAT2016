@@ -50,7 +50,7 @@ public class PaneBase extends GridPane
         for(Node child : getChildren()){
             setHgrow(child,Priority.ALWAYS);
             ((Button)child).setTextAlignment(TextAlignment.LEFT);
-            ((Button) child).setMaxWidth(800);
+            ((Button) child).setMaxWidth(900);
             ((Button) child).setMinWidth(500);
             ((Button) child).setPrefWidth(500);
         }
@@ -59,7 +59,7 @@ public class PaneBase extends GridPane
         c1.setPercentWidth(100);
         getColumnConstraints().add(c1);
 
-        setMaxWidth(800);
+        setMaxWidth(900);
 
 	}
 	

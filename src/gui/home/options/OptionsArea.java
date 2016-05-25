@@ -98,7 +98,7 @@ public class OptionsArea extends GridPane
 	void setupPrompt()
 	{
         setHgrow(tabPane, Priority.ALWAYS);
-        tabPane.setMaxWidth(800);
+        tabPane.setMaxWidth(900);
 
 		promptLabel.setPrefWidth(defaultWidth);
 		promptLabel.setAlignment(Pos.BASELINE_CENTER);

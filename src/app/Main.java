@@ -166,8 +166,8 @@ public class Main extends Application
             splashClosed = true;
             window.setMinWidth(935);
             window.setMinHeight(495);
-            window.setMaxWidth(1200);
-            window.setMaxHeight(600);
+            window.setMaxWidth(1300);
+            window.setMaxHeight(700);
         });
         
         /* Now start the chain of tasks, 
