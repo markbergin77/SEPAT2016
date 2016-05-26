@@ -31,8 +31,8 @@ public class Fio
 			throws JsonIOException, JsonSyntaxException, MalformedURLException, IOException
 	{
 		String exclude = "[currently,minutely,hourly,alerts,flags]";
-		logger.debug("Starting Fio::getFioDaily()");
 
+		logger.debug("Starting Fio::getFioDaily()");
 		// Need to get lat and lon from a wthrSample
 		WthrSamplesFine wthrSamplesFine = Bom.getWthrLast72hr(station);
 		String lon = wthrSamplesFine.get(0).getLon();
@@ -40,8 +40,7 @@ public class Fio
 		
 		// Need to specify units=si for standard measurements (celcius)
 		String requestString = baseUrl + apiKey + "/" + lat + "," + lon + "?" + "units=si&exclude=" + exclude;
-		
-		
+
 		HttpURLConnection connection = (HttpURLConnection) new URL(requestString).openConnection();
 		connection.setRequestMethod("GET");
 		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
