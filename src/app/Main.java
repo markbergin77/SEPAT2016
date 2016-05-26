@@ -3,7 +3,6 @@ import java.awt.Dimension;
 import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import data.Bom;
 import data.Station;
 import data.StationList;
@@ -25,11 +24,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import user.Favourite;
 import user.User;
 import utilities.EasyTask;
 import utilities.JavaFXSafeTask;
 import utilities.MultipleInstanceLock;
+
 
 public class Main extends Application 
 	implements HomeScreen.EventInterface
@@ -47,8 +48,8 @@ public class Main extends Application
 		        t.setDaemon(true); 
 		        return t ;
 		    });
-    
-    
+
+	private static Logger logger = Logger.getLogger(Main.class);
     Stage window;
     Dimension homeWindowSize;
 	StationList allStations;
@@ -71,6 +72,8 @@ public class Main extends Application
 	@Override
 	public void start(Stage window) throws Exception 
 	{
+		logger.debug("------------Starting-------------");
+
 		this.window = window;
 		if(preventMultInstances.isAppActive())
 		{
@@ -80,12 +83,14 @@ public class Main extends Application
 		}
 		else
 		{
+            logger.debug("Calling Main::startAppNotDuplicate()");
 			startAppNotDuplicate();
 		}
 	}
 	
 	private void startAppNotDuplicate() 
 	{
+        logger.debug("Starting Main::startAppNotDuplicate()");
 		window.setTitle(appName);
         window.setOnCloseRequest(e -> onQuit());
         SplashScreen splash = new SplashScreen();
@@ -95,26 +100,36 @@ public class Main extends Application
         	try {
         		/* Pass in splash so that this function can update
         		 * the splash screen's text when something changes.*/
+
+                    logger.debug("Calling BOM::getALLStations()");
 					allStations = Bom.getAllStations(splash);
 			} catch (UnknownHostException e) {
-				/* TODO User might not be able to connect to BOM!
+                /* TODO User might not be able to connect to BOM!
 				 * Must put something on the splash screen,  
 				 * Use splash.loadingUpdate(String)
 				 * maybe retry connecting in a loop */
+
+                logger.fatal("Threw UnknownHostException :",e);
 				splash.loadingUpdate("Error: couldn't connect. Please restart");
 				return;
+
 			} catch (Exception e) {
+                logger.fatal("Threw Error :",e);
 				splash.loadingUpdate("Something went wrong. Please restart");
 				return;
 			}
         	// Tricky: loadingUpdate actually does a runLater()
         	splash.loadingUpdate("Loading user");
 			try {
+                logger.debug("Calling User::LoadUser()");
 				user = User.loadUser("data/user");
 			} catch (Exception e1) {
+
+                logger.warn("Couldn't load user :",e1);
 				newUser = true;
 				user = new User();
 			}
+            logger.debug("Initializing HomeScreen");
         	splash.loadingUpdate("Creating GUI elements");
         	HomeScreenInit homeInit = new HomeScreenInit(allStations, user);
 			homeScreen = new HomeScreen(homeInit, this);
@@ -126,7 +141,7 @@ public class Main extends Application
                 @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
                     if(splashClosed) {
                         homeScreen.widthChanged((double) oldSceneWidth, (double) newSceneWidth);
-                        //doesnt actually do anything yet
+
                     }
                 }
             });
@@ -138,29 +153,38 @@ public class Main extends Application
                 }
             });
 
+            logger.debug("Closing splash screen");
 			splash.loadingUpdate("");
 			splash.startClosing();
         });
         
         splash.setOnClosed(e -> 
         {
-			dragWindow(scene);
+            logger.debug("Calling Main::dragWindow()");
+            dragWindow(scene);
         	window.setScene(scene);
         	window.sizeToScene();
         	if(newUser)
         	{
+                logger.debug("New user: centering window");
         		window.centerOnScreen();
         	}
         	else
         	{
+                logger.debug("Existing user : setting to previous window location");
         		window.setX(user.getWindowX());
             	window.setY(user.getWindowY());
         	}
+            logger.debug("Calling Main::reconstructPlotWindows()");
         	addPlotWindows(user.reconstructPlotWindows());
+
+            logger.debug("Calling Main::fillPlots()");
         	fillPlots();
+
         	plotWindows.showAll();
         	window.show();
             splashClosed = true;
+
             window.setMinWidth(935);
             window.setMinHeight(495);
             window.setMaxWidth(1300);
@@ -174,8 +198,14 @@ public class Main extends Application
 
 	void onQuit()
 	{
+        logger.debug("Starting Main::onQuit() ");
+        logger.debug("Calling User::setMainWindowPosSave()");
 		user.setMainWindowPosSave(window.getX(), window.getY());
+
+        logger.debug("Calling User::storePlotWindows()");
 		user.storePlotWindows(plotWindows);
+
+        logger.debug("Calling User::saveUser()");
 		User.saveUser(user, "data/user");
 		System.exit(0);
 	}
@@ -187,10 +217,11 @@ public class Main extends Application
 	
 	void openPlot(PlotBase plot)
 	{
+		logger.debug("Starting Main::openPlot()");
 		PlotWindow newWindow = new PlotWindow(plot);
 		newWindow.show();
 		newWindow.setOnCloseRequest(e -> {
-			plotWindows.remove(newWindow);
+            plotWindows.remove(newWindow);
 		});
 		plotWindows.add(newWindow);
 		plot.setEventHandler(this);
@@ -199,6 +230,7 @@ public class Main extends Application
 	
 	void fillPlot(PlotBase plot)
 	{
+        logger.debug("Starting Main::fillPlot()");
 		EasyTask fetchDataTask = new EasyTask(() ->
 		{
 			plot.fetchData();
@@ -213,6 +245,7 @@ public class Main extends Application
 	
 	void  fillPlots()
 	{
+        logger.debug("Starting Main::fillPlots()");
 		for (PlotWindow window : plotWindows)
 		{
 			PlotBase plot = window.getPlot();
@@ -222,6 +255,7 @@ public class Main extends Application
 	
 	void addPlotWindows(PlotWindows windows)
 	{
+        logger.debug("Starting Main::addPlotWindows()");
 		plotWindows.addAll(windows);
     	for(PlotWindow window : windows)
     	{
@@ -238,6 +272,7 @@ public class Main extends Application
 	@Override
 	public void onAddFav(Station station) 
 	{
+        logger.debug("Starting Main::onAddFav()");
 		/* Add to user's fav list */
 		if(! user.getFavs().hasForStation(station))
 		{
@@ -250,9 +285,11 @@ public class Main extends Application
 	@Override
 	public void onOpen72TempPlot(Station station) 
 	{
+        logger.debug("Starting Main::onOpen72TempPlot()");
 		PlotWindow existingPlotWindow = plotWindows.windowFor(station, Last72hrTemp.class);
 		if(existingPlotWindow == null)
-		{		
+		{
+            logger.debug("Calling Main::openPlot()");
 			openPlot(new Last72hrTemp(station));
 		}
 		else
@@ -262,12 +299,14 @@ public class Main extends Application
 	}
 
 	@Override
-	public void onOpenHisTempPlot(Station station) 
+	public void onOpenHisTempPlot(Station station)
 	{
+        logger.debug("Starting Main::onOpenHisTempPlot()");
 		PlotWindow existingPlotWindow = plotWindows.windowFor(station, HistoricalTemp.class);
 		if (existingPlotWindow == null)
 		{
-			openPlot(new HistoricalTemp(station));
+            logger.debug("Calling Main::openPlot()");
+            openPlot(new HistoricalTemp(station));
 		}
 		else
 		{
@@ -278,9 +317,11 @@ public class Main extends Application
 	@Override
 	public void onExperimentalPlot(Station station) 
 	{
-		PlotWindow existingPlotWindow = plotWindows.windowFor(station, ExperimentalPlot.class);
+        logger.debug("Starting Main::onExperimentalPlot()");
+        PlotWindow existingPlotWindow = plotWindows.windowFor(station, ExperimentalPlot.class);
 		if (existingPlotWindow == null)
 		{
+            logger.debug("Calling Main::openPlot()");
 			openPlot(new ExperimentalPlot(station));
 		}
 		else
@@ -295,9 +336,11 @@ public class Main extends Application
 	@Override
 	public void onOpen72HrTable (Station station)
 	{
-		PlotWindow existingPlotWindow = plotWindows.windowFor(station, Table72Hr.class);
+        logger.debug("Starting Main::onOpen72HrTable()");
+        PlotWindow existingPlotWindow = plotWindows.windowFor(station, Table72Hr.class);
 		if (existingPlotWindow == null)
 		{
+            logger.debug("Calling Main::openPlot()");
 			openPlot(new Table72Hr(station));
 		}
 		else
@@ -311,9 +354,12 @@ public class Main extends Application
 	@Override
 	public void onOpenHisTable (Station station)
 	{
-		PlotWindow existingPlotWindow = plotWindows.windowFor(station, TableHistorical.class);
+        logger.debug("Starting Main::onOpenHisTable()");
+
+        PlotWindow existingPlotWindow = plotWindows.windowFor(station, TableHistorical.class);
 		if (existingPlotWindow == null)
 		{
+            logger.debug("Calling Main::openPlot()");
 			openPlot(new TableHistorical(station));
 		}
 		else
@@ -356,12 +402,14 @@ public class Main extends Application
 	@Override
 	public void onFavRemove(Favourite fav)
 	{
+        logger.debug("Starting Main::onFavRemove()");
 		user.getFavs().remove(fav);
 		homeScreen.removeFavourite(fav);
 	}
 
     public void dragWindow(Object obj) {
 
+        logger.debug("Starting Main::dragWindow()");
         if (obj instanceof Scene) {
             ((Scene)obj).setOnMousePressed(e -> {
                 this.xPos = window.getX() - e.getScreenX();
