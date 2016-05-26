@@ -29,6 +29,7 @@ import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
+import org.apache.log4j.Logger;
 
 public class ExperimentalPlot extends PlotBase
 {
@@ -39,8 +40,9 @@ public class ExperimentalPlot extends PlotBase
 	final CategoryAxis xAxis = new CategoryAxis();
     final NumberAxis yAxis = new NumberAxis();
     LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
-    
-    XYChart.Series<String, Number> seriesTempMin = new XYChart.Series<String, Number>();
+	private static Logger logger = Logger.getLogger(ExperimentalPlot.class);
+
+	XYChart.Series<String, Number> seriesTempMin = new XYChart.Series<String, Number>();
     XYChart.Series<String, Number> seriesTempMax = new XYChart.Series<String, Number>();
     XYChart.Series<String, Number> seriesTempMinForecast = new XYChart.Series<String, Number>();
     XYChart.Series<String, Number> seriesTempMaxForecast = new XYChart.Series<String, Number>();
@@ -51,6 +53,8 @@ public class ExperimentalPlot extends PlotBase
 	public ExperimentalPlot(Station station)
 	{
 		super(station);
+		logger.debug("Creating ExperimentalPlot");
+
 		setName(station.getName() + " Past and Present Temperatures");
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();
@@ -100,42 +104,47 @@ public class ExperimentalPlot extends PlotBase
         }
         
         // add the lineChart to the gridPane
+        logger.debug("Calling ExperimentalPlot::assembleFrom()");
         assembleFrom(lineChart);
 	}
 	
 	private WthrSamplesDaily getBomData(Station station, YearMonth start, YearMonth end) {
+		logger.debug("Starting ExperimentalPlot::getBomData");
+
 		WthrSamplesDaily wthrSamplesDaily = new WthrSamplesDaily();
         try {
 			wthrSamplesDaily = Bom.getWthrRange(station, start, end);
 			return wthrSamplesDaily;
+
 		} catch (IOException e) {
+
+            logger.error("Failed to connect/retrieve weather samples from Bom",e);
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Cannot access BoM JSON server");
 			alert.setContentText("Please check your internet connection and try again");
-
 			alert.showAndWait();
-			e.printStackTrace();
 			return null;
+
 		}
 	}
 	
 	private FioSamplesDaily getFioData(Station station) {
+
+		logger.debug("Starting ExperimentalPlot::getFioData");
 		FioSamplesDaily samples = new FioSamplesDaily();
 		try {
 			samples = Fio.getFioDaily(station);
 		} catch (JsonIOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            logger.error("Failed to connect/retrieve weather samples from FIO",e);
 		} catch (JsonSyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            logger.error("Failed to connect/retrieve weather samples from FIO",e);
+
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            logger.error("Failed to connect/retrieve weather samples from FIO",e);
+
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            logger.error("Failed to connect/retrieve weather samples from FIO",e);
 		}
 		return samples;
 	}
@@ -193,7 +202,10 @@ public class ExperimentalPlot extends PlotBase
 	@Override 
 	public void fetchData()
 	{
+		logger.debug("Calling ExperimentalPlot::getBomData");
 		wthrSamplesDaily = getBomData(station, start, end);
+
+		logger.debug("Calling ExperimentalPlot::getFioData");
 		fioSamplesDaily = getFioData(station);
 	}
 	
