@@ -17,6 +17,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.zip.GZIPInputStream;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -47,6 +48,8 @@ import javafx.scene.control.Alert.AlertType;
 
 public class Bom
 {
+	private static Logger logger = Logger.getLogger(Bom.class);
+
 	enum State
 	{
 		vic, nsw, tas, wa, sa, nt, qld, ant
@@ -72,6 +75,7 @@ public class Bom
 	// TO DO - ARCHIVE MARK JOB ONLY
 	public static StationList getAllStations() throws UnknownHostException, IOException
 	{
+
 		StationList stations = new StationList();
 		for (State state : State.values())
 		{
@@ -99,11 +103,14 @@ public class Bom
 	 */
 	public static StationList getAllStations(LoadingUpdater progressNotifier) throws IOException
 	{
+		logger.debug("Starting Bom::getAllStations()");
 		StationList stations = new StationList();
 		// Also provides info for user on current state
 		for (State state : State.values())
 		{
 			progressNotifier.loadingUpdate("Loading " + state + " stations");
+
+			logger.debug("Calling Bom::getStations()");
 			stations.addAll(getStations(state));
 		}
 		progressNotifier.loadingUpdate("");
@@ -119,6 +126,7 @@ public class Bom
 	 */
 	public static StationList getStations(State state) throws IOException, UnknownHostException
 	{
+		logger.debug("Starting Bom::getStations()");
 		// Use of Jsoup Framework
 		StationList stations = new StationList();
 		int i = 0;
@@ -134,6 +142,7 @@ public class Bom
 				break;
 			} catch (SocketTimeoutException e)
 			{
+                logger.warn("WARNING:",e);
 				int attemptNum = i + 1;
 				System.out.println("Attempting to Fetch Stations " + attemptNum);
 			}
@@ -142,6 +151,7 @@ public class Bom
 
 		if (successfulConnection)
 		{
+            logger.debug("Connection successful");
 			Elements tbodies = doc.select("tbody");
 			Elements links = tbodies.select("a");
 			for (Element link : links)
@@ -165,6 +175,7 @@ public class Bom
 			return stations;
 		} else
 		{
+            logger.fatal("Could not connect/retrieve data from BOM");
 			// could not connect
 			return null;
 		}
@@ -220,13 +231,16 @@ public class Bom
 	public static WthrSamplesFine getWthrLast72hr(Station station)
 			throws JsonIOException, JsonSyntaxException, MalformedURLException, IOException
 	{
+        logger.debug("Starting Bom::getWthrLast72hr()");
 		WthrSamplesFine samples = new WthrSamplesFine();
+
 		// Weather data for Recent observations stored as Json format.
 		HttpURLConnection connection = (HttpURLConnection) new URL(station.getJsonUrl()).openConnection();
 		connection.setRequestProperty("Accept-Encoding", "gzip");
 		connection.connect();
 		String encoding = connection.getContentEncoding();
 		BufferedReader reader;
+
 		if (encoding != null && encoding.equalsIgnoreCase("gzip"))
 		{
 			reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(connection.getInputStream())));
@@ -237,6 +251,7 @@ public class Bom
 		JsonArray rootArray = new JsonParser().parse(reader).getAsJsonObject().getAsJsonObject("observations")
 				.getAsJsonArray("data");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+
 		for (JsonElement element : rootArray)
 		{
 			// Grabs all information through BOM's JSON Data
@@ -352,7 +367,8 @@ public class Bom
 	 */
 	public static WthrSamplesDaily getWthrLastMonth(Station station, YearMonth date) throws IOException
 	{
-		String dateString = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
+        logger.debug("Starting Bom::getWthrLastMonth()");
+        String dateString = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
 		String thisMonth = YearMonth.now().format(DateTimeFormatter.ofPattern("yyyyMM"));
 		WthrSamplesDaily samples = null;
 		Boolean fileExists = false;
@@ -394,7 +410,8 @@ public class Bom
 					break;
 				} catch (SocketTimeoutException e)
 				{
-					int attemptNum = i + 1;
+                    logger.warn("WARNING :",e);
+                    int attemptNum = i + 1;
 					System.out.println("Attempting to Fetch CSV " + attemptNum);
 				}
 				i++;
@@ -429,6 +446,7 @@ public class Bom
 				}
 			} else
 			{
+                logger.fatal("Could not connect/retrieve data from BOM");
 				// Could not connect
 				return null;
 			}
@@ -455,6 +473,7 @@ public class Bom
 	 */
 	public static WthrSamplesDaily getWthrRange(Station station, YearMonth start, YearMonth end) throws IOException
 	{
+        logger.debug("Starting Bom::getWthrRange()");
 		WthrSamplesDaily samples = new WthrSamplesDaily();
 		while (!start.equals(end))
 		{
@@ -482,7 +501,8 @@ public class Bom
 	 */
 	private static WthrSamplesDaily processCsv(CSVReader csvReader) throws IOException
 	{
-		String[] nextLine = null;
+        logger.debug("Starting Bom::processCsv()");
+        String[] nextLine = null;
 		WthrSamplesDaily samples = new WthrSamplesDaily();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
 
@@ -526,6 +546,7 @@ public class Bom
 	static public float[] findAverageTemps(Station station)
 	{
 
+        logger.debug("Starting Bom::findAverageTemps()");
 		WthrSamplesFine location = new WthrSamplesFine();
 		try
 		{
@@ -626,6 +647,7 @@ public class Bom
 
 	static float averageTemp(WthrSamplesFine samples)
 	{
+        logger.debug("Starting Bom::averageTemp()");
 		float average = 0;
 		for (WthrSampleFine index : samples)
 		{
