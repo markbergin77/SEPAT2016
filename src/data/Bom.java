@@ -454,6 +454,7 @@ public class Bom
 		try (BufferedReader csvStream = new BufferedReader(new FileReader(filePath)))
 		{
 			CSVReader csvReader = new CSVReader(csvStream);
+			logger.debug("Calling Bom::processCsv()");
 			samples = processCsv(csvReader);
 		}
 		return samples;
