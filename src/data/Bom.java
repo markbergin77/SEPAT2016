@@ -151,7 +151,6 @@ public class Bom
 
 		if (successfulConnection)
 		{
-            logger.debug("Connection successful");
 			Elements tbodies = doc.select("tbody");
 			Elements links = tbodies.select("a");
 			for (Element link : links)
@@ -172,6 +171,7 @@ public class Bom
 
 				}
 			}
+			logger.debug("Connection successful");
 			return stations;
 		} else
 		{
