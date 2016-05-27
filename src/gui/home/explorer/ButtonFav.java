@@ -10,7 +10,7 @@ public class ButtonFav extends Button
 	Favourite fav;
 	
 	static double buttonWidth = 260;
-	static double buttonHeight = 35;
+	static double buttonHeight = 45;
 
 	public ButtonFav(Favourite fav)
 	    {
@@ -22,6 +22,9 @@ public class ButtonFav extends Button
             setMinHeight(buttonHeight);
 	    	// Text/image alignment
 	    	setAlignment(Pos.CENTER_LEFT);
+			setOnMouseEntered(e -> getStyleClass().add("button-hover"));
+			setOnMouseExited(e -> getStyleClass().remove("button-hover"));
+
 	    }
 
 	public Favourite getFav() 

@@ -1,5 +1,6 @@
 package app;
 import java.awt.Dimension;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -135,6 +136,7 @@ public class Main extends Application
 			homeScreen = new HomeScreen(homeInit, this);
 			scene = new Scene(homeScreen);
 
+
 			// adding height and width changed listeners to the scene
            // to allow proportional resizing of gui elements within the scene/window
             scene.widthProperty().addListener(new ChangeListener<Number>() {
@@ -162,6 +164,10 @@ public class Main extends Application
         {
             logger.debug("Calling Main::dragWindow()");
             dragWindow(scene);
+
+            logger.debug("Calling Main::getCss()");
+            getCss(scene);
+
         	window.setScene(scene);
         	window.sizeToScene();
         	if(newUser)
@@ -423,5 +429,24 @@ public class Main extends Application
             });
         }
         //else if()......
+    }
+    public void getCss(Scene scene){
+
+        logger.debug("starting Main::getCss()");
+        try {
+            URL url = this.getClass().getResource("main.css");
+            if (url == null) {
+                logger.fatal("Failed to load resource : main.css");
+                Alert alert = new Alert("Error","Could not load resource : main.css ",event -> System.exit(-1));
+
+            }
+            String css = url.toExternalForm();
+            scene.getStylesheets().add(css);
+        }
+        catch(Exception e){
+            logger.fatal("Failed to load resource : main.css");
+            Alert alert = new Alert("Error","Could not load resource : main.css ",event -> System.exit(-1));
+        }
+
     }
 }

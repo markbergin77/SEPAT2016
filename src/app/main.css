@@ -1,0 +1,83 @@
+
+.root {
+    -fx-background-color: rgba(40, 40, 40,0.7);
+    -fx-border-width: 2px;
+    -fx-opacity: 90%;
+    -fx-background-position: 0px 200px;
+}
+.button{
+    -fx-text-alignment: left;
+    -fx-background-color:#262626;
+    -fx-text-fill: #FF4B46;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+.button-hover{
+    -fx-border-color: rgba(80, 0, 10,0.7);
+    -fx-border-width: 0.5px;
+    -fx-background-color:#333333;
+    -fx-text-alignment: left;
+    -fx-text-fill: #FF4B46;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+
+}
+.scroll-bar .thumb{
+    -fx-background-color:#262626;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.scroll-bar{
+    -fx-background-color: rgba(50, 50, 50,0.7);
+}
+.scroll-pane{
+    -fx-background-color: rgba(50, 50, 50,0.7);
+}
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+}
+.scroll-bar .increment-button {
+    -fx-background-color: transparent;
+}
+.text-field {
+
+    -fx-border-color: rgba(70, 70, 70,0.7);
+    -fx-prompt-text-fill: #737373;
+    -fx-background-color: #333333;
+    -fx-background-radius:0px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 24px;
+    -fx-text-fill: silver;
+}
+.tab-pane .tab {
+    -fx-border-radius: 5 5 0 0;
+    -fx-border-color: rgba(80, 0, 10,0.7);
+    -fx-background-color:#262626;
+    -fx-focus-color: transparent;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
+    -fx-font-weight: bold;
+    -fx-text-fill:  #FF4B46;
+    -fx-focus-color: transparent;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-font-weight: bold;
+    -fx-text-fill:  #FF4B46;;
+    -fx-focus-color: transparent;
+}
+.tab-pane{
+   -fx-border-color: rgba(50, 50, 50,0.7);
+    -fx-background-color: #333333;
+
+}
+.explorer-tab > .tab-header-area > .tab-header-background {
+     -fx-background-color: #333333;
+ }
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: #333333;
+}

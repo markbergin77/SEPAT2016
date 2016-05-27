@@ -47,6 +47,21 @@ public class PaneBase extends GridPane
         add(plotExperimental,0,5);
         add(closePlotsButton,0,6);
 
+        addToFavsButton.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
+        addToFavsButton.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
+        plot72hrButton.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
+        plot72hrButton.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
+        plotHisButton.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
+        plotHisButton.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
+        table72hrButton.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
+        table72hrButton.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
+        tableHisButton.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
+        tableHisButton.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
+        plotExperimental.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
+        plotExperimental.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
+        closePlotsButton.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
+        closePlotsButton.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
+
         for(Node child : getChildren()){
             setHgrow(child,Priority.ALWAYS);
             ((Button)child).setTextAlignment(TextAlignment.LEFT);

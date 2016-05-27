@@ -25,6 +25,8 @@ public class ButtonNotFav extends Button
         setMinHeight(buttonHeight);
     	// Text/image alignment
     	setAlignment(Pos.CENTER_LEFT);
+        setOnMouseEntered(e -> getStyleClass().add("button-hover"));
+        setOnMouseExited(e -> getStyleClass().remove("button-hover"));
     }
     
 	public Station getStation() 

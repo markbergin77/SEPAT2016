@@ -5,6 +5,7 @@ import gui.home.explorer.Explorer;
 import gui.home.globalOptions.GlobalOptionsArea;
 import gui.home.options.OptionsArea;
 import javafx.scene.layout.*;
+import org.apache.log4j.Logger;
 import user.Favourite;
 import user.User;
 
@@ -12,7 +13,7 @@ import user.User;
 public class HomeScreen extends GridPane
 	implements OptionsArea.EventInterface, Explorer.EventInterface
 	, GlobalOptionsArea.EventInterface
-{    
+{
 	public HomeScreen(HomeScreenInit init, EventInterface eventHandler)
     {
 
@@ -34,9 +35,7 @@ public class HomeScreen extends GridPane
         explorer.addStationsAll(init.getAllStations());
         explorer.addStationsFav(init.user.getFavs());
     }
-	
-	
-	
+
 	public void addFavourite(Favourite newFav)
 	{
 		explorer.addFavourite(newFav);

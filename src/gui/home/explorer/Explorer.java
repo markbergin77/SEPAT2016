@@ -5,6 +5,7 @@ import data.StationList;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
+import org.apache.log4j.Logger;
 import user.Favourite;
 import user.FavouritesList;
 
@@ -13,7 +14,8 @@ import user.FavouritesList;
 public class Explorer extends StackPane
 	implements PaneAllStations.EventInterface
 	, PaneFavourites.EventInterface
-{			
+{
+    private static Logger logger = Logger.getLogger(Explorer.class);
 	public Explorer(EventInterface callbackObj)
 	{
 		super();
@@ -50,10 +52,13 @@ public class Explorer extends StackPane
 	EventInterface eventHandler;
 
 	void createGuiElements()
-	{
+    {
+        logger.debug("Stating Explorer::createGuiElements()");
+
 		allStationsPane = new PaneAllStations(this);
 		favouritesPane = new PaneFavourites(this);
 		tabPane = new TabPane();
+		tabPane.getStyleClass().add("explorer-tab");
 		allStationsTab = new Tab();
 		allStationsTab.setContent(allStationsPane);
 		allStationsTab.setText("All Stations");
@@ -65,6 +70,8 @@ public class Explorer extends StackPane
 		tabPane.getTabs().addAll(allStationsTab, favouritesTab);
 		getChildren().addAll(tabPane);
 
+		tabPane.setMinWidth(300);
+		tabPane.setMaxWidth(300);
         tabPane.setTabMaxWidth(125);
         tabPane.setTabMinWidth(125);
         favouritesPane.setMaxWidth(300);
