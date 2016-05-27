@@ -6,9 +6,12 @@ sourceSets {
         java {
             srcDir 'src'
         }
+        resources{
+        	srcDir 'src/resources'
+        }
 		dependencies {
 			compile files('ext/jsoup-1.8.3/jsoup-1.8.3.jar','ext/commons-lang3-3.0/commons-lang3-3.0.jar', 
-			'ext/gson-2.6.2/gson-2.6.2.jar', 'ext/opencsv-3.7/opencsv-3.7.jar') 
+			'ext/gson-2.6.2/gson-2.6.2.jar', 'ext/opencsv-3.7/opencsv-3.7.jar', 'ext/log4j-1.2.17/log4j-1.2.17.jar') 
 		}
     }
 }
@@ -16,3 +19,11 @@ sourceSets {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.13'
 }
+
+task copyCss(type: Copy) {
+    from('build/resources/main')
+    into('build/classes/main/gui/plots')
+    include('*.css')
+}
+
+build.finalizedBy(copyCss)
