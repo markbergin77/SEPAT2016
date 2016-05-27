@@ -114,7 +114,29 @@
     -fx-font-size: 13px;
     -fx-background-radius: 0px;
     -fx-border-radius: 0px;
+}
 
+.global-button{
+    -fx-border-color: #2A2829;
+    -fx-border-width: 0.7px;
+    -fx-background-color:#000a1a;
+    -fx-text-alignment: left;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-opacity: 0.8;
+}
+.global-button-hover{
+    -fx-border-color: #2A2829;
+    -fx-border-width: 0.7px;
+    -fx-background-color:#000c3c;
+    -fx-text-alignment: left;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-opacity: 0.8;
 }
 .scroll-bar .thumb{
     -fx-background-color:#262626;
@@ -148,6 +170,12 @@
     -fx-text-fill: B9D7D9;
 }
 .tab-pane .tab {
+    -fx-border-radius: 5 5 0 0;
+    -fx-border-color: #493736;
+    -fx-background-color:#343838;
+    -fx-focus-color: transparent;
+}
+.tab-pane .tab:selected {
     -fx-border-radius: 5 5 0 0;
     -fx-border-color: #7B3B3B;
     -fx-background-color:#343838;

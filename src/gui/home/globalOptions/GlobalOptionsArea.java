@@ -30,6 +30,18 @@ public class GlobalOptionsArea extends TabPane
 		mainTab.setContent(vbox);
 		mainTab.setClosable(false);
 		getTabs().add(mainTab);
+
+		closeAllPlotsButton.getStyleClass().add("global-button");
+		closeAllTabsButton.getStyleClass().add("global-button");
+		clearFavsButton.getStyleClass().add("global-button");
+
+		closeAllPlotsButton.setOnMouseEntered(e -> closeAllPlotsButton.getStyleClass().add("global-button-hover"));
+		closeAllTabsButton.setOnMouseEntered(e -> closeAllTabsButton.getStyleClass().add("global-button-hover"));
+		clearFavsButton.setOnMouseEntered(e -> clearFavsButton.getStyleClass().add("global-button-hover"));
+
+		closeAllPlotsButton.setOnMouseExited(e -> closeAllPlotsButton.getStyleClass().remove("global-button-hover"));
+		closeAllTabsButton.setOnMouseExited(e -> closeAllTabsButton.getStyleClass().remove("global-button-hover"));
+		clearFavsButton.setOnMouseExited(e -> clearFavsButton.getStyleClass().remove("global-button-hover"));
 	}
 	
 	VBox vbox = new VBox();
@@ -45,6 +57,7 @@ public class GlobalOptionsArea extends TabPane
 	
 	String closeAllTabsLabel = "Close All Tabs";
 	Button closeAllTabsButton = new Button(closeAllTabsLabel);
+
 	
 	EventInterface eventHandler;
 	

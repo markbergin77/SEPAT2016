@@ -24,6 +24,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 import user.Favourite;
@@ -102,23 +103,23 @@ public class Main extends Application
         		/* Pass in splash so that this function can update
         		 * the splash screen's text when something changes.*/
 
-                    logger.debug("Calling BOM::getALLStations()");
-					allStations = Bom.getAllStations(splash);
-			} catch (UnknownHostException e) {
+			logger.debug("Calling BOM::getALLStations()");
+			allStations = Bom.getAllStations(splash);
+		} catch (UnknownHostException e) {
                 /* TODO User might not be able to connect to BOM!
-				 * Must put something on the splash screen,  
+				 * Must put something on the splash screen,
 				 * Use splash.loadingUpdate(String)
 				 * maybe retry connecting in a loop */
 
-                logger.fatal("Threw UnknownHostException :",e);
-				splash.loadingUpdate("Error: couldn't connect. Please restart");
-				return;
+			logger.fatal("Threw UnknownHostException :",e);
+			splash.loadingUpdate("Error: couldn't connect. Please restart");
+			return;
 
-			} catch (Exception e) {
-                logger.fatal("Threw Error :",e);
-				splash.loadingUpdate("Something went wrong. Please restart");
-				return;
-			}
+		} catch (Exception e) {
+			logger.fatal("Threw Error :",e);
+			splash.loadingUpdate("Something went wrong. Please restart");
+			return;
+		}
         	// Tricky: loadingUpdate actually does a runLater()
         	splash.loadingUpdate("Loading user");
 			try {
