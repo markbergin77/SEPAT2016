@@ -17,7 +17,7 @@ public class ButtonFav extends Button
 	    	super(fav.getStation().getName() + ", " + fav.getStation().getState());
 	    	this.fav = fav;
 	    	setMinWidth(buttonWidth);
-	    	setMaxWidth(buttonWidth);
+	    	setMaxWidth(buttonWidth+30);
             setMaxHeight(buttonHeight);
             setMinHeight(buttonHeight);
 	    	// Text/image alignment

@@ -11,6 +11,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
+import java.util.Comparator;
+
 /* All the options for one station.
  * Goes in the OptionsArea which is/has
  * a TapPane. */
@@ -47,20 +49,20 @@ public class PaneBase extends GridPane
         add(plotExperimental,0,5);
         add(closePlotsButton,0,6);
 
-        addToFavsButton.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
-        addToFavsButton.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
-        plot72hrButton.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
-        plot72hrButton.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
-        plotHisButton.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
-        plotHisButton.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
-        table72hrButton.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
-        table72hrButton.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
-        tableHisButton.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
-        tableHisButton.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
-        plotExperimental.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
-        plotExperimental.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
-        closePlotsButton.setOnMouseEntered(e -> getStyleClass().add("button-hover"));
-        closePlotsButton.setOnMouseExited(e -> getStyleClass().remove("button-hover"));
+        addToFavsButton.setOnMouseEntered(e -> addToFavsButton.getStyleClass().add("button-hover"));
+        addToFavsButton.setOnMouseExited(e -> addToFavsButton.getStyleClass().remove("button-hover"));
+        plot72hrButton.setOnMouseEntered(e -> plot72hrButton.getStyleClass().add("button-hover"));
+        plot72hrButton.setOnMouseExited(e -> plot72hrButton.getStyleClass().remove("button-hover"));
+        plotHisButton.setOnMouseEntered(e -> plotHisButton.getStyleClass().add("button-hover"));
+        plotHisButton.setOnMouseExited(e -> plotHisButton.getStyleClass().remove("button-hover"));
+        table72hrButton.setOnMouseEntered(e -> table72hrButton.getStyleClass().add("button-hover"));
+        table72hrButton.setOnMouseExited(e -> table72hrButton.getStyleClass().remove("button-hover"));
+        tableHisButton.setOnMouseEntered(e -> tableHisButton.getStyleClass().add("button-hover"));
+        tableHisButton.setOnMouseExited(e -> tableHisButton.getStyleClass().remove("button-hover"));
+        plotExperimental.setOnMouseEntered(e -> plotExperimental.getStyleClass().add("button-hover"));
+        plotExperimental.setOnMouseExited(e -> plotExperimental.getStyleClass().remove("button-hover"));
+        closePlotsButton.setOnMouseEntered(e -> closePlotsButton.getStyleClass().add("button-hover"));
+        closePlotsButton.setOnMouseExited(e -> closePlotsButton.getStyleClass().remove("button-hover"));
 
         for(Node child : getChildren()){
             setHgrow(child,Priority.ALWAYS);
@@ -80,7 +82,10 @@ public class PaneBase extends GridPane
 	
 	void removeOption(Parent node)
 	{
+		node.setVisible(false);
+		node.setManaged(false);
 		getChildren().remove(node);
+
 	}
 	
 	void removeOptionTop()

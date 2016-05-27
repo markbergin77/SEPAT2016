@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 public class ButtonNotFav extends Button 
 {
 	static double buttonWidth = 260;
-	static double buttonHeight = 35;
+	static double buttonHeight = 45;
   //  private String LOCATION;
   //  private int TEMP;
   //  private Boolean RAINING, SUNNY;
