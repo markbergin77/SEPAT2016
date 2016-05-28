@@ -8,6 +8,7 @@ sourceSets {
         }
         resources{
         	srcDir 'src/resources'
+
         }
 		dependencies {
 			compile files('ext/jsoup-1.8.3/jsoup-1.8.3.jar','ext/commons-lang3-3.0/commons-lang3-3.0.jar', 
@@ -20,10 +21,22 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.13'
 }
 
-task copyCss(type: Copy) {
-    from('build/resources/main')
+task copyPlotsTableCss(type: Copy) {
+    from('build/resources/main/plotsTables')
     into('build/classes/main/gui/plots')
     include('*.css')
 }
 
-build.finalizedBy(copyCss)
+task copySplashCss(type: Copy) {
+    from('build/resources/main/splash')
+    into('build/classes/main/gui')
+    include('*.css')
+}
+
+task copyHomeCss(type: Copy) {
+    from('build/resources/main/home')
+    into('build/classes/main/app')
+    include('*.css')
+}
+
+build.finalizedBy(copyPlotsTableCss,copySplashCss,copyHomeCss)
