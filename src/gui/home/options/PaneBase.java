@@ -31,6 +31,7 @@ public class PaneBase extends GridPane
 	Button tableHisButton = new Button(buttonTableYearlyTxt);
 	String buttonExperimental = "Open Experimental Plot";
 	Button plotExperimental = new Button("Open Experimental Plot");
+	PopUpWindow exp;
 	
 	String closePlotsText = "Close Charts";
 	Button closePlotsButton = new Button(closePlotsText);
@@ -40,6 +41,7 @@ public class PaneBase extends GridPane
 		super();
 		setPrefWidth(OptionsArea.defaultWidth);
 		this.station = station;
+        exp = new PopUpWindow(station);
 
         add(addToFavsButton,0,0);
 		add(plot72hrButton,0,1);
@@ -72,11 +74,18 @@ public class PaneBase extends GridPane
             ((Button) child).setPrefWidth(500);
         }
 
-        ColumnConstraints c1 = new ColumnConstraints();
+
+		add(exp,0,7);
+        exp.setMaxSize(1300,900);
+		setHgrow(exp,Priority.ALWAYS);
+		setVgrow(exp, Priority.ALWAYS);
+
+		ColumnConstraints c1 = new ColumnConstraints();
         c1.setPercentWidth(100);
         getColumnConstraints().add(c1);
 
         setMaxWidth(1300);
+        setMaxHeight(900);
 
 	}
 	
@@ -87,6 +96,10 @@ public class PaneBase extends GridPane
 		getChildren().remove(node);
 
 	}
+
+    public void setPopUpVisible(Boolean visible){
+        exp.setVisible(visible);
+    }
 	
 	void removeOptionTop()
 	{
