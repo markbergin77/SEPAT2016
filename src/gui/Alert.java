@@ -35,7 +35,7 @@ public class Alert
         layout1.getChildren().addAll(label1,button1);
         layout1.setAlignment(Pos.CENTER);
 
-        Scene scene1 = new Scene(layout1);
+        Scene scene1 = new Scene(layout1,250,100);
 
         window.setScene(scene1);
         window.showAndWait();

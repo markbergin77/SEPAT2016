@@ -102,7 +102,6 @@ public class Main extends Application
         	try {
         		/* Pass in splash so that this function can update
         		 * the splash screen's text when something changes.*/
-
 			logger.debug("Calling BOM::getALLStations()");
 			allStations = Bom.getAllStations(splash);
 		} catch (UnknownHostException e) {
@@ -116,8 +115,8 @@ public class Main extends Application
 			return;
 
 		} catch (Exception e) {
-			logger.fatal("Threw Error :",e);
-			splash.loadingUpdate("Something went wrong. Please restart");
+                logger.fatal("Threw Error :",e);
+                splash.loadingUpdate("Something went wrong. Please restart");
 			return;
 		}
         	// Tricky: loadingUpdate actually does a runLater()
