@@ -193,8 +193,8 @@ public class Main extends Application
 
             window.setMinWidth(935);
             window.setMinHeight(495);
-            window.setMaxWidth(1300);
-            window.setMaxHeight(700);
+            window.setMaxWidth(1500);
+            window.setMaxHeight(850);
         });
         
         /* Now start the chain of tasks, 

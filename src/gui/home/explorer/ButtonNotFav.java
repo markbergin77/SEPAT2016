@@ -20,7 +20,7 @@ public class ButtonNotFav extends Button
     	super(station.getName() + ", " + station.getState());
     	this.station = station;
         setMinWidth(buttonWidth);
-        setMaxWidth(buttonWidth+30);
+        setMaxWidth(buttonWidth+300);
         setMaxHeight(buttonHeight);
         setMinHeight(buttonHeight);
     	// Text/image alignment
