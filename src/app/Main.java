@@ -142,7 +142,7 @@ public class Main extends Application
             scene.widthProperty().addListener(new ChangeListener<Number>() {
                 @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
                     if(splashClosed) {
-                        homeScreen.widthChanged((double) oldSceneWidth, (double) newSceneWidth);
+                        homeScreen.widthChanged( (double) newSceneWidth);
 
                     }
                 }
@@ -150,7 +150,7 @@ public class Main extends Application
             scene.heightProperty().addListener(new ChangeListener<Number>() {
                 @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
                     if(splashClosed) {
-                        homeScreen.heightChanged((double) oldSceneHeight, (double) newSceneHeight);
+                        homeScreen.heightChanged((double) newSceneHeight);
                     }
                 }
             });

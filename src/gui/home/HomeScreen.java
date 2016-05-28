@@ -182,15 +182,17 @@ public class HomeScreen extends GridPane
 		eventHandler.onExperimentalPlot(station);
 	}
 
-	public void widthChanged(double oldWidth, double newWidth){
+	public void widthChanged(double newWidth){
 
-
+		if (newWidth < 1100){
+			System.out.println("yay1");
+		}
     }
 
-    public void heightChanged(double oldHeight, double newHeight){
+    public void heightChanged( double newHeight){
 
-
+		if(newHeight < 600){
+			System.out.println("yay2");
+		}
     }
-
-
-	}
+}

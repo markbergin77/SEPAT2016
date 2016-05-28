@@ -96,6 +96,10 @@ public class PaneBase extends GridPane
 		getChildren().remove(node);
 
 	}
+
+    public void setPopUpVisible(Boolean visible){
+        exp.setVisible(visible);
+    }
 	
 	void removeOptionTop()
 	{
