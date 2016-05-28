@@ -272,6 +272,12 @@
     -fx-background-color:#383838;
     -fx-focus-color: transparent;
 }
+.tab-pane .tab:selected {
+    -fx-border-radius: 5 5 0 0;
+    -fx-border-color: #2F84A9;
+    -fx-background-color:#383838;
+    -fx-focus-color: transparent;
+}
 .label{
     -fx-text-fill: silver;
 }
@@ -279,12 +285,14 @@
     -fx-font-weight: bold;
     -fx-text-fill:  #B9D7D9;
     -fx-focus-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
     -fx-font-weight: bold;
     -fx-text-fill:  #B9D7D9;
     -fx-focus-color: transparent;
+    -fx-border-color: transparent;
 }
 .tab-pane{
     -fx-border-color: rgba(70, 70, 70,0.9);
@@ -293,6 +301,10 @@
 .tabpane-options{
     -fx-background-color: transparent;
     -fx-border-color: transparent;
+}
+
+#grid-pane{
+    -fx-background-color: #343838;
 }
 .global-button{
 -fx-border-color: #2A2829;
