@@ -16,13 +16,13 @@ public class PopUpWindow extends GridPane {
 
         StackPane pane  = new StackPane();
         pane.setMaxSize(1300,900);
-        pane.setMinSize(900,500);
+        pane.setMinSize(300,300);
         add(pane,0,0);
 
         Last72hrTemp plot = new Last72hrTemp(station);
 
-        plot.setMaxSize(600,300);
-        plot.setMinSize(600,300);
+        plot.setMaxSize(1000,500);
+        plot.setMinSize(500,300);
 
         pane.getChildren().add(plot);
         StackPane.setAlignment(plot, Pos.CENTER);
