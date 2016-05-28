@@ -63,17 +63,14 @@ public class Last72hrTemp extends PlotBase
 			wthrSamplesFine = Bom.getWthrLast72hr(station);
 			return wthrSamplesFine;
 		} catch (JsonIOException | JsonSyntaxException | IOException e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Cannot access BoM JSON server");
-			alert.setContentText("Please check your internet connection and try again");
+			gui.Alert alert = new gui.Alert("Error","Cannot access BoM server, check your connection",
+					event -> System.exit(0));
 
-			alert.showAndWait();
 			return null;
 		}
 	}
 	
-	private void addToSeries(WthrSamplesFine samples, XYChart.Series<String, Number> series) 
+	private void addToSeries(WthrSamplesFine samples, XYChart.Series<String, Number> series)
 	{
 		int samplesSize = samples.size();
         WthrSampleFine sample = null;
