@@ -1,9 +1,8 @@
 
 .root {
-    -fx-background-color: #262626;
-    -fx-border-width: 2px;
-    -fx-background-radius: 10px;
-    -fx-opacity: 98%;
+    -fx-background-color: #343838;
+    -fx-opacity: 95%;
+
 }
 
 .progress-bar > .track {
@@ -30,4 +29,23 @@
 
 .label{
     -fx-text-fill: silver;
+}
+.button{
+    -fx-text-alignment: left;
+    -fx-background-color:#38424E;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+.button-hover{
+    -fx-border-color: #2A2829;
+    -fx-border-width: 0.7px;
+    -fx-background-color:#2F84A9;
+    -fx-text-alignment: left;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+
 }
