@@ -1,4 +1,4 @@
-package gui.home.explorer;
+package gui.home.options;
 
 import javafx.scene.Parent;
 
