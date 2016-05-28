@@ -1,5 +1,6 @@
 package gui;
 
+import java.net.URL;
 import java.util.Vector;
 import data.LoadingUpdater;
 import javafx.animation.Animation;
@@ -20,6 +21,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.apache.log4j.Logger;
+
 /* Creates the gui components necessary to
 display a splash screen. Currently displays
 the splash screen immediately upon construction.
@@ -36,6 +39,7 @@ public class SplashScreen implements LoadingUpdater
 	
 	Duration fadeInDuration = Duration.millis(1);
 	Duration fadeOutDuration = Duration.millis(1);
+    private static Logger logger = Logger.getLogger(SplashScreen.class);
 
 	Object loadingUpdateCallback;
 	EventHandler<ActionEvent> onClosed;
@@ -52,7 +56,7 @@ public class SplashScreen implements LoadingUpdater
 	{
 		window = new Stage();
 		window.setOnCloseRequest(e -> System.exit(0));
-		window.initStyle(StageStyle.UNDECORATED);
+		window.initStyle(StageStyle.TRANSPARENT);
 		rootPane = new StackPane();
 
 		Rectangle clipRect = new Rectangle(350, 300);
@@ -84,15 +88,17 @@ public class SplashScreen implements LoadingUpdater
 				ldBarEffect, loadingActivity);
 		rootPane.setAlignment(Pos.CENTER);
 
+
 		StackPane.setMargin(progressBar, new Insets(100, 0, 0, 0));
 		StackPane.setMargin(ldBarEffect, new Insets(100, 0, 0, 0));
-		StackPane.setMargin(loadingLabel, new Insets(40, 0, 0, 0));
-		StackPane.setMargin(loadingActivity, new Insets(150, 0, 0, 0));
+		StackPane.setMargin(loadingLabel, new Insets(20, 0, 0, 0));
+		StackPane.setMargin(loadingActivity, new Insets(170, 0, 0, 0));
 
 		scene = new Scene(rootPane, 350, 300);
 		scene.setFill(Color.TRANSPARENT);
+        getCss(scene);
+
 		window.setScene(scene);
-		loadCss();
 		startShowing();
 	}
 	
@@ -201,4 +207,24 @@ public class SplashScreen implements LoadingUpdater
 				  }
 				});
 	}
+
+    public void getCss(Scene scene){
+
+        logger.debug("starting SplashScreen::getCss()");
+        try {
+            URL url = this.getClass().getResource("splash.css");
+            if (url == null) {
+                logger.fatal("Failed to load resource : splash.css");
+                Alert alert = new Alert("Error","Could not load resource : main.css ",event -> System.exit(-1));
+
+            }
+            String css = url.toExternalForm();
+            scene.getStylesheets().add(css);
+        }
+        catch(Exception e){
+            logger.fatal("Failed to load resource : splash.css");
+            Alert alert = new Alert("Error","Could not load resource : main.css ",event -> System.exit(-1));
+        }
+
+    }
 }

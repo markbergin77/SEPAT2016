@@ -1,0 +1,33 @@
+
+.root {
+    -fx-background-color: #262626;
+    -fx-border-width: 2px;
+    -fx-background-radius: 10px;
+    -fx-opacity: 98%;
+}
+
+.progress-bar > .track {
+    -fx-text-box-border: #00dffc;
+    -fx-control-inner-background: #606060;
+}
+
+.progress-bar {
+    -fx-min-width: 275px;
+    -fx-min-height: 25px;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #00dffc;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #00dffc;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, silver, 20, 0.3, 0, 0);
+}
+
+.progress-bar .bar {
+    -fx-padding: 5px;
+    -fx-background-insets: 2px;
+}
+
+.label{
+    -fx-text-fill: silver;
+}

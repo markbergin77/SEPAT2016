@@ -272,7 +272,9 @@
     -fx-background-color:#383838;
     -fx-focus-color: transparent;
 }
-
+.label{
+    -fx-text-fill: silver;
+}
 .tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
     -fx-font-weight: bold;
     -fx-text-fill:  #B9D7D9;
