@@ -2,7 +2,6 @@
 .root {
     -fx-background-color: #343838;
     -fx-opacity: 95%;
-
 }
 
 .progress-bar > .track {
@@ -47,5 +46,4 @@
     -fx-font-size: 13px;
     -fx-background-radius: 0px;
     -fx-border-radius: 0px;
-
 }

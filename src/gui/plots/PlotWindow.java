@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.URL;
 
 import com.sun.javafx.tk.TKStage;
 
+import gui.Alert;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
@@ -46,7 +48,7 @@ public class PlotWindow
 		stage = new Stage();
 		this.plot = plot;
 		scene = new Scene(plot);
-		scene.getStylesheets().add(plot.getCssPath());
+		getCss(scene);
 		setScene(scene);
 		setTitle(plot.getName());
 	}
@@ -513,5 +515,21 @@ public class PlotWindow
 	public final ReadOnlyDoubleProperty yProperty()
 	{
 		return stage.yProperty();
+	}
+
+	private void getCss(Scene scene){
+
+		try {
+			URL url = this.getClass().getResource("plots.css");
+			if (url == null) {
+				Alert alert = new Alert("Error","Could not load resource : plots.css ", event -> System.exit(-1));
+
+			}
+			String css = url.toExternalForm();
+			scene.getStylesheets().add(css);
+		}
+		catch(Exception e){
+			Alert alert = new Alert("Error","Could not load resource : plots.css ",event -> System.exit(-1));
+		}
 	}
 }

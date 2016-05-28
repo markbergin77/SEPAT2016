@@ -42,6 +42,7 @@ public class PlotBase extends VBox
 	
 	void defInit()
 	{
+
 		eventHandler = voidHandler;
 		refreshButton = new Button(refreshButtonLabel);;
 		homeButton = new Button(homeButtonLabel);
@@ -60,6 +61,11 @@ public class PlotBase extends VBox
 		{
 			eventHandler.onGoHome();
 		});
+
+        refreshButton.setOnMouseEntered(e -> refreshButton.getStyleClass().add("button-hover"));
+        refreshButton.setOnMouseExited(e -> refreshButton.getStyleClass().remove("button-hover"));
+        homeButton.setOnMouseEntered(e -> homeButton.getStyleClass().add("button-hover"));
+        homeButton.setOnMouseExited(e -> homeButton.getStyleClass().remove("button-hover"));
 	}
 	
 	public void plotData()

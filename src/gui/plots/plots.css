@@ -1,0 +1,50 @@
+
+.root {
+    -fx-background-color: #343838;
+    -fx-opacity: 95%;
+}
+.button{
+    -fx-text-alignment: left;
+    -fx-background-color:#38424E;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+.button-hover{
+    -fx-border-color: #2A2829;
+    -fx-border-width: 0.7px;
+    -fx-background-color:#2F84A9;
+    -fx-text-alignment: left;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+.label{
+    -fx-text-fill: silver;
+}
+
+.chart-series-line {
+    -fx-opacity: 0.8;
+    -fx-stroke-width: 1.75px;
+}
+.chart-legend {
+    -fx-padding: 15px;
+}
+
+.chart-legend-item-symbol {
+    -fx-fill: #000000;
+}
+
+.chart-vertical-grid-lines {
+    fx-stroke-width: 0;
+    -fx-text-fill: silver;
+}
+.chart-horizontal-grid-lines {
+    -fx-text-fill: silver;
+    -fx-stroke-width: 0;
+}
+.chart-alternative-row-fill {
+    -fx-stroke-width: 0;
+}
