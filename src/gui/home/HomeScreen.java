@@ -176,10 +176,14 @@ public class HomeScreen extends GridPane
 	public void widthChanged(double newWidth){
 
 		if (newWidth < 1150){
-			PaneBase.exp.setVisible(false);
+			if (PaneBase.exp != null) {
+				PaneBase.exp.setVisible(false);
+			}
 		}
 		else{
-			PaneBase.exp.setVisible(true);
+			if (PaneBase.exp != null) {
+				PaneBase.exp.setVisible(true);
+			}
 		}
 	}
 
@@ -187,10 +191,14 @@ public class HomeScreen extends GridPane
     public void heightChanged( double newHeight){
 
 		if(newHeight < 650){
-			PaneBase.exp.setVisible(false);
+			if (PaneBase.exp != null) {
+				PaneBase.exp.setVisible(false);
+			}
 		}
 		else{
-			PaneBase.exp.setVisible(true);
+			if (PaneBase.exp != null) {
+				PaneBase.exp.setVisible(true);
+			}
 		}
     }
 }
