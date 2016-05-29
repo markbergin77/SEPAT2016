@@ -1,5 +1,13 @@
 package gui.plots;
-import data.*;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.ArrayList;
+import java.util.List;
+
+import data.Bom;
+import data.Fio;
+import data.Station;
 import data.samples.WthrSampleDaily;
 import data.samples.WthrSamplesDaily;
 import javafx.collections.FXCollections;
@@ -9,12 +17,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Pavel Nikolaev on 21/04/2016.

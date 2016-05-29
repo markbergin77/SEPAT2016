@@ -3,13 +3,10 @@ package guiTest.plots;
 
 import java.time.format.DateTimeFormatter;
 
-import data.Bom;
 import data.Station;
-import data.StationList;
 import data.samples.WthrSampleFine;
 import data.samples.WthrSamplesFine;
 import gui.plots.PlotBase;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;

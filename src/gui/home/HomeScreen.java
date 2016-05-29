@@ -4,8 +4,9 @@ import data.Station;
 import gui.home.explorer.Explorer;
 import gui.home.globalOptions.GlobalOptionsArea;
 import gui.home.options.OptionsArea;
-import javafx.scene.layout.*;
-import org.apache.log4j.Logger;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import user.Favourite;
 import user.User;
 

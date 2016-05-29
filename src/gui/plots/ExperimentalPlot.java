@@ -8,9 +8,12 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
+import org.apache.log4j.Logger;
+
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.sun.javafx.charts.Legend;
+
 import data.Bom;
 import data.Fio;
 import data.Station;
@@ -30,7 +33,6 @@ import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
-import org.apache.log4j.Logger;
 
 public class ExperimentalPlot extends PlotBase
 {

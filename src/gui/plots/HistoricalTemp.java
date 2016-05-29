@@ -2,11 +2,11 @@ package gui.plots;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 import com.sun.javafx.charts.Legend;
+
 import data.Bom;
 import data.Fio;
 import data.Station;

@@ -1,10 +1,11 @@
 package user;
 
 import java.io.Serializable;
+
 import data.Station;
-import gui.plots.PlotBase;
 import gui.plots.HistoricalTemp;
 import gui.plots.Last72hrTemp;
+import gui.plots.PlotBase;
 import gui.plots.PlotType;
 import gui.plots.PlotWindow;
 import gui.plots.Table72Hr;

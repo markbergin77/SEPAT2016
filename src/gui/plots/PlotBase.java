@@ -2,7 +2,6 @@ package gui.plots;
 
 import org.controlsfx.control.CheckComboBox;
 
-import javafx.scene.layout.RowConstraints;
 import data.Bom;
 import data.Fio;
 import data.Station;
@@ -13,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 
 public abstract class PlotBase extends GridPane

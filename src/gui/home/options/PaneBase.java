@@ -8,10 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
-
-import java.util.Comparator;
 
 /* All the options for one station.
  * Goes in the OptionsArea which is/has

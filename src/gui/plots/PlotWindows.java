@@ -1,8 +1,5 @@
 package gui.plots;
 
-import javafx.event.EventHandler;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 import java.util.Vector;
 
 import data.Station;
