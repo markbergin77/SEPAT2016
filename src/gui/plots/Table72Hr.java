@@ -103,7 +103,7 @@ public class Table72Hr extends PlotBase
 
     
     @Override 
-	public void fetchData(Bom bom)
+	public void fetchData(Bom bom, Fio fio)
 	{
 		try
 		{

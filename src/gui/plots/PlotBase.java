@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import data.Bom;
+import data.Fio;
 import data.Station;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -110,7 +111,7 @@ public class PlotBase extends VBox
 		return name;
 	}
 
-	public void fetchData(Bom bom)
+	public void fetchData(Bom bom, Fio fio)
 	{
 		
 	}

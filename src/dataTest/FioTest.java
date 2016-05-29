@@ -23,7 +23,7 @@ public class FioTest
 		WthrSamplesFine wthrSamplesFine = bom.getWthrLast72hr(testStation);
 		String lat = wthrSamplesFine.get(0).getLat();
 		String lon = wthrSamplesFine.get(0).getLon();
-		FioSamplesDaily testSamples = fio.getFioDaily(testStation, lat, lon);
+		FioSamplesDaily testSamples = fio.getFioDaily(lat, lon);
 		
 		System.out.println("Daily Readings for: " + testStation.getName());
 		for (FioSampleDaily sample: testSamples) {

@@ -18,6 +18,7 @@ import data.samples.FioSampleDaily;
 import data.samples.FioSamplesDaily;
 import data.samples.WthrSampleDaily;
 import data.samples.WthrSamplesDaily;
+import data.samples.WthrSamplesFine;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -37,6 +38,7 @@ public class ExperimentalPlot extends PlotBase
 	static String cssFileName = "HisTempPlot.css";
 	WthrSamplesDaily wthrSamplesDaily;
 	FioSamplesDaily fioSamplesDaily;
+	WthrSamplesFine wthrSamplesFine;
 	final CategoryAxis xAxis = new CategoryAxis();
     final NumberAxis yAxis = new NumberAxis();
     LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
@@ -129,12 +131,12 @@ public class ExperimentalPlot extends PlotBase
 		}
 	}
 	
-	private FioSamplesDaily getFioData(Bom bom, Station station) {
+	private FioSamplesDaily getFioData(Bom bom, Fio fio, String lat, String lon) {
 
 		logger.debug("Starting ExperimentalPlot::getFioData");
 		FioSamplesDaily samples = new FioSamplesDaily();
 		try {
-			samples = fio.getFioDaily(bom, station);
+			samples = fio.getFioDaily(lat, lon);
 		} catch (JsonIOException e) {
             logger.error("Failed to connect/retrieve weather samples from FIO",e);
 		} catch (JsonSyntaxException e) {
@@ -200,13 +202,21 @@ public class ExperimentalPlot extends PlotBase
 	}
 	
 	@Override 
-	public void fetchData(Bom bom)
+	public void fetchData(Bom bom, Fio fio)
 	{
 		logger.debug("Calling ExperimentalPlot::getBomData");
 		wthrSamplesDaily = getBomData(bom, station, start, end);
 
 		logger.debug("Calling ExperimentalPlot::getFioData");
-		fioSamplesDaily = getFioData(bom, station);
+		try {
+			wthrSamplesFine = bom.getWthrLast72hr(station);
+		} catch (JsonIOException | JsonSyntaxException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String lat = wthrSamplesFine.get(0).getLat();
+		String lon = wthrSamplesFine.get(0).getLon();
+		fioSamplesDaily = getFioData(bom, fio, lat, lon);
 	}
 	
 	@Override

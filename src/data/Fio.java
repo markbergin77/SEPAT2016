@@ -51,7 +51,7 @@ public class Fio
 		return "https://api.forecast.io/forecast/";
 	}
 	
-	public FioSamplesFine getFioFine(Station station, String lat, String lon)
+	public FioSamplesFine getFioFine(String lat, String lon)
 			throws JsonIOException, JsonSyntaxException, MalformedURLException, IOException
 	{
 		String exclude = "[currently,minutely,alerts,flags,daily]";
@@ -93,7 +93,7 @@ public class Fio
 		return samples;
 	}
 
-	public FioSamplesDaily getFioDaily(Station station, String lat, String lon)
+	public FioSamplesDaily getFioDaily(String lat, String lon)
 			throws JsonIOException, JsonSyntaxException, MalformedURLException, IOException
 	{
 		String exclude = "[currently,minutely,alerts,flags]";
