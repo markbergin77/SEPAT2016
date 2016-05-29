@@ -52,9 +52,9 @@ task copyHomeCss(type: Copy) {
 }
 
 task copyLoggingProperties(type: Copy){
-	from('build/resources/logging')
+	from('build/resources/main/logging')
 	into('build/classes/main')
-	include('log4j.properties')
+	include('*.properties')
 }
 
-build.finalizedBy(copyPlotsTableCss,copySplashCss,copyHomeCss)
+build.finalizedBy(copyPlotsTableCss,copySplashCss,copyHomeCss,copyLoggingProperties)

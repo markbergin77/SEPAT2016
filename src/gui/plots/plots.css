@@ -45,6 +45,9 @@
 .chart-legend-item{
     -fx-text-fill: silver;
 }
+.chart-legend{
+    -fx-background-color:#515151 ;
+}
 
 .chart-vertical-grid-lines {
     fx-stroke-width: 0;
