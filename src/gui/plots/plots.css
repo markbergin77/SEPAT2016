@@ -51,11 +51,16 @@
 
 .chart-vertical-grid-lines {
     fx-stroke-width: 0;
-    -fx-text-fill: silver;
+    -fx-text-fill: transparent;
+    -fx-stroke: transparent;
 }
 .chart-horizontal-grid-lines {
-    -fx-text-fill: silver;
+    -fx-text-fill: transparent;
     -fx-stroke-width: 0;
+    -fx-stroke: transparent;
+}
+.chart{
+    -fx-background-color: #505050;
 }
 .chart-alternative-row-fill {
     -fx-stroke-width: 0;
@@ -75,6 +80,13 @@
 }
 .table-view .column-header-background{
     -fx-background-color: #343838;;
+}
+
+.chart-plot-background {
+    -fx-border-color: black;
+    -fx-padding: 0px;
+    -fx-opacity: 0.5;
+    -fx-background-color: linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
 }
 .table-view .column-header {
     -fx-background-color: transparent;
