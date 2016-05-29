@@ -19,7 +19,6 @@ public class PlotBase extends VBox
 	public interface EventInterface
 	{
 		public void onRefresh(PlotBase plot);
-		public void onGoHome();
 	}
 	EventInterface eventHandler = voidHandler;
 	
@@ -119,13 +118,6 @@ public class PlotBase extends VBox
 	{
 		@Override
 		public void onRefresh(PlotBase plot)
-		{
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onGoHome()
 		{
 			// TODO Auto-generated method stub
 			

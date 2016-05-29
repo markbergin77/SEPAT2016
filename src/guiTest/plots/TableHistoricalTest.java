@@ -3,35 +3,33 @@ package guiTest.plots;
 import data.Bom;
 import data.Station;
 import data.StationList;
+import gui.plots.PlotBase;
 import gui.plots.TableHistorical;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utilities.SaveTestData;
 
-public class TableYearlyTest extends Application{
+public class TableHistoricalTest extends PlotTestBase
+{
 	StationList allStations;
+	Bom bom;
 	public static void main(String args[])
     {
         launch(args);
     }
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
 		//Grabbing stations
 		try {
-			allStations = Bom.getAllStations();
+			allStations = SaveTestData.loadAllStations();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 		
-		// Pick a station to test
-		Station station = null;
-		if (allStations != null) {
-			station = allStations.get(0);
-		}
-		else {
-			return;
-		}
+		Station station = allStations.get(0);
 		
 		TableHistorical table = new TableHistorical(station);
 		
@@ -41,5 +39,9 @@ public class TableYearlyTest extends Application{
         primaryStage.show();
 	}
 	
-	
+	@Override
+	public void onRefresh(PlotBase plot)
+	{
+		
+	}
 }
