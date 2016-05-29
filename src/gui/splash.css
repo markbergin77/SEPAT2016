@@ -37,6 +37,26 @@
     -fx-background-radius: 0px;
     -fx-border-radius: 0px;
 }
+
+.exit-button{
+    -fx-text-alignment: center;
+    -fx-background-color:#343838;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 10px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+.exit-button-hover{
+    -fx-text-alignment: center;
+    -fx-background-color:#38424E;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 10px;
+    -fx-background-position: center;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
 .button-hover{
     -fx-border-color: #2A2829;
     -fx-border-width: 0.7px;

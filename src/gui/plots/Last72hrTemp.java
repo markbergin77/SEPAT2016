@@ -18,6 +18,10 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
 
 public class Last72hrTemp extends PlotBase
 {
@@ -45,10 +49,20 @@ public class Last72hrTemp extends PlotBase
         // Remove markers from line
         lineChart.setCreateSymbols(false);
         lineChart.getData().add(seriesAirTemp);
+
+		StackPane plotContainer = new StackPane();
+		Rectangle clipRect = new Rectangle(500,300);
+		plotContainer.setClip(clipRect);
+		plotContainer.getChildren().add(lineChart);
+
+		plotContainer.setMaxSize(1200,750);
+		plotContainer.setMinSize(400, 250);
+
         //plot(station, seriesAirTemp);
         
         // add the lineChart to the gridPane
-        assembleFrom(lineChart);
+
+		assembleFrom(plotContainer);
 	}
 	
 	@Override 

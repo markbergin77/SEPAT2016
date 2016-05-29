@@ -13,10 +13,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -36,6 +38,7 @@ public class SplashScreen implements LoadingUpdater
 	Label loadingLabel;
 	Label loadingActivity;
 	Rectangle ldBarEffect;
+	Button exitButton;
 	
 	Duration fadeInDuration = Duration.millis(1);
 	Duration fadeOutDuration = Duration.millis(1);
@@ -78,17 +81,27 @@ public class SplashScreen implements LoadingUpdater
 		ldBarEffect.setFill(Color.TRANSPARENT);
 		ldBarEffect.setStrokeWidth(2);
 		ldBarEffect.setStroke(Color.gray(1, 0.15));
-		
+
+		exitButton = new Button("X");
+		exitButton.setMinSize(20,20);
+		exitButton.setMaxSize(20,20);
+
+		exitButton.getStyleClass().add("exit-button");
+		exitButton.setOnMouseEntered(e -> exitButton.getStyleClass().add("exit-button-hover"));
+		exitButton.setOnMouseExited(e -> exitButton.getStyleClass().remove("exit-button-hover"));
+		exitButton.setOnMousePressed(e -> System.exit(0));
+
+		addFadeInOut(exitButton,fadeInDuration);
 		addFadeInOut(progressBar, fadeInDuration);
 		addFadeInOut(loadingLabel, fadeInDuration);
 		addFadeInOut(loadingActivity, fadeInDuration);
 		addFadeInOut(ldBarEffect, fadeInDuration);
 
 		rootPane.getChildren().addAll(loadingLabel, progressBar, 
-				ldBarEffect, loadingActivity);
+				ldBarEffect, loadingActivity,exitButton);
 		rootPane.setAlignment(Pos.CENTER);
 
-
+		StackPane.setMargin(exitButton, new Insets(0,0,265,310));
 		StackPane.setMargin(progressBar, new Insets(100, 0, 0, 0));
 		StackPane.setMargin(ldBarEffect, new Insets(100, 0, 0, 0));
 		StackPane.setMargin(loadingLabel, new Insets(20, 0, 0, 0));
