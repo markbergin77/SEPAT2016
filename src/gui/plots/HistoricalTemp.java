@@ -32,8 +32,7 @@ public class HistoricalTemp extends PlotBase
 {	
 	private static Logger logger = Logger.getLogger(HistoricalTemp.class);
 	
-	private String cssPath;
-	static String cssFileName = "HisTempPlot.css";
+	private String cssPath = "HisTempPlot.css";
 	WthrSamplesDaily wthrSamplesDaily;
 	final CategoryAxis xAxis = new CategoryAxis();
     final NumberAxis yAxis = new NumberAxis();
@@ -171,11 +170,5 @@ public class HistoricalTemp extends PlotBase
 	{
 		clearAllSeries();
         addAllOptions(options);
-	}
-	
-	@Override
-	public String getCssPath()
-	{
-		return cssPath;
 	}
 }

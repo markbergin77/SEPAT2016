@@ -121,12 +121,6 @@ public class Last72hrTemp extends PlotBase
 		
 	}
 	
-	@Override 
-	public String getCssPath()
-	{
-		return cssPath;
-	}
-	
 	private FioSamplesFine getFioData(Fio fio, String lat, String lon) {
 
 		logger.debug("Starting ExperimentalPlot::getFioData");

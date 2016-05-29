@@ -276,10 +276,4 @@ public class ExperimentalPlot extends PlotBase
 		clearAllSeries();
         addAllOptions(options);
 	}
-	
-	@Override
-	public String getCssPath()
-	{
-		return cssPath;
-	}
 }

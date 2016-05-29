@@ -34,7 +34,6 @@ public class PlotWindow extends Stage
 		
 		homeButton.setOnMouseEntered(e -> homeButton.getStyleClass().add("button-hover"));
         homeButton.setOnMouseExited(e -> homeButton.getStyleClass().remove("button-hover"));
-		getCss(scene);
 		setScene(scene);
 		setTitle(plot.getName());
  		setMaxHeight(550);
@@ -51,22 +50,6 @@ public class PlotWindow extends Stage
 		public void onGoHome();
 	}
 	EventInterface eventHandler = voidHandler;
-	
-	private void getCss(Scene scene){
-
-		try {
-			URL url = this.getClass().getResource("plots.css");
-			if (url == null) {
-				Alert alert = new Alert("Error","Could not load resource : plots.css ", event -> System.exit(-1));
-
-			}
-			String css = url.toExternalForm();
-			scene.getStylesheets().add(css);
-		}
-		catch(Exception e){
-			Alert alert = new Alert("Error","Could not load resource : plots.css ",event -> System.exit(-1));
-		}
-	}
 	
 	private static class VoidEventHandler implements EventInterface
 	{

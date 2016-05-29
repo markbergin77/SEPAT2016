@@ -1,5 +1,6 @@
 package gui.home.explorer;
 
+import java.awt.Color;
 import java.util.Vector;
 
 import gui.home.HomeScreen;
@@ -9,9 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import utilities.CssLoader;
 
 /* Base class for lists of stations
  * is a child of the Explorer */
@@ -20,8 +24,7 @@ public class PaneBase extends GridPane
 	//Scroll box/list, where favorites are located on program
 	VBox vbox;
     ScrollPane scrollPane;
-    TextField searchBox;
-    
+    TextField searchBox;    
     Vector<Button> allButtons = new Vector<Button>();
     
     public PaneBase()
