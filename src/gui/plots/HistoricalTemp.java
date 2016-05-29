@@ -12,6 +12,7 @@ import data.Fio;
 import data.Station;
 import data.samples.WthrSampleDaily;
 import data.samples.WthrSamplesDaily;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -20,6 +21,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +34,11 @@ public class HistoricalTemp extends PlotBase
 	final CategoryAxis xAxis = new CategoryAxis();
     final NumberAxis yAxis = new NumberAxis();
     LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
+    
+    ObservableList<String> options = FXCollections.observableArrayList(
+    		"Minimum Temperature",
+    		"Maximum Temperature"
+    		);
     
     XYChart.Series<String, Number> seriesTempMin = new XYChart.Series<String, Number>();
     XYChart.Series<String, Number> seriesTempMax = new XYChart.Series<String, Number>();
@@ -64,40 +71,63 @@ public class HistoricalTemp extends PlotBase
         lineChart.setCreateSymbols(false);
         lineChart.horizontalGridLinesVisibleProperty().set(false);
         lineChart.verticalGridLinesVisibleProperty().set(false);
-
-        //plot();
+        
         lineChart.getData().addAll(seriesTempMin, seriesTempMax, seriesTemp9am, seriesTemp3pm);
-        // Hacky solution, add a css class to each line
-        String[] lineClasses = {"tempMin", "tempMax", "temp9am", "temp3pm"};
-        seriesTempMin.getNode().getStyleClass().add(lineClasses[0]);
-        seriesTempMax.getNode().getStyleClass().add(lineClasses[1]);
-        seriesTemp9am.getNode().getStyleClass().add(lineClasses[2]);
-        seriesTemp3pm.getNode().getStyleClass().add(lineClasses[3]);
-        
-        // Get access to the legend
-        Legend legend = (Legend)lineChart.lookup(".chart-legend");
-        ObservableList<Node> legendChildren = legend.getChildren();
-        
-        // Add a click listener to each legend item
-        for (int i = 0; i < lineClasses.length; i++) {
-        	Object legendChild = legendChildren.get(i);
-        	// Need the "." as class specifier, e.g. .class
-        	Node line = lineChart.lookup("." + lineClasses[i]);
-        	((Node) legendChild).setOnMouseClicked(new EventHandler<MouseEvent>(){
-                @Override
-                public void handle(MouseEvent e) {
-                	if (line.isVisible()) {
-                		line.setVisible(false);
-                	}
-                	else {
-                		line.setVisible(true);
-                	}
-                }
-            });
-        }
         
         // add the lineChart to the gridPane
         assembleFrom(lineChart);
+	}
+	
+	private Series<String, Number> getSeries(String option) {
+		switch (option) {
+		case "Minimum Temperature":
+			return seriesTempMin;
+		case "Maximum Temperature":
+			return seriesTempMax;
+		case "9am Temperature":
+			return seriesTemp9am;
+		case "3pm Temperature":
+			return seriesTemp3pm;
+		default:
+			return null;
+		}
+	}
+	
+	private String getReading(WthrSampleDaily sample, String option) {
+		switch (option) {
+		case "Minimum Temperature":
+			return sample.getMaxTemp();
+		case "Maximum Temperature":
+			return sample.getMinTemp();
+		case "9am Temperature":
+			return sample.getTemp9am();
+		case "3pm Temperature":
+			return sample.getTemp3pm();
+		default:
+			return null;
+		}
+	}
+	
+	private void addAllOptions(ObservableList<String> options) {
+		if (wthrSamplesDaily == null) {
+			System.out.println("Null");
+			return;
+		}
+		
+		clearAllSeries();
+		
+		for(WthrSampleDaily sample: wthrSamplesDaily) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-LL-yy");
+			for (String option: options) {
+				String date = sample.getDate().format(formatter);
+				String reading = getReading(sample, option);
+				if (reading.length() > 0) {
+					System.out.println("SOMESAAS");
+					getSeries(option).getData().add(new Data<String, Number>(date,Float.parseFloat(reading)));
+				}
+				
+			}
+		}
 	}
 	
 	@Override
@@ -116,31 +146,6 @@ public class HistoricalTemp extends PlotBase
 	public void changeHeight(int x)
 	{
 		
-	}
-	
-	private void addToAllSeries(WthrSamplesDaily wthrSamplesDaily) {
-		if (wthrSamplesDaily == null) {
-			System.out.println("Null");
-			return;
-		}
-		for(WthrSampleDaily sample: wthrSamplesDaily) {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-LL-yy");
-        	String date = sample.getDate().format(formatter);
-        	String tempMax = sample.getMaxTemp();
-        	String tempMin = sample.getMinTemp();
-        	String temp9am = sample.getTemp9am();
-        	String temp3pm = sample.getTemp3pm();
-        	
-        	// Check if the string is null or blank, due to FILE NOT FOUND
-        	if (tempMin.length() > 0)
-        		seriesTempMin.getData().add(new Data<String, Number>(date,Float.parseFloat(tempMin)));
-        	if (tempMax.length() > 0)
-        		seriesTempMax.getData().add(new XYChart.Data<String, Number>(date,Float.parseFloat(tempMax)));
-        	if (temp9am.length() > 0)
-        		seriesTemp9am.getData().add(new XYChart.Data<String, Number>(date,Float.parseFloat(temp9am)));
-        	if (temp3pm.length() > 0)
-        		seriesTemp3pm.getData().add(new XYChart.Data<String, Number>(date,Float.parseFloat(temp3pm)));
-        }
 	}
 	
 	private void clearAllSeries() {
@@ -169,7 +174,7 @@ public class HistoricalTemp extends PlotBase
 	@Override
 	public void plotData() 
 	{
-        addToAllSeries(wthrSamplesDaily);
+        addAllOptions(options);
 	}
 	
 	@Override
