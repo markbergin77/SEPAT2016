@@ -171,7 +171,8 @@ public class HomeScreen extends GridPane
 	}
 
 	@Override
-	public void onExperimentalPlot(Station station) {
+	public void onExperimentalPlot(Station station) 
+	{
 		eventHandler.onExperimentalPlot(station);
 	}
 
