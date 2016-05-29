@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.URL;
 
+import org.controlsfx.control.CheckComboBox;
+
 import com.sun.javafx.tk.TKStage;
 
 import gui.Alert;
@@ -17,6 +19,8 @@ import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.Event;
@@ -41,6 +45,12 @@ import javafx.stage.WindowEvent;
 public class PlotWindow extends Stage
 	implements PlotBase.EventInterface
 {
+	Scene scene;
+	PlotBase plot;
+	static String homeButtonLabel = "Home";
+	Button homeButton;
+	static String showOptionsLabel = "Show";
+	Button showOptionsButton;
 	public PlotWindow(PlotBase plot)
 	{
 		super();
@@ -53,21 +63,44 @@ public class PlotWindow extends Stage
 			eventHandler.onGoHome();
 		});
 		plot.addToolbarButton(homeButton);
+		
 		//homeButton.setOnMouseEntered(e -> homeButton.getStyleClass().add("button-hover"));
         //homeButton.setOnMouseExited(e -> homeButton.getStyleClass().remove("button-hover"));
 		getCss(scene);
 		setScene(scene);
 		setTitle(plot.getName());
+		
+		 // create the data to show in the CheckComboBox 
+		 final ObservableList<String> comboBoxItems = FXCollections.observableArrayList();
+		 comboBoxItems.addAll(
+			 "Maximum Temp",
+			 "Minimum Temp",
+			 "9am Temp",
+			 "3pm Temp"
+		 );
+		 
+		 // Create the CheckComboBox with the data 
+		 final CheckComboBox<String> checkComboBox = new CheckComboBox<String>(comboBoxItems);
+		 plot.addToolbarButton(checkComboBox);
+		 
+		 showOptionsButton = new Button(showOptionsLabel);
+		 showOptionsButton.setOnMouseClicked(e -> 
+			{
+				System.out.println(checkComboBox.getCheckModel().getCheckedItems());
+			});
+		 plot.addToolbarButton(showOptionsButton);
+		 
+		 
+		 
+		 
+		
 	}
 	public PlotBase getPlot() 
 	{
 		return plot;
 	}
 	
-	Scene scene;
-	PlotBase plot;
-	static String homeButtonLabel = "Home";
-	Button homeButton;
+
 	
 	public interface EventInterface
 	{
