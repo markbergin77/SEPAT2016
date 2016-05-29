@@ -130,3 +130,9 @@
 .tab-pane > .tab-header-area > .tab-header-background {
     -fx-background-color: #505050;
 }
+.chart-legend-item{
+    -fx-text-fill: silver;
+}
+.chart-legend{
+    -fx-background-color:#515151 ;
+}
