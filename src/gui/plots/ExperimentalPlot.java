@@ -197,7 +197,7 @@ public class ExperimentalPlot extends PlotBase
 		return samples;
 	}
 	
-	private void addToAllSeries(WthrSamplesDaily wthrSamplesDaily, FioSamplesDaily fioSamplesDaily, ObservableList<String> options) {
+	private void addAllOptions(ObservableList<String> options) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-LL-yy");
 		
 		ArrayList<String> forecastOptions = new ArrayList<String>();
@@ -274,6 +274,6 @@ public class ExperimentalPlot extends PlotBase
 	public void plotData(ObservableList<String> options) 
 	{
 		clearAllSeries();
-        addToAllSeries(wthrSamplesDaily, fioSamplesDaily, options);
+        addAllOptions(options);
 	}
 }
