@@ -29,12 +29,10 @@ public class Last72hrTemp extends PlotBase
 	static String cssFileName = "CurrTempPlot.css";
 	WthrSamplesFine wthrSamplesFine;
 	XYChart.Series<String, Number> seriesAirTemp;
-	Station station;
         
 	public Last72hrTemp(Station station) 
 	{
-		super();
-		this.station = station;
+		super(station);
 		setName(station.getName() + " 72 Hours Temperatures");
         seriesAirTemp = new XYChart.Series<String, Number>();
 		setXLabel("Date/Time");
@@ -63,17 +61,22 @@ public class Last72hrTemp extends PlotBase
 	}
 	
 	@Override
-	public void refresh(Bom bom)
+	public void fetchNewData(Bom bom)
 	{
 		seriesAirTemp.getData().clear();
         try {
-			wthrSamplesFine = bom.getWthrLast72hr(station);
+			wthrSamplesFine = bom.getWthrLast72hr(getStation());
 		} catch (JsonIOException | JsonSyntaxException | IOException e) {
 			gui.Alert alert = new gui.Alert(
 					"Error","Cannot access BoM server, check your connection",
 					event -> System.exit(0));
 		}
-        addToSeries(wthrSamplesFine, seriesAirTemp);
+	}
+	
+	@Override
+	public void plotLatestData()
+	{
+		addToSeries(wthrSamplesFine, seriesAirTemp);
 	}
 	
 	public void setData(WthrSamplesFine data)

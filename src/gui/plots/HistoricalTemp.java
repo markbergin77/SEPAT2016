@@ -28,10 +28,7 @@ public class HistoricalTemp extends PlotBase
 	private String cssPath;
 	static String cssFileName = "HisTempPlot.css";
 	WthrSamplesDaily wthrSamplesDaily;
-	final CategoryAxis xAxis = new CategoryAxis();
-    final NumberAxis yAxis = new NumberAxis();
-    LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
-    
+        
     XYChart.Series<String, Number> seriesTempMin = new XYChart.Series<String, Number>();
     XYChart.Series<String, Number> seriesTempMax = new XYChart.Series<String, Number>();
     XYChart.Series<String, Number> seriesTemp9am = new XYChart.Series<String, Number>();
@@ -47,16 +44,15 @@ public class HistoricalTemp extends PlotBase
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();
 		
-		xAxis.setLabel("Date");
-        yAxis.setLabel("Temperature in Degrees");
-        lineChart.setTitle(station.getName());
+		setXLabel("Date");
+        setYLabel("Temperature in Degrees");
+        setChartTitle(station.getName());
         seriesTempMin.setName("Minimum Temperature");
         seriesTempMax.setName("Maximum Temperature");
         seriesTemp9am.setName("9am Temperature");
         seriesTemp3pm.setName("3pm Temperature");
         
         // Remove markers from line
-        lineChart.setCreateSymbols(false);
         lineChart.horizontalGridLinesVisibleProperty().set(false);
         lineChart.verticalGridLinesVisibleProperty().set(false);
 
@@ -90,26 +86,6 @@ public class HistoricalTemp extends PlotBase
                 }
             });
         }
-        
-        // add the lineChart to the gridPane
-        assembleFrom(lineChart);
-	}
-	
-	private WthrSamplesDaily getData(Station station, YearMonth start, YearMonth end) {
-		WthrSamplesDaily wthrSamplesDaily = new WthrSamplesDaily();
-        try {
-			wthrSamplesDaily = Bom.getWthrRange(station, start, end);
-			return wthrSamplesDaily;
-		} catch (IOException e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText("Cannot access BoM JSON server");
-			alert.setContentText("Please check your internet connection and try again");
-
-			alert.showAndWait();
-			e.printStackTrace();
-			return null;
-		}
 	}
 	
 	private void addToAllSeries(WthrSamplesDaily wthrSamplesDaily) {
@@ -145,28 +121,25 @@ public class HistoricalTemp extends PlotBase
 	}
 	
 	@Override 
-	public void fetchData()
+	public void fetchNewData(Bom bom)
 	{
-		wthrSamplesDaily = getData(station, start, end);
+		wthrSamplesDaily = new WthrSamplesDaily();
+        try {
+			wthrSamplesDaily = bom.getWthrRange(getStation(), start, end);
+		} catch (IOException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Cannot access BoM JSON server");
+			alert.setContentText("Please check your internet connection and try again");
+
+			alert.showAndWait();
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
-	public void plotData() 
+	public void plotLatestData() 
 	{
         addToAllSeries(wthrSamplesDaily);
-	}
-	
-	@Override
-	protected void onRefresh() 
-	{
-		clearAllSeries();
-		fetchData();
-		plotData();
-	}
-	
-	@Override
-	public String getCssPath()
-	{
-		return cssPath;
 	}
 }

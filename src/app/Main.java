@@ -36,6 +36,7 @@ import utilities.MultipleInstanceLock;
 
 public class Main extends Application 
 	implements HomeScreen.EventInterface
+	, PlotWindow.EventInterface
 	, PlotBase.EventInterface
 {
 	/* This service will finish tasks one at a time
@@ -54,6 +55,7 @@ public class Main extends Application
 	private static Logger logger = Logger.getLogger(Main.class);
     Stage window;
     Dimension homeWindowSize;
+    Bom bom;
 	StationList allStations;
 	HomeScreen homeScreen;
 	Scene scene;
@@ -93,6 +95,7 @@ public class Main extends Application
 	private void startAppNotDuplicate() 
 	{
         logger.debug("Starting Main::startAppNotDuplicate()");
+        bom = new Bom();
 		window.setTitle(appName);
         window.setOnCloseRequest(e -> onQuit());
         SplashScreen splash = new SplashScreen();
@@ -103,7 +106,7 @@ public class Main extends Application
         		/* Pass in splash so that this function can update
         		 * the splash screen's text when something changes.*/
 			logger.debug("Calling BOM::getALLStations()");
-			allStations = Bom.getAllStations(splash);
+			allStations = bom.getAllStations(splash);
 		} catch (UnknownHostException e) {
                 /* TODO User might not be able to connect to BOM!
 				 * Must put something on the splash screen,
@@ -239,14 +242,14 @@ public class Main extends Application
         logger.debug("Starting Main::fillPlot()");
 		EasyTask fetchDataTask = new EasyTask(() ->
 		{
-			plot.fetchData();
+			plot.fetchNewData(bom);
 		});
-		JavaFXSafeTask plotTask = new JavaFXSafeTask(() ->
+		JavaFXSafeTask plotDataTask = new JavaFXSafeTask(() ->
 		{
-			plot.plotData();
+			plot.plotLatestData();
 		});
 		queueTask(fetchDataTask);
-		queueTask(plotTask);
+		queueTask(plotDataTask);
 	}
 	
 	void  fillPlots()

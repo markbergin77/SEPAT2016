@@ -20,13 +20,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class PlotBase extends GridPane
 {
-	public PlotBase()
+	public PlotBase(Station station)
 	{
 		super();
+		this.station = station;
 		construct();
 	}
 	
@@ -42,11 +44,16 @@ public class PlotBase extends GridPane
         refreshButton.setOnMouseExited(e -> refreshButton.getStyleClass().remove("button-hover"));
 	}
 	
-	public void refresh(Bom bom)
+	public void fetchNewData(Bom bom)
 	{
 		
 	}
-
+	
+	public void plotLatestData()
+	{
+		
+	}
+	
 	protected void setName(String name)
 	{
 		this.name = name;
@@ -81,11 +88,11 @@ public class PlotBase extends GridPane
 	static String refreshButtonLabel = "Refresh";
 	Button refreshButton;
 	HBox toolBar;
-	
+	private Station station;
 	StackPane stackPane;
 	private CategoryAxis xAxis;
     private NumberAxis yAxis;
-    private LineChart<String,Number> lineChart;
+    LineChart<String,Number> lineChart;
 	//private Vector<XYChart.Series<String, Number>> series;
 	
 	String name = "";
@@ -107,6 +114,17 @@ public class PlotBase extends GridPane
 		stackPane.getChildren().add(lineChart);
 		stackPane.getChildren().add(toolBar);
 		StackPane.setAlignment(toolBar, Pos.TOP_LEFT);
+		Rectangle clipRect = new Rectangle(500,300);
+	}
+	
+	protected Station getStation()
+	{
+		return station;
+	}
+	
+	protected void addSeries(XYChart.Series<String, Number>... series)
+	{
+		lineChart.getData().addAll(series);
 	}
 	
 	protected void addSeries(XYChart.Series<String, Number> series)
