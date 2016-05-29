@@ -8,6 +8,6 @@
 	<classpathentry kind="lib" path="ext/commons-lang3-3.0/commons-lang3-3.0.jar"/>
 	<classpathentry kind="lib" path="ext/log4j-1.2.17/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="ext/controlsfx-8.40.10/controlsfx-8.40.10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Mark/Downloads/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="ext/junit-4.10/junit-4.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
