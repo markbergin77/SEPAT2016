@@ -44,9 +44,7 @@ public class PlotWindow extends Stage
 	{
 		return plot;
 	}
-	
 
-	
 	public interface EventInterface
 	{
 		public void onRefresh(PlotBase plot);
