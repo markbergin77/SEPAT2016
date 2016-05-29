@@ -71,7 +71,7 @@
     -fx-background-radius: 5px;
 }
 .table-view .column-header-background{
-    -fx-background-color: #515151;
+    -fx-background-color: #343838;;
 }
 .table-view .column-header {
     -fx-background-color: transparent;
