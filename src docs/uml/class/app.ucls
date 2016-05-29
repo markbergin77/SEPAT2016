@@ -3,34 +3,34 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="app.Main" project="BomWeather" file="/BomWeather/src/app/Main.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="364" y="247"/>    
+    <position height="-1" width="-1" x="302" y="71"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="true" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="2" language="java" name="user.User" project="BomWeather" file="/BomWeather/src/user/User.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="36" y="532"/>    
+    <position height="-1" width="-1" x="306" y="450"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="true" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="3" language="java" name="gui.home.HomeScreen" project="BomWeather" 
     file="/BomWeather/src/gui/home/HomeScreen.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="728" y="531"/>    
+    <position height="-1" width="-1" x="737" y="70"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="true" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="4" language="java" name="gui.plots.PlotWindows" project="BomWeather" 
     file="/BomWeather/src/gui/plots/PlotWindows.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="365" y="729"/>    
+    <position height="-1" width="-1" x="-97" y="78"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,128 +39,132 @@
   </class>  
   <class id="5" language="java" name="gui.plots.PlotWindow" project="BomWeather" 
     file="/BomWeather/src/gui/plots/PlotWindow.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="111" y="840"/>    
+    <position height="-1" width="-1" x="-102" y="289"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
   <class id="6" language="java" name="gui.plots.PlotBase" project="BomWeather" 
     file="/BomWeather/src/gui/plots/PlotBase.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="364" y="952"/>    
+    <position height="-1" width="-1" x="-79" y="602"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <attributes public="true" package="false" protected="false" private="false" static="false"/>      
+      <operations public="true" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
   <class id="7" language="java" name="gui.plots.HistoricalTemp" project="BomWeather" 
     file="/BomWeather/src/gui/plots/HistoricalTemp.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="46" y="1080"/>    
+    <position height="-1" width="-1" x="-408" y="933"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="false" protected="true" private="false" static="true"/>      
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="gui.plots.Last72hrTemp" project="BomWeather" 
-    file="/BomWeather/src/gui/plots/Last72hrTemp.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="363" y="1251"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="false" protected="true" private="false" static="true"/>      
-      <operations public="true" package="true" protected="true" private="false" static="true"/>    
-    </display>  
-  </class>  
-  <class id="9" language="java" name="gui.plots.Table72Hr" project="BomWeather" 
+  <class id="8" language="java" name="gui.plots.Table72Hr" project="BomWeather" 
     file="/BomWeather/src/gui/plots/Table72Hr.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="638" y="951"/>    
+    <position height="-1" width="-1" x="309" y="793"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="false" protected="true" private="false" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="gui.plots.TableHistorical" project="BomWeather" 
+  <class id="9" language="java" name="gui.plots.TableHistorical" project="BomWeather" 
     file="/BomWeather/src/gui/plots/TableHistorical.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="225" width="147" x="629" y="1116"/>    
+    <position height="-1" width="-1" x="-70" y="1075"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="false" protected="true" private="false" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="11">    
+  <class id="10" language="java" name="gui.plots.Last72hrTemp" project="BomWeather" 
+    file="/BomWeather/src/gui/plots/Last72hrTemp.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="302" y="1076"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="true" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="11">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <association id="12">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="12" name="plotWindows">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <attribute id="13" name="plotWindows">        
+        <position height="0" width="0" x="-462" y="-651"/>      
       </attribute>      
-      <multiplicity id="13" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="14" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-462" y="-651"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="false"/>  
   </association>  
-  <association id="14">    
+  <association id="15">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="15" name="user">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <attribute id="16" name="user">        
+        <position height="0" width="0" x="270" y="-82"/>      
       </attribute>      
-      <multiplicity id="16" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="17" minimum="0" maximum="1">        
+        <position height="0" width="0" x="270" y="-82"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="false"/>  
   </association>  
-  <generalization id="17">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
   <association id="18">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="19" name="plot">        
-        <position height="0" width="0" x="0" y="0"/>      
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="19" name="homeScreen">        
+        <position height="0" width="0" x="9" y="-461"/>      
       </attribute>      
       <multiplicity id="20" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="false"/>  
-  </association>  
-  <association id="21">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="22" name="homeScreen">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="23" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+        <position height="0" width="0" x="9" y="-461"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="false"/>  
   </association>  
-  <generalization id="24">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <association id="25">    
+  <association id="21">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="26" name="user">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <attribute id="22" name="user">        
+        <position height="0" width="0" x="270" y="-82"/>      
       </attribute>      
-      <multiplicity id="27" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="23" minimum="0" maximum="1">        
+        <position height="0" width="0" x="270" y="-82"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="false"/>  
   </association>  
-  <generalization id="28">    
+  <generalization id="24">    
     <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="25">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <association id="26">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="27" name="plot">        
+        <position height="0" width="0" x="-443" y="-350"/>      
+      </attribute>      
+      <multiplicity id="28" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-443" y="-350"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="false"/>  
+  </association>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="6"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

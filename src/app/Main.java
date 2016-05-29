@@ -422,7 +422,7 @@ public class Main extends Application
 		homeScreen.removeFavourite(fav);
 	}
 
-    public void dragWindow(Object obj) {
+    void dragWindow(Object obj) {
 
         logger.debug("Starting Main::dragWindow()");
         if (obj instanceof Scene) {
@@ -439,7 +439,8 @@ public class Main extends Application
         }
         //else if()......
     }
-    public String getMainCss()
+    
+    String getMainCss()
     {
         logger.debug("starting Main::getCss()");
         String css = null;
