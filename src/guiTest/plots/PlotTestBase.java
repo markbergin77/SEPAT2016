@@ -66,7 +66,6 @@ public abstract class PlotTestBase extends GuiTestBase
             }
         });
 		primaryStage.setScene(scene);
-        scene.getStylesheets().add(plot.getCssPath());
         primaryStage.show();
 		
 	}
