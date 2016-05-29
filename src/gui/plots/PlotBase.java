@@ -16,23 +16,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class PlotBase extends GridPane
-{
-	public interface EventInterface
-	{
-		public void onRefresh(PlotBase plot);
-	}
-	EventInterface eventHandler = voidHandler;
-	
-	Station station; 
-	/* So that we can overlay the same things 
-	 * on each plot child class */
-	static String refreshButtonLabel = "Refresh";
-	Button refreshButton = new Button(refreshButtonLabel);;
-	ToolBar toolBar = new ToolBar(refreshButton);
-	
-	String name = "";
-	
+public abstract class PlotBase extends GridPane
+{	
 	public PlotBase(Station station)
 	{
 		super();
@@ -54,10 +39,28 @@ public class PlotBase extends GridPane
 		});
 	}
 	
-	public void plotData()
+	public abstract void changeWidth(int x);
+	
+	public abstract void changeHeight(int x);
+	
+	public abstract void resize(int x, int y);
+	
+	public abstract void plotData();
+	
+	public interface EventInterface
 	{
-		
+		public void onRefresh(PlotBase plot);
 	}
+	EventInterface eventHandler = voidHandler;
+	
+	Station station; 
+	/* So that we can overlay the same things 
+	 * on each plot child class */
+	static String refreshButtonLabel = "Refresh";
+	Button refreshButton = new Button(refreshButtonLabel);;
+	ToolBar toolBar = new ToolBar(refreshButton);
+	
+	String name = "";
 	
 	protected void setName(String name)
 	{
@@ -102,11 +105,6 @@ public class PlotBase extends GridPane
 		VBox.setVgrow(plot, Priority.ALWAYS);
 	}
 	
-	protected void onRefresh()
-	{
-		
-	}
-
 	public String getName() 
 	{
 		return name;

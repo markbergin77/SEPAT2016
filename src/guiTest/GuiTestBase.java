@@ -17,6 +17,8 @@ public abstract class GuiTestBase extends Application
 	protected Bom bom = new Bom();
 	protected Fio fio = new Fio();
 	
+	
+	
 	static ExecutorService exec = 
     		Executors.newSingleThreadExecutor(
 		    r -> 
@@ -27,7 +29,7 @@ public abstract class GuiTestBase extends Application
 		        return t ;
 		    });
 	
-	private void queueTask(Task<?> task)
+	protected void queueTask(Task<?> task)
 	{
 		exec.submit(task);
 	}

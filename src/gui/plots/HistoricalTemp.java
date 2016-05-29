@@ -96,6 +96,24 @@ public class HistoricalTemp extends PlotBase
         assembleFrom(lineChart);
 	}
 	
+	@Override
+	public void resize(int x, int y)
+	{
+		
+	}
+
+	@Override
+	public void changeWidth(int x)
+	{
+		
+	}
+
+	@Override
+	public void changeHeight(int x)
+	{
+		
+	}
+	
 	private void addToAllSeries(WthrSamplesDaily wthrSamplesDaily) {
 		if (wthrSamplesDaily == null) {
 			System.out.println("Null");

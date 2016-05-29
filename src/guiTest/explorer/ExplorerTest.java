@@ -7,7 +7,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import user.Favourite;
-import utilities.SaveTestData;
+import utilities.TestData;
 
 public class ExplorerTest extends Application 
 	implements Explorer.EventInterface
@@ -21,7 +21,7 @@ public class ExplorerTest extends Application
 	    window.setTitle("Login");
 		window.setResizable(false);
         window.setOnCloseRequest(e -> System.exit(0));
-        allStations = SaveTestData.loadAllStations();
+        allStations = TestData.loadAllStations();
         Explorer explorer = new Explorer(this);
 		explorer.addStationsAll(allStations);
 		Scene scene = new Scene(explorer);

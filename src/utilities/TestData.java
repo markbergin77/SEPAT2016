@@ -9,7 +9,7 @@ import data.Bom;
 import data.StationList;
 import data.samples.WthrSamplesFine;
 
-public class SaveTestData 
+public class TestData 
 {
 	static Bom bom;
 	static String pathTestData = "TestObjects/";

@@ -66,6 +66,24 @@ public class Last72hrTemp extends PlotBase
 		assembleFrom(plotContainer);
 	}
 	
+	@Override
+	public void resize(int x, int y)
+	{
+		
+	}
+
+	@Override
+	public void changeWidth(int x)
+	{
+		
+	}
+
+	@Override
+	public void changeHeight(int x)
+	{
+		
+	}
+	
 	@Override 
 	public String getCssPath()
 	{

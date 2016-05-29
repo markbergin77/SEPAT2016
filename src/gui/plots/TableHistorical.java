@@ -139,6 +139,24 @@ public class TableHistorical extends PlotBase
         container.setMinSize(780,450);
     }
     
+    @Override
+	public void changeWidth(int x)
+	{
+		dataTable.setPrefWidth(x);
+	}
+
+	@Override
+	public void changeHeight(int y)
+	{
+		dataTable.setPrefHeight(y);
+	}
+    
+    @Override
+	public void resize(int x, int y)
+	{
+		this.setPrefSize(x, y);
+	}
+    
     @Override 
 	public void fetchData(Bom bom, Fio fio)
 	{
@@ -179,5 +197,4 @@ public class TableHistorical extends PlotBase
     {
 		return cssPath;
     }
-
 }

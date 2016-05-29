@@ -19,22 +19,14 @@ import javafx.stage.Stage;
 //Testing class for line graph, includes viewing temperature of locations
 public class PlotAveTempTest extends PlotTestBase
 {
-	StationList allStations;
 	public static void main(String args[])
     {
         launch(args);
     }
-
-	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public void start(Stage graph) throws Exception {
-		//Grabbing stations
-		try {
-			allStations = bom.getAllStations();
-	} catch (Exception e1) {
-		e1.printStackTrace();
-	}
+	public void start(Stage graph) throws Exception 
+	{
 		//Just using charlton as a test
 		Station charlton = allStations.get(0);	
 		graph.setTitle("Line Chart Sample");
@@ -150,5 +142,13 @@ public class PlotAveTempTest extends PlotTestBase
 	{
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public PlotBase setPlot()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

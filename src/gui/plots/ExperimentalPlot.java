@@ -110,6 +110,24 @@ public class ExperimentalPlot extends PlotBase
         assembleFrom(lineChart);
 	}
 	
+	@Override
+	public void resize(int x, int y)
+	{
+		
+	}
+
+	@Override
+	public void changeWidth(int x)
+	{
+		
+	}
+
+	@Override
+	public void changeHeight(int x)
+	{
+		
+	}
+	
 	private WthrSamplesDaily getBomData(Bom bom, Station station, YearMonth start, YearMonth end) {
 		logger.debug("Starting ExperimentalPlot::getBomData");
 

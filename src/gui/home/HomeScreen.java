@@ -45,17 +45,6 @@ public class HomeScreen extends GridPane
 	{
 		explorer.removeFavourite(newFav);
 	}
-	
-    /* for testing purposes, no interaction */
-    public HomeScreen()
-    {
-    	super();
-    	explorer = new Explorer(this);
-    	optionsArea = new OptionsArea(this);
-    	globalOptionsArea = new GlobalOptionsArea(this);
-        add(explorer, 0, 0);
-        add(optionsArea, 1, 0);
-    }
     
     Explorer explorer;
     OptionsArea optionsArea;

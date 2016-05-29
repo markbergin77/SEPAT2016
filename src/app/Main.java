@@ -172,7 +172,7 @@ public class Main extends Application
             dragWindow(scene);
 
             logger.debug("Calling Main::getCss()");
-            getCss(scene);
+            scene.getStylesheets().add(getMainCss());
 
         	window.setScene(scene);
         	window.sizeToScene();
@@ -437,23 +437,25 @@ public class Main extends Application
         }
         //else if()......
     }
-    public void getCss(Scene scene){
-
+    public String getMainCss()
+    {
         logger.debug("starting Main::getCss()");
-        try {
+        String css = null;
+        try 
+        {
             URL url = this.getClass().getResource("main.css");
             if (url == null) {
                 logger.fatal("Failed to load resource : main.css");
                 Alert alert = new Alert("Error","Could not load resource : main.css ",event -> System.exit(-1));
 
             }
-            String css = url.toExternalForm();
-            scene.getStylesheets().add(css);
+            css = url.toExternalForm();
         }
-        catch(Exception e){
+        catch(Exception e)
+        {
             logger.fatal("Failed to load resource : main.css");
             Alert alert = new Alert("Error","Could not load resource : main.css ",event -> System.exit(-1));
         }
-
+        return css;
     }
 }
