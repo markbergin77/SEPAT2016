@@ -60,3 +60,26 @@
 .axis {
     -fx-tick-label-fill: silver;
 }
+
+.table-view .scroll-bar{
+    -fx-background-color: #515151;
+}
+.table-view .scroll-bar .thumb{
+    -fx-background-color:#404040;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.table-view .column-header-background{
+    -fx-background-color: #343838;;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background .label{
+    -fx-font-size: 12px;
+}
+.table-view .filler{
+    -fx-background-color: transparent;
+}

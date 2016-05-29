@@ -51,8 +51,6 @@ public class HistoricalTemp extends PlotBase
 	{
 		super(station);
 		setName(station.getName() + " Historical Temperatures");
-		URL url = this.getClass().getResource(cssFileName);
-        cssPath = url.toExternalForm();
         this.addCheckComboBoxOption("Maximum Temperature");
         this.addCheckComboBoxOption("Minimum Temperature");
         this.addCheckComboBoxOption("9am Temperature");
