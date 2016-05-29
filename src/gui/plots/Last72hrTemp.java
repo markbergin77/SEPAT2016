@@ -163,7 +163,7 @@ public class Last72hrTemp extends PlotBase
 	
 	private String getForecastReading(FioSampleFine sample, String option) {
 		switch (option) {
-		case "Temperature Forecast":
+		case "Forecast Temperature":
 			return sample.getAirTemp();
 		default:
 			return null;
@@ -172,7 +172,7 @@ public class Last72hrTemp extends PlotBase
 	
 	private Series<String, Number> getMatchingSeries(String forecastOption) {
 		switch (forecastOption) {
-		case "Minimum Temperature Forecast":
+		case "Forecast Temperature":
 			return seriesAirTemp;
 		default:
 			return null;
@@ -185,7 +185,7 @@ public class Last72hrTemp extends PlotBase
 	}
 	
 	private void addAllOptions(ObservableList<String> options) {
-		 WthrSampleFine sample = null;
+		 
 		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE-HH:mm");
 		 
 		 ArrayList<String> forecastOptions = new ArrayList<String>();
@@ -199,6 +199,7 @@ public class Last72hrTemp extends PlotBase
 			}
 		 
 		for (String option: historicOptions) {
+			WthrSampleFine sample = null;
 			int samplesSize = wthrSamplesFine.size();
 			for(int i = samplesSize - 1; i > -1; i--) {
 				sample = wthrSamplesFine.get(i);
@@ -209,7 +210,18 @@ public class Last72hrTemp extends PlotBase
 	        		getSeries(option).getData().add(new Data<String, Number>(date,Float.parseFloat(reading)));
 			}
 		}
+		
+		for (String option: forecastOptions) {
+			for(FioSampleFine sample: fioSamplesFine) {
+				String date = sample.getTime().format(formatter);
+	        	String reading = getForecastReading(sample, option);
+	        	
+	        	if ( reading != null && reading.length() > 0)
+	        		getSeries(option).getData().add(new Data<String, Number>(date,Float.parseFloat(reading)));
+			}
+		}
 	}
+	
 	
 	@Override
 	public void fetchData(Bom bom, Fio fio)
