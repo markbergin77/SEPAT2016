@@ -51,7 +51,7 @@ public class Bom
 	private static Logger logger = Logger.getLogger(Bom.class);
 	
 	private String pathToConfig;
-	private String baseUrl;
+	private String baseUrl = "http://www.bom.gov.au/";
 	
 	enum State
 	{
@@ -65,7 +65,7 @@ public class Bom
 		return states;
 	}
 	
-	Bom(String pathToConfig) {
+	public Bom(String pathToConfig) {
 		this.pathToConfig = pathToConfig;
 		this.baseUrl = getBaseUrl(pathToConfig);
 	}
