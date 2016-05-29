@@ -3,10 +3,16 @@ package gui.plots;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Collection;
 
+import org.controlsfx.control.CheckComboBox;
+
+import javafx.scene.layout.RowConstraints;
 import data.Bom;
 import data.Fio;
 import data.Station;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,6 +29,16 @@ public abstract class PlotBase extends GridPane
 		super();
 		this.station = station;	
 		defaultInit();
+	}
+	
+	public void addCheckComboBoxOption(String option) 
+	{
+		checkComboBoxItems.add(option);
+	}
+	
+	public ObservableList<String> getCheckedItems() 
+	{
+		return checkComboBox.getCheckModel().getCheckedItems();
 	}
 	
 	public void addToolbarButton(Node node)
@@ -60,6 +76,9 @@ public abstract class PlotBase extends GridPane
 	Button refreshButton = new Button(refreshButtonLabel);;
 	ToolBar toolBar = new ToolBar(refreshButton);
 	
+	private final ObservableList<String> checkComboBoxItems = FXCollections.observableArrayList();
+	private final CheckComboBox<String> checkComboBox = new CheckComboBox<String>(checkComboBoxItems);
+	
 	String name = "";
 	
 	protected void setName(String name)
@@ -93,8 +112,11 @@ public abstract class PlotBase extends GridPane
 		add(toolBar,0,0);
 		toolBar.toFront();
 		add(node,0,1);
+		RowConstraints rc = new RowConstraints(30,30,30);
+		RowConstraints rc2 = new RowConstraints(485,485,485);
+		getRowConstraints().addAll(rc,rc2);
 		setVgrow(node, Priority.ALWAYS);
-
+		setHgrow(node, Priority.ALWAYS);
 	}
 	
 	protected void reassembleFrom(Node plot)

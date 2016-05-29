@@ -12,6 +12,7 @@ import data.Fio;
 import data.Station;
 import data.samples.WthrSampleFine;
 import data.samples.WthrSamplesFine;
+import javafx.event.EventHandler;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -19,6 +20,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -52,9 +54,26 @@ public class Last72hrTemp extends PlotBase
         lineChart.getData().add(seriesAirTemp);
 
 		StackPane plotContainer = new StackPane();
-		Rectangle clipRect = new Rectangle(1000,467,Color.WHITE);
-//		plotContainer.setClip(clipRect);
-		plotContainer.getChildren().addAll(clipRect,lineChart);
+		Rectangle clipRect = new Rectangle(1000,467);
+		Rectangle backGroundRect = new Rectangle(1000,467,Color.DARKGREY);
+     	plotContainer.setClip(clipRect);
+		plotContainer.getChildren().addAll(backGroundRect,lineChart);
+
+		final double SCALE_DELTA = 1.1;
+		lineChart.setOnScroll(new EventHandler<ScrollEvent>() {
+			public void handle(ScrollEvent event) {
+				event.consume();
+
+				if (event.getDeltaY() == 0) {
+					return;
+				}
+
+				double scaleFactor = (event.getDeltaY() > 0) ? SCALE_DELTA : 1 / SCALE_DELTA;
+
+				lineChart.setScaleX(lineChart.getScaleX() * scaleFactor);
+				lineChart.setScaleY(lineChart.getScaleY() * scaleFactor);
+			}
+		});
 
 		plotContainer.setMaxSize(1000,467);
 		plotContainer.setMinSize(400,305);

@@ -25,7 +25,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 
 public class HistoricalTemp extends PlotBase
-{
+{	
 	private String cssPath;
 	static String cssFileName = "HisTempPlot.css";
 	WthrSamplesDaily wthrSamplesDaily;
@@ -47,7 +47,11 @@ public class HistoricalTemp extends PlotBase
 		setName(station.getName() + " Historical Temperatures");
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();
-		
+        this.addCheckComboBoxOption("Maximum Temperature");
+        this.addCheckComboBoxOption("Minimum Temperature");
+        this.addCheckComboBoxOption("9am Temperature");
+        this.addCheckComboBoxOption("3pm Temperature");
+        		
 		xAxis.setLabel("Date");
         yAxis.setLabel("Temperature in Degrees");
         lineChart.setTitle(station.getName());
