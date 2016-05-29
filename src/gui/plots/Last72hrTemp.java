@@ -55,7 +55,7 @@ public class Last72hrTemp extends PlotBase
 
 		StackPane plotContainer = new StackPane();
 		Rectangle clipRect = new Rectangle(1000,467);
-		Rectangle backGroundRect = new Rectangle(1000,467,Color.DARKGREY);
+		Rectangle backGroundRect = new Rectangle(1000,467,Color.rgb(42, 40, 41));
      	plotContainer.setClip(clipRect);
 		plotContainer.getChildren().addAll(backGroundRect,lineChart);
 
