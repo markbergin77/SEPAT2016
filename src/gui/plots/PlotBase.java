@@ -11,11 +11,12 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class PlotBase extends VBox
+public class PlotBase extends GridPane
 {
 	public interface EventInterface
 	{
@@ -52,9 +53,6 @@ public class PlotBase extends VBox
 		{
 			eventHandler.onRefresh(this);
 		});
-
-        refreshButton.setOnMouseEntered(e -> refreshButton.getStyleClass().add("button-hover"));
-        refreshButton.setOnMouseExited(e -> refreshButton.getStyleClass().remove("button-hover"));
 	}
 	
 	public void plotData()
@@ -84,13 +82,17 @@ public class PlotBase extends VBox
 		refreshButton = new Button(refreshButtonLabel);;
 		toolBar = new ToolBar(refreshButton);
 		name = "";
+		refreshButton.setOnMouseEntered(e -> refreshButton.getStyleClass().add("button-hover"));
+		refreshButton.setOnMouseExited(e -> refreshButton.getStyleClass().remove("button-hover"));
 	}
 	
 	protected void assembleFrom(Node node)
 	{
-		getChildren().add(toolBar);
-		getChildren().add(node);
-		VBox.setVgrow(node, Priority.ALWAYS);
+		add(toolBar,0,0);
+		toolBar.toFront();
+		add(node,0,1);
+		setVgrow(node, Priority.ALWAYS);
+
 	}
 	
 	protected void reassembleFrom(Node node)
