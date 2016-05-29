@@ -83,6 +83,11 @@ public class Bom
 	{
 		return "http://www.bom.gov.au/";
 	}
+	
+	// Expose for unit testing connection exceptions
+	public void setBaseUrl(String baseUrl) {
+		this.baseUrl = baseUrl;
+	}
 
 	/*
 	 * The URL of a shtml page that contains a table of all of the state's
