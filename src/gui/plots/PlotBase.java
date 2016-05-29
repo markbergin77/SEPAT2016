@@ -3,6 +3,7 @@ package gui.plots;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Collection;
 
 import javafx.scene.layout.RowConstraints;
 import org.controlsfx.control.CheckComboBox;
@@ -41,25 +42,15 @@ public class PlotBase extends GridPane
 	static String showOptionsLabel = "Show";
 	Button showOptionsButton;
 	
-	
+	private final ObservableList<String> checkComboBoxItems = FXCollections.observableArrayList();
+	private final CheckComboBox<String> checkComboBox = new CheckComboBox<String>(checkComboBoxItems);
 	
 	public PlotBase(Station station)
 	{
 		super();
 		this.station = station;	
 		defaultInit();
-		
-		 // create the data to show in the CheckComboBox 
-		 final ObservableList<String> comboBoxItems = FXCollections.observableArrayList();
-		 comboBoxItems.addAll(
-			 "Maximum Temp",
-			 "Minimum Temp",
-			 "9am Temp",
-			 "3pm Temp"
-		 );
-		 
-		 // Create the CheckComboBox with the data 
-		 final CheckComboBox<String> checkComboBox = new CheckComboBox<String>(comboBoxItems);
+
 		 toolBar.getItems().add(checkComboBox);
 		 
 		 showOptionsButton = new Button(showOptionsLabel);
@@ -68,6 +59,14 @@ public class PlotBase extends GridPane
 				System.out.println(checkComboBox.getCheckModel().getCheckedItems());
 			});
 		 toolBar.getItems().add(showOptionsButton);
+	}
+	
+	public void addCheckComboBoxOption(String option) {
+		checkComboBoxItems.add(option);
+	}
+	
+	public ObservableList<String> getCheckedItems() {
+		return checkComboBox.getCheckModel().getCheckedItems();
 	}
 	
 	public void addToolbarButton(Node node)
