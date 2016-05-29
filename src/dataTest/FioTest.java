@@ -30,6 +30,8 @@ public class FioTest
 			System.out.println("Time: " + sample.getDate());
 			System.out.println("    Min: " + sample.getTempMin());
 			System.out.println("    Max: " + sample.getTempMax());
+			System.out.println("    9am: " + sample.getTemp9am());
+			System.out.println("    3pm: " + sample.getTemp3pm());
 		}
 	}
 }

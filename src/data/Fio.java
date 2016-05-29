@@ -85,7 +85,6 @@ public class Fio
 				time = LocalDateTime.ofEpochSecond(Long.parseLong(timeString), 0, ZoneOffset.UTC);
 			}
 			String temp = reading.get("temperature").getAsString();
-			
 			if (time.getHour() == 9) {
 				temp9amHolder.put(time.getDayOfYear(), temp);
 			}
@@ -111,8 +110,14 @@ public class Fio
 			String icon = reading.get("icon").getAsString();
 			String min = reading.get("temperatureMin").getAsString();
 			String max = reading.get("temperatureMax").getAsString();
-
-			samples.add(new FioSampleDaily(time, icon, min, max));
+			String temp9am = temp9amHolder.get(time.getDayOfYear());
+			String temp3pm = temp3pmHolder.get(time.getDayOfYear());
+			if(temp9am == null)
+				temp9am = "";
+			if(temp3pm == null)
+				temp3pm = "";
+			
+			samples.add(new FioSampleDaily(time, icon, min, max, temp9am, temp3pm));
 		}
 		connection.disconnect();
 		return samples;
