@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import data.Bom;
+import data.Fio;
 import data.Station;
 import data.StationList;
 import gui.Alert;
@@ -56,6 +57,7 @@ public class Main extends Application
     Stage window;
     Dimension homeWindowSize;
     Bom bom;
+    Fio fio;
 	StationList allStations;
 	HomeScreen homeScreen;
 	Scene scene;
@@ -96,6 +98,7 @@ public class Main extends Application
 	{
         logger.debug("Starting Main::startAppNotDuplicate()");
         bom = new Bom();
+        fio = new Fio();
 		window.setTitle(appName);
         window.setOnCloseRequest(e -> onQuit());
         SplashScreen splash = new SplashScreen();

@@ -108,12 +108,12 @@ public class ExperimentalPlot extends PlotBase
         assembleFrom(lineChart);
 	}
 	
-	private WthrSamplesDaily getBomData(Station station, YearMonth start, YearMonth end) {
+	private WthrSamplesDaily getBomData(Bom bom, Station station, YearMonth start, YearMonth end) {
 		logger.debug("Starting ExperimentalPlot::getBomData");
 
 		WthrSamplesDaily wthrSamplesDaily = new WthrSamplesDaily();
         try {
-			wthrSamplesDaily = Bom.getWthrRange(station, start, end);
+			wthrSamplesDaily = bom.getWthrRange(station, start, end);
 			return wthrSamplesDaily;
 
 		} catch (IOException e) {
@@ -129,12 +129,12 @@ public class ExperimentalPlot extends PlotBase
 		}
 	}
 	
-	private FioSamplesDaily getFioData(Station station) {
+	private FioSamplesDaily getFioData(Bom bom, Station station) {
 
 		logger.debug("Starting ExperimentalPlot::getFioData");
 		FioSamplesDaily samples = new FioSamplesDaily();
 		try {
-			samples = Fio.getFioDaily(station);
+			samples = fio.getFioDaily(bom, station);
 		} catch (JsonIOException e) {
             logger.error("Failed to connect/retrieve weather samples from FIO",e);
 		} catch (JsonSyntaxException e) {
@@ -200,13 +200,13 @@ public class ExperimentalPlot extends PlotBase
 	}
 	
 	@Override 
-	public void fetchData()
+	public void fetchData(Bom bom)
 	{
 		logger.debug("Calling ExperimentalPlot::getBomData");
-		wthrSamplesDaily = getBomData(station, start, end);
+		wthrSamplesDaily = getBomData(bom, station, start, end);
 
 		logger.debug("Calling ExperimentalPlot::getFioData");
-		fioSamplesDaily = getFioData(station);
+		fioSamplesDaily = getFioData(bom, station);
 	}
 	
 	@Override
@@ -215,13 +215,13 @@ public class ExperimentalPlot extends PlotBase
         addToAllSeries(wthrSamplesDaily, fioSamplesDaily);
 	}
 	
-	@Override
-	protected void onRefresh() 
-	{
-		clearAllSeries();
-		fetchData();
-		plotData();
-	}
+//	@Override
+//	protected void onRefresh() 
+//	{
+//		clearAllSeries();
+//		fetchData(Bom bom);
+//		plotData();
+//	}
 	
 	@Override
 	public String getCssPath()
