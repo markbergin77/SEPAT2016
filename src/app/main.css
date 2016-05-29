@@ -92,7 +92,7 @@
 }
 .tab-pane{
     -fx-border-color: rgba(70, 70, 70,0.9);
-    -fx-background-color: transparent;
+    -fx-background-color:  #515151;
 }
 .tabpane-options{
     -fx-background-color: transparent;
@@ -136,3 +136,55 @@
 .chart-legend{
     -fx-background-color:#515151 ;
 }
+.chart{
+    -fx-background-color: #505050;
+}
+.chart-series-line {
+    -fx-opacity: 0.8;
+    -fx-stroke-width: 1.75px;
+}
+.chart-legend {
+    -fx-padding: 15px;
+}
+
+.chart-legend-item-symbol {
+    -fx-fill: #000000;
+}
+.axis-label {
+    -fx-text-fill: silver;
+}
+.chart-legend-item{
+    -fx-text-fill: silver;
+}
+.chart-legend{
+    -fx-background-color:#515151 ;
+}
+
+.chart-vertical-grid-lines {
+    fx-stroke-width: 0;
+    -fx-text-fill: transparent;
+    -fx-stroke: transparent;
+}
+.chart-horizontal-grid-lines {
+    -fx-text-fill: transparent;
+    -fx-stroke-width: 0;
+    -fx-stroke: transparent;
+}
+.chart{
+    -fx-background-color: #505050;
+}
+.chart-alternative-row-fill {
+    -fx-stroke-width: 0;
+}
+.axis {
+    -fx-tick-label-fill: silver;
+}
+
+.chart-plot-background {
+    -fx-border-color: black;
+    -fx-padding: 0px;
+    -fx-opacity: 0.5;
+    -fx-background-color: linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+}
+
+
