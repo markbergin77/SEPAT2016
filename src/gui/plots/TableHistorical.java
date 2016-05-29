@@ -189,7 +189,7 @@ public class TableHistorical extends PlotBase
 	}
     
     @Override
-	public void plotData() 
+	public void plotData(ObservableList<String> options) 
     {
     	dataTable.setItems(data);
 	}

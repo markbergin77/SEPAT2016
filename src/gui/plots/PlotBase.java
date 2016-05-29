@@ -46,6 +46,10 @@ public abstract class PlotBase extends GridPane
 		{
 			eventHandler.onRefresh(this);
 		});
+		showOptionsButton.setOnMouseClicked(e -> {
+			eventHandler.onRefresh(this);
+		});
+		
 	}
 	
 	public abstract void changeWidth(int x);
@@ -54,7 +58,7 @@ public abstract class PlotBase extends GridPane
 	
 	public abstract void resize(int x, int y);
 	
-	public abstract void plotData();
+	public abstract void plotData(ObservableList<String> options);
 	
 	public interface EventInterface
 	{

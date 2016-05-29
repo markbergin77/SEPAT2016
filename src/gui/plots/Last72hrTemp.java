@@ -12,6 +12,7 @@ import data.Fio;
 import data.Station;
 import data.samples.WthrSampleFine;
 import data.samples.WthrSamplesFine;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -135,7 +136,7 @@ public class Last72hrTemp extends PlotBase
 	}
 	
 	@Override
-	public void plotData() 
+	public void plotData(ObservableList<String> options) 
 	{
         addToSeries(wthrSamplesFine, seriesAirTemp);
 	}
