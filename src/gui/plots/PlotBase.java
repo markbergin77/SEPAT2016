@@ -97,7 +97,7 @@ public abstract class PlotBase extends GridPane
 	
 	void defaultInit()
 	{
-
+		checkComboBox.setMaxWidth(150);
 		eventHandler = voidHandler;
 		refreshButton = new Button(refreshButtonLabel);
 		showOptionsButton = new Button(showOptionsButtonLabel);
