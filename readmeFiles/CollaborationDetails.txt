@@ -1,6 +1,0 @@
-Use of:
-Trello,
-Slack.
-Can both be tracked and monitored by our specified Tutor.
-Amirhomayoon.ashrafzadeh@rmit.edu.au or alternatively e04414@rmit.edu.au,
-As detailed in our README file.
