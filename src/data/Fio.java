@@ -18,7 +18,9 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import data.samples.FioSampleDaily;
+import data.samples.FioSampleFine;
 import data.samples.FioSamplesDaily;
+import data.samples.FioSamplesFine;
 import utilities.FolderPathHome;
 
 import org.apache.log4j.Logger;
@@ -48,6 +50,48 @@ public class Fio
 	{
 		return "https://api.forecast.io/forecast/";
 	}
+	
+	public FioSamplesFine getFioFine(Station station, String lat, String lon)
+			throws JsonIOException, JsonSyntaxException, MalformedURLException, IOException
+	{
+		String exclude = "[currently,minutely,alerts,flags,daily]";
+		
+		logger.debug("Starting Fio::getFioFine()");
+		
+		// Need to specify units=si for standard measurements (celcius)
+		String requestString = baseUrl + apiKey + "/" + lat + "," + lon + "?" + "units=si&exclude=" + exclude;
+		
+		HttpURLConnection connection = (HttpURLConnection) new URL(requestString).openConnection();
+		connection.setRequestMethod("GET");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		
+		FioSamplesFine samples = new FioSamplesFine();
+		JsonObject rootArray = new JsonParser().parse(reader).getAsJsonObject();
+		JsonArray rootArrayHourly = rootArray.getAsJsonObject("hourly").getAsJsonArray("data");
+		
+		for (JsonElement element: rootArrayHourly) {
+			JsonObject reading = element.getAsJsonObject();
+			String timeString;
+			LocalDateTime time = null;
+			JsonElement timeJson = reading.get("time");
+			if (timeJson.isJsonNull()) {
+				time = null;
+			}
+			else {
+				timeString = timeJson.getAsString();
+				time = LocalDateTime.ofEpochSecond(Long.parseLong(timeString), 0, ZoneOffset.UTC);
+			}
+			String icon = reading.get("icon").getAsString();
+			String apparentT = reading.get("apparentTemperature").getAsString();
+			String relHumidity = reading.get("humidity").getAsString();
+			String dewPt = reading.get("dewPoint").getAsString();
+			String airTemp = reading.get("temperature").getAsString();
+			
+			samples.add(new FioSampleFine(time, icon, apparentT, airTemp, relHumidity, dewPt));
+		}
+		connection.disconnect();
+		return samples;
+	}
 
 	public FioSamplesDaily getFioDaily(Station station, String lat, String lon)
 			throws JsonIOException, JsonSyntaxException, MalformedURLException, IOException
@@ -58,7 +102,6 @@ public class Fio
 		
 		// Need to specify units=si for standard measurements (celcius)
 		String requestString = baseUrl + apiKey + "/" + lat + "," + lon + "?" + "units=si&exclude=" + exclude;
-		System.out.println(requestString);
 
 		HttpURLConnection connection = (HttpURLConnection) new URL(requestString).openConnection();
 		connection.setRequestMethod("GET");
@@ -84,12 +127,12 @@ public class Fio
 				timeString = timeJson.getAsString();
 				time = LocalDateTime.ofEpochSecond(Long.parseLong(timeString), 0, ZoneOffset.UTC);
 			}
-			String temp = reading.get("temperature").getAsString();
+			String airTemp = reading.get("temperature").getAsString();
 			if (time.getHour() == 9) {
-				temp9amHolder.put(time.getDayOfYear(), temp);
+				temp9amHolder.put(time.getDayOfYear(), airTemp);
 			}
 			if (time.getHour() == 15) {
-				temp3pmHolder.put(time.getDayOfYear(), temp);
+				temp3pmHolder.put(time.getDayOfYear(), airTemp);
 			}
 		}
 		

@@ -25,7 +25,7 @@ public class FioTest
 		String lon = wthrSamplesFine.get(0).getLon();
 		FioSamplesDaily testSamples = fio.getFioDaily(testStation, lat, lon);
 		
-		System.out.println("Readings for: " + testStation.getName());
+		System.out.println("Daily Readings for: " + testStation.getName());
 		for (FioSampleDaily sample: testSamples) {
 			System.out.println("Time: " + sample.getDate());
 			System.out.println("    Min: " + sample.getTempMin());
