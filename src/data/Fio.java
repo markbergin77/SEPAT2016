@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
@@ -22,8 +24,6 @@ import data.samples.FioSampleFine;
 import data.samples.FioSamplesDaily;
 import data.samples.FioSamplesFine;
 import utilities.FolderPathHome;
-
-import org.apache.log4j.Logger;
 
 public class Fio
 {

@@ -1,26 +1,19 @@
 package gui.plots;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.Collection;
-
 import org.controlsfx.control.CheckComboBox;
 
-import javafx.scene.layout.RowConstraints;
 import data.Bom;
 import data.Fio;
 import data.Station;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public abstract class PlotBase extends GridPane
 {	
@@ -108,6 +101,8 @@ public abstract class PlotBase extends GridPane
 		name = "";
 		refreshButton.setOnMouseEntered(e -> refreshButton.getStyleClass().add("button-hover"));
 		refreshButton.setOnMouseExited(e -> refreshButton.getStyleClass().remove("button-hover"));
+        showOptionsButton.setOnMouseEntered(e -> showOptionsButton.getStyleClass().add("button-hover"));
+        showOptionsButton.setOnMouseExited(e -> showOptionsButton.getStyleClass().remove("button-hover"));
 	}
 	
 	protected void assembleFrom(Node node)
@@ -115,8 +110,8 @@ public abstract class PlotBase extends GridPane
 		add(toolBar,0,0);
 		toolBar.toFront();
 		add(node,0,1);
-		RowConstraints rc = new RowConstraints(30,30,30);
-		RowConstraints rc2 = new RowConstraints(485,485,485);
+		RowConstraints rc = new RowConstraints(37,37,37);
+		RowConstraints rc2 = new RowConstraints(475,475,475);
 		getRowConstraints().addAll(rc,rc2);
 		setVgrow(node, Priority.ALWAYS);
 		setHgrow(node, Priority.ALWAYS);

@@ -2,6 +2,9 @@ package gui;
 
 import java.net.URL;
 import java.util.Vector;
+
+import org.apache.log4j.Logger;
+
 import data.LoadingUpdater;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -18,12 +21,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.apache.log4j.Logger;
 
 /* Creates the gui components necessary to
 display a splash screen. Currently displays

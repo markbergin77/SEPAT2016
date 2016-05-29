@@ -1,7 +1,6 @@
 package gui.home.options;
 
 import data.Station;
-import gui.home.HomeScreen;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;

@@ -1,20 +1,10 @@
 package guiTest.plots;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import data.Bom;
-import data.Fio;
-import data.Station;
 import data.StationList;
-import gui.plots.HistoricalTemp;
 import gui.plots.PlotBase;
-import gui.plots.PlotWindow;
 import guiTest.GuiTestBase;
-import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utilities.EasyTask;

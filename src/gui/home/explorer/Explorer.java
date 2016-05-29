@@ -1,11 +1,12 @@
 package gui.home.explorer;
 
+import org.apache.log4j.Logger;
+
 import data.Station;
 import data.StationList;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
-import org.apache.log4j.Logger;
 import user.Favourite;
 import user.FavouritesList;
 

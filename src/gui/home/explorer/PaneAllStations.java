@@ -1,9 +1,8 @@
 package gui.home.explorer;
 
-import javafx.scene.layout.VBox;
-
 import data.Station;
 import data.StationList;
+import javafx.scene.layout.VBox;
 
 /* List of all stations in BOM database */
 public class PaneAllStations extends PaneBase

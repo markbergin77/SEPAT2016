@@ -1,18 +1,16 @@
 package gui;
 
-/**
- * Created by Pavel Nikolaev on 13/03/2016.
- */
-
-import app.Main;
-import javafx.scene.*;
-import javafx.stage.*;
-import javafx.scene.layout.*;
-import javafx.scene.control.*;
-import javafx.event.EventHandler;
-import javafx.geometry.*;
-
 import java.net.URL;
+
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class Alert 

@@ -3,7 +3,10 @@ package gui.home.options;
 import data.Station;
 import gui.plots.Last72hrTemp;
 import javafx.geometry.Pos;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 
 
 /**
