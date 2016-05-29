@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 import com.sun.javafx.charts.Legend;
 import data.Bom;
+import data.Fio;
 import data.Station;
 import data.samples.WthrSampleDaily;
 import data.samples.WthrSamplesDaily;
@@ -128,7 +129,7 @@ public class HistoricalTemp extends PlotBase
 	}
 	
 	@Override 
-	public void fetchData(Bom bom)
+	public void fetchData(Bom bom, Fio fio)
 	{
 		try {
 			wthrSamplesDaily = bom.getWthrRange(station, start, end);

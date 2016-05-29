@@ -51,12 +51,12 @@ public class Last72hrTemp extends PlotBase
         lineChart.getData().add(seriesAirTemp);
 
 		StackPane plotContainer = new StackPane();
-		Rectangle clipRect = new Rectangle(500,300);
-		plotContainer.setClip(clipRect);
-		plotContainer.getChildren().add(lineChart);
+		Rectangle clipRect = new Rectangle(1000,467,Color.WHITE);
+//		plotContainer.setClip(clipRect);
+		plotContainer.getChildren().addAll(clipRect,lineChart);
 
-		plotContainer.setMaxSize(1200,750);
-		plotContainer.setMinSize(400, 250);
+		plotContainer.setMaxSize(1000,467);
+		plotContainer.setMinSize(400,305);
 
         //plot(station, seriesAirTemp);
         
@@ -87,7 +87,7 @@ public class Last72hrTemp extends PlotBase
         }
 	}
 	
-	@Override 
+//	@Override
 	public void fetchData(Bom bom)
 	{
 		try {

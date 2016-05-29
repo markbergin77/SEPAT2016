@@ -246,7 +246,7 @@ public class Main extends Application
         logger.debug("Starting Main::fillPlot()");
 		EasyTask fetchDataTask = new EasyTask(() ->
 		{
-			plot.fetchData(bom);
+			plot.fetchData(bom, fio);
 		});
 		JavaFXSafeTask plotDataTask = new JavaFXSafeTask(() ->
 		{

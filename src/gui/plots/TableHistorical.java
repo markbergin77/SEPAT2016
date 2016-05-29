@@ -140,7 +140,7 @@ public class TableHistorical extends PlotBase
     }
     
     @Override 
-	public void fetchData(Bom bom)
+	public void fetchData(Bom bom, Fio fio)
 	{
     	// here we create a list of weather sample objects
         // each weather sample object contains data from charlton on a particular day
