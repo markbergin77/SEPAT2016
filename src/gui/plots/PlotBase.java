@@ -73,8 +73,10 @@ public abstract class PlotBase extends GridPane
 	/* So that we can overlay the same things 
 	 * on each plot child class */
 	static String refreshButtonLabel = "Refresh";
-	Button refreshButton = new Button(refreshButtonLabel);;
+	Button refreshButton = new Button(refreshButtonLabel);
 	ToolBar toolBar = new ToolBar(refreshButton);
+	static String showOptionsButtonLabel = "Show";
+	Button showOptionsButton;
 	
 	private final ObservableList<String> checkComboBoxItems = FXCollections.observableArrayList();
 	private final CheckComboBox<String> checkComboBox = new CheckComboBox<String>(checkComboBoxItems);
@@ -100,8 +102,9 @@ public abstract class PlotBase extends GridPane
 	{
 
 		eventHandler = voidHandler;
-		refreshButton = new Button(refreshButtonLabel);;
-		toolBar = new ToolBar(refreshButton);
+		refreshButton = new Button(refreshButtonLabel);
+		showOptionsButton = new Button(showOptionsButtonLabel);
+		toolBar = new ToolBar(refreshButton,checkComboBox, showOptionsButton);
 		name = "";
 		refreshButton.setOnMouseEntered(e -> refreshButton.getStyleClass().add("button-hover"));
 		refreshButton.setOnMouseExited(e -> refreshButton.getStyleClass().remove("button-hover"));
