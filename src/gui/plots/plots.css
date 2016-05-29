@@ -39,6 +39,12 @@
 .chart-legend-item-symbol {
     -fx-fill: #000000;
 }
+.axis-label {
+    -fx-text-fill: silver;
+}
+.chart-legend-item{
+    -fx-text-fill: silver;
+}
 
 .chart-vertical-grid-lines {
     fx-stroke-width: 0;
@@ -50,4 +56,7 @@
 }
 .chart-alternative-row-fill {
     -fx-stroke-width: 0;
+}
+.axis {
+    -fx-tick-label-fill: silver;
 }

@@ -49,6 +49,9 @@
 .tool-bar{
     -fx-background-color: #515151
 }
+.axis {
+    -fx-tick-label-fill: silver;
+}
 .text-field {
 
     -fx-border-color: rgba(70, 70, 70,0.7);
