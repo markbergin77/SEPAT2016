@@ -24,6 +24,9 @@
 .label{
     -fx-text-fill: silver;
 }
+.tool-bar{
+    -fx-background-color: #515151
+}
 
 .chart-series-line {
     -fx-opacity: 0.8;

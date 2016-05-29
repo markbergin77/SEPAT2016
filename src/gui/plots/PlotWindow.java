@@ -37,7 +37,8 @@ public class PlotWindow extends Stage
 		getCss(scene);
 		setScene(scene);
 		setTitle(plot.getName());
- 		
+ 		setMaxHeight(550);
+		setMaxWidth(1000);
 	}
 	public PlotBase getPlot() 
 	{
