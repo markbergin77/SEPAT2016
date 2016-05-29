@@ -49,7 +49,10 @@ import javafx.scene.control.Alert.AlertType;
 public class Bom
 {
 	private static Logger logger = Logger.getLogger(Bom.class);
-
+	
+	private String pathToConfig;
+	private String baseUrl;
+	
 	enum State
 	{
 		vic, nsw, tas, wa, sa, nt, qld, ant
@@ -61,19 +64,28 @@ public class Bom
 		{ "vic", "nsw", "tas", "wa", "sa", "nt", "qld", "ant" };
 		return states;
 	}
+	
+	Bom(String pathToConfig) {
+		this.pathToConfig = pathToConfig;
+		this.baseUrl = getBaseUrl(pathToConfig);
+	}
+	
+	private String getBaseUrl(String pathToConfig) {
+		return baseUrl;
+	}
 
 	/*
 	 * The URL of a shtml page that contains a table of all of the state's
 	 * stations.
 	 */
-	static String stateAllUrl(State state)
+	String stateAllUrl(State state)
 	{
 		String stateStr = stateName(state);
-		return "http://www.bom.gov.au/" + stateStr + "/observations/" + stateStr + "all.shtml";
+		return baseUrl + stateStr + "/observations/" + stateStr + "all.shtml";
 	}
 
 	// TO DO - ARCHIVE MARK JOB ONLY
-	public static StationList getAllStations() throws UnknownHostException, IOException
+	public StationList getAllStations() throws UnknownHostException, IOException
 	{
 
 		StationList stations = new StationList();
@@ -101,7 +113,7 @@ public class Bom
 	 * @return StationList containing Station objects of all stations
 	 * @throws IOException
 	 */
-	public static StationList getAllStations(LoadingUpdater progressNotifier) throws IOException
+	public StationList getAllStations(LoadingUpdater progressNotifier) throws IOException
 	{
 		logger.debug("Starting Bom::getAllStations()");
 		StationList stations = new StationList();
@@ -124,7 +136,7 @@ public class Bom
 	 * @return StationList containing Station objects of specified station
 	 * @throws IOException
 	 */
-	public static StationList getStations(State state) throws IOException, UnknownHostException
+	public StationList getStations(State state) throws IOException, UnknownHostException
 	{
 		logger.debug("Starting Bom::getStations()");
 		// Use of Jsoup Framework
@@ -158,8 +170,9 @@ public class Bom
 				String url = link.attr("href");
 				if (url.contains("products") && !url.contains("#"))
 				{
-					String htmlUrl = "http://www.bom.gov.au" + url;
-					String jsonUrl = "http://www.bom.gov.au" + url.replace("products", "fwo").replace("shtml", "json");
+					// Remove the '/' from baseUrl
+					String htmlUrl = baseUrl.substring(0, baseUrl.length()-1) + url;
+					String jsonUrl = baseUrl.substring(0, baseUrl.length()-1) + url.replace("products", "fwo").replace("shtml", "json");
 					String name = link.text();
 					// Some names have an asterisk on the page
 					if (name.endsWith("*"))
@@ -228,7 +241,7 @@ public class Bom
 	 * @throws JsonSyntaxException
 	 * @throws JsonIOException
 	 */
-	public static WthrSamplesFine getWthrLast72hr(Station station)
+	public WthrSamplesFine getWthrLast72hr(Station station)
 			throws JsonIOException, JsonSyntaxException, MalformedURLException, IOException
 	{
         logger.debug("Starting Bom::getWthrLast72hr()");
@@ -365,7 +378,7 @@ public class Bom
 	 * @return adds data to Station object supplied to method
 	 * @throws IOException
 	 */
-	public static WthrSamplesDaily getWthrLastMonth(Station station, YearMonth date) throws IOException
+	public WthrSamplesDaily getWthrLastMonth(Station station, YearMonth date) throws IOException
 	{
         logger.debug("Starting Bom::getWthrLastMonth()");
         String dateString = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
@@ -425,7 +438,7 @@ public class Bom
 					if (link.text().contains("Recent months"))
 					{
 						url = link.attr("href");
-						csvUrl = "http://www.bom.gov.au" + url.replace("dwo/", "dwo/" + dateString + "/text/")
+						csvUrl = baseUrl.substring(0, baseUrl.length()-1) + url.replace("dwo/", "dwo/" + dateString + "/text/")
 								.replace("latest.shtml", dateString + ".csv");
 
 						try (BufferedReader csvStream = new BufferedReader(
@@ -472,7 +485,7 @@ public class Bom
 	 * @return
 	 * @throws IOException
 	 */
-	public static WthrSamplesDaily getWthrRange(Station station, YearMonth start, YearMonth end) throws IOException
+	public WthrSamplesDaily getWthrRange(Station station, YearMonth start, YearMonth end) throws IOException
 	{
         logger.debug("Starting Bom::getWthrRange()");
 		WthrSamplesDaily samples = new WthrSamplesDaily();
@@ -500,7 +513,7 @@ public class Bom
 	 * @return
 	 * @throws IOException
 	 */
-	private static WthrSamplesDaily processCsv(CSVReader csvReader) throws IOException
+	private WthrSamplesDaily processCsv(CSVReader csvReader) throws IOException
 	{
         logger.debug("Starting Bom::processCsv()");
         String[] nextLine = null;
@@ -544,14 +557,14 @@ public class Bom
 		return samples;
 	}
 	
-	static public float[] findAverageTemps(Station station)
+	public float[] findAverageTemps(Station station)
 	{
 
         logger.debug("Starting Bom::findAverageTemps()");
 		WthrSamplesFine location = new WthrSamplesFine();
 		try
 		{
-			location = Bom.getWthrLast72hr(station);
+			location = this.getWthrLast72hr(station);
 		} catch (IOException e)
 		{
 			Alert alert = new Alert(AlertType.ERROR);
@@ -646,7 +659,7 @@ public class Bom
 		return sortedList;
 	}
 
-	static float averageTemp(WthrSamplesFine samples)
+	float averageTemp(WthrSamplesFine samples)
 	{
         logger.debug("Starting Bom::averageTemp()");
 		float average = 0;
