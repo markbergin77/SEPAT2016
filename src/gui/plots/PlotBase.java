@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import utilities.CssLoader;
 
 public abstract class PlotBase extends GridPane
 {	
@@ -24,7 +25,7 @@ public abstract class PlotBase extends GridPane
 		defaultInit();
 	}
 	
-	public void addCheckComboBoxOption(String option) 
+	protected void addCheckComboBoxOption(String option) 
 	{
 		checkComboBoxItems.add(option);
 	}
@@ -79,15 +80,11 @@ public abstract class PlotBase extends GridPane
 	private final CheckComboBox<String> checkComboBox = new CheckComboBox<String>(checkComboBoxItems);
 	
 	String name = "";
+	static String cssPath = "plots.css";
 	
 	protected void setName(String name)
 	{
 		this.name = name;
-	}
-	
-	public String getCssPath()
-	{
-		return null;
 	}
 	
 	public Station getStation()
@@ -107,6 +104,13 @@ public abstract class PlotBase extends GridPane
 		refreshButton.setOnMouseExited(e -> refreshButton.getStyleClass().remove("button-hover"));
         showOptionsButton.setOnMouseEntered(e -> showOptionsButton.getStyleClass().add("button-hover"));
         showOptionsButton.setOnMouseExited(e -> showOptionsButton.getStyleClass().remove("button-hover"));
+        try
+		{
+			this.getStylesheets().add(CssLoader.FromRelative(this, cssPath));
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	protected void assembleFrom(Node node)
@@ -134,10 +138,7 @@ public abstract class PlotBase extends GridPane
 		return name;
 	}
 
-	public void fetchData(Bom bom, Fio fio)
-	{
-		
-	}
+	public abstract void fetchData(Bom bom, Fio fio);
 	
 	private static class VoidEventHandler implements EventInterface
 	{

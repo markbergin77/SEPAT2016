@@ -102,12 +102,6 @@ public class Last72hrTemp extends PlotBase
 		
 	}
 	
-	@Override 
-	public String getCssPath()
-	{
-		return cssPath;
-	}
-	
 	private void addToSeries(WthrSamplesFine samples, XYChart.Series<String, Number> series)
 	{
 		int samplesSize = samples.size();

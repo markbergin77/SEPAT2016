@@ -193,10 +193,4 @@ public class TableHistorical extends PlotBase
     {
     	dataTable.setItems(data);
 	}
-    
-    @Override
-    public String getCssPath()
-    {
-		return cssPath;
-    }
 }

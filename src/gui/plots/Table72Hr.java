@@ -114,14 +114,7 @@ public class Table72Hr extends PlotBase
 	{
 		
 	}
-    
-    @Override
-    public String getCssPath()
-    {
-		return cssPath;
-    }
-
-    
+      
     @Override 
 	public void fetchData(Bom bom, Fio fio)
 	{

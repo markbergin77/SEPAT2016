@@ -276,10 +276,4 @@ public class ExperimentalPlot extends PlotBase
 		clearAllSeries();
         addToAllSeries(wthrSamplesDaily, fioSamplesDaily, options);
 	}
-	
-	@Override
-	public String getCssPath()
-	{
-		return cssPath;
-	}
 }
