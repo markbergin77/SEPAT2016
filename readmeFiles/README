@@ -12,39 +12,56 @@ Tutor's name & Lab Time:
 
 Contribution of Each Team Member:
 	Lawrence:
-	- General maintnance of design and architecture,
-	- Final GUI Layout and backend structure,
-	- Skeleton designs for rest of the group, 
 	- Implementation of Station list onto GUI,
 	- Implementation of Station searching, in console stage,
 	- Final implementation of Station searching, in GUI stage,
 	- Final class diagram designs,
 	- Final implementation of favourites, in GUI stage,
-	
-	26%
+	- Expansion on plotting
+	- Refractoring of architecture
+	- Unit Testing
+	- Further GUI functionality (Home buttons, clearing/organizing Panel)
+	- Expansion of Diagrams
+
+	25%
 
 	Radmilo:
 	- Bom data connection and data collection,
 	- Final implementation of data Plotting onto GUI,
 	- Original implementation of Station searching, in GUI stage,
+	- Forecast data connection and implementation
+	- Expansion on Plotting
+	- User Stories
 
 	25%
 	
 	Pavel:
 	- Original GUI design and GUI framework,
 	- All animations and graphics to be used in Part 2 of the assignment,
-	- Final table design and implementation in GUI stage.
+	- Final table design and implementation in GUI stage,
+	- Css Styling/Designer,
+	- Further plotting expansion,
+	- Logging,
+	- Tools Documentation,
+	- Jenkins Server implementation,
 
-	24.5%
+	25%
 
 	Mark:
 	- Expansion on Station searching, in console stage,
 	- Original favourites design and implementation, in console stage,
 	- Original plot design and implementation, in GUI stage,
 	- Average temperature design and implementation in GUI stage,
+	- Unit Testing,
 	- User documenation,
+	- Expansion on User Documentation,
+	- Tools Documentation,
+	- User Stories,
+	- Expansion of Diagrams,
+	- Build Files,
+	- Jenkins Server implementation,
 
-	24.5%
+	25%
 
 	All:
 	Refactoring, renaming and modulisation of each-others code.
@@ -52,4 +69,5 @@ Contribution of Each Team Member:
 	Total Contribution = 100%
 
 Bonus Mark Potential:
-	- Intention to maintain a Singleton design for solution
+	- Jenkins Server Attempted implementation,
+	- Animations and css Styling,
