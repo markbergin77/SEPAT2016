@@ -1,6 +1,7 @@
 package gui.home.options;
 
 import data.Station;
+import gui.plots.PlotBase;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.SingleSelectionModel;
@@ -18,7 +19,8 @@ import user.Favourite;
  * multiple stations open at once.
  * */
 public class OptionsArea extends GridPane
-	implements PaneFav.EventInterface, PaneNotFav.EventInterface
+	implements PaneFav.EventInterface, PaneNotFav.EventInterface,
+	PaneBase.EventInterface
 {	
 	public OptionsArea(EventInterface callbackObj)
 	{
@@ -177,6 +179,7 @@ public class OptionsArea extends GridPane
 		abstract void onOpen72HrTable (Station station);
 		abstract void onCloseAllPlots(Station station);
 		abstract void onExperimentalPlot(Station station);
+		abstract void onRefreshInlinePlot(PlotBase plot);
 	}
 
 	@Override
@@ -255,5 +258,11 @@ public class OptionsArea extends GridPane
 	public void onExperimentalPlot(Station station)
 	{
 		callbackObj.onExperimentalPlot(station);
+	}
+
+	@Override
+	public void onRefreshInlinePlot(PlotBase plot)
+	{
+		callbackObj.onRefreshInlinePlot(plot);
 	}
 }

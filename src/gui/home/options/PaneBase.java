@@ -1,6 +1,8 @@
 package gui.home.options;
 
 import data.Station;
+import gui.home.options.InlinePlot.EventInterface;
+import gui.plots.PlotBase;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.scene.text.TextAlignment;
  * Goes in the OptionsArea which is/has
  * a TapPane. */
 public class PaneBase extends GridPane
+	implements InlinePlot.EventInterface
 {
 	Station station;
     String addToFavsMsg = "Add To Favourites";
@@ -28,7 +31,7 @@ public class PaneBase extends GridPane
 	Button tableHisButton = new Button(buttonTableYearlyTxt);
 	String buttonExperimental = "Open Experimental Plot";
 	Button plotExperimental = new Button("Open Experimental Plot");
-	public static PopUpWindow exp;
+	public static InlinePlot inlinePlot;
 	
 	String closePlotsText = "Close Charts";
 	Button closePlotsButton = new Button(closePlotsText);
@@ -38,8 +41,8 @@ public class PaneBase extends GridPane
 		super();
 		setPrefWidth(OptionsArea.defaultWidth);
 		this.station = station;
-        exp = new PopUpWindow(station);
-
+        inlinePlot = new InlinePlot(station);
+        inlinePlot.setEventHandler(this);
         add(addToFavsButton,0,0);
 		add(plot72hrButton,0,1);
         add(plotHisButton,0,2);
@@ -70,12 +73,11 @@ public class PaneBase extends GridPane
             ((Button) child).setMinWidth(500);
             ((Button) child).setPrefWidth(500);
         }
-
-
-		add(exp,0,7);
-        exp.setMaxSize(1300,900);
-		setHgrow(exp,Priority.ALWAYS);
-		setVgrow(exp, Priority.ALWAYS);
+       
+		add(inlinePlot,0,7);
+        inlinePlot.setMaxSize(1300,900);
+		setHgrow(inlinePlot,Priority.ALWAYS);
+		setVgrow(inlinePlot, Priority.ALWAYS);
 
 		ColumnConstraints c1 = new ColumnConstraints();
         c1.setPercentWidth(100);
@@ -86,6 +88,11 @@ public class PaneBase extends GridPane
 
 	}
 	
+	public void setEventHandler(EventInterface handler)
+	{
+		this.eventHandler = handler;
+	} 
+	
 	void removeOption(Parent node)
 	{
 		node.setVisible(false);
@@ -95,7 +102,7 @@ public class PaneBase extends GridPane
 	}
 
     public void setPopUpVisible(Boolean visible){
-        exp.setVisible(visible);
+        inlinePlot.setVisible(visible);
     }
 	
 	void removeOptionTop()
@@ -125,4 +132,27 @@ public class PaneBase extends GridPane
 	{
 		return station;
 	}
+
+	@Override
+	public void onRefresh(PlotBase plot)
+	{
+		eventHandler.onRefreshInlinePlot(plot);
+	}
+	
+	public interface EventInterface
+	{
+		public void onRefreshInlinePlot(PlotBase plot);
+	}
+	EventInterface eventHandler = voidHandler;
+	
+	private static class VoidEventHandler implements EventInterface
+	{
+		@Override
+		public void onRefreshInlinePlot(PlotBase plot)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	private static VoidEventHandler voidHandler = new VoidEventHandler();
 }

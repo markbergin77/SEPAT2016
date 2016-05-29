@@ -6,7 +6,7 @@ import data.Station;
  * not a favourite */
 public class PaneNotFav extends PaneBase
 {
-	public interface EventInterface
+	public interface EventInterface extends PaneBase.EventInterface
 	{
 		abstract void onOpen72TempPlot(Station station);
 		abstract void onOpenHisTempPlot(Station station);
@@ -22,6 +22,7 @@ public class PaneNotFav extends PaneBase
 	public PaneNotFav(Station station, EventInterface eventHandler) 
 	{
 		super(station);
+		super.setEventHandler(eventHandler);
 		this.eventHandler = eventHandler;
 		addToFavsButton.setOnMouseClicked(e -> onAddFav());
 		plot72hrButton.setOnMouseClicked(e -> eventHandler.onOpen72TempPlot(station));

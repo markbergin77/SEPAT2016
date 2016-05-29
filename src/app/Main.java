@@ -461,4 +461,10 @@ public class Main extends Application
         }
         return css;
     }
+
+	@Override
+	public void onRefreshInlinePlot(PlotBase plot)
+	{
+		fillPlot(plot);
+	}
 }

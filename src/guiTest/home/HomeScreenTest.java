@@ -4,6 +4,7 @@ import data.Station;
 import data.StationList;
 import gui.home.HomeScreen;
 import gui.home.HomeScreenInit;
+import gui.plots.PlotBase;
 import guiTest.GuiTestBase;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -107,6 +108,13 @@ public class HomeScreenTest extends GuiTestBase
 
 	@Override
 	public void onExperimentalPlot(Station station)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRefreshInlinePlot(PlotBase plot)
 	{
 		// TODO Auto-generated method stub
 		

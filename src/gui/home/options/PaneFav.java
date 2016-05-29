@@ -6,7 +6,7 @@ import user.FavouriteData;
 /* Adds buttons/controls specific to Favourites stations */
 public class PaneFav extends PaneBase
 {
-	public interface EventInterface
+	public interface EventInterface extends PaneBase.EventInterface
 	{
 		abstract void onOpen72TempPlot(Favourite station);
 		abstract void onOpenHisTempPlot(Favourite station);

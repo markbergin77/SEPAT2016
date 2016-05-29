@@ -5,6 +5,7 @@ import gui.home.explorer.Explorer;
 import gui.home.globalOptions.GlobalOptionsArea;
 import gui.home.options.OptionsArea;
 import gui.home.options.PaneBase;
+import gui.plots.PlotBase;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
@@ -69,6 +70,7 @@ public class HomeScreen extends GridPane
 		abstract void onClearFavs();
 		abstract void onFavRemove(Favourite fav);
 		abstract void onExperimentalPlot(Station station);
+		abstract void onRefreshInlinePlot(PlotBase plot);
 	}
     
     @Override
@@ -176,10 +178,10 @@ public class HomeScreen extends GridPane
 	public void widthChanged(double newWidth){
 
 		if (newWidth < 1150){
-			PaneBase.exp.setVisible(false);
+			PaneBase.inlinePlot.setVisible(false);
 		}
 		else{
-			PaneBase.exp.setVisible(true);
+			PaneBase.inlinePlot.setVisible(true);
 		}
 	}
 
@@ -187,10 +189,16 @@ public class HomeScreen extends GridPane
     public void heightChanged( double newHeight){
 
 		if(newHeight < 650){
-			PaneBase.exp.setVisible(false);
+			PaneBase.inlinePlot.setVisible(false);
 		}
 		else{
-			PaneBase.exp.setVisible(true);
+			PaneBase.inlinePlot.setVisible(true);
 		}
     }
+
+	@Override
+	public void onRefreshInlinePlot(PlotBase plot)
+	{
+		eventHandler.onRefreshInlinePlot(plot);
+	}
 }
