@@ -33,9 +33,13 @@
 }
 .scroll-bar{
     -fx-background-color: #515151;
+    -fx-background:#515151;
 }
 .scroll-pane{
     -fx-background-color: #515151;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
 }
 .scroll-bar .decrement-button {
     -fx-background-color: transparent;
