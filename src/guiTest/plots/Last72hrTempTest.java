@@ -39,7 +39,8 @@ public class Last72hrTempTest extends Application
 		}
 				
 		Last72hrTemp plot = new Last72hrTemp(station);
-		plot.fetchNewData(bom);
+		plot.fetchData(bom);
+		plot.plotData();
 		
 		Scene scene  = new Scene(plot);
 		primaryStage.setScene(scene);

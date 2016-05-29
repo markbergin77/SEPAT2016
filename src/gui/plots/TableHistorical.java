@@ -140,7 +140,7 @@ public class TableHistorical extends PlotBase
     }
     
     @Override 
-	public void fetchData()
+	public void fetchData(Bom bom)
 	{
     	// here we create a list of weather sample objects
         // each weather sample object contains data from charlton on a particular day
@@ -154,7 +154,7 @@ public class TableHistorical extends PlotBase
 
     	        WthrSamplesDaily stationData = new WthrSamplesDaily();
 
-    	        stationData = Bom.getWthrRange(station, start, end);
+    	        stationData = bom.getWthrRange(station, start, end);
     	        for (WthrSampleDaily sample : stationData) {
     	            list.add(sample);
     	        }
@@ -179,11 +179,5 @@ public class TableHistorical extends PlotBase
     {
 		return cssPath;
     }
-    
-    @Override
-    public void onRefresh()
-    {
-    	fetchData();
-    	plotData();
-    }
+
 }

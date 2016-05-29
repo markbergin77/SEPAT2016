@@ -100,37 +100,28 @@ public class Table72Hr extends PlotBase
     {
 		return cssPath;
     }
-    
-    public ObservableList getData(Station station) throws Exception 
-    {
 
-        // here we create a list of weather sample objects
-        // each weather sample object contains data from charlton on a particular day
-        // the values of each sample objects variables is automatically detected by the tableView
-
-        List list = new ArrayList();
-
-        WthrSamplesFine stationData;
-
-        stationData = Bom.getWthrLast72hr(station);
-        for (WthrSampleFine sample : stationData) {
-            list.add(sample);
-        }
-
-        ObservableList data = FXCollections.observableList(list);
-
-        return data;
-    }
     
     @Override 
-	public void fetchData()
+	public void fetchData(Bom bom)
 	{
-    	try {
-            content = getData(station);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+		try
+		{
+			List list = new ArrayList();
+
+			WthrSamplesFine stationData;
+
+			stationData = bom.getWthrLast72hr(station);
+			for (WthrSampleFine sample : stationData)
+			{
+				list.add(sample);
+			}
+
+			content = FXCollections.observableList(list);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
     
     @Override
@@ -138,11 +129,4 @@ public class Table72Hr extends PlotBase
     {
     	dataTable.setItems(content);
 	}
-    
-    @Override
-    public void onRefresh()
-    {
-    	fetchData();
-    	plotData();
-    }
 }

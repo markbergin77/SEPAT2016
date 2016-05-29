@@ -52,6 +52,7 @@ public class PlotWindow extends Stage
 		{
 			eventHandler.onGoHome();
 		});
+		plot.addToolbarButton(homeButton);
 		//homeButton.setOnMouseEntered(e -> homeButton.getStyleClass().add("button-hover"));
         //homeButton.setOnMouseExited(e -> homeButton.getStyleClass().remove("button-hover"));
 		getCss(scene);
@@ -117,5 +118,9 @@ public class PlotWindow extends Stage
 	public void onGoHome()
 	{
 		eventHandler.onGoHome();
+	}
+	public void setEventHandler(EventInterface eventHandler)
+	{
+		this.eventHandler = eventHandler;
 	}
 }

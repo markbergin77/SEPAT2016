@@ -28,7 +28,10 @@ public class HistoricalTemp extends PlotBase
 	private String cssPath;
 	static String cssFileName = "HisTempPlot.css";
 	WthrSamplesDaily wthrSamplesDaily;
-        
+	final CategoryAxis xAxis = new CategoryAxis();
+    final NumberAxis yAxis = new NumberAxis();
+    LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
+    
     XYChart.Series<String, Number> seriesTempMin = new XYChart.Series<String, Number>();
     XYChart.Series<String, Number> seriesTempMax = new XYChart.Series<String, Number>();
     XYChart.Series<String, Number> seriesTemp9am = new XYChart.Series<String, Number>();
@@ -44,15 +47,16 @@ public class HistoricalTemp extends PlotBase
 		URL url = this.getClass().getResource(cssFileName);
         cssPath = url.toExternalForm();
 		
-		setXLabel("Date");
-        setYLabel("Temperature in Degrees");
-        setChartTitle(station.getName());
+		xAxis.setLabel("Date");
+        yAxis.setLabel("Temperature in Degrees");
+        lineChart.setTitle(station.getName());
         seriesTempMin.setName("Minimum Temperature");
         seriesTempMax.setName("Maximum Temperature");
         seriesTemp9am.setName("9am Temperature");
         seriesTemp3pm.setName("3pm Temperature");
         
         // Remove markers from line
+        lineChart.setCreateSymbols(false);
         lineChart.horizontalGridLinesVisibleProperty().set(false);
         lineChart.verticalGridLinesVisibleProperty().set(false);
 
@@ -86,6 +90,9 @@ public class HistoricalTemp extends PlotBase
                 }
             });
         }
+        
+        // add the lineChart to the gridPane
+        assembleFrom(lineChart);
 	}
 	
 	private void addToAllSeries(WthrSamplesDaily wthrSamplesDaily) {
@@ -121,11 +128,10 @@ public class HistoricalTemp extends PlotBase
 	}
 	
 	@Override 
-	public void fetchNewData(Bom bom)
+	public void fetchData(Bom bom)
 	{
-		wthrSamplesDaily = new WthrSamplesDaily();
-        try {
-			wthrSamplesDaily = bom.getWthrRange(getStation(), start, end);
+		try {
+			wthrSamplesDaily = bom.getWthrRange(station, start, end);
 		} catch (IOException e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
@@ -138,8 +144,14 @@ public class HistoricalTemp extends PlotBase
 	}
 	
 	@Override
-	public void plotLatestData() 
+	public void plotData() 
 	{
         addToAllSeries(wthrSamplesDaily);
+	}
+	
+	@Override
+	public String getCssPath()
+	{
+		return cssPath;
 	}
 }

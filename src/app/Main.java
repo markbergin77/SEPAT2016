@@ -232,6 +232,7 @@ public class Main extends Application
 		newWindow.setOnCloseRequest(e -> {
             plotWindows.remove(newWindow);
 		});
+		newWindow.setEventHandler(this);
 		plotWindows.add(newWindow);
 		plot.setEventHandler(this);
 		fillPlot(plot);
@@ -242,11 +243,11 @@ public class Main extends Application
         logger.debug("Starting Main::fillPlot()");
 		EasyTask fetchDataTask = new EasyTask(() ->
 		{
-			plot.fetchNewData(bom);
+			plot.fetchData(bom);
 		});
 		JavaFXSafeTask plotDataTask = new JavaFXSafeTask(() ->
 		{
-			plot.plotLatestData();
+			plot.plotData();
 		});
 		queueTask(fetchDataTask);
 		queueTask(plotDataTask);
