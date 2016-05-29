@@ -8,6 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.HashMap;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -18,7 +19,6 @@ import com.google.gson.JsonSyntaxException;
 
 import data.samples.FioSampleDaily;
 import data.samples.FioSamplesDaily;
-import data.samples.WthrSamplesFine;
 import utilities.FolderPathHome;
 
 import org.apache.log4j.Logger;
@@ -31,8 +31,6 @@ public class Fio
 	static String defaultConfigPath = FolderPathHome.get() + "data/BomConfig.cfg";
 	private String pathToConfig;
 	private String baseUrl;
-	
-	private WthrSamplesFine wthrSamplesFine;
 	
 	public Fio() 
 	{
@@ -50,38 +48,53 @@ public class Fio
 	{
 		return "https://api.forecast.io/forecast/";
 	}
-	
-	public void fetchData(Bom bom, Station station) {
-		try {
-			wthrSamplesFine = bom.getWthrLast72hr(station);
-		} catch (JsonIOException | JsonSyntaxException | IOException e) {
-			gui.Alert alert = new gui.Alert("Error","Cannot access BoM server, check your connection",
-					event -> System.exit(0));
-		}
-	}
 
-	public FioSamplesDaily getFioDaily(Bom bom, Station station)
+	public FioSamplesDaily getFioDaily(Station station, String lat, String lon)
 			throws JsonIOException, JsonSyntaxException, MalformedURLException, IOException
 	{
-		String exclude = "[currently,minutely,hourly,alerts,flags]";
+		String exclude = "[currently,minutely,alerts,flags]";
 
 		logger.debug("Starting Fio::getFioDaily()");
-		// Need to get lat and lon from a wthrSample
-		fetchData(bom, station);
-		String lon = wthrSamplesFine.get(0).getLon();
-		String lat = wthrSamplesFine.get(0).getLat();
 		
 		// Need to specify units=si for standard measurements (celcius)
 		String requestString = baseUrl + apiKey + "/" + lat + "," + lon + "?" + "units=si&exclude=" + exclude;
+		System.out.println(requestString);
 
 		HttpURLConnection connection = (HttpURLConnection) new URL(requestString).openConnection();
 		connection.setRequestMethod("GET");
 		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		
 		FioSamplesDaily samples = new FioSamplesDaily();
-		JsonArray rootArray = new JsonParser().parse(reader).getAsJsonObject().getAsJsonObject("daily").getAsJsonArray("data");
-
-		for (JsonElement element : rootArray)
+		JsonObject rootArray = new JsonParser().parse(reader).getAsJsonObject();
+		JsonArray rootArrayDaily = rootArray.getAsJsonObject("daily").getAsJsonArray("data");
+		JsonArray rootArrayHourly = rootArray.getAsJsonObject("hourly").getAsJsonArray("data");
+		
+		HashMap<Integer, String> temp9amHolder = new HashMap<Integer, String>();
+		HashMap<Integer, String> temp3pmHolder = new HashMap<Integer, String>();
+		
+		for (JsonElement element: rootArrayHourly) {
+			JsonObject reading = element.getAsJsonObject();
+			String timeString;
+			LocalDateTime time = null;
+			JsonElement timeJson = reading.get("time");
+			if (timeJson.isJsonNull()) {
+				time = null;
+			}
+			else {
+				timeString = timeJson.getAsString();
+				time = LocalDateTime.ofEpochSecond(Long.parseLong(timeString), 0, ZoneOffset.UTC);
+			}
+			String temp = reading.get("temperature").getAsString();
+			
+			if (time.getHour() == 9) {
+				temp9amHolder.put(time.getDayOfYear(), temp);
+			}
+			if (time.getHour() == 15) {
+				temp3pmHolder.put(time.getDayOfYear(), temp);
+			}
+		}
+		
+		for (JsonElement element : rootArrayDaily)
 		{
 			JsonObject reading = element.getAsJsonObject();
 			

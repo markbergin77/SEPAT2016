@@ -14,11 +14,16 @@ public class FioTest
 {
 	public static void main(String[] args) throws IOException 
 	{
-		StationList stations = Bom.getAllStations();
+		Bom bom = new Bom();
+		Fio fio = new Fio();
+		StationList stations = bom.getAllStations();
 		Station testStation = stations.get(0);
 		// Need to fetch data to access lat and lon
 		
-		FioSamplesDaily testSamples = Fio.getFioDaily(testStation);
+		WthrSamplesFine wthrSamplesFine = bom.getWthrLast72hr(testStation);
+		String lat = wthrSamplesFine.get(0).getLat();
+		String lon = wthrSamplesFine.get(0).getLon();
+		FioSamplesDaily testSamples = fio.getFioDaily(testStation, lat, lon);
 		
 		System.out.println("Readings for: " + testStation.getName());
 		for (FioSampleDaily sample: testSamples) {
