@@ -51,6 +51,11 @@ public class Fio
 		return "https://api.forecast.io/forecast/";
 	}
 	
+	// Expose for unit testing connection exceptions
+	public void setBaseUrl(String baseUrl) {
+		this.baseUrl = baseUrl;
+	}
+	
 	public FioSamplesFine getFioFine(String lat, String lon)
 			throws JsonIOException, JsonSyntaxException, MalformedURLException, IOException
 	{
