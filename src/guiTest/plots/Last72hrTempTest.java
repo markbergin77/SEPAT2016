@@ -3,13 +3,18 @@ package guiTest.plots;
 import data.Bom;
 import data.Station;
 import data.StationList;
+import data.samples.WthrSamplesFine;
 import gui.plots.Last72hrTemp;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Last72hrTempTest extends Application{
+public class Last72hrTempTest extends Application
+{
 	StationList allStations;
+	
+	Bom bom = new Bom();
+	
 	public static void main(String args[])
     {
         launch(args);
@@ -19,7 +24,7 @@ public class Last72hrTempTest extends Application{
 	{
 		//Grabbing stations
 		try {
-			allStations = Bom.getAllStations();
+			allStations = bom.getAllStations();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -32,12 +37,13 @@ public class Last72hrTempTest extends Application{
 		else {
 			return;
 		}
+				
+		Last72hrTemp plot = new Last72hrTemp(station);
+		plot.refresh(bom);
 		
-		Last72hrTemp lineChart = new Last72hrTemp(station);
-		
-		Scene scene  = new Scene(lineChart);
+		Scene scene  = new Scene(plot);
 		primaryStage.setScene(scene);
-        scene.getStylesheets().add(lineChart.getCssPath());
+        scene.getStylesheets().add(plot.getCssPath());
         primaryStage.show();
 		
 	}

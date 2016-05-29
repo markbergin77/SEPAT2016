@@ -14,4 +14,7 @@
 	<lib name="commons-lang3-3.0.jar" scope="COMPILE">
 		<relative-module-cls project-related="jar://$PROJECT_DIR$/../ext/commons-lang3-3.0/commons-lang3-3.0.jar!/"/>
 	</lib>
+	<lib name="log4j-1.2.17.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/../ext/log4j-1.2.17/log4j-1.2.17.jar!/"/>
+	</lib>
 </component>

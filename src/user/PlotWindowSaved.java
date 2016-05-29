@@ -21,7 +21,6 @@ public class PlotWindowSaved implements Serializable
 		PlotBase plot = window.getPlot();
 		this.props = new WindowProps(window.getX(), window.getY(),
 				window.getWidth(), window.getHeight());
-		this.station = plot.getStation();
 		if(plot instanceof Last72hrTemp)
 		{
 			type = PlotType.Last72Hr;

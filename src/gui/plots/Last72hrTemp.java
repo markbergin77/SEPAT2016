@@ -28,32 +28,31 @@ public class Last72hrTemp extends PlotBase
 	private String cssPath;
 	static String cssFileName = "CurrTempPlot.css";
 	WthrSamplesFine wthrSamplesFine;
-	final CategoryAxis xAxis = new CategoryAxis();
-    final NumberAxis yAxis = new NumberAxis();
-    LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
-    
-    XYChart.Series<String, Number> seriesAirTemp = new XYChart.Series<String, Number>();
-    
+	XYChart.Series<String, Number> seriesAirTemp;
+	Station station;
+        
 	public Last72hrTemp(Station station) 
 	{
-		super(station);
+		super();
+		this.station = station;
 		setName(station.getName() + " 72 Hours Temperatures");
-		URL url = this.getClass().getResource(cssFileName);
-        cssPath = url.toExternalForm();
-		
-		xAxis.setLabel("Date/Time");
-        yAxis.setLabel("Temperature in Degrees");
-        lineChart.setTitle(station.getName());
+        seriesAirTemp = new XYChart.Series<String, Number>();
+		setXLabel("Date/Time");
+        setYLabel("Temperature in Degrees");
+        setChartTitle(station.getName());
         seriesAirTemp.setName("Air Temperature");
+        addSeries(seriesAirTemp);
+        
+        URL url = this.getClass().getResource(cssFileName);
+        cssPath = url.toExternalForm();
         
         // Remove markers from line
-        lineChart.setCreateSymbols(false);
-        lineChart.getData().add(seriesAirTemp);
+        
 
 		StackPane plotContainer = new StackPane();
 		Rectangle clipRect = new Rectangle(500,300);
 		plotContainer.setClip(clipRect);
-		plotContainer.getChildren().add(lineChart);
+		//plotContainer.getChildren().add(lineChart);
 
 		plotContainer.setMaxSize(1200,750);
 		plotContainer.setMinSize(400, 250);
@@ -61,27 +60,31 @@ public class Last72hrTemp extends PlotBase
         //plot(station, seriesAirTemp);
         
         // add the lineChart to the gridPane
-
-		assembleFrom(plotContainer);
+	}
+	
+	@Override
+	public void refresh(Bom bom)
+	{
+		seriesAirTemp.getData().clear();
+        try {
+			wthrSamplesFine = bom.getWthrLast72hr(station);
+		} catch (JsonIOException | JsonSyntaxException | IOException e) {
+			gui.Alert alert = new gui.Alert(
+					"Error","Cannot access BoM server, check your connection",
+					event -> System.exit(0));
+		}
+        addToSeries(wthrSamplesFine, seriesAirTemp);
+	}
+	
+	public void setData(WthrSamplesFine data)
+	{
+		
 	}
 	
 	@Override 
 	public String getCssPath()
 	{
 		return cssPath;
-	}
-	
-	private WthrSamplesFine getData(Station station) {
-        WthrSamplesFine wthrSamplesFine = new WthrSamplesFine();
-        try {
-			wthrSamplesFine = Bom.getWthrLast72hr(station);
-			return wthrSamplesFine;
-		} catch (JsonIOException | JsonSyntaxException | IOException e) {
-			gui.Alert alert = new gui.Alert("Error","Cannot access BoM server, check your connection",
-					event -> System.exit(0));
-
-			return null;
-		}
 	}
 	
 	private void addToSeries(WthrSamplesFine samples, XYChart.Series<String, Number> series)
@@ -98,25 +101,5 @@ public class Last72hrTemp extends PlotBase
         	if (airTemp.length() > 0)
         		series.getData().add(new Data<String, Number>(date,Float.parseFloat(airTemp)));
         }
-	}
-	
-	@Override 
-	public void fetchData()
-	{
-		wthrSamplesFine = getData(station);
-	}
-	
-	@Override
-	public void plotData() 
-	{
-        addToSeries(wthrSamplesFine, seriesAirTemp);
-	}
-	
-	@Override
-	protected void onRefresh() 
-	{
-		seriesAirTemp.getData().clear();
-		fetchData();
-		plotData();
 	}
 }

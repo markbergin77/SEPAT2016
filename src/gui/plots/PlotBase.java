@@ -3,51 +3,31 @@ package gui.plots;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Vector;
 
+import data.Bom;
 import data.Station;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToolBar;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class PlotBase extends VBox
+public class PlotBase extends GridPane
 {
-	public interface EventInterface
-	{
-		public void onRefresh(PlotBase plot);
-		public void onGoHome();
-	}
-	EventInterface eventHandler = voidHandler;
-	
-	Station station; 
-	/* So that we can overlay the same things 
-	 * on each plot child class */
-	static String refreshButtonLabel = "Refresh";
-	Button refreshButton = new Button(refreshButtonLabel);;
-	static String homeButtonLabel = "Home";
-	Button homeButton = new Button(homeButtonLabel);
-	ToolBar toolBar = new ToolBar(refreshButton, homeButton);
-	
-	String name = "";
-	
-	public PlotBase(Station station)
+	public PlotBase()
 	{
 		super();
-		this.station = station;	
-		defInit();
-	}
-	
-	void defInit()
-	{
-
-		eventHandler = voidHandler;
-		refreshButton = new Button(refreshButtonLabel);;
-		homeButton = new Button(homeButtonLabel);
-		toolBar = new ToolBar(refreshButton, homeButton);
-		name = "";
+		construct();
 	}
 	
 	public void setEventHandler(EventInterface handler)
@@ -57,25 +37,34 @@ public class PlotBase extends VBox
 		{
 			eventHandler.onRefresh(this);
 		});
-		homeButton.setOnMouseClicked(e -> 
-		{
-			eventHandler.onGoHome();
-		});
 
         refreshButton.setOnMouseEntered(e -> refreshButton.getStyleClass().add("button-hover"));
         refreshButton.setOnMouseExited(e -> refreshButton.getStyleClass().remove("button-hover"));
-        homeButton.setOnMouseEntered(e -> homeButton.getStyleClass().add("button-hover"));
-        homeButton.setOnMouseExited(e -> homeButton.getStyleClass().remove("button-hover"));
 	}
 	
-	public void plotData()
+	public void refresh(Bom bom)
+	{
+		
+	}
+
+	protected void setName(String name)
+	{
+		this.name = name;
+	}
+	
+	protected void setChartTitle(String string)
 	{
 		
 	}
 	
-	protected void setName(String name)
+	protected void setXLabel(String label)
 	{
-		this.name = name;
+		xAxis.setLabel(label);
+	}
+	
+	protected void setYLabel(String label)
+	{
+		yAxis.setLabel(label);
 	}
 	
 	public String getCssPath()
@@ -83,64 +72,62 @@ public class PlotBase extends VBox
 		return null;
 	}
 	
-	public Station getStation()
+	public interface EventInterface
 	{
-		return station;
+		public void onRefresh(PlotBase plot);
+	}
+	EventInterface eventHandler = voidHandler;
+	
+	static String refreshButtonLabel = "Refresh";
+	Button refreshButton;
+	HBox toolBar;
+	
+	StackPane stackPane;
+	private CategoryAxis xAxis;
+    private NumberAxis yAxis;
+    private LineChart<String,Number> lineChart;
+	//private Vector<XYChart.Series<String, Number>> series;
+	
+	String name = "";
+	
+	void construct()
+	{
+		eventHandler = voidHandler;
+		refreshButton = new Button(refreshButtonLabel);;
+		toolBar = new HBox(refreshButton);
+		stackPane = new StackPane();
+		xAxis = new CategoryAxis();
+	    yAxis = new NumberAxis();
+	    lineChart = new LineChart<String,Number>(xAxis, yAxis);
+		//series = new Vector<XYChart.Series<String, Number>>();
+		lineChart.setCreateSymbols(false);
+		name = "";
+		
+		getChildren().add(stackPane);
+		stackPane.getChildren().add(lineChart);
+		stackPane.getChildren().add(toolBar);
+		StackPane.setAlignment(toolBar, Pos.TOP_LEFT);
 	}
 	
-	private void writeObject(ObjectOutputStream out) throws IOException
+	protected void addSeries(XYChart.Series<String, Number> series)
 	{
-		out.writeObject(station);
-		return;
+		lineChart.getData().add(series);
 	}
-	
-	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
-	{
-		station = (Station)in.readObject();
-		defInit();
-	}
-	
-	protected void assembleFrom(Node node)
-	{
-		getChildren().add(toolBar);
-		getChildren().add(node);
-		VBox.setVgrow(node, Priority.ALWAYS);
-	}
-	
-	protected void reassembleFrom(Node node)
-	{
-		getChildren().clear();
-		getChildren().add(toolBar);
-		getChildren().add(node);
-		VBox.setVgrow(node, Priority.ALWAYS);
-	}
-	
+
 	protected void onRefresh()
 	{
-		
+		eventHandler.onRefresh(this);
 	}
 
 	public String getName() 
 	{
 		return name;
 	}
-
-	public void fetchData()
-	{
-		
-	}
 	
 	private static class VoidEventHandler implements EventInterface
 	{
 		@Override
 		public void onRefresh(PlotBase plot)
-		{
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onGoHome()
 		{
 			// TODO Auto-generated method stub
 			

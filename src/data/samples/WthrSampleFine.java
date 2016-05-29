@@ -1,9 +1,11 @@
 package data.samples;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 //Data types/attributes provided by BOM data, used for Monthly Observations
 public class WthrSampleFine
+	implements Serializable
 {
 	private LocalDateTime localDateTime;
 	private String lat;

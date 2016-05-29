@@ -7,16 +7,27 @@ import java.net.UnknownHostException;
 
 import data.Bom;
 import data.StationList;
+import data.samples.WthrSamplesFine;
 
 public class SaveTestData 
 {
-	static String pathAllStations = FolderPathHome.get() + "TestObjects/StationList.to";
+	static String pathTestData = "TestObjects/";
+	
+	static String pathAllStations = 
+			FolderPathHome.get() + pathTestData + "StationList.to";
+	
+	static String pathWthrSamplesFine = 
+			FolderPathHome.get() + pathTestData + "WthrSamplesFine.to";
+	
 	public static void main(String args[])
     {
 		StationList stations;
+		WthrSamplesFine fineSamples;
 		try {
 			stations = Bom.getAllStations();
 			SaveObjectFile.save(stations, pathAllStations);
+			fineSamples = Bom.getWthrLast72hr(stations.get(0));
+			SaveObjectFile.save(fineSamples, pathWthrSamplesFine);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -24,7 +35,6 @@ public class SaveTestData
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
     }
 	
 	public static StationList loadAllStations()
@@ -46,4 +56,22 @@ public class SaveTestData
 		return stations;
 	}
 	
+	public static WthrSamplesFine loadFineSamples()
+	{
+		WthrSamplesFine samples = null;
+		try 
+		{
+			FileInputStream fis = new FileInputStream(pathWthrSamplesFine);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			samples = (WthrSamplesFine) ois.readObject();
+			ois.close();
+			fis.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.exit(0);
+		}
+		return samples;
+	}
 }

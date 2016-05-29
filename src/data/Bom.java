@@ -37,6 +37,7 @@ import data.samples.WthrSamplesDaily;
 import data.samples.WthrSamplesFine;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import utilities.FolderPathHome;
 
 /**
  * Static Class that accesses the BoM website to fetch weather data. Currently
@@ -49,7 +50,7 @@ import javafx.scene.control.Alert.AlertType;
 public class Bom
 {
 	private static Logger logger = Logger.getLogger(Bom.class);
-	
+	static String defaultConfigPath = FolderPathHome.get() + "data/BomConfig.cfg";
 	private String pathToConfig;
 	private String baseUrl;
 	
@@ -65,13 +66,20 @@ public class Bom
 		return states;
 	}
 	
+	public Bom() 
+	{
+		this.pathToConfig = defaultConfigPath;
+		this.baseUrl = getBaseUrl(pathToConfig);
+	}
+	
 	Bom(String pathToConfig) {
 		this.pathToConfig = pathToConfig;
 		this.baseUrl = getBaseUrl(pathToConfig);
 	}
 	
-	private String getBaseUrl(String pathToConfig) {
-		return baseUrl;
+	private String getBaseUrl(String pathToConfig) 
+	{
+		return "http://www.bom.gov.au/";
 	}
 
 	/*
