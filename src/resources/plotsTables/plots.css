@@ -1,0 +1,126 @@
+
+.root {
+    -fx-background-color: #343838;
+    -fx-opacity: 95%;
+}
+.button{
+    -fx-text-alignment: left;
+    -fx-background-color:#38424E;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+.button-hover{
+    -fx-border-color: #2A2829;
+    -fx-border-width: 0.7px;
+    -fx-background-color:#2F84A9;
+    -fx-text-alignment: left;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+.label{
+    -fx-text-fill: silver;
+}
+.tool-bar{
+    -fx-background-color: #515151
+}
+
+.chart-series-line {
+    -fx-opacity: 0.8;
+    -fx-stroke-width: 1.75px;
+}
+.chart-legend {
+    -fx-padding: 15px;
+}
+
+.chart-legend-item-symbol {
+    -fx-fill: #000000;
+}
+.axis-label {
+    -fx-text-fill: silver;
+}
+.chart-legend-item{
+    -fx-text-fill: silver;
+}
+.chart-legend{
+    -fx-background-color:#515151 ;
+}
+
+.chart-vertical-grid-lines {
+    fx-stroke-width: 0;
+    -fx-text-fill: transparent;
+    -fx-stroke: transparent;
+}
+.chart-horizontal-grid-lines {
+    -fx-text-fill: transparent;
+    -fx-stroke-width: 0;
+    -fx-stroke: transparent;
+}
+.chart{
+    -fx-background-color: #505050;
+}
+.chart-alternative-row-fill {
+    -fx-stroke-width: 0;
+}
+.axis {
+    -fx-tick-label-fill: silver;
+}
+
+.table-view .scroll-bar{
+    -fx-background-color: #515151;
+}
+.table-view .scroll-bar .thumb{
+    -fx-background-color:#404040;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.table-view .column-header-background{
+    -fx-background-color: #343838;;
+}
+
+.chart-plot-background {
+    -fx-border-color: black;
+    -fx-padding: 0px;
+    -fx-opacity: 0.5;
+    -fx-background-color: linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background .label{
+    -fx-font-size: 12px;
+}
+.table-view .filler{
+    -fx-background-color: transparent;
+}
+.table-row-cell {
+    -fx-border-color: #707070;
+    -fx-background-color: #505050;
+}
+
+.table-row-cell:odd {
+
+    -fx-background-color: #505050;
+    -fx-border-color: #707070;
+}
+
+.table-row-cell:selected {
+    -fx-border-color: #707070;
+}
+
+.table-view {
+
+    -fx-border-color: transparent;
+    -fx-background-color: #262626;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+}
+.table-view .table-cell {
+    -fx-font-size: 11px;
+    -fx-text-fill: silver;
+}
+

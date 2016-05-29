@@ -1,0 +1,194 @@
+
+/*Blues and greys*/
+.root {
+    -fx-background-color: #343838;
+    -fx-border-width: 2px;
+    -fx-opacity: 90%;
+
+}
+.button{
+    -fx-text-alignment: left;
+    -fx-background-color:#38424E;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+.button-hover{
+    -fx-border-color: #2A2829;
+    -fx-border-width: 0.7px;
+    -fx-background-color:#2F84A9;
+    -fx-text-alignment: left;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+
+}
+.scroll-bar .thumb{
+    -fx-background-color:#404040;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+.scroll-bar{
+    -fx-background-color: #515151;
+    -fx-background:#515151;
+}
+.scroll-pane{
+    -fx-background-color: #515151;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+}
+.scroll-bar .increment-button {
+    -fx-background-color: transparent;
+}
+.tab{
+    -fx-background-color: #515151;
+}
+.tool-bar{
+    -fx-background-color: #515151
+}
+.axis {
+    -fx-tick-label-fill: silver;
+}
+.text-field {
+
+    -fx-border-color: rgba(70, 70, 70,0.7);
+    -fx-prompt-text-fill: #737373;
+    -fx-background-color: #343838;
+    -fx-background-radius:0px;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 24px;
+    -fx-text-fill: #B9D7D9;
+}
+.tab-pane .tab {
+    -fx-border-radius: 5 5 0 0;
+    -fx-border-color: #38424E;
+    -fx-background-color:#383838;
+    -fx-focus-color: transparent;
+}
+.tab-pane .tab:selected {
+    -fx-border-radius: 5 5 0 0;
+    -fx-border-color: #2F84A9;
+    -fx-background-color:#383838;
+    -fx-focus-color: transparent;
+}
+.label{
+    -fx-text-fill: silver;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
+    -fx-font-weight: bold;
+    -fx-text-fill:  #B9D7D9;
+    -fx-focus-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-font-weight: bold;
+    -fx-text-fill:  #B9D7D9;
+    -fx-focus-color: transparent;
+    -fx-border-color: transparent;
+}
+.tab-pane{
+    -fx-border-color: rgba(70, 70, 70,0.9);
+    -fx-background-color:  #515151;
+}
+.tabpane-options{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+#grid-pane{
+    -fx-background-color: #343838;
+}
+.global-button{
+-fx-border-color: #2A2829;
+-fx-border-width: 0.7px;
+-fx-background-color:#38424E;
+-fx-text-alignment: left;
+-fx-text-fill: #B9D7D9;
+-fx-font-size: 13px;
+-fx-background-radius: 0px;
+-fx-border-radius: 0px;
+-fx-opacity: 0.8;
+}
+.global-button-hover{
+-fx-border-color: #2A2829;
+-fx-border-width: 0.7px;
+-fx-background-color:#2F84A9;
+-fx-text-alignment: left;
+-fx-text-fill: #B9D7D9;
+-fx-font-size: 13px;
+-fx-background-radius: 0px;
+-fx-border-radius: 0px;
+-fx-opacity: 0.8;
+}
+.explorer-tab > .tab-header-area > .tab-header-background {
+    -fx-background-color: #505050;
+}
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: #505050;
+}
+.chart-legend-item{
+    -fx-text-fill: silver;
+}
+.chart-legend{
+    -fx-background-color:#515151 ;
+}
+.chart{
+    -fx-background-color: #505050;
+}
+.chart-series-line {
+    -fx-opacity: 0.8;
+    -fx-stroke-width: 1.75px;
+}
+.chart-legend {
+    -fx-padding: 15px;
+}
+
+.chart-legend-item-symbol {
+    -fx-fill: #000000;
+}
+.axis-label {
+    -fx-text-fill: silver;
+}
+.chart-legend-item{
+    -fx-text-fill: silver;
+}
+.chart-legend{
+    -fx-background-color:#515151 ;
+}
+
+.chart-vertical-grid-lines {
+    fx-stroke-width: 0;
+    -fx-text-fill: transparent;
+    -fx-stroke: transparent;
+}
+.chart-horizontal-grid-lines {
+    -fx-text-fill: transparent;
+    -fx-stroke-width: 0;
+    -fx-stroke: transparent;
+}
+.chart{
+    -fx-background-color: #505050;
+}
+.chart-alternative-row-fill {
+    -fx-stroke-width: 0;
+}
+.axis {
+    -fx-tick-label-fill: silver;
+}
+
+.chart-plot-background {
+    -fx-border-color: black;
+    -fx-padding: 0px;
+    -fx-opacity: 0.5;
+    -fx-background-color: linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
+}
+
+

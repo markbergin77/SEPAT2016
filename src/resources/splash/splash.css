@@ -1,0 +1,69 @@
+
+.root {
+    -fx-background-color: #343838;
+    -fx-opacity: 95%;
+}
+
+.progress-bar > .track {
+    -fx-text-box-border: #00dffc;
+    -fx-control-inner-background: #606060;
+}
+
+.progress-bar {
+    -fx-min-width: 275px;
+    -fx-min-height: 25px;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #00dffc;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #00dffc;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(three-pass-box, silver, 20, 0.3, 0, 0);
+}
+
+.progress-bar .bar {
+    -fx-padding: 5px;
+    -fx-background-insets: 2px;
+}
+
+.label{
+    -fx-text-fill: silver;
+}
+.button{
+    -fx-text-alignment: left;
+    -fx-background-color:#38424E;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+
+.exit-button{
+    -fx-text-alignment: center;
+    -fx-background-color:#343838;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 10px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+.exit-button-hover{
+    -fx-text-alignment: center;
+    -fx-background-color:#38424E;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 10px;
+    -fx-background-position: center;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+.button-hover{
+    -fx-border-color: #2A2829;
+    -fx-border-width: 0.7px;
+    -fx-background-color:#2F84A9;
+    -fx-text-alignment: left;
+    -fx-text-fill: #B9D7D9;
+    -fx-font-size: 13px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
