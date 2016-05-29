@@ -5,6 +5,8 @@ import java.net.URL;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
+import org.apache.log4j.Logger;
+
 import com.sun.javafx.charts.Legend;
 
 import data.Bom;
@@ -28,6 +30,8 @@ import javafx.scene.input.MouseEvent;
 
 public class HistoricalTemp extends PlotBase
 {	
+	private static Logger logger = Logger.getLogger(HistoricalTemp.class);
+	
 	private String cssPath;
 	static String cssFileName = "HisTempPlot.css";
 	WthrSamplesDaily wthrSamplesDaily;
@@ -122,7 +126,6 @@ public class HistoricalTemp extends PlotBase
 				String date = sample.getDate().format(formatter);
 				String reading = getReading(sample, option);
 				if (reading.length() > 0) {
-					System.out.println("SOMESAAS");
 					getSeries(option).getData().add(new Data<String, Number>(date,Float.parseFloat(reading)));
 				}
 				
@@ -159,6 +162,7 @@ public class HistoricalTemp extends PlotBase
 	public void fetchData(Bom bom, Fio fio)
 	{
 		try {
+			logger.debug("Calling Bom::getWthrRange()");
 			wthrSamplesDaily = bom.getWthrRange(station, start, end);
 		} catch (IOException e) {
 			Alert alert = new Alert(AlertType.ERROR);
