@@ -99,7 +99,6 @@ public class Bom
 		return baseUrl + stateStr + "/observations/" + stateStr + "all.shtml";
 	}
 
-	// TO DO - ARCHIVE MARK JOB ONLY
 	public StationList getAllStations() throws UnknownHostException, IOException
 	{
 
