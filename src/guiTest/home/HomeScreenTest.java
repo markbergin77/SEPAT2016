@@ -3,11 +3,12 @@ package guiTest.home;
 import data.Bom;
 import data.StationList;
 import gui.home.HomeScreen;
+import guiTest.GuiTestBase;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class HomeScreenTest extends Application
+public class HomeScreenTest extends GuiTestBase
 {
 	//testing class for entire homescreen view
 	StationList allStations;	
@@ -19,7 +20,7 @@ public class HomeScreenTest extends Application
 		window.setResizable(false);
         window.setOnCloseRequest(e -> System.exit(0));
         try {
-				allStations = Bom.getAllStations();
+				allStations = bom.getAllStations();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

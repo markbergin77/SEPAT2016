@@ -21,6 +21,7 @@ public class SplashScreenTest extends Application
 	@Override
 	public void start(Stage window) throws Exception 
 	{
+		Bom bom = new Bom();
 		SplashScreen splash = new SplashScreen();
 		window.setScene(splash.getScene());
 	    window.setTitle("Login");
@@ -40,7 +41,7 @@ public class SplashScreenTest extends Application
         Task<StationList> getStationsTask = new Task<StationList>(){
         		@Override protected StationList call() throws IOException
         		{
-        			StationList locs = Bom.getAllStations(splash);
+        			StationList locs = bom.getAllStations(splash);
         			return locs;
         		}
         };

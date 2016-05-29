@@ -5,11 +5,12 @@ import data.Station;
 import data.StationList;
 import data.samples.WthrSamplesFine;
 import gui.plots.Last72hrTemp;
+import gui.plots.PlotBase;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Last72hrTempTest extends Application
+public class Last72hrTempTest extends PlotTestBase
 {
 	StationList allStations;
 	
@@ -39,13 +40,19 @@ public class Last72hrTempTest extends Application
 		}
 				
 		Last72hrTemp plot = new Last72hrTemp(station);
-		plot.fetchData(bom);
+		plot.fetchData(bom, fio);
 		plot.plotData();
 		
 		Scene scene  = new Scene(plot);
 		primaryStage.setScene(scene);
         scene.getStylesheets().add(plot.getCssPath());
         primaryStage.show();
+		
+	}
+	@Override
+	public void onRefresh(PlotBase plot)
+	{
+		// TODO Auto-generated method stub
 		
 	}
 }

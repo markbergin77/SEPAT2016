@@ -8,6 +8,7 @@ import data.Station;
 import data.StationList;
 import data.samples.WthrSampleFine;
 import data.samples.WthrSamplesFine;
+import gui.plots.PlotBase;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -16,7 +17,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 //Testing class for line graph, includes viewing temperature of locations
-public class PlotAveTempTest extends Application{
+public class PlotAveTempTest extends PlotTestBase
+{
 	StationList allStations;
 	public static void main(String args[])
     {
@@ -29,7 +31,7 @@ public class PlotAveTempTest extends Application{
 	public void start(Stage graph) throws Exception {
 		//Grabbing stations
 		try {
-			allStations = Bom.getAllStations();
+			allStations = bom.getAllStations();
 	} catch (Exception e1) {
 		e1.printStackTrace();
 	}
@@ -47,7 +49,7 @@ public class PlotAveTempTest extends Application{
         XYChart.Series temperatures = new XYChart.Series();
         temperatures.setName(charlton.getName());
         //Prints the weather for charlton in the most recent time 
-        WthrSamplesFine tester = Bom.getWthrLast72hr(charlton);
+        WthrSamplesFine tester = bom.getWthrLast72hr(charlton);
 
         //Need seperate list to associate each time of day with a specific "zone" or period
         WthrSamplesFine earlyMorns = new WthrSamplesFine();
@@ -140,5 +142,13 @@ public class PlotAveTempTest extends Application{
 		average = average/samples.size();
 		System.out.println(average);
 		return average;
+	}
+
+
+	@Override
+	public void onRefresh(PlotBase plot)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

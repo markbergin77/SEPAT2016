@@ -13,6 +13,7 @@ import data.samples.WthrSampleFine;
 
 public class SelectStation 
 {
+	static Bom bom;
 	//Large unit test used in the first an second sprint
 	public static void main(String[] args) throws IOException 
 	{
@@ -22,7 +23,7 @@ public class SelectStation
 		//prints most recent observation.
 		System.out.println(matched.getName() + " selected.\nFirst weather sample:");
 		//Queries all the data regarding station
-		Vector<WthrSampleFine> samples = Bom.getWthrLast72hr(matched);
+		Vector<WthrSampleFine> samples = bom.getWthrLast72hr(matched);
 		System.out.print(samples.get(0));
 	}
 	
@@ -32,13 +33,13 @@ public class SelectStation
 		int stationNumber = 1;	
 		boolean stationFound = false;
 		//Grabbing BOM stations/stations
-	    StationList stations = Bom.getAllStations();
+	    StationList stations = bom.getAllStations();
 	    
 	    // Rad's testing code
 	    for (Station station: stations) {
 	    	YearMonth month;
 	    	YearMonth testDate = YearMonth.of(2016, 03);
-	    	Bom.getWthrLastMonth(station, testDate);
+	    	bom.getWthrLastMonth(station, testDate);
 	    }
 	    
 	    //User inputs station, searches for match

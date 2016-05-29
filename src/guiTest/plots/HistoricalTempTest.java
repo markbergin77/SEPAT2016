@@ -4,11 +4,13 @@ import data.Bom;
 import data.Station;
 import data.StationList;
 import gui.plots.HistoricalTemp;
+import gui.plots.PlotBase;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class HistoricalTempTest extends Application{
+public class HistoricalTempTest extends PlotTestBase
+{
 	StationList allStations;
 	public static void main(String args[])
     {
@@ -19,7 +21,7 @@ public class HistoricalTempTest extends Application{
 	{
 		//Grabbing stations
 		try {
-			allStations = Bom.getAllStations();
+			allStations = bom.getAllStations();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -39,6 +41,12 @@ public class HistoricalTempTest extends Application{
 		primaryStage.setScene(scene);
         scene.getStylesheets().add(lineChart.getCssPath());
         primaryStage.show();
+		
+	}
+	@Override
+	public void onRefresh(PlotBase plot)
+	{
+		// TODO Auto-generated method stub
 		
 	}
 }

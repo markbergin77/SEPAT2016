@@ -3,12 +3,14 @@ package guiTest.plots;
 import data.Bom;
 import data.Station;
 import data.StationList;
+import gui.plots.PlotBase;
 import gui.plots.Table72Hr;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Table72HrTest extends Application{
+public class Table72HrTest extends PlotTestBase
+{
 	StationList allStations;
 	public static void main(String args[])
     {
@@ -19,7 +21,7 @@ public class Table72HrTest extends Application{
 	{
 		//Grabbing stations
 		try {
-			allStations = Bom.getAllStations();
+			allStations = bom.getAllStations();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -39,6 +41,12 @@ public class Table72HrTest extends Application{
 		primaryStage.setScene(scene);
         scene.getStylesheets().add(table.getCssPath());
         primaryStage.show();
+		
+	}
+	@Override
+	public void onRefresh(PlotBase plot)
+	{
+		// TODO Auto-generated method stub
 		
 	}
 }

@@ -4,12 +4,14 @@ import data.Bom;
 import data.Station;
 import data.StationList;
 import gui.plots.ExperimentalPlot;
+import gui.plots.PlotBase;
 import gui.plots.PlotWindow;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ExperimentalPlotTest extends Application{
+public class ExperimentalPlotTest extends PlotTestBase
+{
 	StationList allStations;
 	public static void main(String args[])
     {
@@ -20,7 +22,7 @@ public class ExperimentalPlotTest extends Application{
 	{
 		//Grabbing stations
 		try {
-			allStations = Bom.getAllStations();
+			allStations = bom.getAllStations();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -38,8 +40,14 @@ public class ExperimentalPlotTest extends Application{
 		
 		PlotWindow newWindow = new PlotWindow(plot);
 		newWindow.show();
-		plot.fetchData();
+		plot.fetchData(bom, fio);
 		plot.plotData();
+		
+	}
+	@Override
+	public void onRefresh(PlotBase plot)
+	{
+		// TODO Auto-generated method stub
 		
 	}
 }

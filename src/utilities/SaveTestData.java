@@ -11,6 +11,7 @@ import data.samples.WthrSamplesFine;
 
 public class SaveTestData 
 {
+	static Bom bom;
 	static String pathTestData = "TestObjects/";
 	
 	static String pathAllStations = 
@@ -24,9 +25,9 @@ public class SaveTestData
 		StationList stations;
 		WthrSamplesFine fineSamples;
 		try {
-			stations = Bom.getAllStations();
+			stations = bom.getAllStations();
 			SaveObjectFile.save(stations, pathAllStations);
-			fineSamples = Bom.getWthrLast72hr(stations.get(0));
+			fineSamples = bom.getWthrLast72hr(stations.get(0));
 			SaveObjectFile.save(fineSamples, pathWthrSamplesFine);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

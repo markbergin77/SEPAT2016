@@ -8,6 +8,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
 import data.Bom;
+import data.Fio;
 import data.Station;
 import data.samples.WthrSampleFine;
 import data.samples.WthrSamplesFine;
@@ -87,8 +88,8 @@ public class Last72hrTemp extends PlotBase
         }
 	}
 	
-//	@Override
-	public void fetchData(Bom bom)
+	@Override
+	public void fetchData(Bom bom, Fio fio)
 	{
 		try {
 			wthrSamplesFine = bom.getWthrLast72hr(station);

@@ -4,6 +4,7 @@ import data.Bom;
 import data.StationList;
 import gui.home.explorer.ButtonNotFav;
 import gui.home.explorer.PaneAllStations;
+import guiTest.GuiTestBase;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,7 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class PaneAllStationsTest extends Application
+public class PaneAllStationsTest extends GuiTestBase
 {
 	@Override
 	public void start(Stage window) throws Exception 
@@ -22,7 +23,7 @@ public class PaneAllStationsTest extends Application
 	    window.setTitle("Login");
 		window.setResizable(false);
         window.setOnCloseRequest(e -> System.exit(0));
-        StationList stations = Bom.getAllStations();
+        StationList stations = bom.getAllStations();
 		PaneAllStations listPane = new PaneAllStations();
 		listPane.createStationButtons(stations);
 		

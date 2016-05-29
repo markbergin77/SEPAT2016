@@ -94,12 +94,12 @@ public class PlotBase extends GridPane
 
 	}
 	
-	protected void reassembleFrom(Node node)
+	protected void reassembleFrom(Node plot)
 	{
 		getChildren().clear();
 		getChildren().add(toolBar);
-		getChildren().add(node);
-		VBox.setVgrow(node, Priority.ALWAYS);
+		getChildren().add(plot);
+		VBox.setVgrow(plot, Priority.ALWAYS);
 	}
 	
 	protected void onRefresh()
