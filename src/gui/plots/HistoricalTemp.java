@@ -39,11 +39,6 @@ public class HistoricalTemp extends PlotBase
     final NumberAxis yAxis = new NumberAxis();
     LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis, yAxis);
     
-    ObservableList<String> options = FXCollections.observableArrayList(
-    		"Minimum Temperature",
-    		"Maximum Temperature"
-    		);
-    
     XYChart.Series<String, Number> seriesTempMin = new XYChart.Series<String, Number>();
     XYChart.Series<String, Number> seriesTempMax = new XYChart.Series<String, Number>();
     XYChart.Series<String, Number> seriesTemp9am = new XYChart.Series<String, Number>();
@@ -176,7 +171,7 @@ public class HistoricalTemp extends PlotBase
 	}
 	
 	@Override
-	public void plotData() 
+	public void plotData(ObservableList<String> options) 
 	{
         addAllOptions(options);
 	}

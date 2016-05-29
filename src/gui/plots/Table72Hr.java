@@ -145,7 +145,7 @@ public class Table72Hr extends PlotBase
 	}
     
     @Override
-	public void plotData() 
+	public void plotData(ObservableList<String> options) 
     {
     	dataTable.setItems(content);
 	}

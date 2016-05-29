@@ -5,6 +5,7 @@ import gui.plots.PlotBase;
 import guiTest.GuiTestBase;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utilities.EasyTask;
@@ -28,7 +29,7 @@ public abstract class PlotTestBase extends GuiTestBase
 				this.queueTask(new JavaFXSafeTask(
 				() ->
 				{
-					plot.plotData();
+					plot.plotData(plot.getCheckedItems());
 				}));
 	}
 	

@@ -26,6 +26,7 @@ import gui.plots.TableHistorical;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -251,7 +252,7 @@ public class Main extends Application
 		});
 		JavaFXSafeTask plotDataTask = new JavaFXSafeTask(() ->
 		{
-			plot.plotData();
+			plot.plotData(plot.getCheckedItems());
 		});
 		queueTask(fetchDataTask);
 		queueTask(plotDataTask);
