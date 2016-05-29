@@ -111,14 +111,12 @@ public class HistoricalTemp extends PlotBase
 			return;
 		}
 		
-		clearAllSeries();
-		
 		for(WthrSampleDaily sample: wthrSamplesDaily) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-LL-yy");
 			for (String option: options) {
 				String date = sample.getDate().format(formatter);
 				String reading = getReading(sample, option);
-				if (reading.length() > 0) {
+				if (reading != null && reading.length() > 0) {
 					getSeries(option).getData().add(new Data<String, Number>(date,Float.parseFloat(reading)));
 				}
 				
@@ -171,6 +169,7 @@ public class HistoricalTemp extends PlotBase
 	@Override
 	public void plotData(ObservableList<String> options) 
 	{
+		clearAllSeries();
         addAllOptions(options);
 	}
 	
