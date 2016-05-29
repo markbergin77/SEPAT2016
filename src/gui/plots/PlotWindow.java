@@ -49,8 +49,7 @@ public class PlotWindow extends Stage
 	PlotBase plot;
 	static String homeButtonLabel = "Home";
 	Button homeButton;
-	static String showOptionsLabel = "Show";
-	Button showOptionsButton;
+
 	public PlotWindow(PlotBase plot)
 	{
 		super();
@@ -69,31 +68,7 @@ public class PlotWindow extends Stage
 		getCss(scene);
 		setScene(scene);
 		setTitle(plot.getName());
-		
-		 // create the data to show in the CheckComboBox 
-		 final ObservableList<String> comboBoxItems = FXCollections.observableArrayList();
-		 comboBoxItems.addAll(
-			 "Maximum Temp",
-			 "Minimum Temp",
-			 "9am Temp",
-			 "3pm Temp"
-		 );
-		 
-		 // Create the CheckComboBox with the data 
-		 final CheckComboBox<String> checkComboBox = new CheckComboBox<String>(comboBoxItems);
-		 plot.addToolbarButton(checkComboBox);
-		 
-		 showOptionsButton = new Button(showOptionsLabel);
-		 showOptionsButton.setOnMouseClicked(e -> 
-			{
-				System.out.println(checkComboBox.getCheckModel().getCheckedItems());
-			});
-		 plot.addToolbarButton(showOptionsButton);
-		 
-		 
-		 
-		 
-		
+ 		
 	}
 	public PlotBase getPlot() 
 	{

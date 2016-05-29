@@ -4,9 +4,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.controlsfx.control.CheckComboBox;
+
 import data.Bom;
 import data.Fio;
 import data.Station;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,11 +37,36 @@ public class PlotBase extends GridPane
 	
 	String name = "";
 	
+	static String showOptionsLabel = "Show";
+	Button showOptionsButton;
+	
+	
+	
 	public PlotBase(Station station)
 	{
 		super();
 		this.station = station;	
 		defaultInit();
+		
+		 // create the data to show in the CheckComboBox 
+		 final ObservableList<String> comboBoxItems = FXCollections.observableArrayList();
+		 comboBoxItems.addAll(
+			 "Maximum Temp",
+			 "Minimum Temp",
+			 "9am Temp",
+			 "3pm Temp"
+		 );
+		 
+		 // Create the CheckComboBox with the data 
+		 final CheckComboBox<String> checkComboBox = new CheckComboBox<String>(comboBoxItems);
+		 toolBar.getItems().add(checkComboBox);
+		 
+		 showOptionsButton = new Button(showOptionsLabel);
+		 showOptionsButton.setOnMouseClicked(e -> 
+			{
+				System.out.println(checkComboBox.getCheckModel().getCheckedItems());
+			});
+		 toolBar.getItems().add(showOptionsButton);
 	}
 	
 	public void addToolbarButton(Node node)
