@@ -28,7 +28,7 @@ public class PaneBase extends GridPane
 	Button tableHisButton = new Button(buttonTableYearlyTxt);
 	String buttonExperimental = "Open Experimental Plot";
 	Button plotExperimental = new Button("Open Experimental Plot");
-	PopUpWindow exp;
+	public static PopUpWindow exp;
 	
 	String closePlotsText = "Close Charts";
 	Button closePlotsButton = new Button(closePlotsText);

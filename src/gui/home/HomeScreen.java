@@ -4,6 +4,7 @@ import data.Station;
 import gui.home.explorer.Explorer;
 import gui.home.globalOptions.GlobalOptionsArea;
 import gui.home.options.OptionsArea;
+import gui.home.options.PaneBase;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
@@ -174,15 +175,22 @@ public class HomeScreen extends GridPane
 
 	public void widthChanged(double newWidth){
 
-		if (newWidth < 1100){
-			System.out.println("yay1");
+		if (newWidth < 1150){
+			PaneBase.exp.setVisible(false);
 		}
-    }
+		else{
+			PaneBase.exp.setVisible(true);
+		}
+	}
+
 
     public void heightChanged( double newHeight){
 
-		if(newHeight < 600){
-			System.out.println("yay2");
+		if(newHeight < 650){
+			PaneBase.exp.setVisible(false);
+		}
+		else{
+			PaneBase.exp.setVisible(true);
 		}
     }
 }
