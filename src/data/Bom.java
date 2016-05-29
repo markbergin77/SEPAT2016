@@ -72,7 +72,8 @@ public class Bom
 		this.baseUrl = getBaseUrl(pathToConfig);
 	}
 	
-	Bom(String pathToConfig) {
+	public Bom(String pathToConfig) 
+	{
 		this.pathToConfig = pathToConfig;
 		this.baseUrl = getBaseUrl(pathToConfig);
 	}
