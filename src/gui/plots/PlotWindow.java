@@ -32,8 +32,8 @@ public class PlotWindow extends Stage
 		});
 		plot.addToolbarButton(homeButton);
 		
-		//homeButton.setOnMouseEntered(e -> homeButton.getStyleClass().add("button-hover"));
-        //homeButton.setOnMouseExited(e -> homeButton.getStyleClass().remove("button-hover"));
+		homeButton.setOnMouseEntered(e -> homeButton.getStyleClass().add("button-hover"));
+        homeButton.setOnMouseExited(e -> homeButton.getStyleClass().remove("button-hover"));
 		getCss(scene);
 		setScene(scene);
 		setTitle(plot.getName());
