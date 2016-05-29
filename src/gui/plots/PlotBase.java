@@ -97,7 +97,7 @@ public abstract class PlotBase extends GridPane
 		eventHandler = voidHandler;
 		refreshButton = new Button(refreshButtonLabel);
 		showOptionsButton = new Button(showOptionsButtonLabel);
-		toolBar = new ToolBar(refreshButton,checkComboBox, showOptionsButton);
+		toolBar = new ToolBar(refreshButton, checkComboBox, showOptionsButton);
 		name = "";
 		refreshButton.setOnMouseEntered(e -> refreshButton.getStyleClass().add("button-hover"));
 		refreshButton.setOnMouseExited(e -> refreshButton.getStyleClass().remove("button-hover"));
