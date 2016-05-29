@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javafx.scene.layout.RowConstraints;
 import org.controlsfx.control.CheckComboBox;
 
 import data.Bom;
@@ -119,7 +120,11 @@ public class PlotBase extends GridPane
 		add(toolBar,0,0);
 		toolBar.toFront();
 		add(node,0,1);
+		RowConstraints rc = new RowConstraints(30,30,30);
+		RowConstraints rc2 = new RowConstraints(485,485,485);
+		getRowConstraints().addAll(rc,rc2);
 		setVgrow(node, Priority.ALWAYS);
+		setHgrow(node, Priority.ALWAYS);
 
 	}
 	
